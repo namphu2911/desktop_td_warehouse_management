@@ -1,0 +1,32 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Color x:Key="ColorValuePrimary">#4169e1</Color>
+    <Color x:Key="ColorValuePrimaryL3">#005299</Color>
+    <Color x:Key="ColorValueHightlighted">#5efc82</Color>
+    <Color x:Key="ColorValueGray">#ececec</Color>
+
+    <SolidColorBrush x:Key="ColorPrimary" Color="#4169e1"/>
+    <SolidColorBrush x:Key="ColorPrimaryL1" Color="#1a3da6"/>
+    <SolidColorBrush x:Key="ColorPrimaryL2" Color="#2250d9"/>
+    <SolidColorBrush x:Key="ColorPrimaryL3" Color="#4169e1"/>
+    <SolidColorBrush x:Key="ColorPrimaryD1" Color="#050b1e"/>
+    <SolidColorBrush x:Key="ColorPrimaryD2" Color="#0a1840"/>
+    <SolidColorBrush x:Key="ColorPrimaryOn" Color="#ffffff"/>
+
+    <SolidColorBrush x:Key="ColorError" Color="#b00020"/>
+    <SolidColorBrush x:Key="ColorErrorOn" Color="#ffffff"/>
+
+    <SolidColorBrush x:Key="ColorBackground" Color="#ffffff"/>
+    <SolidColorBrush x:Key="ColorBackgroundOn" Color="#000000"/>
+
+    <SolidColorBrush x:Key="ColorSurface" Color="#ffffff"/>
+    <SolidColorBrush x:Key="ColorSurfaceOn" Color="#000000"/>
+    <SolidColorBrush x:Key="ColorGray" Color="#ececec"/>
+
+    <SolidColorBrush x:Key="ColorPrimary3DModel" Color="{StaticResource ColorValuePrimary}" Opacity="0.9"/>
+    <SolidColorBrush x:Key="ColorPrimaryL33DModel" Color="{StaticResource ColorValuePrimaryL3}" Opacity="0.9"/>
+    <SolidColorBrush x:Key="ColorHightlighted3DModel" Color="{StaticResource ColorValueHightlighted}" Opacity="0.9"/>
+    <SolidColorBrush x:Key="ColorSoftHightlighted3DModel" Color="{StaticResource ColorValueHightlighted}" Opacity="0.2"/>
+    <SolidColorBrush x:Key="ColorGray3DModel" Color="{StaticResource ColorValueGray}" Opacity="0.2"/>
+</ResourceDictionary>

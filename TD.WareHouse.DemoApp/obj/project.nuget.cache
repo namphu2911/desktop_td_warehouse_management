@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "f9kcFiakxwALI3vb1/5BTZIqkHoHnpwO8XhrePLfsjToKGN+uvlTvGn80Fo5kUBSGN3jCFGGetrV8EMKejXaTw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\DELL\\source\\repos\\TD.WareHouse.DemoApp\\TD.WareHouse.DemoApp\\TD.WareHouse.DemoApp.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\DELL\\.nuget\\packages\\communitytoolkit.mvvm\\8.1.0\\communitytoolkit.mvvm.8.1.0.nupkg.sha512",
+    "C:\\Users\\DELL\\.nuget\\packages\\materialdesigncolors\\2.1.1\\materialdesigncolors.2.1.1.nupkg.sha512",
+    "C:\\Users\\DELL\\.nuget\\packages\\materialdesignthemes\\4.7.1\\materialdesignthemes.4.7.1.nupkg.sha512",
+    "C:\\Users\\DELL\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.39\\microsoft.xaml.behaviors.wpf.1.1.39.nupkg.sha512",
+    "C:\\Users\\DELL\\.nuget\\packages\\newtonsoft.json\\13.0.2\\newtonsoft.json.13.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}

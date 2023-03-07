@@ -1,0 +1,122 @@
+﻿<Window x:Class="TD.WareHouse.DemoApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TD.WareHouse.DemoApp"
+        xmlns:ViewsHome="clr-namespace:TD.WareHouse.DemoApp.Views.Home"
+        xmlns:ViewsGoodsReceipt="clr-namespace:TD.WareHouse.DemoApp.Views.GoodsReceipt"
+        xmlns:ViewsGoodsIssue="clr-namespace:TD.WareHouse.DemoApp.Views.GoodsIssue"
+        xmlns:InventoryView="clr-namespace:TD.WareHouse.DemoApp.Views.Inventory"
+        xmlns:ShelfManagementView="clr-namespace:TD.WareHouse.DemoApp.Views.ShelfManagement"
+        xmlns:StockCardView="clr-namespace:TD.WareHouse.DemoApp.Views.StockCard"
+        xmlns:HistoryView="clr-namespace:TD.WareHouse.DemoApp.Views.History"
+        xmlns:Isolation="clr-namespace:TD.WareHouse.DemoApp.Views.Isolation"
+        xmlns:AlarmView="clr-namespace:TD.WareHouse.DemoApp.Views.Alarm"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Background="{StaticResource ColorBackground}"
+        Title="MainWindow" Height="800" Width="1300">
+
+    <materialDesign:Card>
+        <Grid>
+            <TabControl TabStripPlacement="Left" Style="{StaticResource MaterialDesignFilledTabControl}">
+                <TabItem Height="50" Width="200" Padding="0">
+                    <TabItem.Header>
+                        <Image Source="C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\Resources\Images\LogoTD.jpg" 
+                               Stretch="Fill"/>
+                    </TabItem.Header>
+                    <ViewsHome:HomeView></ViewsHome:HomeView>
+                </TabItem>
+
+                <TabItem Height="50" Width="200" Background="Red">
+                    <TabItem.Header>
+                        <HeaderedContentControl  Content="NHẬP KHO"
+                                                                 Foreground="White"
+                                                                 HorizontalAlignment="Center"
+                                                                 FontSize="20"
+                                                                 FontWeight="Bold" />
+                    </TabItem.Header>
+                    <ViewsGoodsReceipt:GoodsReceiptView></ViewsGoodsReceipt:GoodsReceiptView>
+                </TabItem>
+
+                <TabItem Height="50" Width="200" Background="Red">
+                    <TabItem.Header>
+                        <HeaderedContentControl  Content="XUẤT KHO"
+                                                                 Foreground="White"
+                                                                 HorizontalAlignment="Center"
+                                                                 FontSize="20"
+                                                                 FontWeight="Bold" />
+                    </TabItem.Header>
+                    <ViewsGoodsIssue:GoodsIssueView></ViewsGoodsIssue:GoodsIssueView>
+                </TabItem>
+
+                <TabItem Height="50" Width="200" Background="Red">
+                    <TabItem.Header>
+                        <HeaderedContentControl  Content="KIỂM KÊ"
+                                                                 Foreground="White"
+                                                                 HorizontalAlignment="Center"
+                                                                 FontSize="20"
+                                                                 FontWeight="Bold" />
+                    </TabItem.Header>
+                    <InventoryView:InventoryView></InventoryView:InventoryView>
+                </TabItem>
+
+                <TabItem Height="50" Width="200" Background="Red">
+                    <TabItem.Header>
+                        <HeaderedContentControl  Content="KỆ KHO"
+                                                                 Foreground="White"
+                                                                 HorizontalAlignment="Center"
+                                                                 FontSize="20"
+                                                                 FontWeight="Bold" />
+                    </TabItem.Header>
+                    <ShelfManagementView:ShelfManagementView></ShelfManagementView:ShelfManagementView>
+                </TabItem>
+
+                <TabItem Height="50" Width="200" Background="Red">
+                    <TabItem.Header>
+                        <HeaderedContentControl  Content="TỒN KHO"
+                                                                 Foreground="White"
+                                                                 HorizontalAlignment="Center"
+                                                                 FontSize="20"
+                                                                 FontWeight="Bold" />
+                    </TabItem.Header>
+                    <StockCardView:StockCardView></StockCardView:StockCardView>
+                </TabItem>
+
+                <TabItem Height="50" Width="200" Background="Red">
+                    <TabItem.Header>
+                        <HeaderedContentControl  Content="LỊCH SỬ"
+                                                                 Foreground="White"
+                                                                 HorizontalAlignment="Center"
+                                                                 FontSize="20"
+                                                                 FontWeight="Bold" />
+                    </TabItem.Header>
+                    <HistoryView:HistoryView></HistoryView:HistoryView>
+                </TabItem>
+
+                <TabItem Height="50" Width="200" Background="Red">
+                    <TabItem.Header>
+                        <HeaderedContentControl  Content="CÁCH LY"
+                                                                 Foreground="White"
+                                                                 HorizontalAlignment="Center"
+                                                                 FontSize="20"
+                                                                 FontWeight="Bold" />
+                    </TabItem.Header>
+                    <Isolation:IsolationView></Isolation:IsolationView>
+                </TabItem>
+
+                <TabItem Height="50" Width="200" Background="Red">
+                    <TabItem.Header>
+                        <HeaderedContentControl  Content="CẢNH BÁO"
+                                                                 Foreground="White"
+                                                                 HorizontalAlignment="Center"
+                                                                 FontSize="20"
+                                                                 FontWeight="Bold" />
+                    </TabItem.Header>
+                    <AlarmView:AlarmView></AlarmView:AlarmView>
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </materialDesign:Card>
+</Window>
