@@ -70,7 +70,7 @@ namespace TD.WareHouse.DemoApp.HostBuiders
 
                 services.AddTransient<MainViewModel>();
 
-                //services.AddSingleton<MainWindow>(s => new MainWindow(s.GetRequiredService<MainViewModel>()));
+                services.AddSingleton<MainWindow>(s => new MainWindow(s.GetRequiredService<MainViewModel>()));
             });
 
             return host;
