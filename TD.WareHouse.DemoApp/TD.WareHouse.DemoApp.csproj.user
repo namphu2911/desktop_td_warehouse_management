@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
+  <ItemGroup>
+    <ApplicationDefinition Update="App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Views\Alarm\AlarmView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Alarm\ExpirationDateAlarmView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Alarm\QuantityAlarmView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\GoodsIssue\GoodsIssueExternalToCreateView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\GoodsIssue\GoodsIssueExternalView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\GoodsIssue\GoodsIssueInternalToCreateView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\GoodsIssue\GoodsIssueInternalView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\GoodsIssue\GoodsIssueProgressView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\GoodsIssue\GoodsIssueView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\GoodsIssue\PendingGoodsIssueView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\GoodsReceipt\GoodsReceiptView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\GoodsReceipt\PendingGoodsReceiptView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\History\HistoryGoodsIssueView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\History\HistoryGoodsReceiptView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\History\HistoryView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Home\HomeView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Home\LoginView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Home\WebViewContainer.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Inventory\InventoryView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Isolation\IsolationView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\ShelfManagement\ShelfManagementView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\StockCard\StockCardView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Resources\Styles\Buttons.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Resources\Styles\Colors.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Resources\Styles\ComboBoxes.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Resources\Styles\DatePickers.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Resources\Styles\Text.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Resources\Styles\TextBoxes.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Alarm\AlarmView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Alarm\ExpirationDateAlarmView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Alarm\QuantityAlarmView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\GoodsIssue\GoodsIssueExternalToCreateView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\GoodsIssue\GoodsIssueExternalView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\GoodsIssue\GoodsIssueInternalToCreateView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\GoodsIssue\GoodsIssueInternalView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\GoodsIssue\GoodsIssueProgressView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\GoodsIssue\GoodsIssueView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\GoodsIssue\PendingGoodsIssueView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\GoodsReceipt\GoodsReceiptView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\GoodsReceipt\PendingGoodsReceiptView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\History\HistoryGoodsIssueView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\History\HistoryGoodsReceiptView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\History\HistoryView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Home\HomeView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Home\LoginView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Home\WebViewContainer.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Inventory\InventoryView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Isolation\IsolationView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ShelfManagement\ShelfManagementView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\StockCard\StockCardView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>

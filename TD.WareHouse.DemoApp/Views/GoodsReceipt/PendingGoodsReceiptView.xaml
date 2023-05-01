@@ -1,0 +1,68 @@
+﻿<UserControl x:Class="TD.WareHouse.DemoApp.Views.GoodsReceipt.PendingGoodsReceiptView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TD.WareHouse.DemoApp.Views.GoodsReceipt"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:goodsreceipt="clr-namespace:TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt;assembly=TD.WareHouse.DemoApp.Core" 
+             d:DataContext="{d:DesignInstance Type=goodsreceipt:PendingGoodsReceiptViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="75" d:DesignWidth="325"
+             Background="{StaticResource ColorSurface}" >
+    
+    <materialDesign:DialogHost CloseOnClickAway="True" IsOpen="{Binding IsErrorMessageShowed}">
+        <!--<materialDesign:DialogHost.DialogContent>
+            <Components:ErrorMessage Message="{Binding ErrorMessage}"/>
+        </materialDesign:DialogHost.DialogContent>-->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" 
+                           Style="{StaticResource ComponentFieldLabel}"
+                           Text="Mã đơn" />
+                <TextBlock Grid.Column="1"
+                           Style="{StaticResource ComponentFieldText}"
+                           Text="{Binding GoodsReceiptId}" />
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0"
+                           Style="{StaticResource ComponentFieldLabel}"
+                           Text="Thời gian: "/>
+                <TextBlock Grid.Column="1"
+                           Style="{StaticResource ComponentFieldText}"
+                           Text="{Binding Timestamp}" />
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" 
+                           Style="{StaticResource ComponentFieldLabel}"
+                           Text="Tên nhân viên: " />
+                <TextBlock Grid.Column="1"
+                           Style="{StaticResource ComponentFieldText}"
+                           Text="{Binding EmployeeName}" />
+            </Grid>
+        </Grid>
+    </materialDesign:DialogHost>
+</UserControl>

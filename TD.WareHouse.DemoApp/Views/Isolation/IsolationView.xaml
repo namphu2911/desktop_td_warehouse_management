@@ -1,0 +1,80 @@
+﻿<UserControl x:Class="TD.WareHouse.DemoApp.Views.Isolation.IsolationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TD.WareHouse.DemoApp.Views.Isolation"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:prism="http://prismlibrary.com/" 
+             xmlns:isolation="clr-namespace:TD.WareHouse.DemoApp.Core.Application.ViewModels.Isolation;assembly=TD.WareHouse.DemoApp.Core" 
+             d:DataContext="{d:DesignInstance Type=isolation:IsolationViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="750" d:DesignWidth="1100"
+             Background="{StaticResource ColorBackground}"
+             Padding="10">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <prism:InvokeCommandAction Command="{Binding LoadIsolationItemLotsCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <TextBlock Grid.Row="0" Grid.Column="0" 
+                       Margin="10"
+                       Style="{StaticResource FieldLabel}" 
+                       Text="Danh sách hàng hóa cách ly" FontWeight="Bold" FontSize="20"/>
+        </Grid>
+        <materialDesign:Card Grid.Row="1" 
+                             Background="{StaticResource ColorSurface}"
+                             Margin="10">
+            <DataGrid Style="{StaticResource MaterialDesignDataGrid}"
+                          Background="{StaticResource ColorSurface}"
+                          IsReadOnly="True"
+                          ItemsSource="{Binding IsolationItemLots}"
+                          AutoGenerateColumns="False"
+                          SelectionUnit="FullRow"
+                          SelectionMode="Single">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Mã sản phẩm" Width="*" Binding="{Binding ItemId}"/>
+                    <DataGridTextColumn Header="Tên sản phẩm" Width="*" Binding="{Binding ItemName}"/>
+                    <DataGridTextColumn Header="Đơn vị" Width="*" Binding="{Binding Unit}"/>
+                    <DataGridTextColumn Header="Mã lô" Width="*" Binding="{Binding LotId}"/>
+                    <DataGridTextColumn Header="Số lượng" Width="*" Binding="{Binding Quantity}"/>
+                    <DataGridTextColumn Header="Mã PO" Width="*" Binding="{Binding PurchaseOrderNumber}"/>
+                    <DataGridTextColumn Header="Vị trí" Width="*" Binding="{Binding LocationId}"/>
+                    <DataGridTextColumn Header="Ghi chú" Width="*" Binding="{Binding ??}"/>
+                    <DataGridTemplateColumn Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Margin="5" Style="{StaticResource ButtonSecondary}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Click">
+                                                <prism:InvokeCommandAction 
+                                                        Command="{Binding IssueCommand}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                        <TextBlock Text="Xuất kho"/>
+                                    </Button>
+                                    <Button Content="Nhập lại" Margin="5">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Click">
+                                                <prism:InvokeCommandAction Command="{Binding ReceiveCommand}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </materialDesign:Card>
+    </Grid>
+</UserControl>
