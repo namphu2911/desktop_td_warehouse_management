@@ -5,98 +5,103 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TD.WareHouse.DemoApp.Views.Alarm"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:alarm="clr-namespace:TD.WareHouse.DemoApp.Core.Application.ViewModels.Alarm;assembly=TD.WareHouse.DemoApp.Core" xmlns:i="http://schemas.microsoft.com/xaml/behaviors" d:DataContext="{d:DesignInstance Type=alarm:QuantityAlarmViewModel}"
-             xmlns:prism="http://prismlibrary.com/"
+             xmlns:prism="http://prismlibrary.com/" xmlns:Components="clr-namespace:TD.WareHouse.DemoApp.Resources.Components"
              mc:Ignorable="d" 
              d:DesignHeight="750" d:DesignWidth="1100"
              Background="{StaticResource ColorBackground}"
              Padding="10">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+    <materialDesign:DialogHost CloseOnClickAway="True" IsOpen="{Binding IsErrorMessageShowed}">
+        <materialDesign:DialogHost.DialogContent>
+            <Components:ErrorMessage Message="{Binding ErrorMessage}"/>
+        </materialDesign:DialogHost.DialogContent>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
 
-        <Grid Grid.Row="0" Height="60">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="200"/>
-                <ColumnDefinition Width="200"/>
-            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="0" Height="60">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="200"/>
+                </Grid.ColumnDefinitions>
 
 
 
 
-            <TextBlock Grid.Row="0" Grid.Column="0" 
+                <TextBlock Grid.Row="0" Grid.Column="0" 
                        Margin="10"
                        Style="{StaticResource FieldLabel}" 
                        Text="Kho hàng"/>
 
-            <ComboBox Grid.Row="0" Grid.Column="1"
+                <ComboBox Grid.Row="0" Grid.Column="1"
                       Margin="10"
                       materialDesign:HintAssist.Hint="Kho hàng"
                       Style="{StaticResource ComboBox}"
                       ItemsSource="{Binding WarehouseNames}"
                       Text="{Binding WarehouseName}">
-                <ComboBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel />
-                    </ItemsPanelTemplate>
-                </ComboBox.ItemsPanel>
-            </ComboBox>
+                    <ComboBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel />
+                        </ItemsPanelTemplate>
+                    </ComboBox.ItemsPanel>
+                </ComboBox>
 
-            <Button Grid.Row="0" Grid.Column="2"
+                <Button Grid.Row="0" Grid.Column="2"
                     Margin="10"
                     Style="{StaticResource ButtonPrimary}"
                     Content="Truy xuất"
                     HorizontalAlignment="Center"
                     Width="150">
-                
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Click">
-                        <prism:InvokeCommandAction Command="{Binding LoadStockCardCommand}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </Button>
 
-        </Grid>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <prism:InvokeCommandAction Command="{Binding LoadStockCardCommand}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
 
-        <Grid Grid.Row="1">
-            <materialDesign:Card Grid.Column="1" 
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <materialDesign:Card Grid.Column="1" 
                                      Background="{StaticResource ColorSurface}"
                                      Margin="10">
-                <DataGrid Style="{StaticResource MaterialDesignDataGrid}"
+                    <DataGrid Style="{StaticResource MaterialDesignDataGrid}"
                           Background="{StaticResource ColorSurface}"
                           IsReadOnly="True"
                           ItemsSource="{Binding Entries}"
                           AutoGenerateColumns="False"
                           SelectionUnit="FullRow"
                           SelectionMode="Single">
-                    <DataGrid.RowStyle>
-                        <Style TargetType="DataGridRow" BasedOn="{StaticResource MaterialDesignDataGridRow}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsQuantityAlarmed}" Value="True">
-                                    <Setter Property="Background" Value="{StaticResource ColorError}"></Setter>
-                                    <Setter Property="Foreground" Value="{StaticResource ColorErrorOn}"></Setter>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </DataGrid.RowStyle>
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Mã sản phẩm" Binding="{Binding ItemId}"/>
-                        <DataGridTextColumn Header="Tên sản phẩm" Binding="{Binding ItemName}"/>
-                        <DataGridTextColumn Header="Đơn vị" Binding="{Binding Unit}"/>
-                        <DataGridTextColumn Header="Mã lô" Binding="{Binding LotId}"/>
-                        <DataGridTextColumn Header="Số lượng" Binding="{Binding Quantity}"/>
-                        <DataGridTextColumn Header="Stockmin" Binding="{Binding MinimumStockLevel}"/>
-                        <DataGridTextColumn Header="Vị trí" Binding="{Binding LocationId}"/>
-                        <DataGridTextColumn Header="Mã PO" Binding="{Binding PurchaseOrderNumber}"/>
-                        <DataGridTextColumn Header="Kho hàng" Binding="{Binding ItemClassId}"/>
-                        <DataGridTextColumn Header="HSD còn lại" Binding="{Binding TimeLeft}"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </materialDesign:Card>
-        </Grid>
+                        <DataGrid.RowStyle>
+                            <Style TargetType="DataGridRow" BasedOn="{StaticResource MaterialDesignDataGridRow}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsQuantityAlarmed}" Value="True">
+                                        <Setter Property="Background" Value="{StaticResource ColorError}"></Setter>
+                                        <Setter Property="Foreground" Value="{StaticResource ColorErrorOn}"></Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.RowStyle>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Mã sản phẩm" Binding="{Binding ItemId}"/>
+                            <DataGridTextColumn Header="Tên sản phẩm" Binding="{Binding ItemName}"/>
+                            <DataGridTextColumn Header="Đơn vị" Binding="{Binding Unit}"/>
+                            <DataGridTextColumn Header="Mã lô" Binding="{Binding LotId}"/>
+                            <DataGridTextColumn Header="Số lượng" Binding="{Binding Quantity}"/>
+                            <DataGridTextColumn Header="Stockmin" Binding="{Binding MinimumStockLevel}"/>
+                            <DataGridTextColumn Header="Vị trí" Binding="{Binding LocationId}"/>
+                            <DataGridTextColumn Header="Mã PO" Binding="{Binding PurchaseOrderNumber}"/>
+                            <DataGridTextColumn Header="Kho hàng" Binding="{Binding ItemClassId}"/>
+                            <DataGridTextColumn Header="HSD còn lại" Binding="{Binding TimeLeft}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </materialDesign:Card>
+            </Grid>
 
-    </Grid>
+        </Grid>
+    </materialDesign:DialogHost>
 </UserControl>

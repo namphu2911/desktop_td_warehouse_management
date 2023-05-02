@@ -28,10 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Resources\Components\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\TD.WareHouse.DemoApp.Core\TD.WareHouse.DemoApp.Core.csproj" />
   </ItemGroup>
 

@@ -8,7 +8,7 @@ using TD.WareHouse.DemoApp.Core.Domain.Services;
 
 namespace TD.WareHouse.DemoApp.Core.Application.Services
 {
-    internal class ExportRequestsToGoodsIssuesConverter : IExportRequestsToGoodsIssuesConverter
+    public class ExportRequestsToGoodsIssuesConverter : IExportRequestsToGoodsIssuesConverter
     {
         private readonly IApiService _apiService;
 

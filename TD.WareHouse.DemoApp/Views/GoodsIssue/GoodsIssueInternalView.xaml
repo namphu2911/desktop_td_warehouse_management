@@ -7,13 +7,16 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
              xmlns:goodsissue="clr-namespace:TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue;assembly=TD.WareHouse.DemoApp.Core" 
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
-             xmlns:prism="http://prismlibrary.com/"
+             xmlns:prism="http://prismlibrary.com/" xmlns:Components="clr-namespace:TD.WareHouse.DemoApp.Resources.Components"
              d:DataContext="{d:DesignInstance Type=goodsissue:GoodsIssueInternalViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="670" d:DesignWidth="1090"
              Background="{StaticResource ColorBackground}"
              Padding="10">
-    
+    <materialDesign:DialogHost CloseOnClickAway="True" IsOpen="{Binding IsErrorMessageShowed}">
+        <materialDesign:DialogHost.DialogContent>
+            <Components:ErrorMessage Message="{Binding ErrorMessage}"/>
+        </materialDesign:DialogHost.DialogContent>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="370"/>
@@ -32,7 +35,7 @@
                         <TextBlock Text="PHIẾU XUẤT NỘI BỘ" 
                                Style="{StaticResource CardTitle}"/>
                         <Separator/>
-                    
+
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <Button     Margin="5"
                                         Style="{StaticResource ButtonPrimary}"
@@ -43,32 +46,32 @@
                             <Button     Margin="5"
                                         Style="{StaticResource ButtonPrimary}"
                                         Height="32">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="Click">
-                                    <prism:InvokeCommandAction Command="{Binding ImportGoodsIssuesCommand}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                            <TextBlock Text="Tạo phiếu" FontSize="14" />
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <prism:InvokeCommandAction Command="{Binding ImportGoodsIssuesCommand}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                <TextBlock Text="Tạo phiếu" FontSize="14" />
                             </Button>
                         </StackPanel>
-                    <TextBox x:Name="textBoxFilePath" 
+                        <TextBox x:Name="textBoxFilePath" 
                                          materialDesign:HintAssist.Hint="Đường dẫn"
                                          Margin="5"
                                          Text="{Binding FilePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                </StackPanel>
+                    </StackPanel>
                 </materialDesign:Card>
 
                 <materialDesign:Card Grid.Row="1"
                                  Margin="10">
                     <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
 
-                    <Border Grid.Row="2"
+                        <Border Grid.Row="2"
                         Margin="5"
                         BorderThickness="1"
                         BorderBrush="{StaticResource ColorGray}">
@@ -95,14 +98,14 @@
                     </Grid.RowDefinitions>
 
 
-                <StackPanel Grid.Row="0">
-                    <TextBlock 
+                    <StackPanel Grid.Row="0">
+                        <TextBlock 
                         Style ="{StaticResource CardTitle}"
                         Text="Thông tin chi tiết"/>
-                    <Separator/>
-                </StackPanel>
+                        <Separator/>
+                    </StackPanel>
 
-                <Grid Grid.Row="1">
+                    <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="*"/>
@@ -138,15 +141,15 @@
                               AutoGenerateColumns="False"
                               SelectionUnit="FullRow"
                               SelectionMode="Single">
-                    <DataGrid.Columns>
+                        <DataGrid.Columns>
                             <DataGridTextColumn Header="Mã sản phẩm" Binding="{Binding ItemId}"/>
                             <DataGridTextColumn Header="Tên sản phẩm" Binding="{Binding ItemName}"/>
                             <DataGridTextColumn Header="Đơn vị" Binding="{Binding Unit}"/>
                             <DataGridTextColumn Header="Số lượng" Binding="{Binding PlannedQuantity}"/>
-                    </DataGrid.Columns>
+                        </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
             </materialDesign:Card>
         </Grid>
-    
+    </materialDesign:DialogHost>
 </UserControl>

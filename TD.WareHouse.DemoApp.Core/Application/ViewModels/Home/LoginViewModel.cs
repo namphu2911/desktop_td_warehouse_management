@@ -43,8 +43,13 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.Home
             _apiService.SetToken(token);
 
             await Task.WhenAll(
-                _databaseSynchronizationService.SynchronizeItemsData()
-                //_databaseSynchronizationService.SynchronizeEmployeesData()
+                _databaseSynchronizationService.SynchronizeItemsData(),
+                _databaseSynchronizationService.SynchronizeItemLotsData(),
+                _databaseSynchronizationService.SynchronizeLocationsData(),
+                _databaseSynchronizationService.SynchronizeWarehousesData(),
+                _databaseSynchronizationService.SynchronizeGoodReceiptsData(),
+                _databaseSynchronizationService.SynchronizeGoodIssuesData()
+
                 );
         }
     }

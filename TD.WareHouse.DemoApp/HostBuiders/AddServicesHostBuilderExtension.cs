@@ -25,8 +25,8 @@ namespace TD.WareHouse.DemoApp.HostBuiders
                 services.AddSingleton<IApiService, ApiService>();
                 services.AddSingleton<IDatabaseSynchronizationService, DatabaseSynchronizeService>();
                 services.AddSingleton<IExcelReader, ExcelReader>();
-                //services.AddSingleton<IExportRequestsToGoodsIssuesConverter, ExportRequestsToGoodsIssuesConverter>();
-                
+                services.AddSingleton<IExportRequestsToGoodsIssuesConverter, ExportRequestsToGoodsIssuesConverter>();
+
                 services.AddSingleton<IItemDatabaseService, ItemDatabaseService>();
                 services.AddSingleton<IItemLotDatabaseService, ItemLotDatabaseService>();
                 services.AddSingleton<IWarehouseDatabaseService, WarehouseDatabaseService>();

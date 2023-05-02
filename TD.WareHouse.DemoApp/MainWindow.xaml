@@ -26,7 +26,7 @@
                         <Image Source="C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\Resources\Images\LogoTD.jpg" 
                                Stretch="Fill"/>
                     </TabItem.Header>
-                    <ViewsHome:HomeView></ViewsHome:HomeView>
+                    <ViewsHome:HomeView DataContext="{Binding HomeViewModel}"/>
                 </TabItem>
 
                 <TabItem Height="50" Width="200" Background="Red">
@@ -37,7 +37,7 @@
                                                                  FontSize="20"
                                                                  FontWeight="Bold" />
                     </TabItem.Header>
-                    <ViewsGoodsReceipt:GoodsReceiptView></ViewsGoodsReceipt:GoodsReceiptView>
+                    <ViewsGoodsReceipt:GoodsReceiptView DataContext="{Binding GoodsReceiptViewModel}"/>
                 </TabItem>
 
                 <TabItem Height="50" Width="200" Background="Red">
@@ -48,7 +48,7 @@
                                                                  FontSize="20"
                                                                  FontWeight="Bold" />
                     </TabItem.Header>
-                    <ViewsGoodsIssue:GoodsIssueView></ViewsGoodsIssue:GoodsIssueView>
+                    <ViewsGoodsIssue:GoodsIssueView DataContext="{Binding GoodsIssueViewModel}"/>
                 </TabItem>
 
                 <TabItem Height="50" Width="200" Background="Red">
@@ -59,7 +59,7 @@
                                                                  FontSize="20"
                                                                  FontWeight="Bold" />
                     </TabItem.Header>
-                    <InventoryView:InventoryView></InventoryView:InventoryView>
+                    <InventoryView:InventoryView DataContext="{Binding InventoryViewModel}"/>
                 </TabItem>
 
                 <TabItem Height="50" Width="200" Background="Red">
@@ -70,7 +70,7 @@
                                                                  FontSize="20"
                                                                  FontWeight="Bold" />
                     </TabItem.Header>
-                    <ShelfManagementView:ShelfManagementView></ShelfManagementView:ShelfManagementView>
+                    <ShelfManagementView:ShelfManagementView DataContext="{Binding ShelfManagementViewModel}"/>
                 </TabItem>
 
                 <TabItem Height="50" Width="200" Background="Red">
@@ -81,7 +81,7 @@
                                                                  FontSize="20"
                                                                  FontWeight="Bold" />
                     </TabItem.Header>
-                    <StockCardView:StockCardView></StockCardView:StockCardView>
+                    <StockCardView:StockCardView DataContext="{Binding StockCardViewModel}"/>
                 </TabItem>
 
                 <TabItem Height="50" Width="200" Background="Red">
@@ -92,7 +92,7 @@
                                                                  FontSize="20"
                                                                  FontWeight="Bold" />
                     </TabItem.Header>
-                    <HistoryView:HistoryView></HistoryView:HistoryView>
+                    <HistoryView:HistoryView DataContext="{Binding HistoryViewModel}"/>
                 </TabItem>
 
                 <TabItem Height="50" Width="200" Background="Red">
@@ -103,7 +103,7 @@
                                                                  FontSize="20"
                                                                  FontWeight="Bold" />
                     </TabItem.Header>
-                    <Isolation:IsolationView></Isolation:IsolationView>
+                    <Isolation:IsolationView DataContext="{Binding IsolationViewModel}"/>
                 </TabItem>
 
                 <TabItem Height="50" Width="200" Background="Red">
@@ -114,7 +114,7 @@
                                                                  FontSize="20"
                                                                  FontWeight="Bold" />
                     </TabItem.Header>
-                    <AlarmView:AlarmView></AlarmView:AlarmView>
+                    <AlarmView:AlarmView DataContext="{Binding AlarmViewModel}"/>
                 </TabItem>
             </TabControl>
         </Grid>

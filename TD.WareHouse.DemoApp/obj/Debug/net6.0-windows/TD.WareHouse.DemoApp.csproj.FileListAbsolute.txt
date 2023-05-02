@@ -88,6 +88,7 @@ C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\n
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Resources\Styles\Text.baml
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Resources\Styles\TextBoxes.baml
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\MainWindow.g.cs
+C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Resources\Components\ErrorMessage.g.cs
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Views\Alarm\AlarmView.g.cs
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Views\Alarm\ExpirationDateAlarmView.g.cs
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Views\Alarm\QuantityAlarmView.g.cs
@@ -117,6 +118,7 @@ C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\n
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\TD.WareHouse.DemoApp_MarkupCompile.lref
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\App.baml
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\MainWindow.baml
+C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Resources\Components\ErrorMessage.baml
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Views\Alarm\AlarmView.baml
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Views\Alarm\ExpirationDateAlarmView.baml
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Views\Alarm\QuantityAlarmView.baml

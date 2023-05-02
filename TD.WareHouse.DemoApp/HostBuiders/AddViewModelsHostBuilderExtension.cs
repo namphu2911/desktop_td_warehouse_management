@@ -5,6 +5,7 @@ using TD.WareHouse.DemoApp.Core.Application.ViewModels.Alarm;
 using TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue;
 using TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt;
 using TD.WareHouse.DemoApp.Core.Application.ViewModels.History;
+using TD.WareHouse.DemoApp.Core.Application.ViewModels.Home;
 using TD.WareHouse.DemoApp.Core.Application.ViewModels.Inventory;
 using TD.WareHouse.DemoApp.Core.Application.ViewModels.Isolation;
 using TD.WareHouse.DemoApp.Core.Application.ViewModels.ShelfManagement;
@@ -18,26 +19,11 @@ namespace TD.WareHouse.DemoApp.HostBuiders
         {
             host.ConfigureServices(services =>
             {
-                ////Login
-                //services.AddTransient<LoginViewModel>();
-                //services.AddTransient<DashboardViewModel>();
-                //services.AddTransient<HomeViewModel>((IServiceProvider serviceProvider) =>
-                //{
-                //    using var scope = serviceProvider.CreateScope();
+                //Login
+                services.AddTransient<LoginViewModel>();
+                services.AddTransient<HomeViewModel>();
+               
 
-                //    var navigationStore = scope.ServiceProvider.GetService<NavigationStore>();
-                //    var loginViewNavigationService = scope.ServiceProvider.GetService<INavigationService<LoginViewModel>>();
-                //    var dashboardNavigationService = scope.ServiceProvider.GetService<INavigationService<DashboardViewModel>>();
-
-                //    var authenticationService = serviceProvider.GetService<IAuthenticationService>();
-
-                //    return new HomeViewModel(
-                //        navigationStore,
-                //        loginViewNavigationService,
-                //        dashboardNavigationService,
-                //        authenticationService);
-                //});
-                
                 //Alarm
                 services.AddTransient<AlarmViewModel>();
                 services.AddTransient<ExpirationDateAlarmViewModel>();

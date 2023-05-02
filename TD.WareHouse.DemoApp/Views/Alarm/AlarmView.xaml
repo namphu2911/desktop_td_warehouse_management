@@ -19,7 +19,7 @@
                         <TextBlock Style="{StaticResource HeaderText}" Text="CẢNH BÁO HSD"/>
                     </TextBlock>
                 </TabItem.Header>
-                <view:ExpirationDateAlarmView></view:ExpirationDateAlarmView>
+                <view:ExpirationDateAlarmView DataContext="{Binding ExpirationDateAlarmViewModel}"/>
             </TabItem>
 
             <TabItem Height="55" MaxWidth="800" Background="Red">
@@ -28,7 +28,7 @@
                         <TextBlock Style="{StaticResource HeaderText}" Text="CẢNH BÁO SỐ LƯỢNG"/>
                     </TextBlock>
                 </TabItem.Header>
-                <view:QuantityAlarmView></view:QuantityAlarmView>
+                <view:QuantityAlarmView DataContext="{Binding QuantityAlarmViewModel}"/>
             </TabItem>
         </TabControl>
 

@@ -5,16 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TD.WareHouse.DemoApp.Views.GoodsIssue"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
-             xmlns:goodsissue="clr-namespace:TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue;assembly=TD.WareHouse.DemoApp.Core" 
+             xmlns:goodsissue="clr-namespace:TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue;assembly=TD.WareHouse.DemoApp.Core" xmlns:Components="clr-namespace:TD.WareHouse.DemoApp.Resources.Components"
              d:DataContext="{d:DesignInstance Type=goodsissue:PendingGoodsIssueViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="75" d:DesignWidth="325"
              Background="{StaticResource ColorSurface}" >
 
     <materialDesign:DialogHost CloseOnClickAway="True" IsOpen="{Binding IsErrorMessageShowed}">
-        <!--<materialDesign:DialogHost.DialogContent>
+        <materialDesign:DialogHost.DialogContent>
             <Components:ErrorMessage Message="{Binding ErrorMessage}"/>
-        </materialDesign:DialogHost.DialogContent>-->
+        </materialDesign:DialogHost.DialogContent>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>

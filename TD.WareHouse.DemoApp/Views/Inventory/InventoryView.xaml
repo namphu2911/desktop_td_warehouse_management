@@ -7,7 +7,7 @@
              xmlns:local="clr-namespace:TD.WareHouse.DemoApp.Views.Inventory"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
-             xmlns:inventory="clr-namespace:TD.WareHouse.DemoApp.Core.Application.ViewModels.Inventory;assembly=TD.WareHouse.DemoApp.Core" 
+             xmlns:inventory="clr-namespace:TD.WareHouse.DemoApp.Core.Application.ViewModels.Inventory;assembly=TD.WareHouse.DemoApp.Core" xmlns:Components="clr-namespace:TD.WareHouse.DemoApp.Resources.Components"
              d:DataContext="{d:DesignInstance Type=inventory:InventoryViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="750" d:DesignWidth="1100"
@@ -18,58 +18,62 @@
             <prism:InvokeCommandAction Command="{Binding LoadLotAdjustmentsCommand}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <Grid>
-        <materialDesign:Card Grid.Column="1" 
+    <materialDesign:DialogHost CloseOnClickAway="True" IsOpen="{Binding IsErrorMessageShowed}">
+        <materialDesign:DialogHost.DialogContent>
+            <Components:ErrorMessage Message="{Binding ErrorMessage}"/>
+        </materialDesign:DialogHost.DialogContent>
+        <Grid>
+            <materialDesign:Card Grid.Column="1" 
                                      Background="{StaticResource ColorSurface}"
                                      Margin="10">
-            <DataGrid Style="{StaticResource MaterialDesignDataGrid}"
+                <DataGrid Style="{StaticResource MaterialDesignDataGrid}"
                           Background="{StaticResource ColorSurface}"
                           IsReadOnly="True"
                           ItemsSource="{Binding LotAdjustments}"
                           AutoGenerateColumns="False"
                           SelectionUnit="FullRow"
                           SelectionMode="Single">
-                <TextBlock Text="NamPhu">
-                    
-                </TextBlock>
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Mã lô" Width="*" Binding="{Binding LotId}"/>
-                    <DataGridTextColumn Header="Mã sản phẩm" Width="*" Binding="{Binding ItemId}"/>
-                    <DataGridTextColumn Header="Tên sản phẩm" Width="*" Binding="{Binding ItemName}"/>
-                    <DataGridTextColumn Header="Số lượng trước" Width="*" Binding="{Binding BeforeQuantity}"/>
-                    <DataGridTextColumn Header="Số lượng sau" Width="*" Binding="{Binding AfterQuantity}"/>
-                    <DataGridTextColumn Header="Mã PO trước" Width="*" Binding="{Binding OldPurchaseOrderNumber}"/>
-                    <DataGridTextColumn Header="Mã PO sau" Width="*" Binding="{Binding NewPurchaseOrderNumber}"/>
-                    <DataGridTextColumn Header="Đơn vị" Width="*" Binding="{Binding Unit}"/>
-                    <DataGridTextColumn Header="Tên nhân viên" Width="*" Binding="{Binding EmployeeName}"/>
-                    <DataGridTextColumn Header="Ghi chú" Width="*" Binding="{Binding Note}"/>
-                    <DataGridTemplateColumn Width="*">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Vertical">
-                                    <Button Margin="5" Style="{StaticResource ButtonSecondary}">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="Click">
-                                                <prism:InvokeCommandAction 
-                                                        Command="{Binding DeleteCommand}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                        <TextBlock Text="Huỷ"/>
-                                    </Button>
-                                    <Button Content="Duyệt" Margin="5">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="Click">
-                                                <prism:InvokeCommandAction Command="{Binding FixCommand}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </Button>
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-        </materialDesign:Card>
+                    <TextBlock Text="NamPhu">
 
-    </Grid>
+                    </TextBlock>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Mã lô" Width="*" Binding="{Binding LotId}"/>
+                        <DataGridTextColumn Header="Mã sản phẩm" Width="*" Binding="{Binding ItemId}"/>
+                        <DataGridTextColumn Header="Tên sản phẩm" Width="*" Binding="{Binding ItemName}"/>
+                        <DataGridTextColumn Header="Số lượng trước" Width="*" Binding="{Binding BeforeQuantity}"/>
+                        <DataGridTextColumn Header="Số lượng sau" Width="*" Binding="{Binding AfterQuantity}"/>
+                        <DataGridTextColumn Header="Mã PO trước" Width="*" Binding="{Binding OldPurchaseOrderNumber}"/>
+                        <DataGridTextColumn Header="Mã PO sau" Width="*" Binding="{Binding NewPurchaseOrderNumber}"/>
+                        <DataGridTextColumn Header="Đơn vị" Width="*" Binding="{Binding Unit}"/>
+                        <DataGridTextColumn Header="Tên nhân viên" Width="*" Binding="{Binding EmployeeName}"/>
+                        <DataGridTextColumn Header="Ghi chú" Width="*" Binding="{Binding Note}"/>
+                        <DataGridTemplateColumn Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical">
+                                        <Button Margin="5" Style="{StaticResource ButtonSecondary}">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="Click">
+                                                    <prism:InvokeCommandAction 
+                                                        Command="{Binding DeleteCommand}" />
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                            <TextBlock Text="Huỷ"/>
+                                        </Button>
+                                        <Button Content="Duyệt" Margin="5">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="Click">
+                                                    <prism:InvokeCommandAction Command="{Binding FixCommand}" />
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </materialDesign:Card>
+        </Grid>
+    </materialDesign:DialogHost>
 </UserControl>
