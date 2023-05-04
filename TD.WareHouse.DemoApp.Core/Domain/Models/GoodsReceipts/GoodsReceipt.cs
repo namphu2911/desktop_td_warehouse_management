@@ -9,21 +9,17 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Models.GoodsReceipts
 {
     public class GoodsReceipt
     {
-        public string GoodsReceiptId { get; private set; }
-        public string Supplier { get; private set; }
-        public DateTime Timestamp { get; private set; }
-        public bool IsConfirmed { get; private set; }
-        public Employee Employee { get; private set; }
-        public List<GoodsReceiptLot> Lots { get; private set; }
-
-        public GoodsReceipt(string goodsReceiptId, string supplier, DateTime timestamp, bool isConfirmed, Employee employee, List<GoodsReceiptLot> lots)
+        public string GoodsReceiptId { get; set; }
+        public string Supplier { get; set; }
+       
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        private GoodsReceipt() { }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        public GoodsReceipt(string goodsReceiptId, string supplier)
         {
             GoodsReceiptId = goodsReceiptId;
             Supplier = supplier;
-            Timestamp = timestamp;
-            IsConfirmed = isConfirmed;
-            Employee = employee;
-            Lots = lots;
+            
         }
     }
 }

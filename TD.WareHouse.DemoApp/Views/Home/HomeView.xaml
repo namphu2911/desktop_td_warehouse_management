@@ -12,7 +12,7 @@
              Background="{StaticResource ColorBackground}"
              Padding="10">
     <Grid>
-        <ContentControl Content="{Binding CurrentViewModel}">
+        <ContentControl>
             <ContentControl.Resources>
                 <DataTemplate DataType="{x:Type ViewModel:LoginViewModel}">
                     <local:HomeView/>

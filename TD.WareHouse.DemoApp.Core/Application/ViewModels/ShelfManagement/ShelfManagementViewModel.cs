@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using TD.WareHouse.DemoApp.Core.Application.Store;
 using TD.WareHouse.DemoApp.Core.Application.ViewModels.Seedwork;
+using TD.WareHouse.DemoApp.Core.Domain.Dtos.Items;
 using TD.WareHouse.DemoApp.Core.Domain.Dtos.Location;
 using TD.WareHouse.DemoApp.Core.Domain.Models.Locations;
 using TD.WareHouse.DemoApp.Core.Domain.Services;
@@ -20,7 +21,16 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.ShelfManagement
         private readonly IApiService _apiService;
         private readonly IMapper _mapper;
         private readonly ItemStore _itemStore;
-        private readonly LocationStore _locationStore;
+        private readonly ItemLotStore _itemLotStore;
+        public ObservableCollection<ItemEntryForShelfManagementViewModel> ItemEntries { get; set; } = new();
+        public ObservableCollection<LocationEntryForShelfManagementViewModel> LocationEntries { get; set; } = new();
+        public ObservableCollection<string> ItemIds => _itemStore.ItemIds;
+        public ObservableCollection<string> ItemNames => _itemStore.ItemNames;
+        public ObservableCollection<string> LocationIds => _itemLotStore.LocationIds;
+
+        public ICommand LoadItemEntryCommand { get; set; }
+        public ICommand LoadLocationEntryCommand { get; set; }
+        public ICommand LoadShelfManagementViewCommand { get; set; }
         private string itemId = "";
         private string itemName = "";
         public string LocationId { get; set; } = "";
@@ -54,31 +64,31 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.ShelfManagement
             }
         }
         
-        public ObservableCollection<ItemEntryForShelfManagementViewModel> ItemEntries { get; set; } = new();
-        public ObservableCollection<LocationEntryForShelfManagementViewModel> LocationEntries { get; set; } = new();
-        public ObservableCollection<string> ItemIds => _itemStore.ItemIds;
-        public ObservableCollection<string> ItemNames => _itemStore.ItemNames;
-        public ObservableCollection<string> LocationIds => _locationStore.LocationIds;
-
-        public ICommand LoadItemEntryCommand { get; set; }
-        public ICommand LoadLocationEntryCommand { get; set; }
-        public ShelfManagementViewModel(IApiService apiService, IMapper mapper, ItemStore itemStore, LocationStore locationStore)
+        
+        public ShelfManagementViewModel(IApiService apiService, IMapper mapper, ItemStore itemStore, ItemLotStore itemLotStore)
         {
             _apiService = apiService;
             _mapper = mapper;
             _itemStore = itemStore;
-            _locationStore = locationStore;
+            _itemLotStore = itemLotStore;
             LoadItemEntryCommand = new RelayCommand(LoadItemEntryEntry);
             LoadLocationEntryCommand = new RelayCommand(LoadLocationEntry);
+            LoadShelfManagementViewCommand = new RelayCommand(LoadShelfManagementView);
         }
 
+        private void LoadShelfManagementView()
+        {
+            OnPropertyChanged(nameof(ItemIds));
+            OnPropertyChanged(nameof(ItemNames));
+            OnPropertyChanged(nameof(LocationIds));
+        }
         private async void LoadItemEntryEntry()
         {
             try
             {
-                var itemEntries = await _apiService.GetItemShelfManagementEntriesAsync(ItemId, ItemName);
+                var itemEntries = await _apiService.GetItemShelfManagementEntriesAsync(ItemId);
 
-                var viewModels = _mapper.Map<IEnumerable<LocationDto>, IEnumerable<ItemEntryForShelfManagementViewModel>>(itemEntries);
+                var viewModels = _mapper.Map<IEnumerable<ItemLotDto>, IEnumerable<ItemEntryForShelfManagementViewModel>>(itemEntries);
                 ItemEntries = new(viewModels);
             }
             catch (HttpRequestException)
@@ -92,7 +102,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.ShelfManagement
             {
                 var locationEntries = await _apiService.GetLocationShelfManagementEntriesAsync(LocationId);
 
-                var viewModels = _mapper.Map<IEnumerable<LocationDto>, IEnumerable<LocationEntryForShelfManagementViewModel>>(locationEntries);
+                var viewModels = _mapper.Map<IEnumerable<ItemLotDto>, IEnumerable<LocationEntryForShelfManagementViewModel>>(locationEntries);
                 LocationEntries = new(viewModels);
             }
             catch (HttpRequestException)

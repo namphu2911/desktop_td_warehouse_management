@@ -18,10 +18,9 @@ namespace TD.WareHouse.DemoApp.Core.Application.Store
             Receivers = new ObservableCollection<string>();
         }
 
-        public void SetGoodsIssues(IEnumerable<GoodsIssue> goodsIssues)
+        public void SetGoodsIssues(List<string> goodsIssueDtos)
         {
-            GoodsIssues = goodsIssues.ToList();
-            Receivers = new ObservableCollection<string>(goodsIssues.Select(e => e.Receiver).OrderBy(s => s));
+            Receivers = new ObservableCollection<string>(goodsIssueDtos.OrderBy(s => s));
         }
     }
 }

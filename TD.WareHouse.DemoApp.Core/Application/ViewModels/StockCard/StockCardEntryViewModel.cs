@@ -39,8 +39,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.StockCard
         public double AfterQuantity => BeforeQuantity + ChangedQuantity;
         public double MinimumStockLevel { get; set; }
         public string ItemClassId { get; set; }
-        public double TimeLeft { get; set; }
-        public StockCardEntryViewModel(string itemId, string itemName, string unit, string lotId, double beforeQuantity, double changedQuantity, double minimumStockLevel, string itemClassId, double timeLeft)
+        public StockCardEntryViewModel(string itemId, string itemName, string unit, string lotId, double beforeQuantity, double changedQuantity, double minimumStockLevel, string itemClassId)
         {
             ItemId = itemId;
             ItemName = itemName;
@@ -50,7 +49,6 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.StockCard
             ChangedQuantity = changedQuantity;
             MinimumStockLevel = minimumStockLevel;
             ItemClassId = itemClassId;
-            TimeLeft = timeLeft;
         }
     }
 }

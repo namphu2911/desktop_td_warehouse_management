@@ -54,15 +54,16 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.StockCard
                 OnPropertyChanged(nameof(ItemId));
             }
         }
-        public string WarehouseName { get; set; } = "";
+        public string WarehouseId { get; set; } = "";
         public string PurchaseOrderNumber { get; set; } = "";
         public ObservableCollection<StockCardEntryViewModel> StockCardEntries { get; set; } = new();
         public ObservableCollection<string> ItemIds => _itemStore.ItemIds;
         public ObservableCollection<string> ItemNames => _itemStore.ItemNames;
-        public ObservableCollection<string> WarehouseNames => _warehouseStore.WarehouseNames;
+        public ObservableCollection<string> WarehouseIds => _warehouseStore.WarehouseIds;
         public ObservableCollection<string> PurchaseOrderNumbers => _itemLotStore.PurchaseOrderNumbers;
 
         public ICommand LoadStockCardEntryCommand { get; set; }
+        public ICommand LoadStockCardViewCommand { get; set; }
         public StockCardViewModel(IApiService apiService, IMapper mapper, ItemStore itemStore, ItemLotStore itemLotStore, WarehouseStore warehouseStore)
         {
             _apiService = apiService;
@@ -71,14 +72,21 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.StockCard
             _itemLotStore = itemLotStore;
             _warehouseStore = warehouseStore;
             LoadStockCardEntryCommand = new RelayCommand(LoadStockCardEntry);
+            LoadStockCardViewCommand = new RelayCommand(LoadStockCardView);
         }
 
+        private void LoadStockCardView()
+        {
+            OnPropertyChanged(nameof(ItemIds));
+            OnPropertyChanged(nameof(ItemNames));
+            OnPropertyChanged(nameof(WarehouseIds));
+            OnPropertyChanged(nameof(PurchaseOrderNumbers));
+        }
         private async void LoadStockCardEntry()
         {
             try
             {
-                var stockCardEntries = await _apiService.GetStockCardEntriesAsync(WarehouseName, ItemId, ItemName, StartDate, EndDate, PurchaseOrderNumber);
-
+                var stockCardEntries = await _apiService.GetStockCardEntriesAsync(WarehouseId, ItemId, ItemName, StartDate, EndDate, PurchaseOrderNumber);
                 var viewModels = _mapper.Map<IEnumerable<InventoryLogEntryDto>, IEnumerable<StockCardEntryViewModel>>(stockCardEntries);
                 StockCardEntries = new(viewModels);
             }

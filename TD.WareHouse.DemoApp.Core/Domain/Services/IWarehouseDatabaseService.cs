@@ -9,7 +9,7 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Services
 {
     public interface IWarehouseDatabaseService
     {
-        Task<IEnumerable<Warehouse>> FilterWarehousesByName(string warehouseName);
+        Task<IEnumerable<Warehouse>> FilterWarehousesByName(string warehouseId);
         Task<IEnumerable<Warehouse>> GetAllWarehouses();
         Task Clear();
         Task Insert(IEnumerable<Warehouse> warehouses);

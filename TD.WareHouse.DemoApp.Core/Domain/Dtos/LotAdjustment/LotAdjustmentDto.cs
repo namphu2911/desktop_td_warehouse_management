@@ -12,6 +12,7 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Dtos.LotAdjustment
     {
         public string LotId { get; set; }
         public ItemDto Item { get; set; }
+        public string Unit { get; set; }
         public double BeforeQuantity { get; set; }
         public double AfterQuantity { get; set; }
         public string NewPurchaseOrderNumber { get; set; }
@@ -20,11 +21,12 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Dtos.LotAdjustment
         public string Note { get; set; }
         public DateTime Timestamp { get; set; }
         public bool IsConfirmed { get; set; }
-        public string Unit { get; set; }
-        public LotAdjustmentDto(string lotId, ItemDto item, double beforeQuantity, double afterQuantity, string newPurchaseOrderNumber, string oldPurchaseOrderNumber, EmployeeDto employee, string note, DateTime timestamp, bool isConfirmed, string unit)
+        
+        public LotAdjustmentDto(string lotId, ItemDto item, string unit, double beforeQuantity, double afterQuantity, string newPurchaseOrderNumber, string oldPurchaseOrderNumber, EmployeeDto employee, string note, DateTime timestamp, bool isConfirmed)
         {
             LotId = lotId;
             Item = item;
+            Unit = unit;
             BeforeQuantity = beforeQuantity;
             AfterQuantity = afterQuantity;
             NewPurchaseOrderNumber = newPurchaseOrderNumber;
@@ -33,7 +35,7 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Dtos.LotAdjustment
             Note = note;
             Timestamp = timestamp;
             IsConfirmed = isConfirmed;
-            Unit = unit;
+            
         }
     }
 }

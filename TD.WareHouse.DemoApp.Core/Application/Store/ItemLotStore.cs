@@ -12,16 +12,18 @@ namespace TD.WareHouse.DemoApp.Core.Application.Store
     {
         public List<ItemLot> ItemLots { get; private set; }
         public ObservableCollection<string> PurchaseOrderNumbers { get; private set; }
+        public ObservableCollection<string> LocationIds { get; private set; }
         public ItemLotStore()
         {
             ItemLots = new List<ItemLot>();
             PurchaseOrderNumbers = new ObservableCollection<string>();
+            LocationIds = new ObservableCollection<string>();
         }
         public void SetItemLot(IEnumerable<ItemLot> itemlots)
         {
             ItemLots = itemlots.ToList();
             PurchaseOrderNumbers = new ObservableCollection<string>(ItemLots.Select(i => i.PurchaseOrderNumber).OrderBy(s => s));
+            LocationIds = new ObservableCollection<string>(ItemLots.Select(i => i.Location.LocationId).OrderBy(s => s));
         }
     }
-    
-}
+    }

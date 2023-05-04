@@ -10,11 +10,16 @@
              xmlns:prism="http://prismlibrary.com/"
              xmlns:editors="http://schemas.syncfusion.com/wpf"
              xmlns:ViewModels="clr-namespace:TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt;assembly=TD.WareHouse.DemoApp.Core" xmlns:Components="clr-namespace:TD.WareHouse.DemoApp.Resources.Components"
-             d:DataContext="{d:DesignInstance Type=ViewModels:GoodsReceiptViewModel}"
+    
              mc:Ignorable="d" 
              d:DesignHeight="750" d:DesignWidth="1100"
              Background="{StaticResource ColorBackground}"
              Padding="10">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <prism:InvokeCommandAction Command="{Binding LoadGoodsReceiptViewCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <materialDesign:DialogHost CloseOnClickAway="True" IsOpen="{Binding IsErrorMessageShowed}">
         <materialDesign:DialogHost.DialogContent>
             <Components:ErrorMessage Message="{Binding ErrorMessage}"/>
@@ -55,7 +60,7 @@
                               Margin="5"
                               materialDesign:HintAssist.Hint="Tim kiếm"
                               Style="{StaticResource ComboBox}"
-                              ItemsSource="{Binding GoodsReceipts}"
+                              ItemsSource="{Binding GoodsReceiptIds}"
                               Text="{Binding GoodsReceiptId}">
                                 <ComboBox.ItemsPanel>
                                     <ItemsPanelTemplate>

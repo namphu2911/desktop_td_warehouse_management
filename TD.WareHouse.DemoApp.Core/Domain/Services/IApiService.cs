@@ -22,7 +22,7 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Services
         Task<IEnumerable<ItemLotDto>> GetAllItemLotsAsync();
         Task<IEnumerable<LocationDto>> GetAllLocationsAsync();
         Task<IEnumerable<GoodsReceiptDto>> GetAllGoodsReceiptsAsync();
-        Task<IEnumerable<GoodsIssueDto>> GetAllGoodsIssuesAsync();
+        Task<List<string>> GetAllGoodsIssuesReceiverAsync();
         Task<QueryResult<GoodsReceiptDto>> GetReceivedGoodsReceiptsAsync(DateTime startDate, DateTime endDate);
         Task<QueryResult<GoodsReceiptDto>> GetReceivingGoodsReceiptsAsync(string goodsReceiptId);
         Task DeleteGoodsReceiptAsync(string goodsReceiptId);
@@ -31,11 +31,11 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Services
         Task<QueryResult<GoodsIssueDto>> GetIssuingGoodsIssuesAsync(string goodsIssueId);
         Task DeleteGoodsIssueAsync(string goodsIssueId);
         Task ConfirmGoodsIssueAsync(string goodsIssueId);
-        Task<IEnumerable<GoodsReceiptDto>> GetHistoryGoodsReceiptLotsAsync(string warehouseName, string itemId, string itemName, DateTime startDate, DateTime endDate, string supplier, string purchaseOrderNumber);
-        Task<IEnumerable<GoodsIssueDto>> GetHistoryGoodsIssueLotsAsync(string warehouseName, string itemId, string itemName, DateTime startDate, DateTime endDate, string reveiver, string purchaseOrderNumber);
+        Task<IEnumerable<GoodsReceiptDto>> GetHistoryGoodsReceiptLotsAsync(string warehouseId, string itemId, string itemName, DateTime startDate, DateTime endDate, string supplier, string purchaseOrderNumber);
+        Task<IEnumerable<GoodsIssueDto>> GetHistoryGoodsIssueLotsAsync(string warehouseId, string itemId, string itemName, DateTime startDate, DateTime endDate, string reveiver, string purchaseOrderNumber);
         Task<IEnumerable<LotAdjustmentDto>> GetUnfixedLotAdjustmentsAsync();
         //Task<IEnumerable<LotAdjustmentDto>> GetLotAdjustmentsAsync(DateTime startDate, DateTime endDate);
-        Task FixLotAdjustmentAsync();
+        Task FixLotAdjustmentAsync(string lotId);
         Task DeleteLotAdjustmentAsync(string lotId);
 
         //Issue
@@ -45,15 +45,15 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Services
         //Task<QueryResult<GoodsIssueEntryDtos>> GetGoodsIssueEntriesAsync(DateTime startTime, DateTime endTime, string itemId);
         //Task<QueryResult<GoodsIssueDto>> GetGoodsIssuesAsync(DateTime startDate, DateTime endDate);
 
-        Task<IEnumerable<ItemDto>> GetExpirationDateAlarmEntriesAsync(double timeLeft);
-        Task<IEnumerable<ItemDto>> GetQuantityAlarmEntriesAsync(string warehouseName);
+        Task<IEnumerable<ItemLotDto>> GetExpirationDateAlarmEntriesAsync(double timeLeft);
+        Task<IEnumerable<ItemLotDto>> GetQuantityAlarmEntriesAsync(string warehouseId);
 
-        Task<IEnumerable<InventoryLogEntryDto>> GetStockCardEntriesAsync(string warehouseName, string itemId, string itemName, DateTime startDate, DateTime endDate, string purchaseOrderNumber);
-        Task<IEnumerable<LocationDto>> GetItemShelfManagementEntriesAsync(string itemId, string itemName);
-        Task<IEnumerable<LocationDto>> GetLocationShelfManagementEntriesAsync(string locationId);
+        Task<IEnumerable<InventoryLogEntryDto>> GetStockCardEntriesAsync(string warehouseId, string itemId, string itemName, DateTime startDate, DateTime endDate, string purchaseOrderNumber);
+        Task<IEnumerable<ItemLotDto>> GetItemShelfManagementEntriesAsync(string itemId);
+        Task<IEnumerable<ItemLotDto>> GetLocationShelfManagementEntriesAsync(string locationId);
 
         Task<IEnumerable<ItemLotDto>> GetUnfixedItemLotsAsync();
-        Task IssueIsolationItemLotsAsync(string lotId);
-        Task ReceiveIsolationItemLotsAsync(string lotId);
+        Task IssueIsolationItemLotsAsync(string itemLotId);
+        Task ReceiveIsolationItemLotsAsync(string LotId);
     }
 }

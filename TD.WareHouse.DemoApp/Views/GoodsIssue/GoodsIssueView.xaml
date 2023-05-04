@@ -19,7 +19,7 @@
                         <TextBlock Style="{StaticResource HeaderText}" Text="XUẤT NỘI BỘ"/>
                     </TextBlock>
                 </TabItem.Header>
-                <view:GoodsIssueInternalView DataContext="{Binding GoodsIssueInternalViewModel}"/>
+                <view:GoodsIssueInternalView DataContext="{Binding GoodsIssueInternal}"/>
             </TabItem>
 
             <TabItem Height="55" MaxWidth="800" Background="Red">
@@ -28,7 +28,7 @@
                         <TextBlock Style="{StaticResource HeaderText}" Text="XUẤT BÁN"/>
                     </TextBlock>
                 </TabItem.Header>
-                <view:GoodsIssueExternalView DataContext="{Binding GoodsIssueExternalViewModel}"/>
+                <view:GoodsIssueExternalView DataContext="{Binding GoodsIssueExternal}"/>
             </TabItem>
 
             <TabItem Height="55" MaxWidth="800" Background="Red">
@@ -37,7 +37,7 @@
                         <TextBlock Style="{StaticResource HeaderText}" Text="XEM TIẾN ĐỘ"/>
                     </TextBlock>
                 </TabItem.Header>
-                <view:GoodsIssueProgressView DataContext="{Binding GoodsIssueProgressViewModel}"/>
+                <view:GoodsIssueProgressView DataContext="{Binding GoodsIssueProgress}"/>
             </TabItem>
         </TabControl>
 

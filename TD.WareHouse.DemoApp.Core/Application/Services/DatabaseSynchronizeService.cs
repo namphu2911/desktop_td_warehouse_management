@@ -25,19 +25,17 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
         private readonly IItemDatabaseService _itemDatabaseService;
         private readonly IItemLotDatabaseService _itemLotDatabaseService;
         private readonly IWarehouseDatabaseService _warehouseDatabaseService;
-        private readonly ILocationDatabaseService _locationDatabaseService;
         private readonly IGoodReceiptDatabaseService _goodReceiptDatabaseService;
         private readonly IGoodIssueDatabaseService _goodIssueDatabaseService;
 
         private readonly IMapper _mapper;
         private readonly ItemStore _itemStore;
         private readonly ItemLotStore _itemLotStore;
-        private readonly LocationStore _locationStore;
         private readonly WarehouseStore _warehouseStore;
         private readonly GoodsReceiptStore _goodsReceiptStore;
         private readonly GoodsIssueStore _goodsIssueStore;
         
-        public DatabaseSynchronizeService(IApiService apiService, IItemDatabaseService itemDatabaseService, IItemLotDatabaseService itemLotDatabaseService, IWarehouseDatabaseService warehouseDatabaseService, ILocationDatabaseService locationDatabaseService, IGoodReceiptDatabaseService goodReceiptDatabaseService, IGoodIssueDatabaseService goodIssueDatabaseService, IMapper mapper, ItemStore itemStore, ItemLotStore itemLotStore, LocationStore locationStore, WarehouseStore warehouseStore, GoodsReceiptStore goodsReceiptStore, GoodsIssueStore goodsIssueStore)
+        public DatabaseSynchronizeService(IApiService apiService, IItemDatabaseService itemDatabaseService, IItemLotDatabaseService itemLotDatabaseService, IWarehouseDatabaseService warehouseDatabaseService, IGoodReceiptDatabaseService goodReceiptDatabaseService, IGoodIssueDatabaseService goodIssueDatabaseService, IMapper mapper, ItemStore itemStore, ItemLotStore itemLotStore, WarehouseStore warehouseStore, GoodsReceiptStore goodsReceiptStore, GoodsIssueStore goodsIssueStore)
         {
             _apiService = apiService;
             _mapper = mapper;
@@ -45,13 +43,11 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
             _itemDatabaseService = itemDatabaseService;
             _itemLotDatabaseService = itemLotDatabaseService;
             _warehouseDatabaseService = warehouseDatabaseService;
-            _locationDatabaseService = locationDatabaseService;
             _goodReceiptDatabaseService = goodReceiptDatabaseService;
             _goodIssueDatabaseService = goodIssueDatabaseService;
            
             _itemStore = itemStore;
             _itemLotStore = itemLotStore;
-            _locationStore = locationStore;
             _warehouseStore = warehouseStore;
             _goodsReceiptStore = goodsReceiptStore;
             _goodsIssueStore = goodsIssueStore;
@@ -65,7 +61,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
             }
             catch
             {
-                await SynchronizeItemsFromLocal();
+                //await SynchronizeItemsFromLocal();
             }
         }
 
@@ -74,7 +70,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
             var itemDtos = await _apiService.GetAllItemsAsync();
             var items = _mapper.Map<IEnumerable<ItemDto>, IEnumerable<Item>>(itemDtos);
 
-            await _itemDatabaseService.OverrideAllItems(items);
+            //await _itemDatabaseService.OverrideAllItems(items);
             _itemStore.SetItem(items);
         }
         private async Task SynchronizeItemsFromLocal()
@@ -91,7 +87,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
             }
             catch
             {
-                await SynchronizeItemLotsFromLocal();
+                //await SynchronizeItemLotsFromLocal();
             }
         }
         private async Task SynchronizeItemLotsFromServer()
@@ -99,7 +95,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
             var itemLotDtos = await _apiService.GetAllItemLotsAsync();
             var itemLots = _mapper.Map<IEnumerable<ItemLotDto>, IEnumerable<ItemLot>>(itemLotDtos);
 
-            await _itemLotDatabaseService.OverrideAllItemLots(itemLots);
+            //await _itemLotDatabaseService.OverrideAllItemLots(itemLots);
             _itemLotStore.SetItemLot(itemLots);
         }
         private async Task SynchronizeItemLotsFromLocal()
@@ -116,7 +112,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
             }
             catch
             {
-                await SynchronizeWarehousesFromLocal();
+                //await SynchronizeWarehousesFromLocal();
             }
         }
         private async Task SynchronizeWarehousesFromServer()
@@ -124,7 +120,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
             var warehouseDtos = await _apiService.GetAllWarehousesAsync();
             var warehouses = _mapper.Map<IEnumerable<WarehouseDto>, IEnumerable<Warehouse>>(warehouseDtos);
 
-            await _warehouseDatabaseService.OverrideAllWarehouses(warehouses);
+            //await _warehouseDatabaseService.OverrideAllWarehouses(warehouses);
             _warehouseStore.SetWarehouse(warehouses);
         }
         private async Task SynchronizeWarehousesFromLocal()
@@ -132,32 +128,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
             var warehouses = await _warehouseDatabaseService.GetAllWarehouses();
             _warehouseStore.SetWarehouse(warehouses);
         }
-
-        public async Task SynchronizeLocationsData()
-        {
-            try
-            {
-                await SynchronizeLocationsFromServer();
-            }
-            catch
-            {
-                await SynchronizeLocationsFromLocal();
-            }
-        }
-        private async Task SynchronizeLocationsFromServer()
-        {
-            var locationDtos = await _apiService.GetAllLocationsAsync();
-            var locations = _mapper.Map<IEnumerable<LocationDto>, IEnumerable<Location>>(locationDtos);
-
-            await _locationDatabaseService.OverrideAllLocations(locations);
-            _locationStore.SetLocation(locations);
-        }
-        private async Task SynchronizeLocationsFromLocal()
-        {
-            var locations = await _locationDatabaseService.GetAllLocations();
-            _locationStore.SetLocation(locations);
-        }
-
+     
         public async Task SynchronizeGoodReceiptsData()
         {
             try
@@ -166,7 +137,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
             }
             catch
             {
-                await SynchronizeGoodsReceiptsFromLocal();
+                //await SynchronizeGoodsReceiptsFromLocal();
             }
         }
         private async Task SynchronizeGoodsReceiptsFromServer()
@@ -174,7 +145,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
             var goodsReceiptDtos = await _apiService.GetAllGoodsReceiptsAsync();
             var goodsReceipts = _mapper.Map<IEnumerable<GoodsReceiptDto>, IEnumerable<GoodsReceipt>>(goodsReceiptDtos);
 
-            await _goodReceiptDatabaseService.OverrideAllGoodsReceipts(goodsReceipts);
+            //await _goodReceiptDatabaseService.OverrideAllGoodsReceipts(goodsReceipts);
             _goodsReceiptStore.SetGoodsReceipts(goodsReceipts);
         }
         private async Task SynchronizeGoodsReceiptsFromLocal()
@@ -191,22 +162,20 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
             }
             catch
             {
-                await SynchronizeGoodsIssuesFromLocal();
+                //await SynchronizeGoodsIssuesFromLocal();
             }
         }
         private async Task SynchronizeGoodsIssuesFromServer()
         {
-            var goodsIssueDtos = await _apiService.GetAllGoodsIssuesAsync();
-            var goodsIssues = _mapper.Map<IEnumerable<GoodsIssueDto>, IEnumerable<GoodsIssue>>(goodsIssueDtos);
-
-            await _goodIssueDatabaseService.OverrideAllGoodsIssues(goodsIssues);
-            _goodsIssueStore.SetGoodsIssues(goodsIssues);
+            var goodsIssueDtos = await _apiService.GetAllGoodsIssuesReceiverAsync();
+            //await _goodIssueDatabaseService.OverrideAllGoodsIssues(goodsIssues);
+            _goodsIssueStore.SetGoodsIssues(goodsIssueDtos);
         }
-        private async Task SynchronizeGoodsIssuesFromLocal()
-        {
-            var goodsIssues = await _goodIssueDatabaseService.GetAllGoodsIssues();
-            _goodsIssueStore.SetGoodsIssues(goodsIssues);
-        }
+        //private async Task SynchronizeGoodsIssuesFromLocal()
+        //{
+        //    var goodsIssues = await _goodIssueDatabaseService.GetAllGoodsIssues();
+        //    _goodsIssueStore.SetGoodsIssues(goodsIssues);
+        //}
 
 
     }

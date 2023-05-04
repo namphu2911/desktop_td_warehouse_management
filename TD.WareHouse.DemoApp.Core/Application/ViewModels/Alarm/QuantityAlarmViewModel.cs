@@ -19,11 +19,12 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.Alarm
         private readonly IApiService _apiService;
         private readonly IMapper _mapper;
         private readonly WarehouseStore _warehouseStore;
-        public string WarehouseName { get; set; } = "";
-        public ObservableCollection<string> WarehouseNames => _warehouseStore.WarehouseNames;
+        public string WarehouseId { get; set; } = "";
+        public ObservableCollection<string> WarehouseIds => _warehouseStore.WarehouseIds;
         public ObservableCollection<EntryForQuantityAlarmViewModel> Entries { get; set; } = new();
 
         public ICommand LoadQuantityAlarmCommand { get; set; }
+        public ICommand LoadQuantityAlarmViewCommand { get; set; }
 
         public QuantityAlarmViewModel(IApiService apiService, IMapper mapper, WarehouseStore warehouseStore)
         {
@@ -31,14 +32,18 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.Alarm
             _mapper = mapper;
             _warehouseStore = warehouseStore;
             LoadQuantityAlarmCommand = new RelayCommand(LoadQuantityAlarmAsync);
+            LoadQuantityAlarmViewCommand = new RelayCommand(LoadQuantityAlarmView);
         }
-
+        private void LoadQuantityAlarmView()
+        {
+            OnPropertyChanged(nameof(WarehouseIds));
+        }
         private async void LoadQuantityAlarmAsync()
         {
             try
             {
-                var dtos = await _apiService.GetQuantityAlarmEntriesAsync(WarehouseName);
-                var entries = _mapper.Map<IEnumerable<ItemDto>, IEnumerable<EntryForQuantityAlarmViewModel>>(dtos);
+                var dtos = await _apiService.GetQuantityAlarmEntriesAsync(WarehouseId);
+                var entries = _mapper.Map<IEnumerable<ItemLotDto>, IEnumerable<EntryForQuantityAlarmViewModel>>(dtos);
                 Entries = new(entries);                
             }
             catch (HttpRequestException)

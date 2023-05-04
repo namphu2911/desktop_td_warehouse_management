@@ -13,11 +13,17 @@
         xmlns:HistoryView="clr-namespace:TD.WareHouse.DemoApp.Views.History"
         xmlns:Isolation="clr-namespace:TD.WareHouse.DemoApp.Views.Isolation"
         xmlns:AlarmView="clr-namespace:TD.WareHouse.DemoApp.Views.Alarm"
+        xmlns:prism="http://prismlibrary.com/"
         mc:Ignorable="d"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:viewmodels="clr-namespace:TD.WareHouse.DemoApp.Core.Application.ViewModels;assembly=TD.WareHouse.DemoApp.Core" xmlns:i="http://schemas.microsoft.com/xaml/behaviors" d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
         Background="{StaticResource ColorBackground}"
         Title="MainWindow" Height="800" Width="1300">
 
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <prism:InvokeCommandAction Command="{Binding LoadDataStoreCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <materialDesign:Card>
         <Grid>
             <TabControl TabStripPlacement="Left" Style="{StaticResource MaterialDesignFilledTabControl}">
@@ -26,7 +32,7 @@
                         <Image Source="C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\Resources\Images\LogoTD.jpg" 
                                Stretch="Fill"/>
                     </TabItem.Header>
-                    <ViewsHome:HomeView DataContext="{Binding HomeViewModel}"/>
+                    <ViewsHome:HomeView DataContext="{Binding Home}"/>
                 </TabItem>
 
                 <TabItem Height="50" Width="200" Background="Red">
@@ -37,7 +43,7 @@
                                                                  FontSize="20"
                                                                  FontWeight="Bold" />
                     </TabItem.Header>
-                    <ViewsGoodsReceipt:GoodsReceiptView DataContext="{Binding GoodsReceiptViewModel}"/>
+                    <ViewsGoodsReceipt:GoodsReceiptView DataContext="{Binding GoodsReceipt}"/>
                 </TabItem>
 
                 <TabItem Height="50" Width="200" Background="Red">
@@ -48,7 +54,7 @@
                                                                  FontSize="20"
                                                                  FontWeight="Bold" />
                     </TabItem.Header>
-                    <ViewsGoodsIssue:GoodsIssueView DataContext="{Binding GoodsIssueViewModel}"/>
+                    <ViewsGoodsIssue:GoodsIssueView DataContext="{Binding GoodsIssue}"/>
                 </TabItem>
 
                 <TabItem Height="50" Width="200" Background="Red">
@@ -59,7 +65,7 @@
                                                                  FontSize="20"
                                                                  FontWeight="Bold" />
                     </TabItem.Header>
-                    <InventoryView:InventoryView DataContext="{Binding InventoryViewModel}"/>
+                    <InventoryView:InventoryView DataContext="{Binding Inventory}"/>
                 </TabItem>
 
                 <TabItem Height="50" Width="200" Background="Red">
@@ -70,7 +76,7 @@
                                                                  FontSize="20"
                                                                  FontWeight="Bold" />
                     </TabItem.Header>
-                    <ShelfManagementView:ShelfManagementView DataContext="{Binding ShelfManagementViewModel}"/>
+                    <ShelfManagementView:ShelfManagementView DataContext="{Binding ShelfManagement}"/>
                 </TabItem>
 
                 <TabItem Height="50" Width="200" Background="Red">
@@ -81,7 +87,7 @@
                                                                  FontSize="20"
                                                                  FontWeight="Bold" />
                     </TabItem.Header>
-                    <StockCardView:StockCardView DataContext="{Binding StockCardViewModel}"/>
+                    <StockCardView:StockCardView DataContext="{Binding StockCard}"/>
                 </TabItem>
 
                 <TabItem Height="50" Width="200" Background="Red">
@@ -92,7 +98,7 @@
                                                                  FontSize="20"
                                                                  FontWeight="Bold" />
                     </TabItem.Header>
-                    <HistoryView:HistoryView DataContext="{Binding HistoryViewModel}"/>
+                    <HistoryView:HistoryView DataContext="{Binding History}"/>
                 </TabItem>
 
                 <TabItem Height="50" Width="200" Background="Red">
@@ -103,7 +109,7 @@
                                                                  FontSize="20"
                                                                  FontWeight="Bold" />
                     </TabItem.Header>
-                    <Isolation:IsolationView DataContext="{Binding IsolationViewModel}"/>
+                    <Isolation:IsolationView DataContext="{Binding Isolation}"/>
                 </TabItem>
 
                 <TabItem Height="50" Width="200" Background="Red">
@@ -114,7 +120,7 @@
                                                                  FontSize="20"
                                                                  FontWeight="Bold" />
                     </TabItem.Header>
-                    <AlarmView:AlarmView DataContext="{Binding AlarmViewModel}"/>
+                    <AlarmView:AlarmView DataContext="{Binding Alarm}" />
                 </TabItem>
             </TabControl>
         </Grid>

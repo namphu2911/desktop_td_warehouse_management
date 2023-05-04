@@ -4,11 +4,12 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TD.WareHouse.DemoApp.Core.Application.ViewModels.Seedwork;
 using TD.WareHouse.DemoApp.Core.Domain.Models.Items;
 
 namespace TD.WareHouse.DemoApp.Core.Application.Store
 {
-    public class ItemStore
+    public class ItemStore : BaseViewModel
     {
         public List<Item> Items { get; private set; }
         public ObservableCollection<string> ItemIds { get; private set; }

@@ -16,17 +16,16 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.Inventory
         public string LotId { get; set; }
         public string ItemId { get; set; }
         public string ItemName { get; set; }
+        public string Unit { get; set; }
         public double BeforeQuantity { get; set; }
         public double AfterQuantity { get; set; }
         public string NewPurchaseOrderNumber { get; set; }
         public string OldPurchaseOrderNumber { get; set; }
-        public string Unit { get; set; }
         public string EmployeeName { get; set; }
         public string Note { get; set; }
         public ICommand FixCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
         public event Action? OnRemoved;
-
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public FixLotAdjustmentViewModel()
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
@@ -34,6 +33,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.Inventory
             FixCommand = new RelayCommand(FixAsync);
             DeleteCommand = new RelayCommand(DeleteAsync);
         }
+
         public FixLotAdjustmentViewModel(IApiService apiService, string lotId, string itemId, string itemName, double beforeQuantity, double afterQuantity, string newPurchaseOrderNumber, string oldPurchaseOrderNumber, string unit, string employeeName, string note)
         {
             _apiService = apiService;
@@ -66,7 +66,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.Inventory
 
         private async void FixAsync()
         {
-            await _apiService.FixLotAdjustmentAsync();
+            await _apiService.FixLotAdjustmentAsync(LotId);
             OnRemoved?.Invoke();
         }
 

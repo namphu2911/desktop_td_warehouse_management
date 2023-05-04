@@ -9,6 +9,7 @@ using TD.WareHouse.DemoApp.Core.Application.ViewModels.Seedwork;
 using CommunityToolkit.Mvvm.Input;
 using TD.WareHouse.DemoApp.Core.Domain.Services;
 using TD.WareHouse.DemoApp.Core.Domain.Dtos.GoodsReceipts;
+using TD.WareHouse.DemoApp.Core.Application.Store;
 
 namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
 {
@@ -17,6 +18,9 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
         private readonly IApiService _apiService;
         private List<GoodsReceiptDto> goodsReceipts = new();
         private PendingGoodsReceiptViewModel? selectedGoodsReceipt;
+
+        private readonly GoodsReceiptStore _goodsReceiptStore;
+        public ObservableCollection<string> GoodsReceiptIds => _goodsReceiptStore.GoodsReceiptIds;
         public DateTime StartDate { get; set; } = DateTime.Today.AddDays(-7);
         public DateTime EndDate { get; set; } = DateTime.Today;
         public string GoodsReceiptId { get; set; } = "";
@@ -57,18 +61,25 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
         public ICommand LoadReceivingGoodsReceiptsCommand { get; set; }
         public ICommand ConfirmCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
-        public GoodsReceiptViewModel(IApiService apiService)
+        public ICommand LoadGoodsReceiptViewCommand { get; set; }
+        public GoodsReceiptViewModel(IApiService apiService, GoodsReceiptStore goodsReceiptStore)
         {
             _apiService = apiService;
+            _goodsReceiptStore = goodsReceiptStore;
             LoadReceivedGoodsReceiptsCommand = new RelayCommand(LoadReceivedGoodsReceiptsAsync);
             LoadReceivingGoodsReceiptsCommand = new RelayCommand(LoadReceivingGoodsReceiptsAsync);
             ConfirmCommand = new RelayCommand(ConfirmAsync);
             DeleteCommand = new RelayCommand(DeleteAsync);
+            LoadGoodsReceiptViewCommand = new RelayCommand(LoadGoodsReceiptView);
         }
 
+        private void LoadGoodsReceiptView()
+        {
+            OnPropertyChanged(nameof(GoodsReceiptIds));
+        }
         public async void LoadReceivedGoodsReceiptsAsync()
         {
-            var queryResult = (await _apiService.GetReceivedGoodsReceiptsAsync(StartDate, EndDate));
+            var queryResult = await _apiService.GetReceivedGoodsReceiptsAsync(StartDate, EndDate);
             goodsReceipts = queryResult.Items.ToList();
 
             var goodsReceiptViewModels = goodsReceipts.Select(g =>
@@ -77,14 +88,13 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
                                                  g.Timestamp,
                                                  g.Employee.EmployeeName));
             GoodsReceipts = new ObservableCollection<PendingGoodsReceiptViewModel>(goodsReceiptViewModels);
-
             Lots = new();
             
         }
 
         public async void LoadReceivingGoodsReceiptsAsync()
         {
-            var queryResult = (await _apiService.GetReceivingGoodsReceiptsAsync(GoodsReceiptId));
+            var queryResult = await _apiService.GetReceivingGoodsReceiptsAsync(GoodsReceiptId);
             goodsReceipts = queryResult.Items.ToList();
 
             var goodsReceiptViewModels = goodsReceipts.Select(g =>
@@ -93,7 +103,6 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
                                                  g.Timestamp,
                                                  g.Employee.EmployeeName));
             GoodsReceipts = new ObservableCollection<PendingGoodsReceiptViewModel>(goodsReceiptViewModels);
-
             Lots = new();
             
         }

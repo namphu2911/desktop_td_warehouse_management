@@ -20,8 +20,8 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Dtos.Items
         public LocationDto Location { get; set; }
         public DateTime ProductionDate { get; set; }
         public DateTime ExpirationDate { get; set; }
-        public List<InventoryLogEntryDto> InventoryLogEntries { get; set; }
-        public ItemLotDto(string lotId, ItemDto item, string unit, bool isIsolatedd, double quantity, double sublotSize, string purchaseOrderNumber, LocationDto location, DateTime productionDate, DateTime expirationDate, List<InventoryLogEntryDto> inventoryLogEntries)
+        
+        public ItemLotDto(string lotId, ItemDto item,  string unit, bool isIsolatedd, double quantity, double sublotSize, string purchaseOrderNumber, LocationDto location, DateTime productionDate, DateTime expirationDate)
         {
             LotId = lotId;
             Item = item;
@@ -33,7 +33,7 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Dtos.Items
             Location = location;
             ProductionDate = productionDate;
             ExpirationDate = expirationDate;
-            InventoryLogEntries = inventoryLogEntries;
+           
         }
     }
 }

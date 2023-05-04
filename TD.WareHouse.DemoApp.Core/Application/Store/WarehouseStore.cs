@@ -11,16 +11,16 @@ namespace TD.WareHouse.DemoApp.Core.Application.Store
     public class WarehouseStore
     {
         public List<Warehouse> Warehouses { get; private set; }
-        public ObservableCollection<string> WarehouseNames { get; private set; }
+        public ObservableCollection<string> WarehouseIds { get; private set; }
         public WarehouseStore()
         {
             Warehouses = new List<Warehouse>();
-            WarehouseNames = new ObservableCollection<string>();
+            WarehouseIds = new ObservableCollection<string>();
         }
         public void SetWarehouse(IEnumerable<Warehouse> warehouses)
         {
             Warehouses = warehouses.ToList();
-            WarehouseNames = new ObservableCollection<string>(Warehouses.Select(i => i.WarehouseName).OrderBy(s => s));
+            WarehouseIds = new ObservableCollection<string>(Warehouses.Select(i => i.WarehouseId).OrderBy(s => s));
         }
     }
 }

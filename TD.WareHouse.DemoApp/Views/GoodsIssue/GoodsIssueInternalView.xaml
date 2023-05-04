@@ -129,7 +129,13 @@
                               Margin="5"
                               materialDesign:HintAssist.Hint="Bộ phận"
                               ItemsSource="{Binding Receivers}"
-                              Text="{Binding Receiver}" />
+                              Text="{Binding Receiver}">
+                            <ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel />
+                                </ItemsPanelTemplate>
+                            </ComboBox.ItemsPanel>
+                        </ComboBox>
                     </Grid>
 
                     <DataGrid Grid.Row="2"

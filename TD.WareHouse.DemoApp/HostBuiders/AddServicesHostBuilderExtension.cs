@@ -18,7 +18,6 @@ namespace TD.WareHouse.DemoApp.HostBuiders
                 services.AddSingleton<ItemStore>();
                 services.AddSingleton<ItemLotStore>();
                 services.AddSingleton<WarehouseStore>();
-                services.AddSingleton<LocationStore>();
                 services.AddSingleton<GoodsReceiptStore>();
                 services.AddSingleton<GoodsIssueStore>();
 

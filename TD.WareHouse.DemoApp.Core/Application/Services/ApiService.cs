@@ -67,7 +67,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
         }
         public async Task<IEnumerable<ItemLotDto>> GetAllItemLotsAsync()
         {
-            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/Warehouses");
+            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/ItemLots");
 
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
@@ -97,7 +97,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
         }
         public async Task<IEnumerable<GoodsReceiptDto>> GetAllGoodsReceiptsAsync()
         {
-            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/Warehouses");
+            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/GoodsReceipts");
 
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
@@ -109,17 +109,17 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
             }
             return items;
         }
-        public async Task<IEnumerable<GoodsIssueDto>> GetAllGoodsIssuesAsync()
+        public async Task<List<string>> GetAllGoodsIssuesReceiverAsync()
         {
-            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/Warehouses");
+            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/GoodsIssues/Receivers");
 
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
 
-            var items = JsonConvert.DeserializeObject<IEnumerable<GoodsIssueDto>>(responseBody);
+            var items = JsonConvert.DeserializeObject<List<string>>(responseBody);
             if (items is null)
             {
-                return new List<GoodsIssueDto>();
+                return new List<string>();
             }
             return items;
         }
@@ -147,7 +147,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
 
         public async Task<QueryResult<GoodsReceiptDto>> GetReceivingGoodsReceiptsAsync(string goodsReceiptId)
         {
-            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}");
+            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/GoodsReceipts/{goodsReceiptId}");
 
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
@@ -158,7 +158,6 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
             {
                 throw new Exception();
             }
-
             return result;
         }
         public async Task ConfirmGoodsReceiptAsync(string goodsReceiptId)
@@ -179,7 +178,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
             string startDateString = startDate.ToString("yyyy-MM-dd");
             string endDateString = endDate.ToString("yyyy-MM-dd");
 
-            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/goodsreceipts?Page=1&ItemsPerPage=100&StartTime={startDateString}&EndTime={endDateString}");
+            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}api/GoodsReceipts/TimeRange?StartTime={startDateString}&EndTime={endDateString}");
 
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
@@ -223,7 +222,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
             response.EnsureSuccessStatusCode();
         }
 
-        public async Task<IEnumerable<GoodsReceiptDto>> GetHistoryGoodsReceiptLotsAsync(string warehouseName, string itemId, string itemName, DateTime startDate, DateTime endDate, string supplier, string purchaseOrderNumber)
+        public async Task<IEnumerable<GoodsReceiptDto>> GetHistoryGoodsReceiptLotsAsync(string warehouseId, string itemId, string itemName, DateTime startDate, DateTime endDate, string supplier, string purchaseOrderNumber)
         {
             string startDateString = startDate.ToString("yyyy-MM-dd");
             string endDateString = endDate.ToString("yyyy-MM-dd");
@@ -242,7 +241,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
 
             return result;
         }
-        public async Task<IEnumerable<GoodsIssueDto>> GetHistoryGoodsIssueLotsAsync(string warehouseName, string itemId, string itemName, DateTime startDate, DateTime endDate, string receiver, string purchaseOrderNumber)
+        public async Task<IEnumerable<GoodsIssueDto>> GetHistoryGoodsIssueLotsAsync(string warehouseId, string itemId, string itemName, DateTime startDate, DateTime endDate, string receiver, string purchaseOrderNumber)
         {
             string startDateString = startDate.ToString("yyyy-MM-dd");
             string endDateString = endDate.ToString("yyyy-MM-dd");
@@ -297,16 +296,16 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
             return result;
         }
         
-        public async Task FixLotAdjustmentAsync()
+        public async Task FixLotAdjustmentAsync(string lotId)
         {
-            HttpResponseMessage response = await _httpClient.PatchAsync($"{serverUrl}/api/LotAdjustments/ConfirmLotAdjustment", null);
+            HttpResponseMessage response = await _httpClient.PatchAsync($"{serverUrl}/api/LotAdjustments/Confirm/{lotId}", null);
 
             response.EnsureSuccessStatusCode();
         }
 
         public async Task DeleteLotAdjustmentAsync(string lotId)
         {
-            HttpResponseMessage response = await _httpClient.DeleteAsync($"{serverUrl}/api/LotAdjustments/Delete/{lotId}");
+            HttpResponseMessage response = await _httpClient.DeleteAsync($"{serverUrl}/api/LotAdjustments/{lotId}");
 
             response.EnsureSuccessStatusCode();
         }
@@ -349,14 +348,14 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
             }
         }
 
-        public async Task<IEnumerable<ItemDto>> GetExpirationDateAlarmEntriesAsync(double months)
+        public async Task<IEnumerable<ItemLotDto>> GetExpirationDateAlarmEntriesAsync(double timeLeft)
         {
-            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/Warnings/ExpirationDate/{months}");
+            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/Warnings/ExpirationDate/{timeLeft}");
 
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
 
-            var result = JsonConvert.DeserializeObject<IEnumerable<ItemDto>>(responseBody);
+            var result = JsonConvert.DeserializeObject<IEnumerable<ItemLotDto>>(responseBody);
 
             if (result is null)
             {
@@ -366,14 +365,14 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
             return result;
         }
 
-        public async Task<IEnumerable<ItemDto>> GetQuantityAlarmEntriesAsync(string itemClassId)
+        public async Task<IEnumerable<ItemLotDto>> GetQuantityAlarmEntriesAsync(string itemClassId)
         {
             HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/Warnings/MinimumStockLevel/{itemClassId}");
 
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
 
-            var result = JsonConvert.DeserializeObject<IEnumerable<ItemDto>>(responseBody);
+            var result = JsonConvert.DeserializeObject<IEnumerable<ItemLotDto>>(responseBody);
 
             if (result is null)
             {
@@ -383,7 +382,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
             return result;
         }
 
-        public async Task<IEnumerable<InventoryLogEntryDto>> GetStockCardEntriesAsync(string warehouseName, string itemId, string itemName, DateTime startDate, DateTime endDate, string purchaseOrderNumber)
+        public async Task<IEnumerable<InventoryLogEntryDto>> GetStockCardEntriesAsync(string warehouseId, string itemId, string itemName, DateTime startDate, DateTime endDate, string purchaseOrderNumber)
         {
             string startDateString = startDate.ToString("yyyy-MM-dd");
             string endDateString = endDate.ToString("yyyy-MM-dd");
@@ -403,14 +402,14 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
             return result;
         }
 
-        public async Task<IEnumerable<LocationDto>> GetItemShelfManagementEntriesAsync(string itemId, string itemName)
+        public async Task<IEnumerable<ItemLotDto>> GetItemShelfManagementEntriesAsync(string itemId)
         {
-            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/stockcardentries/{itemId}");
+            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/ItemLots/ByItemId/{itemId}");
 
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
 
-            var result = JsonConvert.DeserializeObject<IEnumerable<LocationDto>>(responseBody);
+            var result = JsonConvert.DeserializeObject<IEnumerable<ItemLotDto>>(responseBody);
 
             if (result is null)
             {
@@ -420,14 +419,14 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
             return result;
         }
 
-        public async Task<IEnumerable<LocationDto>> GetLocationShelfManagementEntriesAsync(string locationId)
+        public async Task<IEnumerable<ItemLotDto>> GetLocationShelfManagementEntriesAsync(string locationId)
         {
-            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/stockcardentries/{locationId}");
+            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/ItemLots/ByLocation/{locationId}");
 
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
 
-            var result = JsonConvert.DeserializeObject<IEnumerable<LocationDto>>(responseBody);
+            var result = JsonConvert.DeserializeObject<IEnumerable<ItemLotDto>>(responseBody);
 
             if (result is null)
             {
@@ -453,15 +452,15 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
             return result;
         }
 
-        public async Task IssueIsolationItemLotsAsync(string lotId)
+        public async Task IssueIsolationItemLotsAsync(string itemLotId)
         {
-            HttpResponseMessage response = await _httpClient.PatchAsync($"{serverUrl}/api/LotAdjustments/ConfirmLotAdjustment", null);
+            HttpResponseMessage response = await _httpClient.DeleteAsync($"{serverUrl}/api/ItemLots?itemLotId={itemLotId}");
 
             response.EnsureSuccessStatusCode();
         }
-        public async Task ReceiveIsolationItemLotsAsync(string lotId)
+        public async Task ReceiveIsolationItemLotsAsync(string LotId)
         {
-            HttpResponseMessage response = await _httpClient.PatchAsync($"{serverUrl}/api/LotAdjustments/ConfirmLotAdjustment", null);
+            HttpResponseMessage response = await _httpClient.PatchAsync($"{serverUrl}/api/ItemLots/{LotId}", null);
 
             response.EnsureSuccessStatusCode();
         }

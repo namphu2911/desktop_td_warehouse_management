@@ -24,7 +24,6 @@ namespace TD.WareHouse.DemoApp.Core.Infrastructure.Context
         public DbSet<GoodsIssue> GoodsIssues { get; set; }
         public DbSet<GoodsReceipt> GoodsReceipts { get; set; }
 
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Item>()
@@ -39,11 +38,11 @@ namespace TD.WareHouse.DemoApp.Core.Infrastructure.Context
             modelBuilder.Entity<Location>()
                 .HasKey(i => i.LocationId);
 
-            modelBuilder.Entity<GoodsIssue>()
-                .HasKey(i => i.GoodsIssueId);
-
             modelBuilder.Entity<GoodsReceipt>()
                 .HasKey(i => i.GoodsReceiptId);
+
+            modelBuilder.Entity<GoodsIssue>()
+               .HasKey(i => i.Receiver);
         }
     }
 }

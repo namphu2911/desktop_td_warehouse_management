@@ -10,6 +10,11 @@
              d:DesignHeight="750" d:DesignWidth="1100"
              Background="{StaticResource ColorBackground}"
              Padding="10">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <prism:InvokeCommandAction Command="{Binding LoadStockCardViewCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <materialDesign:DialogHost CloseOnClickAway="True" IsOpen="{Binding IsErrorMessageShowed}">
         <materialDesign:DialogHost.DialogContent>
             <Components:ErrorMessage Message="{Binding ErrorMessage}"/>
@@ -48,9 +53,8 @@
                       Margin="10"
                       materialDesign:HintAssist.Hint="Kho hàng"
                       Style="{StaticResource ComboBox}"
-                      ItemsSource="{Binding WarehouseNames}"
-                      Text="{Binding WarehouseName}">
-
+                      ItemsSource="{Binding WarehouseIds}"
+                      Text="{Binding WarehouseId}">
                             <ComboBox.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <VirtualizingStackPanel />
@@ -69,8 +73,6 @@
                       Style="{StaticResource ComboBox}"
                       ItemsSource="{Binding ItemIds}"
                       Text="{Binding ItemId}">
-
-
                             <ComboBox.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <VirtualizingStackPanel />
@@ -89,8 +91,6 @@
                       Style="{StaticResource ComboBox}"
                       ItemsSource="{Binding ItemNames}"
                       Text="{Binding ItemName}">
-
-
                             <ComboBox.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <VirtualizingStackPanel />

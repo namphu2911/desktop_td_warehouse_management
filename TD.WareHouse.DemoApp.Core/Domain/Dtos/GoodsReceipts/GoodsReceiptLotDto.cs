@@ -14,14 +14,14 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Dtos.GoodsReceipts
         public string? LocationId { get; private set; }
         public double Quantity { get; private set; }
         public double? SublotSize { get; private set; }
-        public string? PurchaseOrderNumber { get; private set; }
+        public string PurchaseOrderNumber { get; private set; }
         public DateTime? ProductionDate { get; private set; }
         public DateTime? ExpirationDate { get; private set; }
         public string? Note { get; private set; }
         public EmployeeDto Employee { get; private set; }
         public ItemDto Item { get; private set; }
         public string Unit { get; private set; }
-        public GoodsReceiptLotDto(string goodsReceiptLotId, string? locationId, double quantity, double? sublotSize, string? purchaseOrderNumber, DateTime? productionDate, DateTime? expirationDate, string? note, EmployeeDto employee, ItemDto item, string unit)
+        public GoodsReceiptLotDto(string goodsReceiptLotId, string? locationId, double quantity, double? sublotSize, string purchaseOrderNumber, DateTime? productionDate, DateTime? expirationDate, string note, EmployeeDto employee, ItemDto item, string unit)
         {
             GoodsReceiptLotId = goodsReceiptLotId;
             LocationId = locationId;

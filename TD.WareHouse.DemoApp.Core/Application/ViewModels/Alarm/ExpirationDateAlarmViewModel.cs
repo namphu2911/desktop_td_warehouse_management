@@ -36,7 +36,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.Alarm
             try
             {
                 var dtos = await _apiService.GetExpirationDateAlarmEntriesAsync(TimeLeft);
-                var entries = _mapper.Map<IEnumerable<ItemDto>, IEnumerable<EntryForExpirationDateAlarmViewModel>>(dtos);
+                var entries = _mapper.Map<IEnumerable<ItemLotDto>, IEnumerable<EntryForExpirationDateAlarmViewModel>>(dtos);
                 Entries = new(entries);
             }
             catch (HttpRequestException)

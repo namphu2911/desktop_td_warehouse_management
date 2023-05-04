@@ -24,7 +24,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Warehouse>> FilterWarehousesByName(string warehouseName)
+        public Task<IEnumerable<Warehouse>> FilterWarehousesByName(string warehouseId)
         {
             throw new NotImplementedException();
         }

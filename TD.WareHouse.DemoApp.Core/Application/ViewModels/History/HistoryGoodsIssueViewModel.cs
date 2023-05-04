@@ -56,17 +56,18 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.History
                 OnPropertyChanged(nameof(ItemId));
             }
         }
-        public string WarehouseName { get; set; } = "";
+        public string WarehouseId { get; set; } = "";
         public string Receiver { get; set; } = "";
         public string PurchaseOrderNumber { get; set; } = "";
         public ObservableCollection<HistoryGoodsIssueLotViewModel> HistoryGoodsIssueLots { get; set; } = new();
         public ObservableCollection<string> ItemIds => _itemStore.ItemIds;
         public ObservableCollection<string> ItemNames => _itemStore.ItemNames;
-        public ObservableCollection<string> WarehouseNames => _warehouseStore.WarehouseNames;
+        public ObservableCollection<string> WarehouseIds => _warehouseStore.WarehouseIds;
         public ObservableCollection<string> PurchaseOrderNumbers => _itemLotStore.PurchaseOrderNumbers;
         public ObservableCollection<string> Receivers => _goodsIssueStore.Receivers;
 
         public ICommand LoadHistoryGoodsIssueLotCommand { get; set; }
+        public ICommand LoadHistoryGoodsIssueViewCommand { get; set; }
         public HistoryGoodsIssueViewModel(IApiService apiService, IMapper mapper, ItemStore itemStore, ItemLotStore itemLotStore, WarehouseStore warehouseStore, GoodsIssueStore goodsIssueStore)
         {
             _apiService = apiService;
@@ -77,16 +78,36 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.History
             _goodsIssueStore = goodsIssueStore;
 
             LoadHistoryGoodsIssueLotCommand = new RelayCommand(LoadHistoryGoodsIssueLot);
+            LoadHistoryGoodsIssueViewCommand = new RelayCommand(LoadHistoryGoodsIssueView);
         }
 
+        private void LoadHistoryGoodsIssueView()
+        {
+            OnPropertyChanged(nameof(WarehouseIds));
+            OnPropertyChanged(nameof(ItemIds));
+            OnPropertyChanged(nameof(ItemNames));
+            OnPropertyChanged(nameof(PurchaseOrderNumbers));
+            OnPropertyChanged(nameof(Receivers));
+        }
         private async void LoadHistoryGoodsIssueLot()
         {
             try
             {
-                var historyGoodsIssueLots = await _apiService.GetHistoryGoodsIssueLotsAsync(WarehouseName, ItemId, ItemName, StartDate, EndDate, Receiver, PurchaseOrderNumber);
-
-                var viewModels = _mapper.Map<IEnumerable<GoodsIssueDto>, IEnumerable<HistoryGoodsIssueLotViewModel>>(historyGoodsIssueLots);
-                HistoryGoodsIssueLots = new(viewModels);
+                var historyGoodsIssueLots = await _apiService.GetHistoryGoodsIssueLotsAsync(WarehouseId, ItemId, ItemName, StartDate, EndDate, Receiver, PurchaseOrderNumber);
+                var viewModels = historyGoodsIssueLots.SelectMany(g =>
+                                                      g.Entries.SelectMany(gi =>
+                                                        gi.Lots.Select(gie =>
+                                                            new HistoryGoodsIssueLotViewModel(
+                                                                g.Receiver,
+                                                                g.PurchaseOrderNumber,
+                                                                gi.Item.ItemClass.ItemClassId,
+                                                                gi.Item.ItemId,
+                                                                gi.Item.ItemName,
+                                                                gi.Item.Unit,
+                                                                gie.GoodsIssueLotId,
+                                                                gie.Quantity,
+                                                                gie.Note))));
+                HistoryGoodsIssueLots = new ObservableCollection<HistoryGoodsIssueLotViewModel>(viewModels);
             }
             catch (HttpRequestException)
             {

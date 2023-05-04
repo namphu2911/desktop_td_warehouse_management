@@ -20,11 +20,17 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.Isolation
         public double Quantity { get; set; }
         public string PurchaseOrderNumber { get; set; }
         public string LocationId { get; set; }
-        public string Note { get; set; }
         public ICommand IssueCommand { get; set; }
         public ICommand ReceiveCommand { get; set; }
         public event Action? OnRemoved;
-        public FixIsolationViewModel(IApiService apiService, string itemId, string itemName, string unit, string lotId, double quantity, string purchaseOrderNumber, string locationId,  string note)
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        public FixIsolationViewModel()
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        {
+            IssueCommand = new RelayCommand(IssueAsync);
+            ReceiveCommand = new RelayCommand(ReceiveAsync);
+        }
+        public FixIsolationViewModel(IApiService apiService, string itemId, string itemName, string unit, string lotId, double quantity, string purchaseOrderNumber, string locationId)
         {
             _apiService = apiService;
             ItemId = itemId;
@@ -34,7 +40,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.Isolation
             Quantity = quantity;
             PurchaseOrderNumber = purchaseOrderNumber;
             LocationId = locationId;
-            Note = note;
+            
 
             IssueCommand = new RelayCommand(IssueAsync);
             ReceiveCommand = new RelayCommand(ReceiveAsync);

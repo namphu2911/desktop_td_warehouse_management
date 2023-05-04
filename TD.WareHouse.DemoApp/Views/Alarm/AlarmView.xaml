@@ -19,7 +19,7 @@
                         <TextBlock Style="{StaticResource HeaderText}" Text="CẢNH BÁO HSD"/>
                     </TextBlock>
                 </TabItem.Header>
-                <view:ExpirationDateAlarmView DataContext="{Binding ExpirationDateAlarmViewModel}"/>
+                <view:ExpirationDateAlarmView DataContext="{Binding ExpiryDateAlarmViewModel}"/>
             </TabItem>
 
             <TabItem Height="55" MaxWidth="800" Background="Red">

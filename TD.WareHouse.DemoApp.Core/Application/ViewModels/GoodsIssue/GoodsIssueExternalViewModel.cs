@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using TD.WareHouse.DemoApp.Core.Application.ViewModels.Seedwork;
+using TD.WareHouse.DemoApp.Core.Domain.Dtos.GoodsIssues;
 using TD.WareHouse.DemoApp.Core.Domain.Exceptions;
 using TD.WareHouse.DemoApp.Core.Domain.Services;
 using GoodsIssuesModels = TD.WareHouse.DemoApp.Core.Domain.Models.GoodIssues;
@@ -20,7 +21,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
         private readonly IApiService _apiService;
 
         private GoodsIssueExternalToCreateViewModel? selectedGoodsIssue;
-        private List<GoodsIssuesModels.GoodsIssue> goodsIssues = new();
+        private List<GoodsIssueDto> goodsIssues = new();
 
         public DateTime Date { get; set; } = DateTime.Now;
         public string FilePath { get; set; } = "";
@@ -90,10 +91,10 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
             try
             {
                 var requests = _excelReader.ReadExportRequests(FilePath, Date);
-                List<GoodsIssuesModels.GoodsIssue> newGoodsIssues = new();
+                List<GoodsIssueDto> newGoodsIssues = new();
                 try
                 {
-                    newGoodsIssues = await _converter.ConvertAsync(requests);
+                    //newGoodsIssues = await _converter.ConvertAsync(requests);
                 }
                 catch (EntityNotFoundException e)
                 {

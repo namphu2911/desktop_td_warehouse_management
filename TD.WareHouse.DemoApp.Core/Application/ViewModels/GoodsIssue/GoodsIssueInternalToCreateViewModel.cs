@@ -22,7 +22,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
         public string EmployeeName { get; set; }
         public string Receiver { get; set; }
 
-        public List<GoodsIssueEntry> Entries;
+        public List<GoodsIssueEntryDto> Entries { get; set; }
 
         public ICommand CreateCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
@@ -30,7 +30,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
         public event EventHandler? GoodsIssueCreated;
         public event EventHandler? GoodsIssueDeleted;
 
-        public GoodsIssueInternalToCreateViewModel(IApiService apiService, string goodsIssueId, string employeeId, string employeeName, string receiver, List<GoodsIssueEntry> entries)
+        public GoodsIssueInternalToCreateViewModel(IApiService apiService, string goodsIssueId, string employeeId, string employeeName, string receiver, List<GoodsIssueEntryDto> entries)
         {
             _apiService = apiService;
             GoodsIssueId = goodsIssueId;

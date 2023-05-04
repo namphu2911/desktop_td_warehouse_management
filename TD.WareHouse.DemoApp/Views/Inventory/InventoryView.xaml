@@ -33,9 +33,6 @@
                           AutoGenerateColumns="False"
                           SelectionUnit="FullRow"
                           SelectionMode="Single">
-                    <TextBlock Text="NamPhu">
-
-                    </TextBlock>
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Mã lô" Width="*" Binding="{Binding LotId}"/>
                         <DataGridTextColumn Header="Mã sản phẩm" Width="*" Binding="{Binding ItemId}"/>

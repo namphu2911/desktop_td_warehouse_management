@@ -93,23 +93,23 @@
                 </Grid>
 
                 <StackPanel Grid.Column="1"
-                    Width="85"
-                    VerticalAlignment="Center">
+                            Width="85"
+                            VerticalAlignment="Center">
                     <Button Style="{StaticResource ButtonSecondary}"
-                    Height="22"
-                    Margin="0 2">
+                            Height="22"
+                            Margin="0 2">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
                                 <prism:InvokeCommandAction Command="{Binding DeleteCommand}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                         <TextBlock Style="{StaticResource ComponentFieldLabel}">
-                    Xoá
+                        Xoá
                         </TextBlock>
                     </Button>
                     <Button Style="{StaticResource MaterialDesignRaisedButton}"
-                    Height="22"
-                    Margin="0 2">
+                            Height="22"
+                            Margin="0 2">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
                                 <prism:InvokeCommandAction Command="{Binding CreateCommand}" />

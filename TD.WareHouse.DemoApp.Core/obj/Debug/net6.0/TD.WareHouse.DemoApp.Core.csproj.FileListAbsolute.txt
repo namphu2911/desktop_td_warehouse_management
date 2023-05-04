@@ -1,11 +1,11 @@
-C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp.Core\bin\Debug\net6.0\TD.WareHouse.DemoApp.Core.deps.json
-C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp.Core\bin\Debug\net6.0\TD.WareHouse.DemoApp.Core.dll
-C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp.Core\bin\Debug\net6.0\TD.WareHouse.DemoApp.Core.pdb
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp.Core\obj\Debug\net6.0\TD.WareHouse.DemoApp.Core.csproj.AssemblyReference.cache
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp.Core\obj\Debug\net6.0\TD.WareHouse.DemoApp.Core.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp.Core\obj\Debug\net6.0\TD.WareHouse.DemoApp.Core.AssemblyInfoInputs.cache
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp.Core\obj\Debug\net6.0\TD.WareHouse.DemoApp.Core.AssemblyInfo.cs
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp.Core\obj\Debug\net6.0\TD.WareHouse.DemoApp.Core.csproj.CoreCompileInputs.cache
+C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp.Core\bin\Debug\net6.0\TD.WareHouse.DemoApp.Core.deps.json
+C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp.Core\bin\Debug\net6.0\TD.WareHouse.DemoApp.Core.dll
+C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp.Core\bin\Debug\net6.0\TD.WareHouse.DemoApp.Core.pdb
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp.Core\obj\Debug\net6.0\TD.WareHouse.DemoApp.Core.csproj.Fody.CopyLocal.cache
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp.Core\obj\Debug\net6.0\TD.WareHouse.DemoApp.Core.csproj.Fody.RuntimeCopyLocal.cache
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp.Core\obj\Debug\net6.0\TD.WareHouse.DemoApp.Core.dll

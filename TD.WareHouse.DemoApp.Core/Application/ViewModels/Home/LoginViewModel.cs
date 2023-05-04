@@ -27,8 +27,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.Home
             _authenticationService = authenticationService;
             _databaseSynchronizationService = databaseSynchronizationService;
 
-            LoginCommand = new RelayCommand(Login)
-            ;
+            LoginCommand = new RelayCommand(Login);
         }
 
         private async void Login()
@@ -45,11 +44,9 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.Home
             await Task.WhenAll(
                 _databaseSynchronizationService.SynchronizeItemsData(),
                 _databaseSynchronizationService.SynchronizeItemLotsData(),
-                _databaseSynchronizationService.SynchronizeLocationsData(),
                 _databaseSynchronizationService.SynchronizeWarehousesData(),
                 _databaseSynchronizationService.SynchronizeGoodReceiptsData(),
                 _databaseSynchronizationService.SynchronizeGoodIssuesData()
-
                 );
         }
     }

@@ -52,11 +52,11 @@
                         <DataGridTextColumn Header="Số lượng" Width="*" Binding="{Binding Quantity}"/>
                         <DataGridTextColumn Header="Mã PO" Width="*" Binding="{Binding PurchaseOrderNumber}"/>
                         <DataGridTextColumn Header="Vị trí" Width="*" Binding="{Binding LocationId}"/>
-                        <DataGridTextColumn Header="Ghi chú" Width="*" Binding="{Binding ??}"/>
+                        <DataGridTextColumn Header="Ghi chú" Width="*" Binding="{Binding}"/>
                         <DataGridTemplateColumn Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
+                                    <StackPanel Orientation="Vertical">
                                         <Button Margin="5" Style="{StaticResource ButtonSecondary}">
                                             <i:Interaction.Triggers>
                                                 <i:EventTrigger EventName="Click">

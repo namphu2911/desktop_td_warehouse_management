@@ -15,10 +15,10 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.History
         public string ItemName { get; set; }
         public string Unit { get; set; }
         public string GoodsIssueLotId { get; set; }
-        public string Quantity { get; set; }
-        public string? PurchaseOrderNumber { get; set; }
+        public double Quantity { get; set; }
+        public string PurchaseOrderNumber { get; set; }
         public string Note { get; set; }
-        public HistoryGoodsIssueLotViewModel(string itemClassId, string receiver, string itemId, string itemName, string unit, string goodsIssueLotId, string quantity, string? purchaseOrderNumber, string note)
+        public HistoryGoodsIssueLotViewModel(string receiver, string purchaseOrderNumber, string itemClassId,  string itemId, string itemName, string unit, string goodsIssueLotId, double quantity, string note)
         {
             ItemClassId = itemClassId;
             Receiver = receiver;

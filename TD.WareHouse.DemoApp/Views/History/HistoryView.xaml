@@ -19,7 +19,7 @@
                         <TextBlock Style="{StaticResource HeaderText}" Text="LỊCH SỬ NHẬP KHO"/>
                     </TextBlock>
                 </TabItem.Header>
-                <view:HistoryGoodsReceiptView DataContext="{Binding HistoryGoodsReceiptViewModel}"/>
+                <view:HistoryGoodsReceiptView DataContext="{Binding HistoryGoodsReceipt}"/>
             </TabItem>
 
             <TabItem Height="55" MaxWidth="800" Background="Red">
@@ -28,7 +28,7 @@
                         <TextBlock Style="{StaticResource HeaderText}" Text="LỊCH SỬ XUẤT KHO"/>
                     </TextBlock>
                 </TabItem.Header>
-                <view:HistoryGoodsIssueView DataContext="{Binding HistoryGoodsIssueViewModel}"/>
+                <view:HistoryGoodsIssueView DataContext="{Binding HistoryGoodsIssue}"/>
             </TabItem>
         </TabControl>
 

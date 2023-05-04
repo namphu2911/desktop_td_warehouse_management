@@ -9,20 +9,14 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Models.GoodIssues
 {
     public class GoodsIssue
     {
-        public string GoodsIssueId { get; set; }
-        public string? PurchaseOrderNumber { get; set; }
-        public DateTime Timestamp { get; set; }
         public string Receiver { get; set; }
-        public Employee Employee { get; set; }        
-        public List<GoodsIssueEntry> Entries { get; set; }
-        public GoodsIssue(string goodsIssueId, string? purchaseOrderNumber, DateTime timestamp, string receiver, Employee employee, List<GoodsIssueEntry> entries)
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        private GoodsIssue() { }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+
+        public GoodsIssue(string receiver)
         {
-            GoodsIssueId = goodsIssueId;
-            PurchaseOrderNumber = purchaseOrderNumber;
-            Timestamp = timestamp;
             Receiver = receiver;
-            Employee = employee;
-            Entries = entries;
         }
     }
 }
