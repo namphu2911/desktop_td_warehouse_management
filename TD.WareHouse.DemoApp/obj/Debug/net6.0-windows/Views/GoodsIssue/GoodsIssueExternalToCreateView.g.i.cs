@@ -69,8 +69,8 @@ namespace TD.WareHouse.DemoApp.Views.GoodsIssue {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/TD.WareHouse.DemoApp;component/views/goodsissue/goodsissueexternaltocreateview.x" +
-                    "aml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/TD.WareHouse.DemoApp;V1.0.0.0;component/views/goodsissue/goodsissueexternaltocre" +
+                    "ateview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\Views\GoodsIssue\GoodsIssueExternalToCreateView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

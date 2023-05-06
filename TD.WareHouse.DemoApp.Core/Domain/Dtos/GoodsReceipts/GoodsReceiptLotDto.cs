@@ -10,18 +10,17 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Dtos.GoodsReceipts
 {
     public class GoodsReceiptLotDto
     {
-        public string GoodsReceiptLotId { get; private set; }
-        public string? LocationId { get; private set; }
-        public double Quantity { get; private set; }
-        public double? SublotSize { get; private set; }
-        public string PurchaseOrderNumber { get; private set; }
-        public DateTime? ProductionDate { get; private set; }
-        public DateTime? ExpirationDate { get; private set; }
-        public string? Note { get; private set; }
-        public EmployeeDto Employee { get; private set; }
-        public ItemDto Item { get; private set; }
-        public string Unit { get; private set; }
-        public GoodsReceiptLotDto(string goodsReceiptLotId, string? locationId, double quantity, double? sublotSize, string purchaseOrderNumber, DateTime? productionDate, DateTime? expirationDate, string note, EmployeeDto employee, ItemDto item, string unit)
+        public string GoodsReceiptLotId { get; set; }
+        public string? LocationId { get; set; }
+        public double Quantity { get; set; }
+        public double? SublotSize { get; set; }
+        public string? PurchaseOrderNumber { get; set; }
+        public DateTime? ProductionDate { get; set; }
+        public DateTime? ExpirationDate { get; set; }
+        public ItemDto Item { get; set; }
+        public EmployeeDto Employee { get; set; }
+        public string? Note { get; set; }
+        public GoodsReceiptLotDto(string goodsReceiptLotId, string? locationId, double quantity, double? sublotSize, string? purchaseOrderNumber, DateTime? productionDate, DateTime? expirationDate, string note, EmployeeDto employee, ItemDto item)
         {
             GoodsReceiptLotId = goodsReceiptLotId;
             LocationId = locationId;
@@ -33,7 +32,6 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Dtos.GoodsReceipts
             Note = note;
             Employee = employee;
             Item = item;
-            Unit = unit;
         }
     }
 }

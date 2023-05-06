@@ -44,13 +44,18 @@ namespace TD.WareHouse.DemoApp.HostBuiders
                 services.AddTransient<HistoryGoodsIssueViewModel>();
 
                 //Inventory
+                services.AddTransient<InventoryNavigationViewModel>();
                 services.AddTransient<InventoryViewModel>();
+                services.AddTransient<InventoryHistoryViewModel>();
                 //Isolation
                 services.AddTransient<IsolationViewModel>();
                 //ShelfManagemrnt
                 services.AddTransient<ShelfManagementViewModel>();
                 //StockCard
+                services.AddTransient<StockCardNavigationViewModel>();
                 services.AddTransient<StockCardViewModel>();
+                services.AddTransient<StockCardExtendedViewModel>();
+
 
 
 

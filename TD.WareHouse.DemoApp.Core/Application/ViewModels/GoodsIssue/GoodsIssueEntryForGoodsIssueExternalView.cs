@@ -10,13 +10,13 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
     {
         public string ItemId { get; set; }
         public string ItemName { get; set; }
-        public double PlannedQuantity { get; set; }
+        public double RequestedQuantity { get; set; }
         public string Unit { get; set; }
-        public GoodsIssueEntryForGoodsIssueExternalView(string itemId, string itemName, double plannedQuantity, string unit)
+        public GoodsIssueEntryForGoodsIssueExternalView(string itemId, string itemName, double requestedQuantity, string unit)
         {
             ItemId = itemId;
             ItemName = itemName;
-            PlannedQuantity = plannedQuantity;
+            RequestedQuantity = requestedQuantity;
             Unit = unit;
         }
     }

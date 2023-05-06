@@ -18,9 +18,10 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
         private readonly IApiService _apiService;
         public string GoodsIssueId { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;
-        public string EmployeeId { get; set; }
         public string EmployeeName { get; set; }
+        public string EmployeeId { get; set; }
         public string Receiver { get; set; }
+        public string PurchaseOrderNumber { get; set; }
 
         public List<GoodsIssueEntryDto> Entries { get; set; }
 
@@ -30,13 +31,14 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
         public event EventHandler? GoodsIssueCreated;
         public event EventHandler? GoodsIssueDeleted;
 
-        public GoodsIssueExternalToCreateViewModel(IApiService apiService, string goodsIssueId, string employeeId, string employeeName, string receiver, List<GoodsIssueEntryDto> entries)
+        public GoodsIssueExternalToCreateViewModel(IApiService apiService, string goodsIssueId, string employeeId, string employeeName, string receiver, string purchaseOrderNumber, List<GoodsIssueEntryDto> entries)
         {
             _apiService = apiService;
             GoodsIssueId = goodsIssueId;
             EmployeeId = employeeId;
             EmployeeName = employeeName;
             Receiver = receiver;
+            PurchaseOrderNumber = purchaseOrderNumber;
             Entries = entries;
 
             CreateCommand = new RelayCommand(ConfirmAsync);
@@ -47,12 +49,15 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
         private async void ConfirmAsync()
         {
             var createDto = new CreateGoodsIssueDto(
-                GoodsIssueId, 
+                GoodsIssueId,
+                Receiver,
+                PurchaseOrderNumber,
                 Date, 
-                EmployeeId,
                 Receiver,
                 Entries.Select(x => new CreateGoodsIssueEntryDto(
                     x.Item.ItemId,
+                    x.Unit,
+                    x.RequestedSublotSize,
                     x.RequestedQuantity)).ToList());
             try
             {

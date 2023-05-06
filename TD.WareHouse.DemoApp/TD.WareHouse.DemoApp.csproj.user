@@ -64,6 +64,12 @@
     <Compile Update="Views\Home\WebViewContainer.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Inventory\InventoryHistoryView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Inventory\InventoryNavigationView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Inventory\InventoryView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -71,6 +77,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\ShelfManagement\ShelfManagementView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\StockCard\StockCardExtendedView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\StockCard\StockCardNavigationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\StockCard\StockCardView.xaml.cs">
@@ -156,6 +168,12 @@
     <Page Update="Views\Home\WebViewContainer.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\Inventory\InventoryHistoryView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Inventory\InventoryNavigationView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\Inventory\InventoryView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -163,6 +181,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\ShelfManagement\ShelfManagementView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\StockCard\StockCardExtendedView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\StockCard\StockCardNavigationView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\StockCard\StockCardView.xaml">

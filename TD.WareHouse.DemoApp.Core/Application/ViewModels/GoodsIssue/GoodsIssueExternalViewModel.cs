@@ -1,16 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using TD.WareHouse.DemoApp.Core.Application.ViewModels.Seedwork;
 using TD.WareHouse.DemoApp.Core.Domain.Dtos.GoodsIssues;
 using TD.WareHouse.DemoApp.Core.Domain.Exceptions;
 using TD.WareHouse.DemoApp.Core.Domain.Services;
-using GoodsIssuesModels = TD.WareHouse.DemoApp.Core.Domain.Models.GoodIssues;
 
 namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
 {
@@ -120,6 +114,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
                             x.Employee.EmployeeId,
                             x.Employee.EmployeeName,
                             x.Receiver,
+                            x.PurchaseOrderNumber,
                             x.Entries)));
 
                     foreach (var goodsIssueViewModel in GoodsIssues)

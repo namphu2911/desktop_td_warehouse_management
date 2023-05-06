@@ -27,6 +27,9 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.History
         public DateTime EndDate { get; set; } = DateTime.Now.Date;
         private string itemId = "";
         private string itemName = "";
+        private string warehouseId = "";
+        private string receiver = "";
+        private string purchaseOrderNumber = "";
 
         public string ItemId
         {
@@ -56,16 +59,52 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.History
                 OnPropertyChanged(nameof(ItemId));
             }
         }
-        public string WarehouseId { get; set; } = "";
-        public string Receiver { get; set; } = "";
-        public string PurchaseOrderNumber { get; set; } = "";
+        public string WarehouseId
+        {
+            get
+            {
+                return warehouseId;
+            }
+            set
+            {
+                warehouseId = value;
+                OnPropertyChanged();
+            }
+        }
+        public string Receiver
+        {
+            get
+            {
+                return receiver;
+            }
+            set
+            {
+                receiver = value;
+                OnPropertyChanged();
+            }
+        }
+        public string PurchaseOrderNumber
+        {
+            get
+            {
+                return purchaseOrderNumber;
+            }
+            set
+            {
+                purchaseOrderNumber = value;
+                OnPropertyChanged(nameof(PurchaseOrderNumber));
+            }
+        }
         public ObservableCollection<HistoryGoodsIssueLotViewModel> HistoryGoodsIssueLots { get; set; } = new();
         public ObservableCollection<string> ItemIds => _itemStore.ItemIds;
         public ObservableCollection<string> ItemNames => _itemStore.ItemNames;
         public ObservableCollection<string> WarehouseIds => _warehouseStore.WarehouseIds;
         public ObservableCollection<string> PurchaseOrderNumbers => _itemLotStore.PurchaseOrderNumbers;
         public ObservableCollection<string> Receivers => _goodsIssueStore.Receivers;
-
+        public bool ButtonEnable => (!String.IsNullOrEmpty(PurchaseOrderNumber) && String.IsNullOrEmpty(WarehouseId) && String.IsNullOrEmpty(ItemId) && String.IsNullOrEmpty(ItemName) && String.IsNullOrEmpty(Receiver))
+            || (!String.IsNullOrEmpty(Receiver) && String.IsNullOrEmpty(WarehouseId) && String.IsNullOrEmpty(ItemId) && String.IsNullOrEmpty(ItemName) && String.IsNullOrEmpty(PurchaseOrderNumber))
+            || (!String.IsNullOrEmpty(ItemId) && String.IsNullOrEmpty(WarehouseId) && String.IsNullOrEmpty(Receiver) && String.IsNullOrEmpty(PurchaseOrderNumber))
+            || (!String.IsNullOrEmpty(WarehouseId) && String.IsNullOrEmpty(Receiver) && String.IsNullOrEmpty(ItemId) && String.IsNullOrEmpty(ItemName) && String.IsNullOrEmpty(PurchaseOrderNumber));
         public ICommand LoadHistoryGoodsIssueLotCommand { get; set; }
         public ICommand LoadHistoryGoodsIssueViewCommand { get; set; }
         public HistoryGoodsIssueViewModel(IApiService apiService, IMapper mapper, ItemStore itemStore, ItemLotStore itemLotStore, WarehouseStore warehouseStore, GoodsIssueStore goodsIssueStore)
@@ -88,26 +127,70 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.History
             OnPropertyChanged(nameof(ItemNames));
             OnPropertyChanged(nameof(PurchaseOrderNumbers));
             OnPropertyChanged(nameof(Receivers));
+            OnPropertyChanged(nameof(ButtonEnable));
         }
         private async void LoadHistoryGoodsIssueLot()
         {
             try
             {
-                var historyGoodsIssueLots = await _apiService.GetHistoryGoodsIssueLotsAsync(WarehouseId, ItemId, ItemName, StartDate, EndDate, Receiver, PurchaseOrderNumber);
-                var viewModels = historyGoodsIssueLots.SelectMany(g =>
-                                                      g.Entries.SelectMany(gi =>
-                                                        gi.Lots.Select(gie =>
-                                                            new HistoryGoodsIssueLotViewModel(
-                                                                g.Receiver,
-                                                                g.PurchaseOrderNumber,
-                                                                gi.Item.ItemClass.ItemClassId,
-                                                                gi.Item.ItemId,
-                                                                gi.Item.ItemName,
-                                                                gi.Item.Unit,
-                                                                gie.GoodsIssueLotId,
-                                                                gie.Quantity,
-                                                                gie.Note))));
-                HistoryGoodsIssueLots = new ObservableCollection<HistoryGoodsIssueLotViewModel>(viewModels);
+                if(!String.IsNullOrEmpty(PurchaseOrderNumber) && String.IsNullOrEmpty(WarehouseId) && String.IsNullOrEmpty(ItemId) && String.IsNullOrEmpty(ItemName) && String.IsNullOrEmpty(Receiver))
+                {
+                    var historyGoodsIssueLots = await _apiService.GetHistoryGoodsIssueLotsPOAsync(PurchaseOrderNumber);
+                    var viewModels = historyGoodsIssueLots.SelectMany(g =>
+                                                          g.Entries.SelectMany(gi =>
+                                                            gi.Lots.Select(gie =>
+                                                                new HistoryGoodsIssueLotViewModel(
+                                                                    g.Receiver,
+                                                                    g.PurchaseOrderNumber,
+                                                                    gi.Item.ItemClassId,
+                                                                    gi.Item.ItemId,
+                                                                    gi.Item.ItemName,
+                                                                    gi.Item.Unit,
+                                                                    gie.GoodsIssueLotId,
+                                                                    gie.Quantity,
+                                                                    gie.Note))));
+                    HistoryGoodsIssueLots = new ObservableCollection<HistoryGoodsIssueLotViewModel>(viewModels);
+                }
+                else
+                    if (!String.IsNullOrEmpty(Receiver) && String.IsNullOrEmpty(WarehouseId) && String.IsNullOrEmpty(ItemId) && String.IsNullOrEmpty(ItemName) && String.IsNullOrEmpty(PurchaseOrderNumber))
+                {
+                    var historyGoodsIssueLots = await _apiService.GetHistoryGoodsIssueLotsReceiverAsync(StartDate, EndDate, Receiver);
+                    var viewModels = historyGoodsIssueLots.SelectMany(g =>
+                                                          g.Entries.SelectMany(gi =>
+                                                            gi.Lots.Select(gie =>
+                                                                new HistoryGoodsIssueLotViewModel(
+                                                                    g.Receiver,
+                                                                    g.PurchaseOrderNumber,
+                                                                    gi.Item.ItemClassId,
+                                                                    gi.Item.ItemId,
+                                                                    gi.Item.ItemName,
+                                                                    gi.Item.Unit,
+                                                                    gie.GoodsIssueLotId,
+                                                                    gie.Quantity,
+                                                                    gie.Note))));
+                    HistoryGoodsIssueLots = new ObservableCollection<HistoryGoodsIssueLotViewModel>(viewModels);
+                }
+                else
+                    if((!String.IsNullOrEmpty(ItemId) && String.IsNullOrEmpty(WarehouseId) && String.IsNullOrEmpty(Receiver) && String.IsNullOrEmpty(PurchaseOrderNumber))
+                    || (!String.IsNullOrEmpty(WarehouseId) && String.IsNullOrEmpty(Receiver) && String.IsNullOrEmpty(ItemId) && String.IsNullOrEmpty(ItemName) && String.IsNullOrEmpty(PurchaseOrderNumber)))
+                {
+                    var historyGoodsIssueLots = await _apiService.GetHistoryGoodsIssueLotsAsync(WarehouseId, ItemId, StartDate, EndDate);
+                    var viewModels = historyGoodsIssueLots.SelectMany(g =>
+                                                          g.Entries.SelectMany(gi =>
+                                                            gi.Lots.Select(gie =>
+                                                                new HistoryGoodsIssueLotViewModel(
+                                                                    g.Receiver,
+                                                                    g.PurchaseOrderNumber,
+                                                                    gi.Item.ItemClassId,
+                                                                    gi.Item.ItemId,
+                                                                    gi.Item.ItemName,
+                                                                    gi.Item.Unit,
+                                                                    gie.GoodsIssueLotId,
+                                                                    gie.Quantity,
+                                                                    gie.Note))));
+                    HistoryGoodsIssueLots = new ObservableCollection<HistoryGoodsIssueLotViewModel>(viewModels);
+                }
+                
             }
             catch (HttpRequestException)
             {

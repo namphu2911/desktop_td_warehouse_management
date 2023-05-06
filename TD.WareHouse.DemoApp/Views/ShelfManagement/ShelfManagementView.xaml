@@ -196,7 +196,6 @@
                             <DataGridTextColumn Header="Mã lô" Binding="{Binding LotId}" Width="*"/>
                             <DataGridTextColumn Header="Lượng" Binding="{Binding Quantity}" Width="*"/>
                             <DataGridTextColumn Header="PO" Binding="{Binding PurchaseOrderNumber}" Width="*"/>
-                            <DataGridTextColumn Header="Ngày nhập" Binding="{Binding ??}" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </materialDesign:Card>

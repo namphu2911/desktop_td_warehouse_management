@@ -12,40 +12,26 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.StockCard
         public string ItemId { get; set; }
         public string ItemName { get; set; }
         public string Unit { get; set; }
-        public string LotId { get; set; }
-        public double BeforeQuantity { get; set; }
-        public double ChangedQuantity { get; set; }
-        public double ReceiptQuantity
-        {
-            get
-            {
-                if (ChangedQuantity > 0)
-                    return ChangedQuantity;
-                else
-                    return 0;
-            }
-        }
-
-        public double IssueQuantity
-        {
-            get
-            {
-                if (ChangedQuantity < 0)
-                    return ChangedQuantity;
-                else
-                    return 0;
-            }
-        }
-        public double AfterQuantity => BeforeQuantity + ChangedQuantity;
         public double MinimumStockLevel { get; set; }
         public string ItemClassId { get; set; }
-        public StockCardEntryViewModel(string itemId, string itemName, string unit, string lotId, double beforeQuantity, double changedQuantity, double minimumStockLevel, string itemClassId)
+        public string LotId { get; set; }
+        public DateTime Timestamp { get; set; }
+        public double ChangedQuantity { get; set; }
+        public double ReceiptQuantity => (ChangedQuantity > 0) ? ChangedQuantity : 0;
+        public double IssueQuantity => (ChangedQuantity < 0) ? -ChangedQuantity : 0;
+        
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        public StockCardEntryViewModel()
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        {
+        }
+            public StockCardEntryViewModel(string itemId, string itemName, string unit, string lotId, DateTime timestamp, double changedQuantity, double minimumStockLevel, string itemClassId)
         {
             ItemId = itemId;
             ItemName = itemName;
             Unit = unit;
             LotId = lotId;
-            BeforeQuantity = beforeQuantity;
+            Timestamp = timestamp;
             ChangedQuantity = changedQuantity;
             MinimumStockLevel = minimumStockLevel;
             ItemClassId = itemClassId;

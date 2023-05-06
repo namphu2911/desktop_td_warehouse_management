@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using TD.WareHouse.DemoApp.Core.Application.Store;
 using TD.WareHouse.DemoApp.Core.Application.ViewModels.Seedwork;
 using TD.WareHouse.DemoApp.Core.Domain.Dtos.GoodsIssues;
 using TD.WareHouse.DemoApp.Core.Domain.Services;
@@ -16,14 +17,20 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
     public class GoodsIssueProgressViewModel : BaseViewModel
     {
         private readonly IApiService _apiService;
-        private List<GoodsIssueDto> goodsIssues = new();
+        private List<GoodsIssueDto> goodsIssueByIds = new();
+        private List<GoodsIssueDto> goodsIssueByTimes = new();
+        private List<GoodsIssueDto> goodsIssuesTotal = new();
         private PendingGoodsIssueViewModel? selectedGoodsIssue;
+        //
+        private readonly GoodsIssueStore _goodsIssueStore;
+        public ObservableCollection<string> GoodsIssueIds => _goodsIssueStore.GoodsIssueIds;
+        public string GoodsIssueId { get; set; } = "";
+        //
         public DateTime StartDate { get; set; } = DateTime.Today.AddDays(-7);
         public DateTime EndDate { get; set; } = DateTime.Today;
-        public string GoodsIssueId { get; set; } = "";
-        public ObservableCollection<PendingGoodsIssueViewModel> GoodsIssues { get; set; } = new();
-        public ObservableCollection<GoodsIssueEntryForGoodsIssueProgressView> Entries { get; set; } = new();
-
+        public ObservableCollection<PendingGoodsIssueViewModel> GoodsIssueByIds { get; set; } = new();
+        public ObservableCollection<PendingGoodsIssueViewModel> GoodsIssueByTimes { get; set; } = new();
+        public ObservableCollection<GoodsIssueLotForGoodsIssueProgressViewModel> Lots { get; set; } = new();
 
         public PendingGoodsIssueViewModel? SelectedGoodsIssue
         {
@@ -33,22 +40,26 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
                 selectedGoodsIssue = value;
                 if (selectedGoodsIssue is not null)
                 {
-                    var goodsIssue = goodsIssues.First(g => g.GoodsIssueId == selectedGoodsIssue.GoodsIssueId);
-                    var containerViewModels = goodsIssue.Entries.Select(c => new GoodsIssueEntryForGoodsIssueProgressView(
-                    _apiService,
-                    c.Item.ItemClass.ItemClassId,
-                    c.Item.ItemId,
-                    c.Item.ItemName,
-                    c.Item.Unit,
-                    c.Lots.Select(e => new GoodsIssueEntryLotForGoodsIssueProgressView(
-                        e.GoodsIssueLotId)).ToList(),
-                    c.RequestedQuantity,
-                    goodsIssue.PurchaseOrderNumber,
-                    goodsIssue.Receiver,
-                    goodsIssue.Employee.EmployeeName));
-
-                    Entries = new(containerViewModels);
-
+                    foreach (var goodIssue in goodsIssueByIds)
+                    {
+                        goodsIssuesTotal.Add(goodIssue);
+                    }
+                    foreach (var goodIssue in goodsIssueByTimes)
+                    {
+                        goodsIssuesTotal.Add(goodIssue);
+                    }
+                    var goodsIssue = goodsIssuesTotal.First(g => g.GoodsIssueId == selectedGoodsIssue.GoodsIssueId);
+                    var lotViewModels = goodsIssue.Entries.SelectMany(gi =>
+                                                            gi.Lots.Select(gie =>
+                                                                new GoodsIssueLotForGoodsIssueProgressViewModel(
+                                                                    gi.Item.ItemClassId,
+                                                                    gi.Item.ItemId,
+                                                                    gi.Item.ItemName,
+                                                                    gi.Item.Unit,
+                                                                    gie.GoodsIssueLotId,
+                                                                    gie.Quantity,
+                                                                    goodsIssue.PurchaseOrderNumber)));
+                    Lots = new(lotViewModels);
                 }
             }
         }
@@ -57,56 +68,54 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
         public ICommand LoadIssuingGoodsIssuesCommand { get; set; }
         public ICommand ConfirmCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
-        public GoodsIssueProgressViewModel(IApiService apiService)
+        public ICommand LoadGoodsIssueProgressViewCommand { get; set; }
+        public GoodsIssueProgressViewModel(IApiService apiService, GoodsIssueStore goodsIssueStore)
         {
             _apiService = apiService;
+            _goodsIssueStore = goodsIssueStore;
             LoadIssuedGoodsIssuesCommand = new RelayCommand(LoadIssuedGoodsIssuesAsync);
             LoadIssuingGoodsIssuesCommand = new RelayCommand(LoadIssuingGoodsIssuesAsync);
+
             ConfirmCommand = new RelayCommand(ConfirmAsync);
             DeleteCommand = new RelayCommand(DeleteAsync);
+            LoadGoodsIssueProgressViewCommand = new RelayCommand(LoadGoodsIssueProgressView);
         }
-
+        private void LoadGoodsIssueProgressView()
+        {
+            OnPropertyChanged(nameof(GoodsIssueIds));
+        }
         public async void LoadIssuedGoodsIssuesAsync()
         {
-            var queryResult = (await _apiService.GetIssuedGoodsIssuesAsync(StartDate, EndDate));
-            goodsIssues = queryResult.Items.ToList();
-
-            var goodsIssueViewModels = goodsIssues.Select(g =>
-                new PendingGoodsIssueViewModel(_apiService,
-                                                 g.GoodsIssueId,
+            var goodsIssueByTime = await _apiService.GetIssuedGoodsIssuesAsync(StartDate, EndDate);
+            goodsIssueByTimes = goodsIssueByTime.ToList();
+            var goodsIssueByTimeViewModels = goodsIssueByTime.Select(g =>
+                new PendingGoodsIssueViewModel(g.GoodsIssueId,
                                                  g.Timestamp,
                                                  g.Employee.EmployeeName,
                                                  g.Receiver));
-            GoodsIssues = new ObservableCollection<PendingGoodsIssueViewModel>(goodsIssueViewModels);
-
-            Entries = new();
-
+            GoodsIssueByTimes = new ObservableCollection<PendingGoodsIssueViewModel>(goodsIssueByTimeViewModels);
+            Lots = new();
         }
 
         public async void LoadIssuingGoodsIssuesAsync()
         {
-            var queryResult = (await _apiService.GetIssuingGoodsIssuesAsync(GoodsIssueId));
-            goodsIssues = queryResult.Items.ToList();
-
-            var goodsIssueViewModels = goodsIssues.Select(g =>
-                new PendingGoodsIssueViewModel(_apiService,
-                                                 g.GoodsIssueId,
+            goodsIssueByIds = new();
+            var goodsIssueById = await _apiService.GetIssuingGoodsIssuesAsync(GoodsIssueId);
+            goodsIssueByIds.Add(goodsIssueById);
+            var goodsIssueByIdViewModels = goodsIssueByIds.Select(g =>
+                  new PendingGoodsIssueViewModel(g.GoodsIssueId,
                                                  g.Timestamp,
                                                  g.Employee.EmployeeName,
                                                  g.Receiver));
-            GoodsIssues = new ObservableCollection<PendingGoodsIssueViewModel>(goodsIssueViewModels);
-
-            Entries = new();
-
+            GoodsIssueByIds = new ObservableCollection<PendingGoodsIssueViewModel>(goodsIssueByIdViewModels);
+            Lots = new();
         }
 
         private async void ConfirmAsync()
         {
             try
             {
-                await _apiService.ConfirmGoodsIssueAsync(GoodsIssueId);
-                LoadIssuedGoodsIssuesAsync();
-                LoadIssuingGoodsIssuesAsync();
+                await _apiService.ConfirmGoodsIssueAsync(SelectedGoodsIssue.GoodsIssueId);
             }
             catch (HttpRequestException)
             {
@@ -119,9 +128,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
         {
             try
             {
-                await _apiService.DeleteGoodsIssueAsync(GoodsIssueId);
-                LoadIssuedGoodsIssuesAsync();
-                LoadIssuingGoodsIssuesAsync();
+                await _apiService.DeleteGoodsIssueAsync(SelectedGoodsIssue.GoodsIssueId);
             }
             catch (HttpRequestException)
             {

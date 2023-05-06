@@ -65,7 +65,7 @@
                                                                  FontSize="20"
                                                                  FontWeight="Bold" />
                     </TabItem.Header>
-                    <InventoryView:InventoryView DataContext="{Binding Inventory}"/>
+                    <InventoryView:InventoryNavigationView DataContext="{Binding InventoryNavigation}"/>
                 </TabItem>
 
                 <TabItem Height="50" Width="200" Background="Red">
@@ -87,7 +87,7 @@
                                                                  FontSize="20"
                                                                  FontWeight="Bold" />
                     </TabItem.Header>
-                    <StockCardView:StockCardView DataContext="{Binding StockCard}"/>
+                    <StockCardView:StockCardNavigationView DataContext="{Binding StockCardNavigation}"/>
                 </TabItem>
 
                 <TabItem Height="50" Width="200" Background="Red">

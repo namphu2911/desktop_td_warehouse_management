@@ -1,0 +1,183 @@
+﻿<UserControl x:Class="TD.WareHouse.DemoApp.Views.StockCard.StockCardExtendedView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TD.WareHouse.DemoApp.Views.StockCard"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:Components="clr-namespace:TD.WareHouse.DemoApp.Resources.Components" xmlns:stockcard="clr-namespace:TD.WareHouse.DemoApp.Core.Application.ViewModels.StockCard;assembly=TD.WareHouse.DemoApp.Core" xmlns:i="http://schemas.microsoft.com/xaml/behaviors" d:DataContext="{d:DesignInstance Type=stockcard:StockCardExtendedViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="750" d:DesignWidth="1100"
+             Background="{StaticResource ColorBackground}"
+             Padding="10">
+    
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <prism:InvokeCommandAction Command="{Binding LoadStockCardViewCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <materialDesign:DialogHost CloseOnClickAway="True" IsOpen="{Binding IsErrorMessageShowed}">
+        <materialDesign:DialogHost.DialogContent>
+            <Components:ErrorMessage Message="{Binding ErrorMessage}"/>
+        </materialDesign:DialogHost.DialogContent>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <materialDesign:Card Grid.Row="0" 
+                                     Background="{StaticResource ColorSurface}"
+                                     Margin="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" 
+                       Margin="10"
+                       Style="{StaticResource FieldLabel}" 
+                       Text="Kho hàng"/>
+
+                        <ComboBox Grid.Row="0" Grid.Column="1"
+                      Margin="10"
+                      materialDesign:HintAssist.Hint="Kho hàng"
+                      Style="{StaticResource ComboBox}"
+                      ItemsSource="{Binding WarehouseIds}"
+                      Text="{Binding WarehouseId}">
+                            <ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel />
+                                </ItemsPanelTemplate>
+                            </ComboBox.ItemsPanel>
+                        </ComboBox>
+
+                        <TextBlock Grid.Row="0" Grid.Column="2" 
+                       Margin="10"
+                       Style="{StaticResource FieldLabel}" 
+                       Text="Mã sản phẩm"/>
+
+                        <ComboBox Grid.Row="0" Grid.Column="3"
+                      Margin="10"
+                      materialDesign:HintAssist.Hint="Mã sản phẩm"
+                      Style="{StaticResource ComboBox}"
+                      ItemsSource="{Binding ItemIds}"
+                      Text="{Binding ItemId}">
+                            <ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel />
+                                </ItemsPanelTemplate>
+                            </ComboBox.ItemsPanel>
+                        </ComboBox>
+
+                        <TextBlock Grid.Row="0" Grid.Column="4" 
+                       Margin="10"
+                       Style="{StaticResource FieldLabel}" 
+                       Text="Đơn vị"/>
+
+                        <ComboBox Grid.Row="0" Grid.Column="5"
+                            Margin="10"
+                            materialDesign:HintAssist.Hint="Đơn vị"
+                            Style="{StaticResource ComboBox}"
+                            ItemsSource="{Binding Units}"
+                            Text="{Binding Unit}">
+                            <ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel />
+                                </ItemsPanelTemplate>
+                            </ComboBox.ItemsPanel>
+                        </ComboBox>
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" 
+                       Margin="10"
+                       Style="{StaticResource FieldLabel}"
+                       Text="Ngày bắt đầu"/>
+
+
+                        <DatePicker  Grid.Row="1" Grid.Column="1"
+                         Margin="10"
+                         materialDesign:HintAssist.Hint="Ngày bắt đầu"
+                         Style="{StaticResource DatePicker}"
+                         SelectedDate="{Binding StartDate}"/>
+
+
+                        <TextBlock Grid.Row="1" Grid.Column="2" 
+                       Margin="10"
+                       Style="{StaticResource FieldLabel}" 
+                       Text="Ngày kết thúc"/>
+
+                        <DatePicker Grid.Column="3"
+                         Margin="10,0,10,0"
+                         materialDesign:HintAssist.Hint="Ngày kết thúc"
+                         Style="{StaticResource DatePicker}"
+                         SelectedDate="{Binding EndDate}"/>
+
+                        <Button Grid.Row="0" Grid.Column="6"
+                            Margin="10"
+                            Style="{StaticResource ButtonPrimary}"
+                            Content="Truy xuất"
+                            HorizontalAlignment="Center"
+                            Width="150"
+                            IsEnabled="{Binding ButtonEnable}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding LoadStockCardEntryCommand}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                    </Grid>
+                </Grid>
+                    
+                
+
+            </materialDesign:Card>
+
+            <Grid Grid.Row="1">
+                <materialDesign:Card Grid.Column="1" 
+                                     Background="{StaticResource ColorSurface}"
+                                     Margin="10">
+                    <DataGrid Style="{StaticResource MaterialDesignDataGrid}"
+                          Background="{StaticResource ColorSurface}"
+                          IsReadOnly="True"
+                          ItemsSource="{Binding StockCardEntries}"
+                          AutoGenerateColumns="False"
+                          SelectionUnit="FullRow"
+                          SelectionMode="Single">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Mã kho" Binding="{Binding ItemClassId}" Width="*"/>
+                            <DataGridTextColumn Header="Mã sản phẩm" Binding="{Binding ItemId}" Width="*"/>
+                            <DataGridTextColumn Header="Tên sản phẩm" Binding="{Binding ItemName}" Width="*"/>
+                            <DataGridTextColumn Header="Đơn vị" Binding="{Binding Unit}" Width="*"/>
+                            <DataGridTextColumn Header="Tồn đầu kì" Binding="{Binding BeforeQuantity}" Width="*"/>
+                            <DataGridTextColumn Header="Số lượng nhập" Binding="{Binding ReceivedQuantity}" Width="*"/>
+                            <DataGridTextColumn Header="Số lượng xuất" Binding="{Binding ShippedQuantity}" Width="*"/>
+                            <DataGridTextColumn Header="Tồn cuối kì" Binding="{Binding AfterQuantity}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </materialDesign:Card>
+            </Grid>
+        </Grid>
+    </materialDesign:DialogHost>
+</UserControl>

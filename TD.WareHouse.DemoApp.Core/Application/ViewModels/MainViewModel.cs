@@ -22,12 +22,12 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels
         public GoodsReceiptViewModel GoodsReceipt { get; set; }
         public HistoryViewModel History { get; set; }
         public HomeViewModel Home { get; set; }
-        public InventoryViewModel Inventory { get; set; }
+        public InventoryNavigationViewModel InventoryNavigation { get; set; }
         public IsolationViewModel Isolation { get; set; }
         public ShelfManagementViewModel ShelfManagement { get; set; }
-        public StockCardViewModel StockCard { get; set; }
+        public StockCardNavigationViewModel StockCardNavigation { get; set; }
         public ICommand LoadDataStoreCommand { get; set; }
-        public MainViewModel(IDatabaseSynchronizationService databaseSynchronizationService, AlarmViewModel alarm, GoodsIssueViewModel goodsIssue, GoodsReceiptViewModel goodsReceipt, HistoryViewModel history, HomeViewModel home, InventoryViewModel inventory, IsolationViewModel isolation, ShelfManagementViewModel shelfManagement, StockCardViewModel stockCard)
+        public MainViewModel(IDatabaseSynchronizationService databaseSynchronizationService, AlarmViewModel alarm, GoodsIssueViewModel goodsIssue, GoodsReceiptViewModel goodsReceipt, HistoryViewModel history, HomeViewModel home, InventoryNavigationViewModel inventoryNavigation, IsolationViewModel isolation, ShelfManagementViewModel shelfManagement, StockCardNavigationViewModel stockCardNavigation)
         {
             _databaseSynchronizationService = databaseSynchronizationService;
             Alarm = alarm;
@@ -35,10 +35,10 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels
             GoodsReceipt = goodsReceipt;
             History = history;
             Home = home;
-            Inventory = inventory;
+            InventoryNavigation = inventoryNavigation;
             Isolation = isolation;
             ShelfManagement = shelfManagement;
-            StockCard = stockCard;
+            StockCardNavigation = stockCardNavigation;
             LoadDataStoreCommand = new RelayCommand(LoadDataStoreAsync);
         }
 

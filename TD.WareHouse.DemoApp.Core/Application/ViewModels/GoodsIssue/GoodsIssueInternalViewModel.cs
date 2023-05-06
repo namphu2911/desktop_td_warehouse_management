@@ -120,11 +120,12 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
                     }
                     GoodsIssues = new ObservableCollection<GoodsIssueInternalToCreateViewModel>
                         (goodsIssues.Select(x => new GoodsIssueInternalToCreateViewModel(
-                            _apiService,
+                             _apiService,
                             x.GoodsIssueId,
                             x.Employee.EmployeeId,
                             x.Employee.EmployeeName,
                             x.Receiver,
+                            x.PurchaseOrderNumber,
                             x.Entries)));
 
                     foreach (var goodsIssueViewModel in GoodsIssues)

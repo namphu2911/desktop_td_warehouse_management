@@ -185,10 +185,11 @@
                     Style="{StaticResource ButtonPrimary}"
                     Content="Truy xuất"
                     HorizontalAlignment="Center"
-                    Width="115">
+                    Width="115"
+                    IsEnabled="{Binding ButtonEnable}">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
-                                    <prism:InvokeCommandAction Command="{Binding LoadHistoryGoodsIssueLotCommand}" />
+                                    <i:InvokeCommandAction Command="{Binding LoadHistoryGoodsIssueLotCommand}" />
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </Button>

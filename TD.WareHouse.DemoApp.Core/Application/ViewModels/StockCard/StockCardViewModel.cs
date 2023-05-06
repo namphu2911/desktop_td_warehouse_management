@@ -19,58 +19,19 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.StockCard
         private readonly IApiService _apiService;
         private readonly IMapper _mapper;
         private readonly ItemStore _itemStore;
-        private readonly ItemLotStore _itemLotStore;
-        private readonly WarehouseStore _warehouseStore;
         public DateTime StartDate { get; set; } = DateTime.Now.AddDays(-30).Date;
         public DateTime EndDate { get; set; } = DateTime.Now.Date;
-        private string itemId = "";
-        private string itemName = "";
-
-        public string ItemId
-        {
-            get
-            {
-                return itemId;
-            }
-            set
-            {
-                itemId = value;
-                var item = _itemStore.Items.First(i => i.ItemId == itemId);
-                itemName = item.ItemName;
-                OnPropertyChanged(nameof(ItemName));
-            }
-        }
-        public string ItemName
-        {
-            get
-            {
-                return itemName;
-            }
-            set
-            {
-                itemName = value;
-                var item = _itemStore.Items.First(i => i.ItemName == itemName);
-                itemId = item.ItemId;
-                OnPropertyChanged(nameof(ItemId));
-            }
-        }
-        public string WarehouseId { get; set; } = "";
-        public string PurchaseOrderNumber { get; set; } = "";
+        public string ItemId { get; set; } = "";
         public ObservableCollection<StockCardEntryViewModel> StockCardEntries { get; set; } = new();
         public ObservableCollection<string> ItemIds => _itemStore.ItemIds;
-        public ObservableCollection<string> ItemNames => _itemStore.ItemNames;
-        public ObservableCollection<string> WarehouseIds => _warehouseStore.WarehouseIds;
-        public ObservableCollection<string> PurchaseOrderNumbers => _itemLotStore.PurchaseOrderNumbers;
 
         public ICommand LoadStockCardEntryCommand { get; set; }
         public ICommand LoadStockCardViewCommand { get; set; }
-        public StockCardViewModel(IApiService apiService, IMapper mapper, ItemStore itemStore, ItemLotStore itemLotStore, WarehouseStore warehouseStore)
+        public StockCardViewModel(IApiService apiService, IMapper mapper, ItemStore itemStore)
         {
             _apiService = apiService;
             _mapper = mapper;
             _itemStore = itemStore;
-            _itemLotStore = itemLotStore;
-            _warehouseStore = warehouseStore;
             LoadStockCardEntryCommand = new RelayCommand(LoadStockCardEntry);
             LoadStockCardViewCommand = new RelayCommand(LoadStockCardView);
         }
@@ -78,17 +39,23 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.StockCard
         private void LoadStockCardView()
         {
             OnPropertyChanged(nameof(ItemIds));
-            OnPropertyChanged(nameof(ItemNames));
-            OnPropertyChanged(nameof(WarehouseIds));
-            OnPropertyChanged(nameof(PurchaseOrderNumbers));
         }
         private async void LoadStockCardEntry()
         {
             try
             {
-                var stockCardEntries = await _apiService.GetStockCardEntriesAsync(WarehouseId, ItemId, ItemName, StartDate, EndDate, PurchaseOrderNumber);
-                var viewModels = _mapper.Map<IEnumerable<InventoryLogEntryDto>, IEnumerable<StockCardEntryViewModel>>(stockCardEntries);
-                StockCardEntries = new(viewModels);
+                if(!String.IsNullOrEmpty(ItemId))
+                {
+                    var stockCardEntries = await _apiService.GetStockCardEntriesAsync(ItemId, StartDate, EndDate);
+                    var viewModels = _mapper.Map<IEnumerable<InventoryLogEntryDto>, IEnumerable<StockCardEntryViewModel>>(stockCardEntries);
+                    StockCardEntries = new(viewModels);
+                }
+                else
+                {
+                    var stockCardEntries = await _apiService.GetStockCardEntriesByTimeAsync(StartDate, EndDate);
+                    var viewModels = _mapper.Map<IEnumerable<InventoryLogEntryDto>, IEnumerable<StockCardEntryViewModel>>(stockCardEntries);
+                    StockCardEntries = new(viewModels);
+                }
             }
             catch (HttpRequestException)
             {

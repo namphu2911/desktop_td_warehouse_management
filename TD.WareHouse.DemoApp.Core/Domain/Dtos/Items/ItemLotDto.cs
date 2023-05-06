@@ -15,13 +15,13 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Dtos.Items
         public string Unit { get; set; }
         public bool IsIsolatedd { get; set; }
         public double Quantity { get; set; }
-        public double SublotSize { get; set; }
-        public string PurchaseOrderNumber { get; set; }
+        public double? SublotSize { get; set; }
+        public string? PurchaseOrderNumber { get; set; }
         public LocationDto Location { get; set; }
-        public DateTime ProductionDate { get; set; }
-        public DateTime ExpirationDate { get; set; }
+        public DateTime? ProductionDate { get; set; }
+        public DateTime? ExpirationDate { get; set; }
         
-        public ItemLotDto(string lotId, ItemDto item,  string unit, bool isIsolatedd, double quantity, double sublotSize, string purchaseOrderNumber, LocationDto location, DateTime productionDate, DateTime expirationDate)
+        public ItemLotDto(string lotId, ItemDto item,  string unit, bool isIsolatedd, double quantity, double? sublotSize, string? purchaseOrderNumber, LocationDto location, DateTime? productionDate, DateTime? expirationDate)
         {
             LotId = lotId;
             Item = item;

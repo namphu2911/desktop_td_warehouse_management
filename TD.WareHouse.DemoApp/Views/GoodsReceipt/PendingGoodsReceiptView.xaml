@@ -30,7 +30,7 @@
 
                 <TextBlock Grid.Column="0" 
                            Style="{StaticResource ComponentFieldLabel}"
-                           Text="Mã đơn" />
+                           Text="Mã đơn: " />
                 <TextBlock Grid.Column="1"
                            Style="{StaticResource ComponentFieldText}"
                            Text="{Binding GoodsReceiptId}" />
@@ -47,7 +47,7 @@
                            Text="Thời gian: "/>
                 <TextBlock Grid.Column="1"
                            Style="{StaticResource ComponentFieldText}"
-                           Text="{Binding Timestamp}" />
+                           Text="{Binding Timestamp, StringFormat=dd/MM/yyyy hh:mm:ss tt}" />
             </Grid>
 
             <Grid Grid.Row="2">

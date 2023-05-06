@@ -69,7 +69,7 @@ namespace TD.WareHouse.DemoApp.Views.Alarm {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/TD.WareHouse.DemoApp;component/views/alarm/quantityalarmview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/TD.WareHouse.DemoApp;V1.0.0.0;component/views/alarm/quantityalarmview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\Views\Alarm\QuantityAlarmView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

@@ -26,8 +26,8 @@
         </materialDesign:DialogHost.DialogContent>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="370"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="0">
@@ -92,7 +92,7 @@
                         BorderThickness="1"
                         BorderBrush="{StaticResource ColorGray}">
                             <ListView HorizontalContentAlignment="Stretch"
-                                  ItemsSource="{Binding GoodsReceipts}"
+                                  ItemsSource="{Binding GoodsReceiptByIds}"
                                   SelectedItem="{Binding SelectedGoodsReceipt}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate DataType="{x:Type ViewModels:PendingGoodsReceiptViewModel}">
@@ -143,7 +143,8 @@
                         Style="{StaticResource ButtonPrimary}"
                         Content="Tìm kiếm"
                         FontSize="13"
-                        HorizontalAlignment="Center">
+                        Padding="0"
+                        HorizontalAlignment="Center" Width="73">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="Click">
                                         <prism:InvokeCommandAction Command="{Binding LoadReceivedGoodsReceiptsCommand}" />
@@ -157,7 +158,7 @@
                         BorderThickness="1"
                         BorderBrush="{StaticResource ColorGray}">
                             <ListView HorizontalContentAlignment="Stretch"
-                                  ItemsSource="{Binding GoodsReceipts}"
+                                  ItemsSource="{Binding GoodsReceiptByTimes}"
                                   SelectedItem="{Binding SelectedGoodsReceipt}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate DataType="{x:Type ViewModels:PendingGoodsReceiptViewModel}">
@@ -201,7 +202,7 @@
                                Text="Mã đơn:" Grid.ColumnSpan="2"/>
                         <TextBlock Grid.Column="2" 
                              Margin="5,5,5,5" 
-                             Text="{Binding GoodsReceiptId}"/>
+                             Text="{Binding SelectedGoodsReceipt.GoodsReceiptId}"/>
 
 
 
@@ -209,7 +210,7 @@
                                Margin="5,0,5,0" 
                                VerticalAlignment="Center" 
                                Text="Tên nhân viên:" />
-                        <TextBlock Grid.Column="2" 
+                        <TextBlock Grid.Column="4" 
                              Margin="5,5,5,5" 
                              Text="{Binding SelectedGoodsReceipt.EmployeeName}"/>
 
@@ -225,11 +226,11 @@
                               SelectionUnit="FullRow"
                               SelectionMode="Single">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Kho hàng" Binding="{Binding ItemClassId}"/>
+                            <DataGridTextColumn Header="Kho hàng" Binding="{Binding ItemClassId}" Width="*"/>
                             <DataGridTextColumn Header="Mã vật tư" Binding="{Binding ItemId}" Width="*"/>
-                            <DataGridTextColumn Header="Tên vật tư" Binding="{Binding ItemName}" Width="*"/>
-                            <DataGridTextColumn Header="Mã lô" Binding="{Binding LotId}" Width="*"/>
-                            <DataGridTextColumn Header="Đơn vị" Binding="{Binding Unit}" Width="*"/>
+                            <DataGridTextColumn Header="Tên vật tư" Binding="{Binding ItemName}" Width="1.5*"/>
+                            <DataGridTextColumn Header="Mã lô" Binding="{Binding LotId}" Width="0.8*"/>
+                            <DataGridTextColumn Header="Đơn vị" Binding="{Binding Unit}" Width="0.8*"/>
                             <DataGridTextColumn Header="Số lượng" Binding="{Binding Quantity}" Width="*"/>
                             <DataGridTextColumn Header="Số PO" Binding="{Binding PurchaseOrderNumber}" Width="*"/>
                             <DataGridTextColumn Header="NSX" Binding="{Binding ProductionDate}" Width="*"/>

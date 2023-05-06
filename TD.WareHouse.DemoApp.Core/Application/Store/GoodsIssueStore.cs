@@ -10,17 +10,24 @@ namespace TD.WareHouse.DemoApp.Core.Application.Store
 {
     public class GoodsIssueStore
     {
-        public List<GoodsIssue> GoodsIssues { get; private set; }
+        public List<GoodsIssue> GoodsIssuesUnconfirmed { get; private set; }
         public ObservableCollection<string> Receivers { get; private set; }
+        public ObservableCollection<string> GoodsIssueIds { get; private set; }
         public GoodsIssueStore()
         {
-            GoodsIssues = new List<GoodsIssue>();
+            GoodsIssuesUnconfirmed = new List<GoodsIssue>();
             Receivers = new ObservableCollection<string>();
+            GoodsIssueIds = new ObservableCollection<string>();
         }
-
-        public void SetGoodsIssues(List<string> goodsIssueDtos)
+        public void SetGoodsIssueReceivers(List<string> goodsIssueDtos)
         {
             Receivers = new ObservableCollection<string>(goodsIssueDtos.OrderBy(s => s));
+        }
+
+        public void SetUnconfirmedGoodsIssues(IEnumerable<GoodsIssue> goodsIssues)
+        {
+            GoodsIssuesUnconfirmed = goodsIssues.ToList();
+            GoodsIssueIds = new ObservableCollection<string>(GoodsIssuesUnconfirmed.Select(i => i.GoodsIssueId).OrderBy(s => s));
         }
     }
 }

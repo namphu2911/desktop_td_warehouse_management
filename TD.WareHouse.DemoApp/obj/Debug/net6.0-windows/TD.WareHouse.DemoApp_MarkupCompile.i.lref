@@ -20,8 +20,12 @@ FC:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\Views\Hist
 FC:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\Views\Home\HomeView.xaml;;
 FC:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\Views\Home\LoginView.xaml;;
 FC:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\Views\Home\WebViewContainer.xaml;;
+FC:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\Views\Inventory\InventoryHistoryView.xaml;;
+FC:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\Views\Inventory\InventoryNavigationView.xaml;;
 FC:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\Views\Inventory\InventoryView.xaml;;
 FC:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\Views\Isolation\IsolationView.xaml;;
 FC:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\Views\ShelfManagement\ShelfManagementView.xaml;;
+FC:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\Views\StockCard\StockCardExtendedView.xaml;;
+FC:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\Views\StockCard\StockCardNavigationView.xaml;;
 FC:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\Views\StockCard\StockCardView.xaml;;
 

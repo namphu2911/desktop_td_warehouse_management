@@ -11,6 +11,11 @@
              d:DesignHeight="670" d:DesignWidth="1090"
              Background="{StaticResource ColorBackground}"
              Padding="10">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <prism:InvokeCommandAction Command="{Binding LoadGoodsIssueProgressViewCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <materialDesign:DialogHost CloseOnClickAway="True" IsOpen="{Binding IsErrorMessageShowed}">
         <materialDesign:DialogHost.DialogContent>
             <Components:ErrorMessage Message="{Binding ErrorMessage}"/>
@@ -49,7 +54,7 @@
                               Margin="5"
                               materialDesign:HintAssist.Hint="Tim kiếm"
                               Style="{StaticResource ComboBox}"
-                              ItemsSource="{Binding GoodsIssues}"
+                              ItemsSource="{Binding GoodsIssueIds}"
                               Text="{Binding GoodsIssueId}">
                                 <ComboBox.ItemsPanel>
                                     <ItemsPanelTemplate>
@@ -76,7 +81,7 @@
                         BorderThickness="1"
                         BorderBrush="{StaticResource ColorGray}">
                             <ListView HorizontalContentAlignment="Stretch"
-                                  ItemsSource="{Binding GoodsIssues}"
+                                  ItemsSource="{Binding GoodsIssueByIds}"
                                   SelectedItem="{Binding SelectedGoodsIssue}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate DataType="{x:Type goodsissue:PendingGoodsIssueViewModel}">
@@ -140,7 +145,7 @@
                         BorderThickness="1"
                         BorderBrush="{StaticResource ColorGray}">
                             <ListView HorizontalContentAlignment="Stretch"
-                                  ItemsSource="{Binding GoodsIssues}"
+                                  ItemsSource="{Binding GoodsIssueByTimes}"
                                   SelectedItem="{Binding SelectedGoodsIssue}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate DataType="{x:Type goodsissue:PendingGoodsIssueViewModel}">
@@ -186,7 +191,7 @@
                         <TextBlock Grid.Column="1" 
                                Margin="5" 
                                VerticalAlignment="Center"
-                               Text="{Binding GoodsIssueId}"/>
+                               Text="{Binding SelectedGoodsIssue.GoodsIssueId}"/>
 
                         <TextBlock Grid.Column="2" 
                                Margin="5" 
@@ -213,35 +218,19 @@
                               Background="{StaticResource ColorSurface}"
                               Margin="10"
                               IsReadOnly="True"
-                              ItemsSource="{Binding Entries}"
+                              ItemsSource="{Binding Lots}"
                               AutoGenerateColumns="False"
                               SelectionUnit="FullRow"
                               SelectionMode="Single">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Kho hàng" Binding="{Binding ItemClassId}"/>
-                            <DataGridTextColumn Header="Mã sản phẩm" Binding="{Binding ItemId}"/>
-                            <DataGridTextColumn Header="Tên sản phẩm" Binding="{Binding ItemName}"/>
-                            <DataGridTextColumn Header="Đơn vị" Binding="{Binding Unit}"/>
-                            <DataGridTextColumn Header="Số lượng" Binding="{Binding Quantity}"/>
-                            <DataGridTextColumn Header="Số PO" Binding="{Binding PurchaseOrderNumber}"/>
+                            <DataGridTextColumn Header="Kho hàng" Binding="{Binding ItemClassId}" Width="*"/>
+                            <DataGridTextColumn Header="Mã sản phẩm" Binding="{Binding ItemId}" Width="*"/>
+                            <DataGridTextColumn Header="Tên sản phẩm" Binding="{Binding ItemName}" Width="1.5*"/>
+                            <DataGridTextColumn Header="Đơn vị" Binding="{Binding Unit}" Width="0.8*"/>
+                            <DataGridTextColumn Header="Mã lô" Binding="{Binding GoodsIssueLotId}" Width="*"/>
+                            <DataGridTextColumn Header="Số lượng" Binding="{Binding Quantity}" Width="*"/>
+                            <DataGridTextColumn Header="Số PO" Binding="{Binding PurchaseOrderNumber}" Width="*"/>
                         </DataGrid.Columns>
-                        <DataGrid.RowDetailsTemplate>
-                            <DataTemplate>
-                                <Border BorderBrush="{StaticResource ColorSurfaceOn}" BorderThickness="1" Margin="10">
-                                    <DataGrid Style="{StaticResource MaterialDesignDataGrid}"
-                                          Background="{StaticResource ColorSurface}"
-                                          IsReadOnly="True"
-                                          ItemsSource="{Binding Lots}"
-                                          AutoGenerateColumns="False"
-                                          SelectionUnit="FullRow"
-                                          SelectionMode="Single">
-                                        <DataGrid.Columns>
-                                            <DataGridTextColumn Header="Mã lô" Binding="{Binding GoodsIssueLotId}"/>
-                                        </DataGrid.Columns>
-                                    </DataGrid>
-                                </Border>
-                            </DataTemplate>
-                        </DataGrid.RowDetailsTemplate>
                     </DataGrid>
 
                     <Grid Grid.Row="3">

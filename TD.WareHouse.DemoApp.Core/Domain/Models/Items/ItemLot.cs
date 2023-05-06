@@ -25,7 +25,6 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Models.Items
         {
             LotId = lotId;
             Item = item;
-            
             IsIsolatedd = isIsolatedd;
             Quantity = quantity;
             SublotSize = sublotSize;
