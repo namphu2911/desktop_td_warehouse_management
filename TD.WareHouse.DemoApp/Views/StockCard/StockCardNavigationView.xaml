@@ -14,7 +14,7 @@
             <TabItem Height="55" MaxWidth="800" Background="Red">
                 <TabItem.Header >
                     <TextBlock>
-                        <TextBlock Style="{StaticResource HeaderText}" Text="LỊCH SỬ NHẬP TỒN"/>
+                        <TextBlock Style="{StaticResource HeaderText}" Text="LỊCH SỬ XUẤT NHẬP TỒN"/>
                     </TextBlock>
                 </TabItem.Header>
                 <local:StockCardView DataContext="{Binding StockCard}"/>

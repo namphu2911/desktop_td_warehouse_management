@@ -34,6 +34,9 @@ namespace TD.WareHouse.DemoApp.Core.Application.Mapping
             CreateMap<GoodsReceiptDto, GoodsReceipt>();
             CreateMap<GoodsIssueDto, GoodsIssue>();
             CreateMap<EmployeeDto, Employee>();
+            //CreateMap<GoodsIssueDto, GoodsIssueByHand>()
+            //    .ForMember(i => i.EmployeeName, o => o.MapFrom(dto => dto.Employee.EmployeeName));
+
 
             CreateMap<ItemLotDto, EntryForQuantityAlarmViewModel>()
                 .ForMember(i => i.ItemId, o => o.MapFrom(dto => dto.Item.ItemId))

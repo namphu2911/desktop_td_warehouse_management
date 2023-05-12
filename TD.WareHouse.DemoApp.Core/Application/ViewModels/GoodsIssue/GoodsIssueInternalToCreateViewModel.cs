@@ -17,13 +17,10 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
     {
         private readonly IApiService _apiService;
         public string GoodsIssueId { get; set; }
-        public DateTime Date { get; set; } = DateTime.Now;
+        public DateTime Timestamp { get; set; } 
         public string EmployeeId { get; set; }
-        public string EmployeeName { get; set; }
         public string Receiver { get; set; }
-        public string PurchaseOrderNumber { get; set; }
-
-        public List<GoodsIssueEntryDto> Entries { get; set; }
+        public List<GoodsIssueEntry> Entries { get; set; }
 
         public ICommand CreateCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
@@ -31,14 +28,13 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
         public event EventHandler? GoodsIssueCreated;
         public event EventHandler? GoodsIssueDeleted;
 
-        public GoodsIssueInternalToCreateViewModel(IApiService apiService, string goodsIssueId, string employeeId, string employeeName, string receiver, string purchaseOrderNumber, List<GoodsIssueEntryDto> entries)
+        public GoodsIssueInternalToCreateViewModel(IApiService apiService, string goodsIssueId, DateTime timestamp, string employeeId, string receiver, List<GoodsIssueEntry> entries)
         {
             _apiService = apiService;
             GoodsIssueId = goodsIssueId;
+            Timestamp = timestamp;
             EmployeeId = employeeId;
-            EmployeeName = employeeName;
             Receiver = receiver;
-            PurchaseOrderNumber = purchaseOrderNumber;
             Entries = entries;
 
             CreateCommand = new RelayCommand(ConfirmAsync);
@@ -51,17 +47,17 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
             var createDto = new CreateGoodsIssueDto(
                 GoodsIssueId,
                 Receiver,
-                PurchaseOrderNumber,
-                Date,
-                Receiver,
+                purchaseOrderNumber:null,
+                Timestamp,
+                EmployeeId,
                 Entries.Select(x => new CreateGoodsIssueEntryDto(
-                    x.Item.ItemId,
+                    x.ItemId,
                     x.Unit,
-                    x.RequestedSublotSize,
+                    requestedSublotSize:null,
                     x.RequestedQuantity)).ToList());
             try
             {
-                await _apiService.CreateGoodsIssuesAsync(new List<CreateGoodsIssueDto>() { createDto });
+                await _apiService.CreateGoodsIssuesAsync(createDto);
             }
             catch (HttpRequestException)
             {

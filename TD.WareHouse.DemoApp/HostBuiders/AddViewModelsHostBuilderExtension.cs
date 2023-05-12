@@ -37,6 +37,8 @@ namespace TD.WareHouse.DemoApp.HostBuiders
 
                 //GoodsReceipt
                 services.AddTransient<GoodsReceiptViewModel>();
+                services.AddTransient<GoodsReceiptCompletedViewModel>();
+                services.AddTransient<GoodsReceiptNavigationViewModel>();
 
                 //History
                 services.AddTransient<HistoryViewModel>();

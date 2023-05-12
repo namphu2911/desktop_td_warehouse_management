@@ -57,7 +57,7 @@ namespace TD.WareHouse.DemoApp.Views.Home {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/TD.WareHouse.DemoApp;V1.0.0.0;component/views/home/homeview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/TD.WareHouse.DemoApp;component/views/home/homeview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\Views\Home\HomeView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

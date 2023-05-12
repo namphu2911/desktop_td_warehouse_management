@@ -8,23 +8,20 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Dtos.GoodsIssues
 {
     public class CreateGoodsIssueDto
     {
-        public string GoodsIssueId { get; set; }
-        public string Receiver { get; set; }
-        public string PurchaseOrderNumber { get; set; }
-        public DateTime Timestamp { get; set; }
-        public string EmployeeId { get; set; }
-        public List<CreateGoodsIssueEntryDto> Entries { get; set; }
-        public CreateGoodsIssueDto(string goodsIssueId, string receiver, string purchaseOrderNumber, DateTime timestamp, string employeeId, List<CreateGoodsIssueEntryDto> entries)
+        public string goodsIssueId { get; set; }
+        public string receiver { get; set; }
+        public string? purchaseOrderNumber { get; set; }
+        public DateTime timestamp { get; set; }
+        public string employeeId { get; set; }
+        public List<CreateGoodsIssueEntryDto> entries { get; set; }
+        public CreateGoodsIssueDto(string goodsIssueId, string receiver, string? purchaseOrderNumber, DateTime timestamp, string employeeId, List<CreateGoodsIssueEntryDto> entries)
         {
-            GoodsIssueId = goodsIssueId;
-            Receiver = receiver;
-            PurchaseOrderNumber = purchaseOrderNumber;
-            Timestamp = timestamp;
-            EmployeeId = employeeId;
-            Entries = entries;
+            this.goodsIssueId = goodsIssueId;
+            this.receiver = receiver;
+            this.purchaseOrderNumber = purchaseOrderNumber;
+            this.timestamp = timestamp;
+            this.employeeId = employeeId;
+            this.entries = entries;
         }
-
-
-
     }
 }

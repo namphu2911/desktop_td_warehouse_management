@@ -68,8 +68,7 @@ namespace TD.WareHouse.DemoApp.Views.ShelfManagement {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/TD.WareHouse.DemoApp;V1.0.0.0;component/views/shelfmanagement/shelfmanagementvie" +
-                    "w.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/TD.WareHouse.DemoApp;component/views/shelfmanagement/shelfmanagementview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\Views\ShelfManagement\ShelfManagementView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

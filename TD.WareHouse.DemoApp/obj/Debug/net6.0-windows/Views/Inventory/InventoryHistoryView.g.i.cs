@@ -68,8 +68,7 @@ namespace TD.WareHouse.DemoApp.Views.Inventory {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/TD.WareHouse.DemoApp;V1.0.0.0;component/views/inventory/inventoryhistoryview.xam" +
-                    "l", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/TD.WareHouse.DemoApp;component/views/inventory/inventoryhistoryview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\Views\Inventory\InventoryHistoryView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

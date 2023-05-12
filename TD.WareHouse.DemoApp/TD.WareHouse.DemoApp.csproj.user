@@ -40,6 +40,12 @@
     <Compile Update="Views\GoodsIssue\PendingGoodsIssueView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\GoodsReceipt\GoodsReceiptCompletedView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\GoodsReceipt\GoodsReceiptNavigationView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\GoodsReceipt\GoodsReceiptView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -142,6 +148,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\GoodsIssue\PendingGoodsIssueView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\GoodsReceipt\GoodsReceiptCompletedView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\GoodsReceipt\GoodsReceiptNavigationView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\GoodsReceipt\GoodsReceiptView.xaml">

@@ -21,12 +21,12 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.ShelfManagement
         private readonly IApiService _apiService;
         private readonly IMapper _mapper;
         private readonly ItemStore _itemStore;
-        private readonly ItemLotStore _itemLotStore;
+        private readonly WarehouseStore _warehousetStore;
         public ObservableCollection<ItemEntryForShelfManagementViewModel> ItemEntries { get; set; } = new();
         public ObservableCollection<LocationEntryForShelfManagementViewModel> LocationEntries { get; set; } = new();
         public ObservableCollection<string> ItemIds => _itemStore.ItemIds;
         public ObservableCollection<string> ItemNames => _itemStore.ItemNames;
-        public ObservableCollection<string> LocationIds => _itemLotStore.LocationIds;
+        public ObservableCollection<string> LocationIds => _warehousetStore.LocationIds;
 
         public ICommand LoadItemEntryCommand { get; set; }
         public ICommand LoadLocationEntryCommand { get; set; }
@@ -65,12 +65,12 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.ShelfManagement
         }
         
         
-        public ShelfManagementViewModel(IApiService apiService, IMapper mapper, ItemStore itemStore, ItemLotStore itemLotStore)
+        public ShelfManagementViewModel(IApiService apiService, IMapper mapper, ItemStore itemStore, WarehouseStore warehousetStore)
         {
             _apiService = apiService;
             _mapper = mapper;
             _itemStore = itemStore;
-            _itemLotStore = itemLotStore;
+            _warehousetStore = warehousetStore;
             LoadItemEntryCommand = new RelayCommand(LoadItemEntryEntry);
             LoadLocationEntryCommand = new RelayCommand(LoadLocationEntry);
             LoadShelfManagementViewCommand = new RelayCommand(LoadShelfManagementView);

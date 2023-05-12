@@ -9,6 +9,6 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Services
 {
     public interface IExcelReader
     {
-        IEnumerable<ExportRequest> ReadExportRequests(string filePath, DateTime date);
+        GoodsIssueDb ReadExportRequests(string filePath, string sheetName, DateTime date);
     }
 }

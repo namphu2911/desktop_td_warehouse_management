@@ -15,6 +15,19 @@
         <Setter Property="IsTextSearchEnabled" Value="True"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
-        
-    
+
+    <Style x:Key="ComboBoxMini"
+           BasedOn="{StaticResource MaterialDesignComboBox}"
+           TargetType="ComboBox">
+        <Setter Property="Foreground" Value="{DynamicResource ColorSurfaceOn}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Width" Value="124"/>
+        <Setter Property="IsEditable" Value="True"/>
+        <Setter Property="IsTextSearchEnabled" Value="True"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+    </Style>
+
+
 </ResourceDictionary>

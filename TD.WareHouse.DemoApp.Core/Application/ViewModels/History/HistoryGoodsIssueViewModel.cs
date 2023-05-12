@@ -40,10 +40,19 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.History
             set
             {
                 itemId = value;
-                var item = _itemStore.Items.First(i => i.ItemId == itemId);
-                itemName = item.ItemName;
-                OnPropertyChanged(nameof(ItemName));
+                if (String.IsNullOrEmpty(value))
+                { 
+                    itemName = "";
+                    OnPropertyChanged(nameof(ItemName));
+                }
+                else
+                {
+                    var item = _itemStore.Items.First(i => i.ItemId == itemId);
+                    itemName = item.ItemName;
+                    OnPropertyChanged(nameof(ItemName));
+                }
             }
+                
         }
         public string ItemName
         {
@@ -54,9 +63,17 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.History
             set
             {
                 itemName = value;
-                var item = _itemStore.Items.First(i => i.ItemName == itemName);
-                itemId = item.ItemId;
-                OnPropertyChanged(nameof(ItemId));
+                if (String.IsNullOrEmpty(value))
+                {
+                    itemId = "";
+                    OnPropertyChanged(nameof(ItemId));
+                }
+                else
+                {
+                    var item = _itemStore.Items.First(i => i.ItemName == itemName);
+                    itemId = item.ItemId;
+                    OnPropertyChanged(nameof(ItemId));
+                }
             }
         }
         public string WarehouseId

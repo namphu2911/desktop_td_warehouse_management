@@ -26,6 +26,8 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Services
         Task<IEnumerable<GoodsIssueDto>> GetUnconfirmedGoodsIssuesAsync();
         Task<IEnumerable<GoodsReceiptDto>> GetReceivedGoodsReceiptsAsync(DateTime startDate, DateTime endDate);
         Task<GoodsReceiptDto> GetReceivingGoodsReceiptsAsync(string goodsReceiptId);
+        Task FixUncompltedGoodsReceiptAsync(string goodsReceiptId, IEnumerable<FixUncompletedGoodsReceiptDto> fixDto);
+        Task FixCompltedGoodsReceiptAsync(string goodsReceiptId, IEnumerable<FixCompletedGoodsReceiptDto> fixDto);
         Task DeleteGoodsReceiptAsync(string goodsReceiptId);
         Task ConfirmGoodsReceiptAsync(string goodsReceiptId);
         Task<IEnumerable<GoodsIssueDto>> GetIssuedGoodsIssuesAsync(DateTime startDate, DateTime endDate);
@@ -47,7 +49,7 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Services
 
         //Issue
         
-        Task CreateGoodsIssuesAsync(IEnumerable<CreateGoodsIssueDto> goodsIssue);
+        Task CreateGoodsIssuesAsync(CreateGoodsIssueDto goodsIssue);
         //Task<IEnumerable<GoodsIssueDto>> GetPendingGoodsIssuesAsync();
         //Task<QueryResult<GoodsIssueEntryDtos>> GetGoodsIssueEntriesAsync(DateTime startTime, DateTime endTime, string itemId);
         //Task<QueryResult<GoodsIssueDto>> GetGoodsIssuesAsync(DateTime startDate, DateTime endDate);

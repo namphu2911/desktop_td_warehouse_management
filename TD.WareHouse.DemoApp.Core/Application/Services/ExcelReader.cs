@@ -6,46 +6,41 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
 {
     public class ExcelReader : IExcelReader
     {
-        public IEnumerable<ExportRequest> ReadExportRequests(string filePath, DateTime date)
+        public GoodsIssueDb ReadExportRequests(string filePath, string sheetName, DateTime date)
         {
-            List<ExportRequest> requests = new();
-
             using var stream = File.Open(filePath, FileMode.Open, FileAccess.Read);
             using var reader = ExcelReaderFactory.CreateReader(stream);
+            if (sheetName is "Phieu XK NVL")
+            {
+                JumpToSheet(sheetName, reader);
+                SkipRows(4, reader); reader.Read();
+            }
+            else if (sheetName is "Phieu XK TP")
+            {
+                JumpToSheet(sheetName, reader);
+                SkipRows(3, reader); reader.Read();
+            }
+            var GoodsIssueId = reader.GetString(6);
 
-            JumpToSheet("KE HOACH", reader);
+            reader.Read(); //doc Row hien tai va tu xuong dong
+            var Receiver = reader.GetString(1);
+            GoodsIssueDb request = new(GoodsIssueId, DateTime.Now, "", Receiver, new List<GoodsIssueEntry>());
 
             SkipRows(2, reader);
-
             while (reader.Read())
             {
                 var value = reader.GetValue(0);
                 if (value is not null)
                 {
-                    DateTime rowDate;
-                    try
-                    {
-                        rowDate = reader.GetDateTime(0);
-                    }
-                    catch
-                    {
-                        rowDate = ParseDate(reader.GetString(0));
-                    }
-
-                    if (rowDate.Date == date.Date)
-                    {
-                        var itemId = reader.GetString(1);
-                        if (!String.IsNullOrEmpty(itemId) && itemId != "\\")
-                        {
-                            var quantity = reader.GetDouble(3);
-
-                            requests.Add(new ExportRequest(itemId, quantity));
-                        }
-                    }
+                    var itemId = reader.GetString(1);
+                    var itemName = reader.GetString(2);
+                    var unit = reader.GetString(3);
+                    var requestedQuantity = reader.GetDouble(4);
+                    request.Entries.Add(new GoodsIssueEntry(itemId, itemName, unit, requestedQuantity));
                 }
             }
+            return request;
 
-            return requests;
         }
 
         private static void JumpToSheet(string sheetName, IExcelDataReader reader)

@@ -60,7 +60,7 @@
                            Text="Thời gian: " />
                         <TextBlock Grid.Column="1"
                            Style="{StaticResource ComponentFieldText}"
-                           Text="{Binding Date}" />
+                           Text="{Binding Timestamp}" />
                     </Grid>
 
                     <Grid Grid.Row="2">
@@ -74,7 +74,7 @@
                            Text="Tên nhân viên: " />
                         <TextBlock Grid.Column="1"
                            Style="{StaticResource ComponentFieldText}"
-                           Text="{Binding EmployeeName}" />
+                           Text="{Binding EmployeeId}" />
                     </Grid>
 
                     <Grid Grid.Row="3">

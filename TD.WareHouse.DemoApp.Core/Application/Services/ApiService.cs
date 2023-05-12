@@ -177,6 +177,22 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
             return result;
         }
 
+        public async Task FixUncompltedGoodsReceiptAsync(string goodsReceiptId, IEnumerable<FixUncompletedGoodsReceiptDto> fixDto)
+        {
+            var json = JsonConvert.SerializeObject(fixDto);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await _httpClient.PatchAsync($"{serverUrl}/api/GoodsReceipts/{goodsReceiptId}", content);
+            response.EnsureSuccessStatusCode();
+        }
+        public async Task FixCompltedGoodsReceiptAsync(string goodsReceiptId, IEnumerable<FixCompletedGoodsReceiptDto> fixDto)
+        {
+            var json = JsonConvert.SerializeObject(fixDto);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await _httpClient.PatchAsync($"{serverUrl}/api/GoodsReceipts/Reconfirm/{goodsReceiptId}", content);
+            response.EnsureSuccessStatusCode();
+        }
         public async Task ConfirmGoodsReceiptAsync(string goodsReceiptId)
         {
             HttpResponseMessage response = await _httpClient.PatchAsync($"{serverUrl}/api/GoodsReceipts/Confirm/{goodsReceiptId}", null);
@@ -420,7 +436,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
         }
 
         //issue
-        public async Task CreateGoodsIssuesAsync(IEnumerable<CreateGoodsIssueDto> goodsIssues)
+        public async Task CreateGoodsIssuesAsync(CreateGoodsIssueDto goodsIssues)
         {
             var json = JsonConvert.SerializeObject(goodsIssues);
             var content = new StringContent(json, Encoding.UTF8, "application/json");

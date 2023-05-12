@@ -69,8 +69,7 @@ namespace TD.WareHouse.DemoApp.Views.History {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/TD.WareHouse.DemoApp;V1.0.0.0;component/views/history/historygoodsreceiptview.xa" +
-                    "ml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/TD.WareHouse.DemoApp;component/views/history/historygoodsreceiptview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\Views\History\HistoryGoodsReceiptView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

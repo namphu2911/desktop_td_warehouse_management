@@ -84,8 +84,10 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
         {
             OnPropertyChanged(nameof(GoodsIssueIds));
         }
+        public bool EnableConfirmButton { get; set; }
         public async void LoadIssuedGoodsIssuesAsync()
         {
+            EnableConfirmButton = false;
             var goodsIssueByTime = await _apiService.GetIssuedGoodsIssuesAsync(StartDate, EndDate);
             goodsIssueByTimes = goodsIssueByTime.ToList();
             var goodsIssueByTimeViewModels = goodsIssueByTime.Select(g =>
@@ -95,10 +97,16 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
                                                  g.Receiver));
             GoodsIssueByTimes = new ObservableCollection<PendingGoodsIssueViewModel>(goodsIssueByTimeViewModels);
             Lots = new();
+            GoodsIssueConfirmed += LoadIssuedGoodsIssuesAsync;
+            GoodsIssueDeletedConfirmed += LoadIssuedGoodsIssuesAsync;
         }
 
+        public event Action? GoodsIssueConfirmed;
+        public event Action? GoodsIssueDeletedConfirmed;
+        public event Action? GoodsIssueUpdatedUnconfirmed;
         public async void LoadIssuingGoodsIssuesAsync()
         {
+            EnableConfirmButton = true;
             goodsIssueByIds = new();
             var goodsIssueById = await _apiService.GetIssuingGoodsIssuesAsync(GoodsIssueId);
             goodsIssueByIds.Add(goodsIssueById);
@@ -109,8 +117,24 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
                                                  g.Receiver));
             GoodsIssueByIds = new ObservableCollection<PendingGoodsIssueViewModel>(goodsIssueByIdViewModels);
             Lots = new();
-        }
 
+        }
+        public void ReloadWhenConfirm()
+        {
+            Lots = new();
+            OnPropertyChanged(nameof(GoodsIssueIds));
+            GoodsIssueId = "";
+            GoodsIssueByIds = new();
+            GoodsIssueConfirmed += ReloadWhenConfirm;
+        }
+        public void ReloadWhenDelete()
+        {
+            OnPropertyChanged(nameof(GoodsIssueIds));
+            GoodsIssueId = "";
+            GoodsIssueByIds = new();
+            Lots = new();
+            GoodsIssueUpdatedUnconfirmed += ReloadWhenDelete;
+        }
         private async void ConfirmAsync()
         {
             try
@@ -121,7 +145,9 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
             {
                 ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
             }
-
+            GoodsIssueId = "";
+            GoodsIssueByIds = new();
+            GoodsIssueConfirmed?.Invoke();
         }
 
         private async void DeleteAsync()
@@ -134,7 +160,9 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
             {
                 ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
             }
+            GoodsIssueDeletedConfirmed?.Invoke();
+            GoodsIssueUpdatedUnconfirmed?.Invoke();
 
-        }
+    }
     }
 }

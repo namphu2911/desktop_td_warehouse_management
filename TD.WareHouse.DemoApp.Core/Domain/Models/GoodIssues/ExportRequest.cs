@@ -8,13 +8,17 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Models.GoodIssues
 {
     public class ExportRequest
     {
-        public string ItemId { get; set; }
-        public double Quantity { get; set; }
+        public string GoodsIssueId { get; set; }
+        public string Receiver { get; set; }
+        public DateTime Timestamp { get; set; }
+        public List<ExportRequestEntry> ExportRequestEntries { get; set; } = new();
 
-        public ExportRequest(string itemId, double quantity)
+        public ExportRequest(string goodsIssueId, string receiver, DateTime timestamp, List<ExportRequestEntry> exportRequestEntries)
         {
-            ItemId = itemId;
-            Quantity = quantity;
+            GoodsIssueId = goodsIssueId;
+            Receiver = receiver;
+            Timestamp = timestamp;
+            ExportRequestEntries = exportRequestEntries;
         }
     }
 }

@@ -29,7 +29,7 @@
             <TabControl TabStripPlacement="Left" Style="{StaticResource MaterialDesignFilledTabControl}">
                 <TabItem Height="50" Width="200" Padding="0">
                     <TabItem.Header>
-                        <Image Source="C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\Resources\Images\LogoTD.jpg" 
+                        <Image Source="Resources/Images/LogoTD.jpg" 
                                Stretch="Fill"/>
                     </TabItem.Header>
                     <ViewsHome:HomeView DataContext="{Binding Home}"/>
@@ -43,7 +43,7 @@
                                                                  FontSize="20"
                                                                  FontWeight="Bold" />
                     </TabItem.Header>
-                    <ViewsGoodsReceipt:GoodsReceiptView DataContext="{Binding GoodsReceipt}"/>
+                    <ViewsGoodsReceipt:GoodsReceiptNavigationView DataContext="{Binding GoodsReceipt}"/>
                 </TabItem>
 
                 <TabItem Height="50" Width="200" Background="Red">

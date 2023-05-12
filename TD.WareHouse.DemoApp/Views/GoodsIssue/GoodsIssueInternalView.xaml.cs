@@ -25,7 +25,6 @@ namespace TD.WareHouse.DemoApp.Views.GoodsIssue
         {
             InitializeComponent();
         }
-
         private void BrowseFileButtonClicked(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new();
@@ -36,5 +35,6 @@ namespace TD.WareHouse.DemoApp.Views.GoodsIssue
                 textBoxFilePath.Text = openFileDialog.FileName;
             }
         }
+
     }
 }

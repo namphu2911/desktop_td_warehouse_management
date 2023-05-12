@@ -244,10 +244,11 @@
                             Width="150"
                             HorizontalAlignment="Right"
                             Style="{StaticResource ButtonPrimary}" 
-                            Content="Hoàn tất">
+                            Content="Hoàn tất"
+                            IsEnabled="{Binding EnableConfirmButton}">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
-                                    <prism:InvokeCommandAction Command="{Binding ConfirmCommand}" />
+                                    <i:InvokeCommandAction Command="{Binding ConfirmCommand}" />
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </Button>

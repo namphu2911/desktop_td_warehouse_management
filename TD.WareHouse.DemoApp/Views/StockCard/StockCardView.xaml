@@ -120,6 +120,7 @@
                           SelectionUnit="FullRow"
                           SelectionMode="Single">
                         <DataGrid.Columns>
+                            <DataGridTextColumn Header="Kho hàng" Binding="{Binding ItemClassId}" Width="*"/>
                             <DataGridTextColumn Header="Mã sản phẩm" Binding="{Binding ItemId}" Width="*"/>
                             <DataGridTextColumn Header="Tên sản phẩm" Binding="{Binding ItemName}" Width="*"/>
                             <DataGridTextColumn Header="Đơn vị" Binding="{Binding Unit}" Width="*"/>
@@ -127,7 +128,6 @@
                             <DataGridTextColumn Header="Số lượng nhập" Binding="{Binding ReceiptQuantity}" Width="*"/>
                             <DataGridTextColumn Header="Số lượng xuất" Binding="{Binding IssueQuantity}" Width="*"/>
                             <DataGridTextColumn Header="Stockmin" Binding="{Binding MinimumStockLevel}" Width="*"/>
-                            <DataGridTextColumn Header="Kho hàng" Binding="{Binding ItemClassId}" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </materialDesign:Card>

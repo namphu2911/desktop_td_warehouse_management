@@ -12,6 +12,8 @@ FC:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\Views\Good
 FC:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\Views\GoodsIssue\GoodsIssueProgressView.xaml;;
 FC:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\Views\GoodsIssue\GoodsIssueView.xaml;;
 FC:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\Views\GoodsIssue\PendingGoodsIssueView.xaml;;
+FC:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\Views\GoodsReceipt\GoodsReceiptCompletedView.xaml;;
+FC:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\Views\GoodsReceipt\GoodsReceiptNavigationView.xaml;;
 FC:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\Views\GoodsReceipt\GoodsReceiptView.xaml;;
 FC:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\Views\GoodsReceipt\PendingGoodsReceiptView.xaml;;
 FC:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\Views\History\HistoryGoodsIssueView.xaml;;
