@@ -159,32 +159,15 @@
                     </DataGrid>
 
                     <Grid Grid.Row="3">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-
                         <Button Grid.Column="0"
                             Margin="10"
                             Width="150"
-                            HorizontalAlignment="Right"
+                            HorizontalAlignment="Center"
                             Style="{StaticResource ButtonPrimary}" 
                             Content="Cập nhật">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
                                     <prism:InvokeCommandAction Command="{Binding UpdateCommand}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </Button>
-                        <Button Grid.Column="1"
-                            Margin="10"
-                            Width="150"
-                            HorizontalAlignment="Left"
-                            Style="{StaticResource ButtonPrimary}" 
-                            Content="Xoá đơn">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="Click">
-                                    <prism:InvokeCommandAction Command="{Binding DeleteCommand}" />
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </Button>

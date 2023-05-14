@@ -54,7 +54,7 @@
                               Margin="5"
                               materialDesign:HintAssist.Hint="Tim kiếm"
                               Style="{StaticResource ComboBox}"
-                              ItemsSource="{Binding GoodsIssueIds}"
+                              ItemsSource="{Binding GoodsIssueIds, UpdateSourceTrigger=PropertyChanged}"
                               Text="{Binding GoodsIssueId}">
                                 <ComboBox.ItemsPanel>
                                     <ItemsPanelTemplate>

@@ -107,6 +107,11 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
                         e.RequestedQuantity,
                         e.Unit));
                     Entries = new(entries);
+                    foreach (var entry in Entries)
+                    {
+                        entry.OnRemoved += DeleteRow;
+                        OnPropertyChanged(nameof(Entries));
+                    }
                 }
                 OnPropertyChanged();
             }
@@ -234,6 +239,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
                 Unit = "";
                 RequestedQuantity = 0;
                 TypeEnable = false;
+                FilePath = "";
             }
             OnPropertyChanged();
         }

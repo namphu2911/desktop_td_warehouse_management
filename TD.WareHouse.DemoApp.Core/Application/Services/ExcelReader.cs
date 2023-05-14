@@ -24,7 +24,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
 
             reader.Read(); //doc Row hien tai va tu xuong dong
             var Receiver = reader.GetString(1);
-            GoodsIssueDb request = new(GoodsIssueId, DateTime.Now, "", Receiver, new List<GoodsIssueEntry>());
+            GoodsIssueDb request = new(GoodsIssueId, DateTime.Now, "NV01", Receiver, new List<GoodsIssueEntry>());
 
             SkipRows(2, reader);
             while (reader.Read())

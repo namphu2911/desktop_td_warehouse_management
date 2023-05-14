@@ -17,6 +17,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
     public class GoodsIssueProgressViewModel : BaseViewModel
     {
         private readonly IApiService _apiService;
+        private readonly IDatabaseSynchronizationService _databaseSynchronizationService;
         private List<GoodsIssueDto> goodsIssueByIds = new();
         private List<GoodsIssueDto> goodsIssueByTimes = new();
         private List<GoodsIssueDto> goodsIssuesTotal = new();
@@ -49,7 +50,9 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
                         goodsIssuesTotal.Add(goodIssue);
                     }
                     var goodsIssue = goodsIssuesTotal.First(g => g.GoodsIssueId == selectedGoodsIssue.GoodsIssueId);
-                    var lotViewModels = goodsIssue.Entries.SelectMany(gi =>
+                    foreach (var entry in goodsIssue.Entries)
+                    {
+                        var lotViewModels = goodsIssue.Entries.SelectMany(gi =>
                                                             gi.Lots.Select(gie =>
                                                                 new GoodsIssueLotForGoodsIssueProgressViewModel(
                                                                     gi.Item.ItemClassId,
@@ -59,7 +62,9 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
                                                                     gie.GoodsIssueLotId,
                                                                     gie.Quantity,
                                                                     goodsIssue.PurchaseOrderNumber)));
-                    Lots = new(lotViewModels);
+                        Lots = new(lotViewModels);
+                    }
+                    
                 }
             }
         }
@@ -69,9 +74,10 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
         public ICommand ConfirmCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
         public ICommand LoadGoodsIssueProgressViewCommand { get; set; }
-        public GoodsIssueProgressViewModel(IApiService apiService, GoodsIssueStore goodsIssueStore)
+        public GoodsIssueProgressViewModel(IApiService apiService, IDatabaseSynchronizationService databaseSynchronizationService, GoodsIssueStore goodsIssueStore)
         {
             _apiService = apiService;
+            _databaseSynchronizationService = databaseSynchronizationService;
             _goodsIssueStore = goodsIssueStore;
             LoadIssuedGoodsIssuesCommand = new RelayCommand(LoadIssuedGoodsIssuesAsync);
             LoadIssuingGoodsIssuesCommand = new RelayCommand(LoadIssuingGoodsIssuesAsync);
@@ -82,6 +88,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
         }
         private void LoadGoodsIssueProgressView()
         {
+            _databaseSynchronizationService.SynchronizeGoodIssuesData();
             OnPropertyChanged(nameof(GoodsIssueIds));
         }
         public bool EnableConfirmButton { get; set; }
