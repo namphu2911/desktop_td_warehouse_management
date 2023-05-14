@@ -16,7 +16,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.StockCard
         public double BeforeQuantity { get; set; }
         public double AfterQuantity { get; set; }
         public double ReceivedQuantity { get; set; }
-        public double ShippedQuantity { get; set; }
+        public double ShippedQuantity { get; set; } 
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public StockCardExtendedEntryViewModel()

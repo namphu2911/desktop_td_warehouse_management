@@ -89,7 +89,9 @@ namespace TD.WareHouse.DemoApp.Core.Application.Mapping
                 .ForMember(i => i.ItemId, o => o.MapFrom(dto => dto.Item.ItemId))
                 .ForMember(i => i.ItemName, o => o.MapFrom(dto => dto.Item.ItemName))
                 .ForMember(i => i.Unit, o => o.MapFrom(dto => dto.Item.Unit))
-                .ForMember(i => i.ItemClassId, o => o.MapFrom(dto => dto.Item.ItemClassId));
+                .ForMember(i => i.ItemClassId, o => o.MapFrom(dto => dto.Item.ItemClassId))
+                .ForMember(i => i.ShippedQuantity, o => o.MapFrom(dto => -dto.ShippedQuantity));
+
         }
     }
 }

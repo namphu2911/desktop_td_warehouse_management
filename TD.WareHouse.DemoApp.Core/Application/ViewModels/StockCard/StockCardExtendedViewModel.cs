@@ -77,7 +77,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.StockCard
                                                         g.BeforeQuantity,
                                                         g.AfterQuantity,
                                                         g.ReceivedQuantity,
-                                                        g.ShippedQuantity));
+                                                        -(g.ShippedQuantity)));
                     StockCardEntries = new(viewModels);
                                    
                 }
