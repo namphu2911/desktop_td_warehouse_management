@@ -23,18 +23,15 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.StockCard
 
         private List<InventoryLogExtendedEntryDto> stockCardEntries = new();
         public DateTime StartDate { get; set; } = DateTime.Now.AddDays(-30).Date;
-        public DateTime EndDate { get; set; } = DateTime.Now.Date;
+        public DateTime EndDate { get; set; } = DateTime.Now.AddDays(+1).Date;
         public string ItemId { get; set; } = "";
-        public string Unit { get; set; } = "";
         public string WarehouseId { get; set; } = "";
         public ObservableCollection<StockCardExtendedEntryViewModel> StockCardEntries { get; set; } = new();
         public ObservableCollection<string> ItemIds => _itemStore.ItemIds;
-        public ObservableCollection<string> Units => _itemStore.Units;
         public ObservableCollection<string> WarehouseIds => _warehouseStore.WarehouseIds;
         public ICommand LoadStockCardEntryCommand { get; set; }
         public ICommand LoadStockCardViewCommand { get; set; }
-        public bool ButtonEnable => (!String.IsNullOrEmpty(WarehouseId) && String.IsNullOrEmpty(ItemId) && String.IsNullOrEmpty(Unit))
-            || (!String.IsNullOrEmpty(ItemId) && !String.IsNullOrEmpty(Unit) && String.IsNullOrEmpty(WarehouseId));
+        
         public StockCardExtendedViewModel(IApiService apiService, IMapper mapper, ItemStore itemStore, WarehouseStore warehouseStore)
         {
             _apiService = apiService;
@@ -48,39 +45,16 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.StockCard
         private void LoadStockCardView()
         {
             OnPropertyChanged(nameof(ItemIds));
-            OnPropertyChanged(nameof(Units));
             OnPropertyChanged(nameof(WarehouseIds));
-            OnPropertyChanged(nameof(ButtonEnable));
         }
         private async void LoadStockCardEntry()
         {
+            
             try
             {
-                if (!String.IsNullOrEmpty(WarehouseId) && String.IsNullOrEmpty(ItemId) && String.IsNullOrEmpty(Unit))
-                {
-                    var stockCardEntries = await _apiService.GetStockCardEntriesByWarehouseAsync(WarehouseId, StartDate, EndDate);
-                    var viewModels = _mapper.Map<IEnumerable<InventoryLogExtendedEntryDto>, IEnumerable<StockCardExtendedEntryViewModel>>(stockCardEntries);
-                    StockCardEntries = new(viewModels);
-
-                }
-                else
-                    if (!String.IsNullOrEmpty(ItemId) && !String.IsNullOrEmpty(Unit) && String.IsNullOrEmpty(WarehouseId))
-                {
-                    stockCardEntries = new();
-                    var stockCardEntry = await _apiService.GetStockCardEntriesByItemAsync(ItemId, Unit, StartDate, EndDate);
-                    stockCardEntries.Add(stockCardEntry);
-                    var viewModels = stockCardEntries.Select(g =>
-                    new StockCardExtendedEntryViewModel(g.Item.ItemClassId,
-                                                        g.Item.ItemId,
-                                                        g.Item.ItemName,
-                                                        g.Item.Unit,
-                                                        g.BeforeQuantity,
-                                                        g.AfterQuantity,
-                                                        g.ReceivedQuantity,
-                                                        -(g.ShippedQuantity)));
-                    StockCardEntries = new(viewModels);
-                                   
-                }
+                var stockCardEntries = await _apiService.GetExtendedStockCardEntriesAsync(WarehouseId, ItemId, StartDate, EndDate);
+                var viewModels = _mapper.Map<IEnumerable<InventoryLogExtendedEntryDto>, IEnumerable<StockCardExtendedEntryViewModel>>(stockCardEntries);
+                StockCardEntries = new(viewModels);
             }
             catch (HttpRequestException)
             {

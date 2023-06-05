@@ -5,10 +5,17 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Resources\Images\LogoTD_min.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Resources\Images\LogoTD.jpg" />
+    <None Remove="Resources\Images\LogoTD_min.ico" />
+    <None Remove="Resources\Images\LogoTD_min.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Images\LogoTD_min.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,6 +44,9 @@
 
   <ItemGroup>
     <Resource Include="Resources\Images\LogoTD.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\LogoTD_min.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

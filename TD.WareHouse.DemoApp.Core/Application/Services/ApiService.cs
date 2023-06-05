@@ -80,7 +80,22 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
 
             return items;
         }
-        
+
+        public async Task<IEnumerable<DepartmentDto>> GetAllDepartmentsAsync()
+        {
+            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/Departments");
+
+            response.EnsureSuccessStatusCode();
+            string responseBody = await response.Content.ReadAsStringAsync();
+
+            var items = JsonConvert.DeserializeObject<IEnumerable<DepartmentDto>>(responseBody);
+            if (items is null)
+            {
+                return new List<DepartmentDto>();
+            }
+
+            return items;
+        }
         public async Task<IEnumerable<GoodsReceiptDto>> GetAllGoodsReceiptsAsync()
         {
             HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/GoodsReceipts");
@@ -114,6 +129,35 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
         public async Task<List<string>> GetAllGoodsIssuesReceiverAsync()
         {
             HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/GoodsIssues/Receivers");
+
+            response.EnsureSuccessStatusCode();
+            string responseBody = await response.Content.ReadAsStringAsync();
+
+            var items = JsonConvert.DeserializeObject<List<string>>(responseBody);
+            if (items is null)
+            {
+                return new List<string>();
+            }
+            return items;
+        }
+        public async Task<List<string>> GetAllGoodsReceiptsSupplierAsync()
+        {
+            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/GoodsReceipts/Suppliers");
+
+            response.EnsureSuccessStatusCode();
+            string responseBody = await response.Content.ReadAsStringAsync();
+
+            var items = JsonConvert.DeserializeObject<List<string>>(responseBody);
+            if (items is null)
+            {
+                return new List<string>();
+            }
+            return items;
+        }
+
+        public async Task<List<string>> GetAllPurchaseOrderNumbersAsync()
+        {
+            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/GoodsReceipts/PurchaseOrderNumbers");
 
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
@@ -544,12 +588,12 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
 
             return result;
         }
-        public async Task<IEnumerable<InventoryLogExtendedEntryDto>> GetStockCardEntriesByWarehouseAsync(string warehouseId, DateTime startDate, DateTime endDate)
+        public async Task<IEnumerable<InventoryLogExtendedEntryDto>> GetExtendedStockCardEntriesAsync(string warehouseId, string itemId, DateTime startDate, DateTime endDate)
         {
             string startDateString = startDate.ToString("yyyy-MM-dd");
             string endDateString = endDate.ToString("yyyy-MM-dd");
-
-            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/InventoryLogEntries/extendedLogEntries/{warehouseId}?StartTime={startDateString}&EndTime={endDateString}");
+         
+            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/InventoryLogEntries/extendedLogEntries?itemClassId={warehouseId}&itemId={itemId}&StartTime={startDateString}&EndTime={endDateString}");
 
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
@@ -563,24 +607,24 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
 
             return result;
         }
-        public async Task<InventoryLogExtendedEntryDto> GetStockCardEntriesByItemAsync(string itemId, string unit, DateTime startDate, DateTime endDate)
-        {
-            string startDateString = startDate.ToString("yyyy-MM-dd");
-            string endDateString = endDate.ToString("yyyy-MM-dd");
-            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/InventoryLogEntries/extendedLogEntry/{itemId}&{unit}?StartTime={startDateString}&EndTime={endDateString}");
+        //public async Task<InventoryLogExtendedEntryDto> GetStockCardEntriesByItemAsync(string itemId, string unit, DateTime startDate, DateTime endDate)
+        //{
+        //    string startDateString = startDate.ToString("yyyy-MM-dd");
+        //    string endDateString = endDate.ToString("yyyy-MM-dd");
+        //    HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/InventoryLogEntries/extendedLogEntry/{itemId}&{unit}?StartTime={startDateString}&EndTime={endDateString}");
 
-            response.EnsureSuccessStatusCode();
-            string responseBody = await response.Content.ReadAsStringAsync();
+        //    response.EnsureSuccessStatusCode();
+        //    string responseBody = await response.Content.ReadAsStringAsync();
 
-            var result = JsonConvert.DeserializeObject<InventoryLogExtendedEntryDto>(responseBody);
+        //    var result = JsonConvert.DeserializeObject<InventoryLogExtendedEntryDto>(responseBody);
 
-            if (result is null)
-            {
-                throw new Exception();
-            }
+        //    if (result is null)
+        //    {
+        //        throw new Exception();
+        //    }
 
-            return result;
-        }
+        //    return result;
+        //}
 
         public async Task<IEnumerable<ItemLotDto>> GetItemShelfManagementEntriesAsync(string itemId)
         {

@@ -56,7 +56,8 @@ namespace TD.WareHouse.DemoApp.Views.StockCard {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/TD.WareHouse.DemoApp;component/views/stockcard/stockcardnavigationview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/TD.WareHouse.DemoApp;V1.0.0.0;component/views/stockcard/stockcardnavigationview." +
+                    "xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\Views\StockCard\StockCardNavigationView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

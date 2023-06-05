@@ -20,9 +20,12 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Services
         Task<IEnumerable<ItemDto>> GetAllItemsAsync();
         Task<IEnumerable<WarehouseDto>> GetAllWarehousesAsync();
         Task<IEnumerable<ItemLotDto>> GetAllItemLotsAsync();
+        Task<IEnumerable<DepartmentDto>> GetAllDepartmentsAsync();
         Task<IEnumerable<GoodsReceiptDto>> GetAllGoodsReceiptsAsync();
         Task<IEnumerable<GoodsReceiptDto>> GetUnconfirmedGoodsReceiptsAsync();
         Task<List<string>> GetAllGoodsIssuesReceiverAsync();
+        Task<List<string>> GetAllGoodsReceiptsSupplierAsync();
+        Task<List<string>> GetAllPurchaseOrderNumbersAsync();
         Task<IEnumerable<GoodsIssueDto>> GetUnconfirmedGoodsIssuesAsync();
         Task<IEnumerable<GoodsReceiptDto>> GetReceivedGoodsReceiptsAsync(DateTime startDate, DateTime endDate);
         Task<GoodsReceiptDto> GetReceivingGoodsReceiptsAsync(string goodsReceiptId);
@@ -59,8 +62,8 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Services
         //stockcard
         Task<IEnumerable<InventoryLogEntryDto>> GetStockCardEntriesAsync(string itemId, DateTime startDate, DateTime endDate);
         Task<IEnumerable<InventoryLogEntryDto>> GetStockCardEntriesByTimeAsync(DateTime startDate, DateTime endDate);
-        Task<IEnumerable<InventoryLogExtendedEntryDto>> GetStockCardEntriesByWarehouseAsync(string warehouseId, DateTime startDate, DateTime endDate);
-        Task<InventoryLogExtendedEntryDto> GetStockCardEntriesByItemAsync(string itemId, string unit, DateTime startDate, DateTime endDate);
+        Task<IEnumerable<InventoryLogExtendedEntryDto>> GetExtendedStockCardEntriesAsync(string warehouseId, string itemId, DateTime startDate, DateTime endDate);
+        //Task<InventoryLogExtendedEntryDto> GetStockCardEntriesByItemAsync(string itemId, string unit, DateTime startDate, DateTime endDate);
         //shelf
         Task<IEnumerable<ItemLotDto>> GetItemShelfManagementEntriesAsync(string itemId);
         Task<IEnumerable<ItemLotDto>> GetLocationShelfManagementEntriesAsync(string locationId);

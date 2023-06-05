@@ -27,7 +27,8 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
 
         public event EventHandler? GoodsIssueCreated;
         public event EventHandler? GoodsIssueDeleted;
-
+        public string SaveStatusString { get; set; } = "Lưu";
+        public bool SaveStatusBool { get; set; }
         public GoodsIssueInternalToCreateViewModel(IApiService apiService, string goodsIssueId, DateTime timestamp, string employeeId, string receiver, List<GoodsIssueEntry> entries)
         {
             _apiService = apiService;
@@ -71,7 +72,8 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
             {
                 ShowErrorMessage("Đã có lỗi xảy ra: " + ex.Message);
             }
-
+            SaveStatusString = "Đã lưu";
+            SaveStatusBool = false;
             GoodsIssueCreated?.Invoke(this, EventArgs.Empty);
         }
 

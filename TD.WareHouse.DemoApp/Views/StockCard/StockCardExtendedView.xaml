@@ -42,8 +42,6 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
                         <TextBlock Grid.Row="0" Grid.Column="0" 
@@ -82,23 +80,7 @@
                             </ComboBox.ItemsPanel>
                         </ComboBox>
 
-                        <TextBlock Grid.Row="0" Grid.Column="4" 
-                       Margin="10"
-                       Style="{StaticResource FieldLabel}" 
-                       Text="Đơn vị"/>
-
-                        <ComboBox Grid.Row="0" Grid.Column="5"
-                            Margin="10"
-                            materialDesign:HintAssist.Hint="Đơn vị"
-                            Style="{StaticResource ComboBox}"
-                            ItemsSource="{Binding Units}"
-                            Text="{Binding Unit}">
-                            <ComboBox.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <VirtualizingStackPanel />
-                                </ItemsPanelTemplate>
-                            </ComboBox.ItemsPanel>
-                        </ComboBox>
+                       
                     </Grid>
 
                     <Grid Grid.Row="1">
@@ -139,8 +121,7 @@
                             Style="{StaticResource ButtonPrimary}"
                             Content="Truy xuất"
                             HorizontalAlignment="Center"
-                            Width="150"
-                            IsEnabled="{Binding ButtonEnable}">
+                            Width="150">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
                                     <i:InvokeCommandAction Command="{Binding LoadStockCardEntryCommand}" />
@@ -174,6 +155,7 @@
                             <DataGridTextColumn Header="Số lượng nhập" Binding="{Binding ReceivedQuantity}" Width="*"/>
                             <DataGridTextColumn Header="Số lượng xuất" Binding="{Binding ShippedQuantity}" Width="*"/>
                             <DataGridTextColumn Header="Tồn cuối kì" Binding="{Binding AfterQuantity}" Width="*"/>
+                            <DataGridTextColumn Header="Stockmin" Binding="{Binding MinimumStockLevel}" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </materialDesign:Card>

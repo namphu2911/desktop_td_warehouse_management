@@ -20,6 +20,7 @@ namespace TD.WareHouse.DemoApp.HostBuiders
                 services.AddSingleton<WarehouseStore>();
                 services.AddSingleton<GoodsReceiptStore>();
                 services.AddSingleton<GoodsIssueStore>();
+                services.AddSingleton<DepartmentStore>();
 
                 services.AddSingleton<IApiService, ApiService>();
                 services.AddSingleton<IDatabaseSynchronizationService, DatabaseSynchronizeService>();

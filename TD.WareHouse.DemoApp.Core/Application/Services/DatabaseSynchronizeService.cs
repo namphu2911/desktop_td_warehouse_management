@@ -34,8 +34,8 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
         private readonly WarehouseStore _warehouseStore;
         private readonly GoodsReceiptStore _goodsReceiptStore;
         private readonly GoodsIssueStore _goodsIssueStore;
-        
-        public DatabaseSynchronizeService(IApiService apiService, IItemDatabaseService itemDatabaseService, IItemLotDatabaseService itemLotDatabaseService, IWarehouseDatabaseService warehouseDatabaseService, IGoodReceiptDatabaseService goodReceiptDatabaseService, IGoodIssueDatabaseService goodIssueDatabaseService, IMapper mapper, ItemStore itemStore, ItemLotStore itemLotStore, WarehouseStore warehouseStore, GoodsReceiptStore goodsReceiptStore, GoodsIssueStore goodsIssueStore)
+        private readonly DepartmentStore _departmentStore;
+        public DatabaseSynchronizeService(IApiService apiService, IItemDatabaseService itemDatabaseService, IItemLotDatabaseService itemLotDatabaseService, IWarehouseDatabaseService warehouseDatabaseService, IGoodReceiptDatabaseService goodReceiptDatabaseService, IGoodIssueDatabaseService goodIssueDatabaseService, IMapper mapper, ItemStore itemStore, ItemLotStore itemLotStore, WarehouseStore warehouseStore, GoodsReceiptStore goodsReceiptStore, GoodsIssueStore goodsIssueStore, DepartmentStore departmentStore)
         {
             _apiService = apiService;
             _mapper = mapper;
@@ -45,12 +45,13 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
             _warehouseDatabaseService = warehouseDatabaseService;
             _goodReceiptDatabaseService = goodReceiptDatabaseService;
             _goodIssueDatabaseService = goodIssueDatabaseService;
-           
+
             _itemStore = itemStore;
             _itemLotStore = itemLotStore;
             _warehouseStore = warehouseStore;
             _goodsReceiptStore = goodsReceiptStore;
             _goodsIssueStore = goodsIssueStore;
+            _departmentStore = departmentStore;
         }
 
         public async Task SynchronizeItemsData()
@@ -92,17 +93,20 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
         }
         private async Task SynchronizeItemLotsFromServer()
         {
+            var purchaseOrderNumber = await _apiService.GetAllPurchaseOrderNumbersAsync();
+            _itemLotStore.SetPurchaseOrderNumbers(purchaseOrderNumber);
+
             var itemLotDtos = await _apiService.GetAllItemLotsAsync();
             var itemLots = _mapper.Map<IEnumerable<ItemLotDto>, IEnumerable<ItemLot>>(itemLotDtos);
 
             //await _itemLotDatabaseService.OverrideAllItemLots(itemLots);
             _itemLotStore.SetItemLot(itemLots);
         }
-        private async Task SynchronizeItemLotsFromLocal()
-        {
-            var itemLots = await _itemLotDatabaseService.GetAllItemLots();
-            _itemLotStore.SetItemLot(itemLots);
-        }
+        //private async Task SynchronizeItemLotsFromLocal()
+        //{
+        //    var itemLots = await _itemLotDatabaseService.GetAllItemLots();
+        //    _itemLotStore.SetItemLot(itemLots);
+        //}
 
         public async Task SynchronizeWarehousesData()
         {
@@ -142,22 +146,18 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
         }
         private async Task SynchronizeGoodsReceiptsFromServer()
         {
-            var goodsReceiptDtos = await _apiService.GetAllGoodsReceiptsAsync();
-            var goodsReceipts = _mapper.Map<IEnumerable<GoodsReceiptDto>, IEnumerable<GoodsReceipt>>(goodsReceiptDtos);
-            //await _goodReceiptDatabaseService.OverrideAllGoodsReceipts(goodsReceipts);
-            _goodsReceiptStore.SetGoodsReceipts(goodsReceipts);
+            var goodsReceiptSupplier = await _apiService.GetAllGoodsReceiptsSupplierAsync();
+            _goodsReceiptStore.SetGoodsIssueSuppliers(goodsReceiptSupplier);
 
-            var unconfirmedGoodsReceiptDtos = await _apiService.GetUnconfirmedGoodsReceiptsAsync();
-            var unconfirmedGoodsReceipt = _mapper.Map<IEnumerable<GoodsReceiptDto>, IEnumerable<GoodsReceipt>>(unconfirmedGoodsReceiptDtos);
-            _goodsReceiptStore.SetUnconfirmedGoodsReceipts(unconfirmedGoodsReceipt);
-
-
-        }
-        private async Task SynchronizeGoodsReceiptsFromLocal()
-        {
-            var goodsReceipts = await _goodReceiptDatabaseService.GetAllGoodsReceipts();
+            var goodsReceiptDto = await _apiService.GetAllGoodsReceiptsAsync();
+            var goodsReceipts = _mapper.Map<IEnumerable<GoodsReceiptDto>, IEnumerable<GoodsReceipt>>(goodsReceiptDto);
             _goodsReceiptStore.SetGoodsReceipts(goodsReceipts);
         }
+        //private async Task SynchronizeGoodsReceiptsFromLocal()
+        //{
+        //    var goodsReceipts = await _goodReceiptDatabaseService.GetAllGoodsReceipts();
+        //    _goodsReceiptStore.SetGoodsReceipts(goodsReceipts);
+        //}
 
         public async Task SynchronizeGoodIssuesData()
         {
@@ -187,6 +187,29 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
         //    _goodsIssueStore.SetGoodsIssues(goodsIssues);
         //}
 
+        public async Task SynchronizeDepartmentsData()
+        {
+            try
+            {
+                await SynchronizeDepartmentsFromServer();
+            }
+            catch
+            {
+                //await SynchronizeDepartmentsFromLocal();
+            }
+        }
+        private async Task SynchronizeDepartmentsFromServer()
+        {
+            var departmentDtos = await _apiService.GetAllDepartmentsAsync();
+            var departments = _mapper.Map<IEnumerable<DepartmentDto>, IEnumerable<Department>>(departmentDtos);
 
+            //await _departmentDatabaseService.OverrideAllDepartments(departments);
+            _departmentStore.SetDepartment(departments);
+        }
+        //private async Task SynchronizeDepartmentsFromLocal()
+        //{
+        //    var departments = await _departmentDatabaseService.GetAllDepartments();
+        //    _DepartmentStore.SetDepartment(departments);
+        //}
     }
 }

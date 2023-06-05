@@ -145,16 +145,16 @@
                               SelectionUnit="FullRow"
                               SelectionMode="Single">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Kho hàng" Binding="{Binding ItemClassId}" Width="*" IsReadOnly="True"/>
-                            <DataGridTextColumn Header="Mã vật tư" Binding="{Binding ItemId}" Width="*" IsReadOnly="True"/>
-                            <DataGridTextColumn Header="Tên vật tư" Binding="{Binding ItemName}" Width="1.5*" IsReadOnly="True"/>
-                            <DataGridTextColumn Header="Mã lô" Binding="{Binding LotId}" Width="0.8*" IsReadOnly="True"/>
-                            <DataGridTextColumn Header="Đơn vị" Binding="{Binding Unit}" Width="0.8*" IsReadOnly="True"/>
-                            <DataGridTextColumn Header="Số lượng" Binding="{Binding Quantity}" Width="*" IsReadOnly="False"/>
-                            <DataGridTextColumn Header="Số PO" Binding="{Binding PurchaseOrderNumber}" Width="*" IsReadOnly="True"/>
-                            <DataGridTextColumn Header="NSX" Binding="{Binding ProductionDate}" Width="*" IsReadOnly="False"/>
-                            <DataGridTextColumn Header="HSD" Binding="{Binding ExpirationDate}" Width="*" IsReadOnly="True"/>
-                            <DataGridTextColumn Header="Vị trí" Binding="{Binding LocationId}" Width="*" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Kho hàng" Binding="{Binding ItemClassId}" Width="auto" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Mã vật tư" Binding="{Binding ItemId}" Width="auto" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Tên vật tư" Binding="{Binding ItemName}" Width="auto" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Mã lô" Binding="{Binding LotId}" Width="auto" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Đơn vị" Binding="{Binding Unit}" Width="auto" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Số lượng" Binding="{Binding Quantity}" Width="auto" IsReadOnly="False"/>
+                            <DataGridTextColumn Header="Số PO" Binding="{Binding PurchaseOrderNumber}" Width="auto" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="NSX" Binding="{Binding ProductionDate, StringFormat=dd/MM/yyyy}" Width="auto" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="HSD" Binding="{Binding ExpirationDate, StringFormat=dd/MM/yyyy}" Width="auto" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Vị trí" Binding="{Binding LocationId}" Width="auto" IsReadOnly="True"/>
                         </DataGrid.Columns>
                     </DataGrid>
 

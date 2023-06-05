@@ -14,7 +14,7 @@
             <TabItem Height="55" MaxWidth="800" Background="Red">
                 <TabItem.Header >
                     <TextBlock>
-                        <TextBlock Style="{StaticResource HeaderText}" Text="XEM TIẾN ĐỘ ĐƠN ĐANG NHẬP"/>
+                        <TextBlock Style="{StaticResource HeaderText}" Text="NHẬP KHO NGUYÊN VẬT LIỆU"/>
                     </TextBlock>
                 </TabItem.Header>
                 <local:GoodsReceiptView DataContext="{Binding GoodsReceiptUncompleted}"/>
@@ -23,7 +23,16 @@
             <TabItem Height="55" MaxWidth="800" Background="Red">
                 <TabItem.Header >
                     <TextBlock>
-                        <TextBlock Style="{StaticResource HeaderText}" Text="XEM TIẾN ĐỘ ĐƠN ĐÃ NHẬP"/>
+                        <TextBlock Style="{StaticResource HeaderText}" Text="ĐƠN ĐÃ NHẬP"/>
+                    </TextBlock>
+                </TabItem.Header>
+                <local:GoodsReceiptCompletedView DataContext="{Binding GoodsReceiptCompleted}"/>
+            </TabItem>
+
+            <TabItem Height="55" MaxWidth="800" Background="Red">
+                <TabItem.Header >
+                    <TextBlock>
+                        <TextBlock Style="{StaticResource HeaderText}" Text="NHẬP KHO THÀNH PHẨM"/>
                     </TextBlock>
                 </TabItem.Header>
                 <local:GoodsReceiptCompletedView DataContext="{Binding GoodsReceiptCompleted}"/>

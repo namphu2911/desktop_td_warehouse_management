@@ -28,7 +28,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
         public string GoodsIssueId { get; set; } = "";
         //
         public DateTime StartDate { get; set; } = DateTime.Today.AddDays(-7);
-        public DateTime EndDate { get; set; } = DateTime.Today;
+        public DateTime EndDate { get; set; } = DateTime.Today.AddDays(+1);
         public ObservableCollection<PendingGoodsIssueViewModel> GoodsIssueByIds { get; set; } = new();
         public ObservableCollection<PendingGoodsIssueViewModel> GoodsIssueByTimes { get; set; } = new();
         public ObservableCollection<GoodsIssueLotForGoodsIssueProgressViewModel> Lots { get; set; } = new();
@@ -49,10 +49,9 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
                     {
                         goodsIssuesTotal.Add(goodIssue);
                     }
-                    var goodsIssue = goodsIssuesTotal.First(g => g.GoodsIssueId == selectedGoodsIssue.GoodsIssueId);
-                    foreach (var entry in goodsIssue.Entries)
-                    {
-                        var lotViewModels = goodsIssue.Entries.SelectMany(gi =>
+                    GoodsIssueDto goodsIssue = goodsIssuesTotal.Last(g => g.GoodsIssueId == selectedGoodsIssue.GoodsIssueId);
+                    var entries = goodsIssue.Entries;
+                    var lotViewModels = entries.SelectMany(gi =>
                                                             gi.Lots.Select(gie =>
                                                                 new GoodsIssueLotForGoodsIssueProgressViewModel(
                                                                     gi.Item.ItemClassId,
@@ -62,9 +61,8 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
                                                                     gie.GoodsIssueLotId,
                                                                     gie.Quantity,
                                                                     goodsIssue.PurchaseOrderNumber)));
-                        Lots = new(lotViewModels);
-                    }
-                    
+                    Lots = new(lotViewModels);
+
                 }
             }
         }

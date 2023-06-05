@@ -6,5 +6,6 @@ public interface IDatabaseSynchronizationService
     Task SynchronizeItemLotsData();
     Task SynchronizeGoodReceiptsData();
     Task SynchronizeGoodIssuesData();
+    Task SynchronizeDepartmentsData();
 
 }

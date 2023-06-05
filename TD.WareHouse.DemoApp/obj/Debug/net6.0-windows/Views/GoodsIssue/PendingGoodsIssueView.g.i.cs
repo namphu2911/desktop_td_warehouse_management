@@ -58,7 +58,8 @@ namespace TD.WareHouse.DemoApp.Views.GoodsIssue {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/TD.WareHouse.DemoApp;component/views/goodsissue/pendinggoodsissueview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/TD.WareHouse.DemoApp;V1.0.0.0;component/views/goodsissue/pendinggoodsissueview.x" +
+                    "aml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\Views\GoodsIssue\PendingGoodsIssueView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

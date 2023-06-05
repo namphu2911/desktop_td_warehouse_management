@@ -34,6 +34,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Mapping
             CreateMap<GoodsReceiptDto, GoodsReceipt>();
             CreateMap<GoodsIssueDto, GoodsIssue>();
             CreateMap<EmployeeDto, Employee>();
+            CreateMap<DepartmentDto,Department>();
             //CreateMap<GoodsIssueDto, GoodsIssueByHand>()
             //    .ForMember(i => i.EmployeeName, o => o.MapFrom(dto => dto.Employee.EmployeeName));
 
@@ -89,6 +90,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Mapping
                 .ForMember(i => i.ItemId, o => o.MapFrom(dto => dto.Item.ItemId))
                 .ForMember(i => i.ItemName, o => o.MapFrom(dto => dto.Item.ItemName))
                 .ForMember(i => i.Unit, o => o.MapFrom(dto => dto.Item.Unit))
+                .ForMember(i => i.MinimumStockLevel, o => o.MapFrom(dto => dto.Item.MinimumStockLevel))
                 .ForMember(i => i.ItemClassId, o => o.MapFrom(dto => dto.Item.ItemClassId))
                 .ForMember(i => i.ShippedQuantity, o => o.MapFrom(dto => -dto.ShippedQuantity));
 

@@ -192,9 +192,9 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Mã sản phẩm" Binding="{Binding ItemId}" Width="*"/>
                             <DataGridTextColumn Header="Tên sản phẩm" Binding="{Binding ItemName}" Width="*"/>
-                            <DataGridTextColumn Header="Đơn vị" Binding="{Binding Unit}" Width="*"/>
+                            <DataGridTextColumn Header="Đơn vị" Binding="{Binding Unit}" Width="auto"/>
                             <DataGridTextColumn Header="Mã lô" Binding="{Binding LotId}" Width="*"/>
-                            <DataGridTextColumn Header="Lượng" Binding="{Binding Quantity}" Width="*"/>
+                            <DataGridTextColumn Header="Lượng" Binding="{Binding Quantity}" Width="auto"/>
                             <DataGridTextColumn Header="PO" Binding="{Binding PurchaseOrderNumber}" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>

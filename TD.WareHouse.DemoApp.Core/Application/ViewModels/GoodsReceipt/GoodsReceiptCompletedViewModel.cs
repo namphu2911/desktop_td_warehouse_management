@@ -21,7 +21,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
         private PendingGoodsReceiptViewModel? selectedGoodsReceipt;
         //
         public DateTime StartDate { get; set; } = DateTime.Today.AddDays(-7);
-        public DateTime EndDate { get; set; } = DateTime.Today;
+        public DateTime EndDate { get; set; } = DateTime.Today.AddDays(+1);
         public ObservableCollection<PendingGoodsReceiptViewModel> GoodsReceiptByTimes { get; set; } = new();
         public ObservableCollection<GoodsReceiptLotForGoodsReceiptView> Lots { get; set; } = new();
 

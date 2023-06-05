@@ -15,7 +15,8 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
         private readonly IExcelReader _excelReader;
         private readonly IApiService _apiService;
         private readonly GoodsIssueStore _goodsIssueStore;
-        public ObservableCollection<string> Receivers => _goodsIssueStore.Receivers;
+        private readonly DepartmentStore _departmentStore;
+        public ObservableCollection<string> Receivers => _departmentStore.Names;
         private List<GoodsIssueDb> goodsIssues = new();
         private GoodsIssueDb GoodsIssueDb { get; set; }
         public DateTime Timestamp { get; set; } = DateTime.Now;
@@ -126,12 +127,13 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
         public ICommand LoadGoodsIssueInternalCommand { get; set; }
         public ICommand CreateEntryCommand { get; set; }
 
-        public GoodsIssueInternalViewModel(IExcelReader excelReader, IApiService apiService, ItemStore itemStore, GoodsIssueStore goodsIssueStore)
+        public GoodsIssueInternalViewModel(IExcelReader excelReader, IApiService apiService, ItemStore itemStore, GoodsIssueStore goodsIssueStore, DepartmentStore departmentStore)
         {
             _excelReader = excelReader;
             _apiService = apiService;
             _itemStore = itemStore;
             _goodsIssueStore = goodsIssueStore;
+            _departmentStore = departmentStore;
 
             ImportGoodsIssuesCommand = new RelayCommand(ImportGoodsIssueAsync);
             LoadGoodsIssueInternalCommand = new RelayCommand(LoadGoodsIssueInternalView);
@@ -192,7 +194,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
             foreach (var goodsIssueViewModel in GoodsIssues)
             {
                 goodsIssueViewModel.GoodsIssueDeleted += OnGoodsIssueRemove;
-                goodsIssueViewModel.GoodsIssueCreated += OnGoodsIssueRemove;
+                goodsIssueViewModel.GoodsIssueCreated += OnGoodsIssueSave;
             }
         }
         private async void ImportGoodsIssueAsync()
@@ -212,7 +214,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
                 foreach (var goodsIssueViewModel in GoodsIssues)
                 {
                     goodsIssueViewModel.GoodsIssueDeleted += OnGoodsIssueRemove;
-                    goodsIssueViewModel.GoodsIssueCreated += OnGoodsIssueRemove;
+                    goodsIssueViewModel.GoodsIssueCreated += OnGoodsIssueSave;
                 }
                 TypeEnable = false;
 
@@ -234,6 +236,21 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
                 var goodsIssue = goodsIssues.First(g => g.GoodsIssueId == goodsIssueViewModel.GoodsIssueId);
                 goodsIssues.Remove(goodsIssue);
                 Entries = new();
+                ItemId = "";
+                ItemName = "";
+                Unit = "";
+                RequestedQuantity = 0;
+                TypeEnable = false;
+                FilePath = "";
+            }
+            OnPropertyChanged();
+        }
+
+        private void OnGoodsIssueSave(object? sender, EventArgs args)
+        {
+            if (sender is not null)
+            {
+                var goodsIssueViewModel = (GoodsIssueInternalToCreateViewModel)sender;
                 ItemId = "";
                 ItemName = "";
                 Unit = "";

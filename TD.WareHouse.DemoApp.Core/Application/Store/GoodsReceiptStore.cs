@@ -24,13 +24,16 @@ namespace TD.WareHouse.DemoApp.Core.Application.Store
         public void SetGoodsReceipts(IEnumerable<GoodsReceipt> goodsReceipts)
         {
             GoodsReceiptsAll = goodsReceipts.ToList();
-            Suppliers = new ObservableCollection<string>(GoodsReceiptsAll.Select(i => i.Supplier).OrderBy(s => s));
+            GoodsReceiptIds = new ObservableCollection<string>(GoodsReceiptsAll.Select(i => i.GoodsReceiptId).OrderBy(s => s));
         }
-
-        public void SetUnconfirmedGoodsReceipts(IEnumerable<GoodsReceipt> goodsReceipts)
+        public void SetGoodsIssueSuppliers(List<string> suppliersDtos)
         {
-            GoodsReceiptsUnconfirmed = goodsReceipts.ToList();
-            GoodsReceiptIds = new ObservableCollection<string>(GoodsReceiptsUnconfirmed.Select(i => i.GoodsReceiptId).OrderBy(s => s));
+            Suppliers = new ObservableCollection<string>(suppliersDtos.OrderBy(s => s));
         }
+        //public void SetUnconfirmedGoodsReceipts(IEnumerable<GoodsReceipt> goodsReceipts)
+        //{
+        //    GoodsReceiptsUnconfirmed = goodsReceipts.ToList();
+        //    GoodsReceiptIds = new ObservableCollection<string>(GoodsReceiptsUnconfirmed.Select(i => i.GoodsReceiptId).OrderBy(s => s));
+        //}
     }
 }

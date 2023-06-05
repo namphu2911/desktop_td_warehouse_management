@@ -19,11 +19,14 @@ namespace TD.WareHouse.DemoApp.Core.Application.Store
             PurchaseOrderNumbers = new ObservableCollection<string>();
             LocationIds = new ObservableCollection<string>();
         }
+        public void SetPurchaseOrderNumbers(List<string> purchaseOrderNumbersDtos)
+        {
+            PurchaseOrderNumbers = new ObservableCollection<string>(purchaseOrderNumbersDtos.OrderBy(s => s));
+        }
         public void SetItemLot(IEnumerable<ItemLot> itemlots)
         {
             ItemLots = itemlots.ToList();
-            PurchaseOrderNumbers = new ObservableCollection<string>(ItemLots.Select(i => i.PurchaseOrderNumber).OrderBy(s => s));
             LocationIds = new ObservableCollection<string>(ItemLots.Select(i => i.Location.LocationId).OrderBy(s => s));
         }
     }
-    }
+}

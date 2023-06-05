@@ -58,7 +58,8 @@ namespace TD.WareHouse.DemoApp.Views.GoodsReceipt {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/TD.WareHouse.DemoApp;component/views/goodsreceipt/pendinggoodsreceiptview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/TD.WareHouse.DemoApp;V1.0.0.0;component/views/goodsreceipt/pendinggoodsreceiptvi" +
+                    "ew.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\Views\GoodsReceipt\PendingGoodsReceiptView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

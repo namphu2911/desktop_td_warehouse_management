@@ -17,7 +17,7 @@
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:viewmodels="clr-namespace:TD.WareHouse.DemoApp.Core.Application.ViewModels;assembly=TD.WareHouse.DemoApp.Core" xmlns:i="http://schemas.microsoft.com/xaml/behaviors" d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
         Background="{StaticResource ColorBackground}"
-        Title="MainWindow" Height="800" Width="1300">
+        Title="ThaiDuongWarehouse" Height="800" Width="1300">
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">

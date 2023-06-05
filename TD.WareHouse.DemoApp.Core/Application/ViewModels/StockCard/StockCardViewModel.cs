@@ -20,7 +20,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.StockCard
         private readonly IMapper _mapper;
         private readonly ItemStore _itemStore;
         public DateTime StartDate { get; set; } = DateTime.Now.AddDays(-30).Date;
-        public DateTime EndDate { get; set; } = DateTime.Now.Date;
+        public DateTime EndDate { get; set; } = DateTime.Now.AddDays(+1).Date;
         public string ItemId { get; set; } = "";
         public ObservableCollection<StockCardEntryViewModel> StockCardEntries { get; set; } = new();
         public ObservableCollection<string> ItemIds => _itemStore.ItemIds;

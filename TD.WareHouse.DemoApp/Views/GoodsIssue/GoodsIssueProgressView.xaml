@@ -81,8 +81,8 @@
                         BorderThickness="1"
                         BorderBrush="{StaticResource ColorGray}">
                             <ListView HorizontalContentAlignment="Stretch"
-                                  ItemsSource="{Binding GoodsIssueByIds}"
-                                  SelectedItem="{Binding SelectedGoodsIssue}">
+                                  ItemsSource="{Binding GoodsIssueByIds, UpdateSourceTrigger=PropertyChanged}"
+                                  SelectedItem="{Binding SelectedGoodsIssue, UpdateSourceTrigger=PropertyChanged}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate DataType="{x:Type goodsissue:PendingGoodsIssueViewModel}">
                                         <local:PendingGoodsIssueView/>
@@ -223,44 +223,27 @@
                               SelectionUnit="FullRow"
                               SelectionMode="Single">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Kho hàng" Binding="{Binding ItemClassId}" Width="*"/>
-                            <DataGridTextColumn Header="Mã sản phẩm" Binding="{Binding ItemId}" Width="*"/>
-                            <DataGridTextColumn Header="Tên sản phẩm" Binding="{Binding ItemName}" Width="1.5*"/>
-                            <DataGridTextColumn Header="Đơn vị" Binding="{Binding Unit}" Width="0.8*"/>
+                            <DataGridTextColumn Header="Kho hàng" Binding="{Binding ItemClassId}" Width="auto"/>
+                            <DataGridTextColumn Header="Mã sản phẩm" Binding="{Binding ItemId}" Width="auto"/>
+                            <DataGridTextColumn Header="Tên sản phẩm" Binding="{Binding ItemName}" Width="*"/>
+                            <DataGridTextColumn Header="Đơn vị" Binding="{Binding Unit}" Width="auto"/>
                             <DataGridTextColumn Header="Mã lô" Binding="{Binding GoodsIssueLotId}" Width="*"/>
-                            <DataGridTextColumn Header="Số lượng" Binding="{Binding Quantity}" Width="*"/>
+                            <DataGridTextColumn Header="Số lượng" Binding="{Binding Quantity}" Width="auto"/>
                             <DataGridTextColumn Header="Số PO" Binding="{Binding PurchaseOrderNumber}" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
 
                     <Grid Grid.Row="3">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-
                         <Button Grid.Column="0"
                             Margin="10"
                             Width="150"
-                            HorizontalAlignment="Right"
+                            HorizontalAlignment="Center"
                             Style="{StaticResource ButtonPrimary}" 
-                            Content="Hoàn tất"
+                            Content="Duyệt đơn"
                             IsEnabled="{Binding EnableConfirmButton}">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
                                     <i:InvokeCommandAction Command="{Binding ConfirmCommand}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </Button>
-                        <Button Grid.Column="1"
-                            Margin="10"
-                            Width="150"
-                            HorizontalAlignment="Left"
-                            Style="{StaticResource ButtonPrimary}" 
-                            Content="Hủy">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="Click">
-                                    <prism:InvokeCommandAction Command="{Binding DeleteCommand}" />
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </Button>

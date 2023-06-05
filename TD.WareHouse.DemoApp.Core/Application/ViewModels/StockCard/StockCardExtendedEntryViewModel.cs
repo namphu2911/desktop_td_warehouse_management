@@ -13,6 +13,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.StockCard
         public string ItemId { get; set; }
         public string ItemName { get; set; }
         public string Unit { get; set; }
+        public double MinimumStockLevel { get; set; }
         public double BeforeQuantity { get; set; }
         public double AfterQuantity { get; set; }
         public double ReceivedQuantity { get; set; }
@@ -23,12 +24,13 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.StockCard
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
         }
-        public StockCardExtendedEntryViewModel(string itemClassId, string itemId, string itemName, string unit, double beforeQuantity, double afterQuantity, double receivedQuantity, double shippedQuantity)
+        public StockCardExtendedEntryViewModel(string itemClassId, string itemId, string itemName, string unit, double minimumStockLevel, double beforeQuantity, double afterQuantity, double receivedQuantity, double shippedQuantity)
         {
             ItemClassId = itemClassId;
             ItemId = itemId;
             ItemName = itemName;
             Unit = unit;
+            MinimumStockLevel = minimumStockLevel;
             BeforeQuantity = beforeQuantity;
             AfterQuantity = afterQuantity;
             ReceivedQuantity = receivedQuantity;

@@ -24,7 +24,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.History
         private readonly WarehouseStore _warehouseStore;
         private readonly GoodsIssueStore _goodsIssueStore;
         public DateTime StartDate { get; set; } = DateTime.Now.AddDays(-30).Date;
-        public DateTime EndDate { get; set; } = DateTime.Now.Date;
+        public DateTime EndDate { get; set; } = DateTime.Now.AddDays(+1).Date;
         private string itemId = "";
         private string itemName = "";
         private string warehouseId = "";

@@ -204,15 +204,15 @@
                           SelectionUnit="FullRow"
                           SelectionMode="Single">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Kho hàng" Width="*" Binding="{Binding ItemClassId}"/>
+                            <DataGridTextColumn Header="Kho hàng" Width="auto" Binding="{Binding ItemClassId}"/>
                             <DataGridTextColumn Header="NCC" Width="*" Binding="{Binding Supplier}"/>
                             <DataGridTextColumn Header="Mã sản phẩm" Width="*" Binding="{Binding ItemId}"/>
                             <DataGridTextColumn Header="Tên sản phẩm" Width="*" Binding="{Binding ItemName}"/>
-                            <DataGridTextColumn Header="Đơn vị" Width="*" Binding="{Binding Unit}"/>
+                            <DataGridTextColumn Header="Đơn vị" Width="auto" Binding="{Binding Unit}"/>
                             <DataGridTextColumn Header="Mã lô" Width="*" Binding="{Binding GoodsReceiptLotId}"/>
-                            <DataGridTextColumn Header="Số lượng nhập" Width="*" Binding="{Binding Quantity}"/>
+                            <DataGridTextColumn Header="Số lượng nhập" Width="auto" Binding="{Binding Quantity}"/>
                             <DataGridTextColumn Header="Mã PO" Width="*" Binding="{Binding PurchaseOrderNumber}"/>
-                            <DataGridTextColumn Header="Ghi chú" Width="*" Binding="{Binding Note}"/>
+                            <DataGridTextColumn Header="Ghi chú" Width="auto" Binding="{Binding Note}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </materialDesign:Card>
