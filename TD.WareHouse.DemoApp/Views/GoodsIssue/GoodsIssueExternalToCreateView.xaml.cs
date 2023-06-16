@@ -24,5 +24,14 @@ namespace TD.WareHouse.DemoApp.Views.GoodsIssue
         {
             InitializeComponent();
         }
+
+        //private void savebtn_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if(MessageBox.Show("Xác nhận lưu", "Lựa chọn", MessageBoxButton.YesNo, MessageBoxImage.Question)==MessageBoxResult.Yes)
+        //    {
+        //        savebtn.Command.Execute(savebtn.CommandTarget);
+        //    }
+        //    else { }
+        //}
     }
 }

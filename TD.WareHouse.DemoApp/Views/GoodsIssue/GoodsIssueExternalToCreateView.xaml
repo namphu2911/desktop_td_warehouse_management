@@ -107,9 +107,12 @@
                         Xoá
                         </TextBlock>
                     </Button>
-                    <Button Style="{StaticResource MaterialDesignRaisedButton}"
+                    <Button Name="savebtn"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
                             Height="22"
-                            Margin="0 2">
+                            Margin="0 2" >
+                        <!--Click="savebtn_Click"
+                            CommandTarget="{Binding CreateCommand}">-->
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
                                 <prism:InvokeCommandAction Command="{Binding CreateCommand}" />

@@ -62,6 +62,14 @@
         <Setter Property="Foreground" Value="{StaticResource ColorPrimaryD1}"/>
     </Style>
 
+    <Style x:Key="TextBlockMini" TargetType="TextBlock">
+        <Setter Property="Background" Value="{DynamicResource ColorSurface}"/>
+        <Setter Property="Foreground" Value="{DynamicResource ColorSurfaceOn}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
     <Style TargetType="DataGridCell" BasedOn="{StaticResource MaterialDesignDataGridCell}">
         <Setter Property="Template">
             <Setter.Value>

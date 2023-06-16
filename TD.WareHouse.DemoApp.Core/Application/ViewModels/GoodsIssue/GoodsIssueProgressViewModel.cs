@@ -3,13 +3,16 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using TD.WareHouse.DemoApp.Core.Application.Store;
 using TD.WareHouse.DemoApp.Core.Application.ViewModels.Seedwork;
 using TD.WareHouse.DemoApp.Core.Domain.Dtos.GoodsIssues;
 using TD.WareHouse.DemoApp.Core.Domain.Services;
+using MessageBox = System.Windows.MessageBox;
 
 namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
 {
@@ -145,6 +148,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
             try
             {
                 await _apiService.ConfirmGoodsIssueAsync(SelectedGoodsIssue.GoodsIssueId);
+                MessageBox.Show("Đã Duyệt Đơn", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (HttpRequestException)
             {
@@ -153,6 +157,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
             GoodsIssueId = "";
             GoodsIssueByIds = new();
             GoodsIssueConfirmed?.Invoke();
+            
         }
 
         private async void DeleteAsync()

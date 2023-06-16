@@ -12,6 +12,9 @@ using TD.WareHouse.DemoApp.Core.Domain.Services;
 using TD.WareHouse.DemoApp.Core.Domain.Dtos.GoodsReceipts;
 using TD.WareHouse.DemoApp.Core.Application.Store;
 using TD.WareHouse.DemoApp.Core.Domain.Exceptions;
+using System.Net.Http;
+using System.Windows;
+using MessageBox = System.Windows.MessageBox;
 
 namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
 {
@@ -154,19 +157,18 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
 
         public async void UpdateAsync()
         {
-            var fixDto = Lots.Select(x => new FixUncompletedGoodsReceiptDto(
+            var fixDto = Lots.Select(x => new FixCompletedGoodsReceiptDto(
                 x.LotId,
                 x.LocationId,
                 x.Quantity,
-                sublotSize: null,
-                "string",
                 x.PurchaseOrderNumber,
                 x.ProductionDate,
-                x.ExpirationDate,
-                note: null));
+                x.ExpirationDate));
             try
             {
-                await _apiService.FixUncompltedGoodsReceiptAsync(SelectedGoodsReceipt.GoodsReceiptId, fixDto);
+                await _apiService.FixCompltedGoodsReceiptAsync(SelectedGoodsReceipt.GoodsReceiptId, fixDto);
+                GoodsReceiptUpdated?.Invoke();
+                MessageBox.Show("Đã Cập Nhật", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (HttpRequestException)
             {
@@ -180,7 +182,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
             {
                 ShowErrorMessage("Đã có lỗi xảy ra: " + ex.Message);
             }
-            GoodsReceiptUpdated?.Invoke();
+            
         }
         //private async void ConfirmAsync()
         //{
@@ -199,15 +201,19 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
 
         private async void DeleteAsync()
         {
-            try
+            if (MessageBox.Show("Xác nhận xóa đơn", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                await _apiService.DeleteGoodsReceiptAsync(SelectedGoodsReceipt.GoodsReceiptId);
+                try
+                {
+                    await _apiService.DeleteGoodsReceiptAsync(SelectedGoodsReceipt.GoodsReceiptId);
+                }
+                catch (HttpRequestException)
+                {
+                    ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+                }
+                ReloadWhenDelete();
             }
-            catch (HttpRequestException)
-            {
-                ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
-            }
-            ReloadWhenDelete();
+            else { }
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows.Input;
 using TD.WareHouse.DemoApp.Core.Application.Store;
 using TD.WareHouse.DemoApp.Core.Application.ViewModels.Seedwork;
@@ -20,6 +21,8 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
         public string GoodsIssueId { get; set; } = "";
         public string EmployeeId { get; set; } = "";
         public string Receiver { get; set; } = "";
+        private readonly GoodsIssueStore _goodsIssueStore;
+        public ObservableCollection<string> GoodsIssueIds => _goodsIssueStore.GoodsIssueIds;
         private readonly ItemStore _itemStore;
         public ObservableCollection<string> ItemIds => _itemStore.ItemIds;
         public ObservableCollection<string> ItemNames => _itemStore.ItemNames;
@@ -124,11 +127,12 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
         public ICommand LoadGoodsIssueExternalCommand { get; set; }
         public ICommand CreateEntryCommand { get; set; }
 
-        public GoodsIssueExternalViewModel(IExcelReader excelReader, IApiService apiService, ItemStore itemStore)
+        public GoodsIssueExternalViewModel(IExcelReader excelReader, IApiService apiService, ItemStore itemStore, GoodsIssueStore goodsIssueStore)
         {
             _excelReader = excelReader;
             _apiService = apiService;
             _itemStore = itemStore;
+            _goodsIssueStore = goodsIssueStore;
 
             ImportGoodsIssuesCommand = new RelayCommand(ImportGoodsIssueAsync);
             LoadGoodsIssueExternalCommand = new RelayCommand(LoadGoodsIssueExternalView);
@@ -176,20 +180,27 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
         }
         private void SaveIssueByHand()
         {
-            var NewGoodsIssueByHand = new GoodsIssueDb(GoodsIssueId, DateTime.Now, EmployeeId, Receiver, new List<GoodsIssueEntry>());
-            goodsIssues.Add(NewGoodsIssueByHand);
-            GoodsIssues = new ObservableCollection<GoodsIssueExternalToCreateViewModel>
-                        (goodsIssues.Select(x => new GoodsIssueExternalToCreateViewModel(
-                             _apiService,
-                            x.GoodsIssueId,
-                            x.Timestamp,
-                            x.EmployeeId,
-                            x.Receiver,
-                            x.Entries)));
-            foreach (var goodsIssueViewModel in GoodsIssues)
+            if (GoodsIssueIds.Contains(GoodsIssueId))
             {
-                goodsIssueViewModel.GoodsIssueDeleted += OnGoodsIssueRemove;
-                goodsIssueViewModel.GoodsIssueCreated += OnGoodsIssueRemove;
+                ShowErrorMessage($"Mã phiếu xuất đã tồn tại.");
+            }
+            else
+            {
+                var NewGoodsIssueByHand = new GoodsIssueDb(GoodsIssueId, DateTime.Now, EmployeeId, Receiver, new List<GoodsIssueEntry>());
+                goodsIssues.Add(NewGoodsIssueByHand);
+                GoodsIssues = new ObservableCollection<GoodsIssueExternalToCreateViewModel>
+                            (goodsIssues.Select(x => new GoodsIssueExternalToCreateViewModel(
+                                 _apiService,
+                                x.GoodsIssueId,
+                                x.Timestamp,
+                                x.EmployeeId,
+                                x.Receiver,
+                                x.Entries)));
+                foreach (var goodsIssueViewModel in GoodsIssues)
+                {
+                    goodsIssueViewModel.GoodsIssueDeleted += OnGoodsIssueRemove;
+                    goodsIssueViewModel.GoodsIssueCreated += OnGoodsIssueRemove;
+                }
             }
         }
         private async void ImportGoodsIssueAsync()

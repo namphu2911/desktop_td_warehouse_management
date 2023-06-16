@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
@@ -220,15 +221,23 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
             }
             return result;
         }
-
-        public async Task FixUncompltedGoodsReceiptAsync(string goodsReceiptId, IEnumerable<FixUncompletedGoodsReceiptDto> fixDto)
+        public async Task CreateGoodsReceiptsAsync(CreateGoodsReceiptDto goodsReceipts)
         {
-            var json = JsonConvert.SerializeObject(fixDto);
+            var json = JsonConvert.SerializeObject(goodsReceipts);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            HttpResponseMessage response = await _httpClient.PatchAsync($"{serverUrl}/api/GoodsReceipts/{goodsReceiptId}", content);
+            HttpResponseMessage response = await _httpClient.PostAsync($"{serverUrl}/api/GoodsReceipts", content);
+
             response.EnsureSuccessStatusCode();
         }
+        //public async Task FixUncompltedGoodsReceiptAsync(string goodsReceiptId, IEnumerable<FixUncompletedGoodsReceiptDto> fixDto)
+        //{
+        //    var json = JsonConvert.SerializeObject(fixDto);
+        //    var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+        //    HttpResponseMessage response = await _httpClient.PatchAsync($"{serverUrl}/api/GoodsReceipts/{goodsReceiptId}", content);
+        //    response.EnsureSuccessStatusCode();
+        //}
         public async Task FixCompltedGoodsReceiptAsync(string goodsReceiptId, IEnumerable<FixCompletedGoodsReceiptDto> fixDto)
         {
             var json = JsonConvert.SerializeObject(fixDto);
@@ -489,7 +498,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
 
             try
             {
-                response.EnsureSuccessStatusCode();
+                
             }
             catch (HttpRequestException ex)
             {

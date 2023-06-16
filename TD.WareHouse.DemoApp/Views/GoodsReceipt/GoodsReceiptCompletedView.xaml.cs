@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,16 @@ namespace TD.WareHouse.DemoApp.Views.GoodsReceipt
         public GoodsReceiptCompletedView()
         {
             InitializeComponent();
+        }
+        private void BrowseFileButtonClicked(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new();
+            openFileDialog.Filter = "Excel file (*.xlsx)|*.xlsx|All files (*.*)|*.*";
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                textBoxFilePath.Text = openFileDialog.FileName;
+            }
         }
     }
 }

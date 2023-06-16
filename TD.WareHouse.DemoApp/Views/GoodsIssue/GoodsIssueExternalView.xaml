@@ -126,7 +126,7 @@
                                                         Text="Thời gian: " />
                                                     <TextBox Grid.Column="1"
                                                         Style="{StaticResource TextBoxMini}"
-                                                        Text="{Binding Timestamp}" />
+                                                        Text="{Binding Timestamp, StringFormat=dd/MM/yyyy hh:mm:ss tt}" />
                                                 </Grid>
 
                                                 <Grid Grid.Row="2">

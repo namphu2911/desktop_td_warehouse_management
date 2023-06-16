@@ -99,6 +99,9 @@ C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\n
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Views\GoodsIssue\GoodsIssueProgressView.g.cs
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Views\GoodsIssue\GoodsIssueView.g.cs
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Views\GoodsIssue\PendingGoodsIssueView.g.cs
+C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Views\GoodsReceipt\GoodsReceiptCompletedView.g.cs
+C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Views\GoodsReceipt\GoodsReceiptNavigationView.g.cs
+C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Views\GoodsReceipt\GoodsReceiptToCreateView.g.cs
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Views\GoodsReceipt\GoodsReceiptView.g.cs
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Views\GoodsReceipt\PendingGoodsReceiptView.g.cs
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Views\History\HistoryGoodsIssueView.g.cs
@@ -133,6 +136,9 @@ C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\n
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Views\GoodsIssue\GoodsIssueProgressView.baml
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Views\GoodsIssue\GoodsIssueView.baml
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Views\GoodsIssue\PendingGoodsIssueView.baml
+C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Views\GoodsReceipt\GoodsReceiptCompletedView.baml
+C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Views\GoodsReceipt\GoodsReceiptNavigationView.baml
+C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Views\GoodsReceipt\GoodsReceiptToCreateView.baml
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Views\GoodsReceipt\GoodsReceiptView.baml
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Views\GoodsReceipt\PendingGoodsReceiptView.baml
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Views\History\HistoryGoodsIssueView.baml
@@ -162,7 +168,3 @@ C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\n
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\TD.WareHouse.DemoApp.pdb
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\TD.WareHouse.DemoApp.genruntimeconfig.cache
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\ref\TD.WareHouse.DemoApp.dll
-C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Views\GoodsReceipt\GoodsReceiptCompletedView.g.cs
-C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Views\GoodsReceipt\GoodsReceiptNavigationView.g.cs
-C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Views\GoodsReceipt\GoodsReceiptCompletedView.baml
-C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Views\GoodsReceipt\GoodsReceiptNavigationView.baml

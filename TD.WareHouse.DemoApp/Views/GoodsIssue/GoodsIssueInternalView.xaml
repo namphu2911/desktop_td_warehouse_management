@@ -110,6 +110,10 @@
                                                     <TextBlock Grid.Column="0" 
                                                         Style="{StaticResource FieldLabel}"
                                                         Text="Mã đơn: " />
+                                                    <!--<TextBlock Grid.Column="1"
+                                                               Style="{StaticResource TextBlockMini}">
+                                                        <Run Text="{Binding Timestamp,StringFormat=dd-MM-yy-}"/><Run Text="{Binding Receiver}"/>
+                                                    </TextBlock>-->
                                                     <TextBox Grid.Column="1"
                                                         Style="{StaticResource TextBoxMini}"
                                                         Text="{Binding GoodsIssueId}" />
@@ -126,7 +130,7 @@
                                                         Text="Thời gian: " />
                                                     <TextBox Grid.Column="1"
                                                         Style="{StaticResource TextBoxMini}"
-                                                        Text="{Binding Timestamp}" />
+                                                        Text="{Binding Timestamp, StringFormat=dd/MM/yyyy hh:mm:ss tt}" />
                                                 </Grid>
 
                                                 <Grid Grid.Row="2">
@@ -192,28 +196,20 @@
 
                 <materialDesign:Card Grid.Row="1"
                                  Margin="10">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-
-                        <Border Grid.Row="2"
+                    <Border 
                         Margin="5"
                         BorderThickness="1"
                         BorderBrush="{StaticResource ColorGray}">
-                            <ListView HorizontalContentAlignment="Stretch"
+                        <ListView HorizontalContentAlignment="Stretch"
                                   ItemsSource="{Binding GoodsIssues}"
                                   SelectedItem="{Binding SelectedGoodsIssue}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate DataType="{x:Type goodsissue:GoodsIssueInternalToCreateViewModel}">
-                                        <local:GoodsIssueInternalToCreateView/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </Border>
-                    </Grid>
+                            <ListView.ItemTemplate>
+                                <DataTemplate DataType="{x:Type goodsissue:GoodsIssueInternalToCreateViewModel}">
+                                    <local:GoodsIssueInternalToCreateView/>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Border>
                 </materialDesign:Card>
             </Grid>
 

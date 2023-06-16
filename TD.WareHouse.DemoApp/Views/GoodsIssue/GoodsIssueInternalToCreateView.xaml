@@ -116,9 +116,8 @@
                                 <prism:InvokeCommandAction Command="{Binding CreateCommand}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
-                        <TextBlock Style="{StaticResource ComponentFieldLabel}"
-                                   Text="{Binding SaveStatusString}"
-                                   IsEnabled="{Binding SaveStatusBool}">
+                        <TextBlock Style="{StaticResource ComponentFieldLabel}">
+                        Lưu
                         </TextBlock>
                     </Button>
                 </StackPanel>

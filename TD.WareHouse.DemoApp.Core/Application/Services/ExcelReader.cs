@@ -1,5 +1,7 @@
 ﻿using ExcelDataReader;
+using System.IO;
 using TD.WareHouse.DemoApp.Core.Domain.Models.GoodIssues;
+using TD.WareHouse.DemoApp.Core.Domain.Models.GoodsReceipts;
 using TD.WareHouse.DemoApp.Core.Domain.Services;
 
 namespace TD.WareHouse.DemoApp.Core.Application.Services
@@ -37,6 +39,37 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
                     var unit = reader.GetString(3);
                     var requestedQuantity = reader.GetDouble(4);
                     request.Entries.Add(new GoodsIssueEntry(itemId, itemName, unit, requestedQuantity));
+                }
+            }
+            return request;
+
+        }
+
+        public GoodsReceiptDb ReadReceiptExportRequests(string filePath, string sheetName, DateTime date)
+        {
+            using var stream = File.Open(filePath, FileMode.Open, FileAccess.Read);
+            using var reader = ExcelReaderFactory.CreateReader(stream);
+            JumpToSheet(sheetName, reader);
+            reader.Read();
+            var GoodsReceiptId = reader.GetString(17);
+
+            //reader.Read(); //doc Row hien tai va tu xuong dong
+            GoodsReceiptDb request = new(GoodsReceiptId, null, "NV01", new List<GoodsReceiptLot>());
+
+            SkipRows(7, reader);
+            while (reader.Read())
+            {
+                var value = reader.GetValue(1);
+                if (value is null) break;
+                else if (value is not null)
+                {
+                    var goodsReceiptLotId = reader.GetString(2);
+                    var itemId = reader.GetString(4);
+                    var itemName = reader.GetString(10);
+                    var unit = reader.GetString(16);
+                    var quantity = reader.GetDouble(18);
+                    var purchaseOrderNumber = reader.GetString(19);
+                    request.Lots.Add(new GoodsReceiptLot(goodsReceiptLotId, itemId, itemName, quantity, unit, purchaseOrderNumber));
                 }
             }
             return request;

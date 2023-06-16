@@ -13,11 +13,13 @@ namespace TD.WareHouse.DemoApp.Core.Application.Store
         public List<ItemLot> ItemLots { get; private set; }
         public ObservableCollection<string> PurchaseOrderNumbers { get; private set; }
         public ObservableCollection<string> LocationIds { get; private set; }
+        public List<string> LotIds { get; private set; }
         public ItemLotStore()
         {
             ItemLots = new List<ItemLot>();
             PurchaseOrderNumbers = new ObservableCollection<string>();
             LocationIds = new ObservableCollection<string>();
+            LotIds = new List<string>();
         }
         public void SetPurchaseOrderNumbers(List<string> purchaseOrderNumbersDtos)
         {
@@ -27,6 +29,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Store
         {
             ItemLots = itemlots.ToList();
             LocationIds = new ObservableCollection<string>(ItemLots.Select(i => i.Location.LocationId).OrderBy(s => s));
+            LotIds = new List<string>(ItemLots.Select(i => i.LotId).OrderBy(s => s));
         }
     }
 }

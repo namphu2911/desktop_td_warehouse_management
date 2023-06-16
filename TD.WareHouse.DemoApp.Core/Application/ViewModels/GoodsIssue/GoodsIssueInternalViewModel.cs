@@ -7,6 +7,7 @@ using TD.WareHouse.DemoApp.Core.Application.ViewModels.Seedwork;
 using TD.WareHouse.DemoApp.Core.Domain.Dtos.GoodsIssues;
 using TD.WareHouse.DemoApp.Core.Domain.Services;
 using TD.WareHouse.DemoApp.Core.Domain.Models.GoodIssues;
+using System.IO;
 
 namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
 {
@@ -23,7 +24,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
         public string GoodsIssueId { get; set; } = "";
         public string EmployeeId { get; set; } = "";
         public string Receiver { get; set; } = "";
-
+        public ObservableCollection<string> GoodsIssueIds => _goodsIssueStore.GoodsIssueIds;
         private readonly ItemStore _itemStore;
         public ObservableCollection<string> ItemIds => _itemStore.ItemIds;
         public ObservableCollection<string> ItemNames => _itemStore.ItemNames;
@@ -181,20 +182,27 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
         }
         private void SaveIssueByHand()
         {
-            var NewGoodsIssueByHand = new GoodsIssueDb(GoodsIssueId, DateTime.Now, EmployeeId, Receiver, new List<GoodsIssueEntry>());
-            goodsIssues.Add(NewGoodsIssueByHand);
-            GoodsIssues = new ObservableCollection<GoodsIssueInternalToCreateViewModel>
-                        (goodsIssues.Select(x => new GoodsIssueInternalToCreateViewModel(
-                             _apiService,
-                            x.GoodsIssueId,
-                            x.Timestamp,
-                            x.EmployeeId,
-                            x.Receiver,
-                            x.Entries)));
-            foreach (var goodsIssueViewModel in GoodsIssues)
+            if (GoodsIssueIds.Contains(GoodsIssueId))
             {
-                goodsIssueViewModel.GoodsIssueDeleted += OnGoodsIssueRemove;
-                goodsIssueViewModel.GoodsIssueCreated += OnGoodsIssueSave;
+                ShowErrorMessage($"Mã phiếu xuất đã tồn tại.");
+            }
+            else
+            {
+                var NewGoodsIssueByHand = new GoodsIssueDb(GoodsIssueId, DateTime.Now, EmployeeId, Receiver, new List<GoodsIssueEntry>());
+                goodsIssues.Add(NewGoodsIssueByHand);
+                GoodsIssues = new ObservableCollection<GoodsIssueInternalToCreateViewModel>
+                            (goodsIssues.Select(x => new GoodsIssueInternalToCreateViewModel(
+                                 _apiService,
+                                x.GoodsIssueId,
+                                x.Timestamp,
+                                x.EmployeeId,
+                                x.Receiver,
+                                x.Entries)));
+                foreach (var goodsIssueViewModel in GoodsIssues)
+                {
+                    goodsIssueViewModel.GoodsIssueDeleted += OnGoodsIssueRemove;
+                    goodsIssueViewModel.GoodsIssueCreated += OnGoodsIssueSave;
+                }
             }
         }
         private async void ImportGoodsIssueAsync()

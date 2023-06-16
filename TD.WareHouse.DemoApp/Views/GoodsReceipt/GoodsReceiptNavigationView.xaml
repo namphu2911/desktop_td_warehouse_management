@@ -23,15 +23,6 @@
             <TabItem Height="55" MaxWidth="800" Background="Red">
                 <TabItem.Header >
                     <TextBlock>
-                        <TextBlock Style="{StaticResource HeaderText}" Text="ĐƠN ĐÃ NHẬP"/>
-                    </TextBlock>
-                </TabItem.Header>
-                <local:GoodsReceiptCompletedView DataContext="{Binding GoodsReceiptCompleted}"/>
-            </TabItem>
-
-            <TabItem Height="55" MaxWidth="800" Background="Red">
-                <TabItem.Header >
-                    <TextBlock>
                         <TextBlock Style="{StaticResource HeaderText}" Text="NHẬP KHO THÀNH PHẨM"/>
                     </TextBlock>
                 </TabItem.Header>

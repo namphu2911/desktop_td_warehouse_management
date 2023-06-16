@@ -166,3 +166,5 @@ C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Release
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Release\net6.0-windows\TD.WareHouse.DemoApp.pdb
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Release\net6.0-windows\TD.WareHouse.DemoApp.genruntimeconfig.cache
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Release\net6.0-windows\ref\TD.WareHouse.DemoApp.dll
+C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Release\net6.0-windows\Views\GoodsReceipt\GoodsReceiptToCreateView.g.cs
+C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Release\net6.0-windows\Views\GoodsReceipt\GoodsReceiptToCreateView.baml

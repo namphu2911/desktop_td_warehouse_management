@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
+using System.Net.Http;
 using System.Windows.Input;
 using TD.WareHouse.DemoApp.Core.Application.ViewModels.Seedwork;
 using TD.WareHouse.DemoApp.Core.Domain.Dtos.LotAdjustment;

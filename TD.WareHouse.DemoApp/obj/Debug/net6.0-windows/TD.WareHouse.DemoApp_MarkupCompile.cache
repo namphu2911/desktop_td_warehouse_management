@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\App.xaml
-361198151238
+37-183585451
 4-2077042217
-36142669436
-250-878577886
-MainWindow.xaml;Resources\Components\ErrorMessage.xaml;Resources\Styles\Buttons.xaml;Resources\Styles\Colors.xaml;Resources\Styles\ComboBoxes.xaml;Resources\Styles\DatePickers.xaml;Resources\Styles\Text.xaml;Resources\Styles\TextBoxes.xaml;Views\Alarm\AlarmView.xaml;Views\Alarm\ExpirationDateAlarmView.xaml;Views\Alarm\QuantityAlarmView.xaml;Views\GoodsIssue\GoodsIssueExternalToCreateView.xaml;Views\GoodsIssue\GoodsIssueExternalView.xaml;Views\GoodsIssue\GoodsIssueInternalToCreateView.xaml;Views\GoodsIssue\GoodsIssueInternalView.xaml;Views\GoodsIssue\GoodsIssueProgressView.xaml;Views\GoodsIssue\GoodsIssueView.xaml;Views\GoodsIssue\PendingGoodsIssueView.xaml;Views\GoodsReceipt\GoodsReceiptCompletedView.xaml;Views\GoodsReceipt\GoodsReceiptNavigationView.xaml;Views\GoodsReceipt\GoodsReceiptView.xaml;Views\GoodsReceipt\PendingGoodsReceiptView.xaml;Views\History\HistoryGoodsIssueView.xaml;Views\History\HistoryGoodsReceiptView.xaml;Views\History\HistoryView.xaml;Views\Home\HomeView.xaml;Views\Home\LoginView.xaml;Views\Home\WebViewContainer.xaml;Views\Inventory\InventoryHistoryView.xaml;Views\Inventory\InventoryNavigationView.xaml;Views\Inventory\InventoryView.xaml;Views\Isolation\IsolationView.xaml;Views\ShelfManagement\ShelfManagementView.xaml;Views\StockCard\StockCardExtendedView.xaml;Views\StockCard\StockCardNavigationView.xaml;Views\StockCard\StockCardView.xaml;
+37-1731607415
+259-1545556327
+MainWindow.xaml;Resources\Components\ErrorMessage.xaml;Resources\Styles\Buttons.xaml;Resources\Styles\Colors.xaml;Resources\Styles\ComboBoxes.xaml;Resources\Styles\DatePickers.xaml;Resources\Styles\Text.xaml;Resources\Styles\TextBoxes.xaml;Views\Alarm\AlarmView.xaml;Views\Alarm\ExpirationDateAlarmView.xaml;Views\Alarm\QuantityAlarmView.xaml;Views\GoodsIssue\GoodsIssueExternalToCreateView.xaml;Views\GoodsIssue\GoodsIssueExternalView.xaml;Views\GoodsIssue\GoodsIssueInternalToCreateView.xaml;Views\GoodsIssue\GoodsIssueInternalView.xaml;Views\GoodsIssue\GoodsIssueProgressView.xaml;Views\GoodsIssue\GoodsIssueView.xaml;Views\GoodsIssue\PendingGoodsIssueView.xaml;Views\GoodsReceipt\GoodsReceiptCompletedView.xaml;Views\GoodsReceipt\GoodsReceiptNavigationView.xaml;Views\GoodsReceipt\GoodsReceiptToCreateView.xaml;Views\GoodsReceipt\GoodsReceiptView.xaml;Views\GoodsReceipt\PendingGoodsReceiptView.xaml;Views\History\HistoryGoodsIssueView.xaml;Views\History\HistoryGoodsReceiptView.xaml;Views\History\HistoryView.xaml;Views\Home\HomeView.xaml;Views\Home\LoginView.xaml;Views\Home\WebViewContainer.xaml;Views\Inventory\InventoryHistoryView.xaml;Views\Inventory\InventoryNavigationView.xaml;Views\Inventory\InventoryView.xaml;Views\Isolation\IsolationView.xaml;Views\ShelfManagement\ShelfManagementView.xaml;Views\StockCard\StockCardExtendedView.xaml;Views\StockCard\StockCardNavigationView.xaml;Views\StockCard\StockCardView.xaml;
 
 False
 

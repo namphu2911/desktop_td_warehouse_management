@@ -1037,7 +1037,10 @@
         },
         "runtime": {
           "bin/placeholder/TD.WareHouse.DemoApp.Core.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App"
+        ]
       }
     }
   },

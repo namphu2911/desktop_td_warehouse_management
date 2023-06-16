@@ -1,15 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net.Http;
+using System.Windows;
 using System.Windows.Input;
 using TD.WareHouse.DemoApp.Core.Application.ViewModels.Seedwork;
 using TD.WareHouse.DemoApp.Core.Domain.Dtos.GoodsIssues;
 using TD.WareHouse.DemoApp.Core.Domain.Exceptions;
 using TD.WareHouse.DemoApp.Core.Domain.Models.GoodIssues;
 using TD.WareHouse.DemoApp.Core.Domain.Services;
+using MessageBox = System.Windows.MessageBox;
 
 namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
 {
@@ -27,7 +25,6 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
 
         public event EventHandler? GoodsIssueCreated;
         public event EventHandler? GoodsIssueDeleted;
-
         public GoodsIssueExternalToCreateViewModel(IApiService apiService, string goodsIssueId, DateTime timestamp, string employeeId, string receiver, List<GoodsIssueEntry> entries)
         {
             _apiService = apiService;
@@ -41,7 +38,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
             DeleteCommand = new RelayCommand(DeleteAsync);
             
         }
-
+        
         private async void ConfirmAsync()
         {
             var createDto = new CreateGoodsIssueDto(
@@ -58,6 +55,8 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
             try
             {
                 await _apiService.CreateGoodsIssuesAsync(createDto);
+                GoodsIssueCreated?.Invoke(this, EventArgs.Empty);
+                MessageBox.Show("Đã Lưu Đơn Mới", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (HttpRequestException)
             {
@@ -71,13 +70,15 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
             {
                 ShowErrorMessage("Đã có lỗi xảy ra: " + ex.Message);
             }
-
-            GoodsIssueCreated?.Invoke(this, EventArgs.Empty);
         }
 
         private void DeleteAsync()
         {
-            GoodsIssueDeleted?.Invoke(this, EventArgs.Empty);
+            if (MessageBox.Show("Xác nhận xóa đơn", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                GoodsIssueDeleted?.Invoke(this, EventArgs.Empty);
+            }
+            else { }
         }
     }
 }
