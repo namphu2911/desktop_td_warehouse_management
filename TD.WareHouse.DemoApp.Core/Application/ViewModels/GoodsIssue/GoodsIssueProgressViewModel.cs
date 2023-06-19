@@ -145,34 +145,39 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
         }
         private async void ConfirmAsync()
         {
-            try
+            if (SelectedGoodsIssue is not null)
             {
-                await _apiService.ConfirmGoodsIssueAsync(SelectedGoodsIssue.GoodsIssueId);
-                MessageBox.Show("Đã Duyệt Đơn", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                try
+                {
+                    await _apiService.ConfirmGoodsIssueAsync(SelectedGoodsIssue.GoodsIssueId);
+                    MessageBox.Show("Đã Duyệt Đơn", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (HttpRequestException)
+                {
+                    ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+                }
+                GoodsIssueId = "";
+                GoodsIssueByIds = new();
+                GoodsIssueConfirmed?.Invoke();
+
             }
-            catch (HttpRequestException)
-            {
-                ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
-            }
-            GoodsIssueId = "";
-            GoodsIssueByIds = new();
-            GoodsIssueConfirmed?.Invoke();
-            
         }
 
         private async void DeleteAsync()
         {
-            try
+            if (SelectedGoodsIssue is not null)
             {
-                await _apiService.DeleteGoodsIssueAsync(SelectedGoodsIssue.GoodsIssueId);
+                try
+                {
+                    await _apiService.DeleteGoodsIssueAsync(SelectedGoodsIssue.GoodsIssueId);
+                }
+                catch (HttpRequestException)
+                {
+                    ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+                }
+                GoodsIssueDeletedConfirmed?.Invoke();
+                GoodsIssueUpdatedUnconfirmed?.Invoke();
             }
-            catch (HttpRequestException)
-            {
-                ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
-            }
-            GoodsIssueDeletedConfirmed?.Invoke();
-            GoodsIssueUpdatedUnconfirmed?.Invoke();
-
-    }
+        }
     }
 }

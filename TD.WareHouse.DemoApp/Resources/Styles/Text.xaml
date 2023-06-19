@@ -45,7 +45,6 @@
         <Setter Property="FontSize" Value="25"/>
         <Setter Property="FontWeight" Value="Medium"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="Foreground" Value="{StaticResource ColorPrimaryOn}"/>
     </Style>
     <Style x:Key="SubHeaderText" TargetType="TextBlock">
         <Setter Property="FontSize" Value="20"/>

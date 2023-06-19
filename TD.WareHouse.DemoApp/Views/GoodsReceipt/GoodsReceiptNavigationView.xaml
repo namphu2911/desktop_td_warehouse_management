@@ -10,23 +10,25 @@
              Background="{StaticResource ColorBackground}"
              Padding="10">
     <Grid>
-        <TabControl TabStripPlacement="Top" Style="{StaticResource MaterialDesignFilledTabControl}">
-            <TabItem Height="55" MaxWidth="800" Background="Red">
+        <TabControl TabStripPlacement="Top" 
+                    Style="{StaticResource MaterialDesignFilledTabControl}"
+                    materialDesign:ColorZoneAssist.Background="LightGray">
+            <TabItem Height="55" MaxWidth="800" Style="{StaticResource TabItemRowStyle}">
                 <TabItem.Header >
                     <TextBlock>
                         <TextBlock Style="{StaticResource HeaderText}" Text="NHẬP KHO NGUYÊN VẬT LIỆU"/>
                     </TextBlock>
                 </TabItem.Header>
-                <local:GoodsReceiptView DataContext="{Binding GoodsReceiptUncompleted}"/>
+                <local:GoodsReceiptView DataContext="{Binding GoodsReceiptUncompleted}" Foreground="Black"/>
             </TabItem>
 
-            <TabItem Height="55" MaxWidth="800" Background="Red">
+            <TabItem Height="55" MaxWidth="800" Style="{StaticResource TabItemRowStyle}">
                 <TabItem.Header >
                     <TextBlock>
                         <TextBlock Style="{StaticResource HeaderText}" Text="NHẬP KHO THÀNH PHẨM"/>
                     </TextBlock>
                 </TabItem.Header>
-                <local:GoodsReceiptCompletedView DataContext="{Binding GoodsReceiptCompleted}"/>
+                <local:GoodsReceiptCompletedView DataContext="{Binding GoodsReceiptCompleted}" Foreground="Black"/>
             </TabItem>
         </TabControl>
 

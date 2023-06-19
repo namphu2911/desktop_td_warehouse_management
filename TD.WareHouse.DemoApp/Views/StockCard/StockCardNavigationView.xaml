@@ -10,23 +10,25 @@
              Background="{StaticResource ColorBackground}"
              Padding="10">
     <Grid>
-        <TabControl TabStripPlacement="Top" Style="{StaticResource MaterialDesignFilledTabControl}">
-            <TabItem Height="55" MaxWidth="800" Background="Red">
+        <TabControl TabStripPlacement="Top" 
+                    Style="{StaticResource MaterialDesignFilledTabControl}"
+                    materialDesign:ColorZoneAssist.Background="LightGray">
+            <TabItem Height="55" MaxWidth="800" Style="{StaticResource TabItemRowStyle}">
                 <TabItem.Header >
                     <TextBlock>
                         <TextBlock Style="{StaticResource HeaderText}" Text="LỊCH SỬ XUẤT NHẬP TỒN"/>
                     </TextBlock>
                 </TabItem.Header>
-                <local:StockCardView DataContext="{Binding StockCard}"/>
+                <local:StockCardView DataContext="{Binding StockCard}" Foreground="Black"/>
             </TabItem>
 
-            <TabItem Height="55" MaxWidth="800" Background="Red">
+            <TabItem Height="55" MaxWidth="800" Style="{StaticResource TabItemRowStyle}">
                 <TabItem.Header >
                     <TextBlock>
                         <TextBlock Style="{StaticResource HeaderText}" Text="BÁO CÁO TỒN KHO"/>
                     </TextBlock>
                 </TabItem.Header>
-                <local:StockCardExtendedView DataContext="{Binding StockCardExtended}"/>
+                <local:StockCardExtendedView DataContext="{Binding StockCardExtended}" Foreground="Black"/>
             </TabItem>
         </TabControl>
             

@@ -12,32 +12,34 @@
              Padding="10">
 
     <Grid>
-        <TabControl TabStripPlacement="Top" Style="{StaticResource MaterialDesignFilledTabControl}">
-            <TabItem Height="55" MaxWidth="800" Background="Red">
+        <TabControl TabStripPlacement="Top" 
+                    Style="{StaticResource MaterialDesignFilledTabControl}"
+                    materialDesign:ColorZoneAssist.Background="LightGray">
+            <TabItem Height="55" MaxWidth="800" Style="{StaticResource TabItemRowStyle}">
                 <TabItem.Header >
                     <TextBlock>
                         <TextBlock Style="{StaticResource HeaderText}" Text="XUẤT NỘI BỘ"/>
                     </TextBlock>
                 </TabItem.Header>
-                <view:GoodsIssueInternalView DataContext="{Binding GoodsIssueInternal}"/>
+                <view:GoodsIssueInternalView DataContext="{Binding GoodsIssueInternal}" Foreground="Black"/>
             </TabItem>
 
-            <TabItem Height="55" MaxWidth="800" Background="Red">
+            <TabItem Height="55" MaxWidth="800" Style="{StaticResource TabItemRowStyle}">
                 <TabItem.Header >
                     <TextBlock>
                         <TextBlock Style="{StaticResource HeaderText}" Text="XUẤT BÁN"/>
                     </TextBlock>
                 </TabItem.Header>
-                <view:GoodsIssueExternalView DataContext="{Binding GoodsIssueExternal}"/>
+                <view:GoodsIssueExternalView DataContext="{Binding GoodsIssueExternal}" Foreground="Black"/>
             </TabItem>
 
-            <TabItem Height="55" MaxWidth="800" Background="Red">
+            <TabItem Height="55" MaxWidth="800" Style="{StaticResource TabItemRowStyle}">
                 <TabItem.Header >
                     <TextBlock>
                         <TextBlock Style="{StaticResource HeaderText}" Text="XEM TIẾN ĐỘ"/>
                     </TextBlock>
                 </TabItem.Header>
-                <view:GoodsIssueProgressView DataContext="{Binding GoodsIssueProgress}"/>
+                <view:GoodsIssueProgressView DataContext="{Binding GoodsIssueProgress}" Foreground="Black"/>
             </TabItem>
         </TabControl>
 

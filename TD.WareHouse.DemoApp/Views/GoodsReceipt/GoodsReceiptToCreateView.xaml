@@ -89,7 +89,7 @@
                 <StackPanel Grid.Column="1"
                     Width="85"
                     VerticalAlignment="Center">
-                    <Button Style="{StaticResource ButtonSecondary}"
+                    <Button Style="{StaticResource ButtonSecondary}" materialDesign:ButtonAssist.CornerRadius="5"
                     Height="22"
                     Margin="0 2">
                         <i:Interaction.Triggers>
@@ -101,7 +101,7 @@
                     Xoá
                         </TextBlock>
                     </Button>
-                    <Button Style="{StaticResource MaterialDesignRaisedButton}"
+                    <Button Style="{StaticResource MaterialDesignRaisedButton}" materialDesign:ButtonAssist.CornerRadius="5"
                     Height="22"
                     Margin="0 2">
                         <i:Interaction.Triggers>

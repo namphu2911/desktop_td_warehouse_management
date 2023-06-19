@@ -10,15 +10,15 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.History
     public class HistoryGoodsReceiptLotViewModel : BaseViewModel
     {
         public string ItemClassId { get; set; }
-        public string Supplier { get; set; }
+        public string? Supplier { get; set; }
         public string ItemId { get; set; }
         public string ItemName { get; set; }
         public string Unit { get; set; }
         public string GoodsReceiptLotId { get; set; }
         public double Quantity { get; set; }
-        public string PurchaseOrderNumber { get; set; }
-        public string Note  { get; set; }   
-        public HistoryGoodsReceiptLotViewModel(string itemClassId, string supplier, string itemId, string itemName, string unit, string goodsReceiptLotId, double quantity, string purchaseOrderNumber, string note)
+        public string? PurchaseOrderNumber { get; set; }
+        public string? Note  { get; set; }   
+        public HistoryGoodsReceiptLotViewModel(string itemClassId, string? supplier, string itemId, string itemName, string unit, string goodsReceiptLotId, double quantity, string? purchaseOrderNumber, string? note)
         {
             ItemClassId = itemClassId;
             Supplier = supplier;

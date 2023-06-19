@@ -15,7 +15,10 @@
         xmlns:AlarmView="clr-namespace:TD.WareHouse.DemoApp.Views.Alarm"
         xmlns:prism="http://prismlibrary.com/"
         mc:Ignorable="d"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:viewmodels="clr-namespace:TD.WareHouse.DemoApp.Core.Application.ViewModels;assembly=TD.WareHouse.DemoApp.Core" xmlns:i="http://schemas.microsoft.com/xaml/behaviors" d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        xmlns:viewmodels="clr-namespace:TD.WareHouse.DemoApp.Core.Application.ViewModels;assembly=TD.WareHouse.DemoApp.Core" 
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
+        d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
         Background="{StaticResource ColorBackground}"
         Title="ThaiDuongWarehouse" Height="800" Width="1300">
 
@@ -26,8 +29,10 @@
     </i:Interaction.Triggers>
     <materialDesign:Card>
         <Grid>
-            <TabControl TabStripPlacement="Left" Style="{StaticResource MaterialDesignFilledTabControl}">
-                <TabItem Height="50" Width="200" Padding="0">
+            <TabControl TabStripPlacement="Left" 
+                        Style="{StaticResource MaterialDesignFilledTabControl}"
+                        materialDesign:ColorZoneAssist.Background="#0a1840">
+                <TabItem Height="60" Width="200" Padding="0">
                     <TabItem.Header>
                         <Image Source="Resources/Images/LogoTD.jpg" 
                                Stretch="Fill"/>
@@ -35,90 +40,136 @@
                     <ViewsHome:HomeView DataContext="{Binding Home}"/>
                 </TabItem>
 
-                <TabItem Height="50" Width="200" Background="Red">
+                <TabItem Height="50" Width="200" Style="{StaticResource TabItemStyle}">
                     <TabItem.Header>
-                        <HeaderedContentControl  Content="NHẬP KHO"
-                                                                 Foreground="White"
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <materialDesign:PackIcon Kind="Import" 
+                                                     Width="30" Height="30" 
+                                                     HorizontalAlignment="Center" 
+                                                     VerticalAlignment="Center" 
+                                                     Margin="0,0,10,0"/>
+                            <HeaderedContentControl  Content="NHẬP KHO"
                                                                  HorizontalAlignment="Center"
                                                                  FontSize="20"
                                                                  FontWeight="Bold" />
+                        </StackPanel>
                     </TabItem.Header>
                     <ViewsGoodsReceipt:GoodsReceiptNavigationView DataContext="{Binding GoodsReceipt}"/>
                 </TabItem>
 
-                <TabItem Height="50" Width="200" Background="Red">
+                <TabItem Height="50" Width="200" Style="{StaticResource TabItemStyle}">
                     <TabItem.Header>
-                        <HeaderedContentControl  Content="XUẤT KHO"
-                                                                 Foreground="White"
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <materialDesign:PackIcon Kind="Export" 
+                                                     Width="30" Height="30" 
+                                                     HorizontalAlignment="Center" 
+                                                     VerticalAlignment="Center" 
+                                                     Margin="0,0,10,0"/>
+                            <HeaderedContentControl  Content="XUẤT KHO"
                                                                  HorizontalAlignment="Center"
                                                                  FontSize="20"
-                                                                 FontWeight="Bold" />
+                                                                 FontWeight="Bold" Margin="0,0,5,0" />
+                        </StackPanel>
                     </TabItem.Header>
                     <ViewsGoodsIssue:GoodsIssueView DataContext="{Binding GoodsIssue}"/>
                 </TabItem>
 
-                <TabItem Height="50" Width="200" Background="Red">
+                <TabItem Height="50" Width="200" Style="{StaticResource TabItemStyle}">
                     <TabItem.Header>
-                        <HeaderedContentControl  Content="KIỂM KÊ"
-                                                                 Foreground="White"
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+                            <materialDesign:PackIcon Kind="FileDocumentEditOutline" 
+                                                     Width="30" Height="30" 
+                                                     HorizontalAlignment="Center" 
+                                                     VerticalAlignment="Center" 
+                                                     Margin="0,0,15,0"/>
+                            <HeaderedContentControl  Content="KIỂM KÊ"
                                                                  HorizontalAlignment="Center"
                                                                  FontSize="20"
-                                                                 FontWeight="Bold" />
+                                                                 FontWeight="Bold" Margin="0,0,35,0" />
+                        </StackPanel>
                     </TabItem.Header>
                     <InventoryView:InventoryNavigationView DataContext="{Binding InventoryNavigation}"/>
                 </TabItem>
 
-                <TabItem Height="50" Width="200" Background="Red">
+                <TabItem Height="50" Width="200" Style="{StaticResource TabItemStyle}">
                     <TabItem.Header>
-                        <HeaderedContentControl  Content="KỆ KHO"
-                                                                 Foreground="White"
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+                            <materialDesign:PackIcon Kind="LibraryShelves" 
+                                                     Width="30" Height="30" 
+                                                     HorizontalAlignment="Center" 
+                                                     VerticalAlignment="Center" Margin="0,0,15,0"/>
+                            <HeaderedContentControl  Content="KỆ KHO"
                                                                  HorizontalAlignment="Center"
                                                                  FontSize="20"
-                                                                 FontWeight="Bold" />
+                                                                 FontWeight="Bold" Margin="0,0,40,0" />
+                        </StackPanel>
                     </TabItem.Header>
-                    <ShelfManagementView:ShelfManagementView DataContext="{Binding ShelfManagement}"/>
+                    <ShelfManagementView:ShelfManagementView DataContext="{Binding ShelfManagement}" Foreground="Black"/>
                 </TabItem>
 
-                <TabItem Height="50" Width="200" Background="Red">
+                <TabItem Height="50" Width="200" Style="{StaticResource TabItemStyle}">
                     <TabItem.Header>
-                        <HeaderedContentControl  Content="TỒN KHO"
-                                                                 Foreground="White"
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+                            <materialDesign:PackIcon Kind="Warehouse" 
+                                                     Width="30" Height="30" 
+                                                     HorizontalAlignment="Center" 
+                                                     VerticalAlignment="Center" Margin="0,0,15,0"/>
+                            <HeaderedContentControl  Content="TỒN KHO"
                                                                  HorizontalAlignment="Center"
                                                                  FontSize="20"
-                                                                 FontWeight="Bold" />
+                                                                 FontWeight="Bold" Margin="0,0,25,0" />
+                        </StackPanel>
                     </TabItem.Header>
                     <StockCardView:StockCardNavigationView DataContext="{Binding StockCardNavigation}"/>
                 </TabItem>
 
-                <TabItem Height="50" Width="200" Background="Red">
+                <TabItem Height="50" Width="200" Style="{StaticResource TabItemStyle}">
                     <TabItem.Header>
-                        <HeaderedContentControl  Content="LỊCH SỬ"
-                                                                 Foreground="White"
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+                            <materialDesign:PackIcon Kind="History" 
+                                                     Width="30" Height="30" 
+                                                     HorizontalAlignment="Center" 
+                                                     VerticalAlignment="Center" 
+                                                     Margin="0,0,15,0"/>
+                            <HeaderedContentControl  Content="LỊCH SỬ"
                                                                  HorizontalAlignment="Center"
                                                                  FontSize="20"
-                                                                 FontWeight="Bold" />
+                                                                 FontWeight="Bold" Margin="0,0,35,0" />
+                        </StackPanel>
                     </TabItem.Header>
                     <HistoryView:HistoryView DataContext="{Binding History}"/>
                 </TabItem>
 
-                <TabItem Height="50" Width="200" Background="Red">
+                <TabItem Height="50" Width="200" Style="{StaticResource TabItemStyle}">
                     <TabItem.Header>
-                        <HeaderedContentControl  Content="CÁCH LY"
-                                                                 Foreground="White"
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+                            <materialDesign:PackIcon Kind="HandBackRightOffOutline" 
+                                                     Width="30" Height="30" 
+                                                     HorizontalAlignment="Center" 
+                                                     VerticalAlignment="Center"
+                                                     Margin="0,0,15,0"/>
+                            <HeaderedContentControl  Content="CÁCH LY"
                                                                  HorizontalAlignment="Center"
                                                                  FontSize="20"
-                                                                 FontWeight="Bold" />
+                                                                 FontWeight="Bold" Margin="0,0,35,0" />
+                        </StackPanel>
                     </TabItem.Header>
-                    <Isolation:IsolationView DataContext="{Binding Isolation}"/>
+                    <Isolation:IsolationView DataContext="{Binding Isolation}" Foreground="Black"/>
                 </TabItem>
 
-                <TabItem Height="50" Width="200" Background="Red">
+                <TabItem Height="50" Width="200" Style="{StaticResource TabItemStyle}">
                     <TabItem.Header>
-                        <HeaderedContentControl  Content="CẢNH BÁO"
-                                                                 Foreground="White"
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+                            <materialDesign:PackIcon Kind="AlertOutline" 
+                                                     Width="30" Height="30" 
+                                                     HorizontalAlignment="Center" 
+                                                     VerticalAlignment="Center" 
+                                                     Margin="0,0,15,0"/>
+                            <HeaderedContentControl  Content="CẢNH BÁO"
                                                                  HorizontalAlignment="Center"
                                                                  FontSize="20"
-                                                                 FontWeight="Bold" />
+                                                                 FontWeight="Bold" Margin="0,0,10,0"/>
+                        </StackPanel>
                     </TabItem.Header>
                     <AlarmView:AlarmView DataContext="{Binding Alarm}" />
                 </TabItem>

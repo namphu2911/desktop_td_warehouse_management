@@ -12,23 +12,25 @@
              Padding="10">
 
     <Grid>
-        <TabControl TabStripPlacement="Top" Style="{StaticResource MaterialDesignFilledTabControl}">
-            <TabItem Height="55" MaxWidth="800" Background="Red">
+        <TabControl TabStripPlacement="Top" 
+                    Style="{StaticResource MaterialDesignFilledTabControl}"
+                    materialDesign:ColorZoneAssist.Background="LightGray">
+            <TabItem Height="55" MaxWidth="800" Style="{StaticResource TabItemRowStyle}">
                 <TabItem.Header >
                     <TextBlock>
                         <TextBlock Style="{StaticResource HeaderText}" Text="LỊCH SỬ NHẬP KHO"/>
                     </TextBlock>
                 </TabItem.Header>
-                <view:HistoryGoodsReceiptView DataContext="{Binding HistoryGoodsReceipt}"/>
+                <view:HistoryGoodsReceiptView DataContext="{Binding HistoryGoodsReceipt}" Foreground="Black"/>
             </TabItem>
 
-            <TabItem Height="55" MaxWidth="800" Background="Red">
+            <TabItem Height="55" MaxWidth="800" Style="{StaticResource TabItemRowStyle}">
                 <TabItem.Header >
                     <TextBlock>
                         <TextBlock Style="{StaticResource HeaderText}" Text="LỊCH SỬ XUẤT KHO"/>
                     </TextBlock>
                 </TabItem.Header>
-                <view:HistoryGoodsIssueView DataContext="{Binding HistoryGoodsIssue}"/>
+                <view:HistoryGoodsIssueView DataContext="{Binding HistoryGoodsIssue}" Foreground="Black"/>
             </TabItem>
         </TabControl>
 

@@ -48,7 +48,7 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Vertical">
-                                        <Button Margin="5" Style="{StaticResource ButtonSecondary}">
+                                        <Button Margin="5" Style="{StaticResource ButtonSecondary}" materialDesign:ButtonAssist.CornerRadius="5">
                                             <i:Interaction.Triggers>
                                                 <i:EventTrigger EventName="Click">
                                                     <prism:InvokeCommandAction 

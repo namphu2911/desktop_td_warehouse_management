@@ -122,7 +122,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
             }
         }
         public GoodsReceiptLotForGoodsReceiptCompletedView? SelectedLot { get; set; }
-        public ObservableCollection<GoodsReceiptLotForGoodsReceiptCompletedView> Lots { get; set; }
+        public ObservableCollection<GoodsReceiptLotForGoodsReceiptCompletedView> Lots { get; set; } = new();
 
         public ObservableCollection<GoodsReceiptToCreateViewModel> GoodsReceipts { get; set; } = new();
 
@@ -138,7 +138,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
             _itemLotStore = itemLotStore;
             _itemStore = itemStore;
 
-            ImportGoodsReceiptsCommand = new RelayCommand(ImportGoodsReceiptAsync);
+            ImportGoodsReceiptsCommand = new RelayCommand(ImportGoodsReceipt);
             LoadGoodsReceiptCommand = new RelayCommand(LoadGoodsReceiptView);
             SaveReceiptByHandCommand = new RelayCommand(SaveReceiptByHand);
             CreateEntryCommand = new RelayCommand(CreateEntry);
@@ -158,8 +158,31 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
             }
             else
             {
-                GoodsReceiptDb.Lots.Add(new GoodsReceiptLot(GoodsReceiptLotId, ItemId, ItemName, Quantity, Unit, PurchaseOrderNumber));
-                GoodsReceiptDb = goodsReceipts.First(g => g.GoodsReceiptId == selectedGoodsReceipt.GoodsReceiptId);
+                if (selectedGoodsReceipt is not null)
+                {
+                    GoodsReceiptDb = goodsReceipts.First(g => g.GoodsReceiptId == selectedGoodsReceipt.GoodsReceiptId);
+                    GoodsReceiptDb.Lots.Add(new GoodsReceiptLot(GoodsReceiptLotId, ItemId, ItemName, Quantity, Unit, PurchaseOrderNumber));
+                    var lots = GoodsReceiptDb.Lots.Select(e => new GoodsReceiptLotForGoodsReceiptCompletedView(
+                                e.GoodsReceiptLotId,
+                                e.ItemId,
+                                e.ItemName,
+                                e.Quantity,
+                                e.Unit,
+                                e.PurchaseOrderNumber));
+                    Lots = new(lots);
+                    foreach (var lot in Lots)
+                    {
+                        lot.OnRemoved += DeleteRow;
+                        OnPropertyChanged(nameof(Lots));
+                    }
+                }
+            }
+        }
+        private void DeleteRow()
+        {
+            if (SelectedLot is not null)
+            {
+                GoodsReceiptDb.Lots.Remove(GoodsReceiptDb.Lots.First(x => x.ItemId == SelectedLot.GoodsReceiptLotId));
                 var lots = GoodsReceiptDb.Lots.Select(e => new GoodsReceiptLotForGoodsReceiptCompletedView(
                             e.GoodsReceiptLotId,
                             e.ItemId,
@@ -173,24 +196,6 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
                     lot.OnRemoved += DeleteRow;
                     OnPropertyChanged(nameof(Lots));
                 }
-            }
-            
-        }
-        private void DeleteRow()
-        {
-            GoodsReceiptDb.Lots.Remove(GoodsReceiptDb.Lots.First(x => x.ItemId == SelectedLot.GoodsReceiptLotId));
-            var lots = GoodsReceiptDb.Lots.Select(e => new GoodsReceiptLotForGoodsReceiptCompletedView(
-                        e.GoodsReceiptLotId,
-                        e.ItemId,
-                        e.ItemName,
-                        e.Quantity,
-                        e.Unit,
-                        e.PurchaseOrderNumber));
-            Lots = new(lots);
-            foreach (var lot in Lots)
-            {
-                lot.OnRemoved += DeleteRow;
-                OnPropertyChanged(nameof(Lots));
             }
         }
         private void SaveReceiptByHand()
@@ -218,7 +223,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
             }
             
         }
-        private async void ImportGoodsReceiptAsync()
+        private void ImportGoodsReceipt()
         {
             try
             {

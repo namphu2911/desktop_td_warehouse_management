@@ -15,8 +15,8 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
         public string Unit { get; set; }
         public string GoodsIssueLotId { get; set; }
         public double Quantity { get; set; }
-        public string PurchaseOrderNumber { get; set; }
-        public GoodsIssueLotForGoodsIssueProgressViewModel(string itemClassId, string itemId, string itemName, string unit, string goodsIssueLotId, double quantity, string purchaseOrderNumber)
+        public string? PurchaseOrderNumber { get; set; }
+        public GoodsIssueLotForGoodsIssueProgressViewModel(string itemClassId, string itemId, string itemName, string unit, string goodsIssueLotId, double quantity, string? purchaseOrderNumber)
         {
             ItemClassId = itemClassId;
             ItemId = itemId;

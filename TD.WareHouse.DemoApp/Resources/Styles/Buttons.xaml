@@ -11,7 +11,7 @@
         TargetType="Button">
         <Setter Property="FontSize" Value="20"/>
         <Setter Property="Height" Value="40"/>
-
+        
     </Style>
 
     <Style

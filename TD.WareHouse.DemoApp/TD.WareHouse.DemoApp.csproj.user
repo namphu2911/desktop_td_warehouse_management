@@ -119,6 +119,9 @@
     <Page Update="Resources\Styles\DatePickers.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Resources\Styles\TabItems.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Resources\Styles\Text.xaml">
       <SubType>Designer</SubType>
     </Page>

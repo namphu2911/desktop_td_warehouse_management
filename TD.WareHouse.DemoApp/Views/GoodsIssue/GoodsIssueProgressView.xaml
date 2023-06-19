@@ -65,7 +65,7 @@
 
                             <Button Grid.Column="1"
                         Margin="10"
-                        Style="{StaticResource ButtonPrimary}"
+                        Style="{StaticResource ButtonPrimary}" materialDesign:ButtonAssist.CornerRadius="10"
                         Content="Tìm kiếm"
                         FontSize="13"
                         HorizontalAlignment="Center">
@@ -128,7 +128,7 @@
 
                             <Button Grid.Column="2"
                         Margin="10"
-                        Style="{StaticResource ButtonPrimary}"
+                        Style="{StaticResource ButtonPrimary}" materialDesign:ButtonAssist.CornerRadius="10"
                         Content="Tìm kiếm"
                         FontSize="13"
                         HorizontalAlignment="Center">
@@ -238,7 +238,7 @@
                             Margin="10"
                             Width="150"
                             HorizontalAlignment="Center"
-                            Style="{StaticResource ButtonPrimary}" 
+                            Style="{StaticResource ButtonPrimary}" materialDesign:ButtonAssist.CornerRadius="10" 
                             Content="Duyệt đơn"
                             IsEnabled="{Binding EnableConfirmButton}">
                             <i:Interaction.Triggers>

@@ -79,7 +79,7 @@
 
                         <Button Grid.Column="2"
                         Margin="10"
-                        Style="{StaticResource ButtonPrimary}"
+                        Style="{StaticResource ButtonPrimary}" materialDesign:ButtonAssist.CornerRadius="10"
                         Content="Tìm kiếm"
                         FontSize="13"
                         Padding="0"
@@ -97,7 +97,7 @@
 
                     <!--<Button Grid.Row="2"
                         Margin="10"
-                        Style="{StaticResource ButtonPrimary}"
+                        Style="{StaticResource ButtonPrimary}" materialDesign:ButtonAssist.CornerRadius="10"
                         Content="Tìm kiếm"
                         FontSize="13"
                         HorizontalAlignment="Center">
@@ -243,7 +243,7 @@
                             Margin="10"
                             Width="150"
                             HorizontalAlignment="Right"
-                            Style="{StaticResource ButtonPrimary}" 
+                            Style="{StaticResource ButtonPrimary}" materialDesign:ButtonAssist.CornerRadius="10" 
                             Content="Cập nhật">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
@@ -256,7 +256,7 @@
                             Margin="10"
                             Width="150"
                             HorizontalAlignment="Left"
-                            Style="{StaticResource ButtonPrimary}" 
+                            Style="{StaticResource ButtonPrimary}" materialDesign:ButtonAssist.CornerRadius="10" 
                             Content="Xoá đơn">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">

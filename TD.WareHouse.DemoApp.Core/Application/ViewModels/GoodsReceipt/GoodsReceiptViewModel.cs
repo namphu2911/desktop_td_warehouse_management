@@ -153,7 +153,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
         }
 
         public event Action? GoodsReceiptUpdated;
-        public event Action? GoodsReceiptDeleted;
+        //public event Action? GoodsReceiptDeleted;
 
         public async void UpdateAsync()
         {
@@ -165,10 +165,13 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
                 x.ProductionDate,
                 x.ExpirationDate));
             try
-            {
-                await _apiService.FixCompltedGoodsReceiptAsync(SelectedGoodsReceipt.GoodsReceiptId, fixDto);
-                GoodsReceiptUpdated?.Invoke();
-                MessageBox.Show("Đã Cập Nhật", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+            { 
+                if (SelectedGoodsReceipt is not null)
+                {
+                    await _apiService.FixCompltedGoodsReceiptAsync(SelectedGoodsReceipt.GoodsReceiptId, fixDto);
+                    GoodsReceiptUpdated?.Invoke();
+                    MessageBox.Show("Đã Cập Nhật", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
             }
             catch (HttpRequestException)
             {
@@ -205,7 +208,10 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
             {
                 try
                 {
-                    await _apiService.DeleteGoodsReceiptAsync(SelectedGoodsReceipt.GoodsReceiptId);
+                    if (SelectedGoodsReceipt is not null)
+                    {
+                        await _apiService.DeleteGoodsReceiptAsync(SelectedGoodsReceipt.GoodsReceiptId);
+                    }
                 }
                 catch (HttpRequestException)
                 {

@@ -50,13 +50,13 @@
                                     <StackPanel>
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                             <Button     Margin="5"
-                                        Style="{StaticResource ButtonPrimary}"
+                                        Style="{StaticResource ButtonPrimary}" materialDesign:ButtonAssist.CornerRadius="10"
                                         Height="32" 
                                         Click="BrowseFileButtonClicked">
                                                 <TextBlock Text="Chọn file" FontSize="14" />
                                             </Button>
                                             <Button     Margin="5"
-                                        Style="{StaticResource ButtonPrimary}"
+                                        Style="{StaticResource ButtonPrimary}" materialDesign:ButtonAssist.CornerRadius="10"
                                         Height="32">
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="Click">
@@ -161,7 +161,8 @@
                                             <StackPanel Grid.Column="1"
                                                         Width="85"
                                                         VerticalAlignment="Center">
-                                                <Button Style="{StaticResource MaterialDesignRaisedButton}"
+                                                <Button Style="{StaticResource MaterialDesignRaisedButton}" 
+                                                        materialDesign:ButtonAssist.CornerRadius="5"
                                                         Height="22"
                                                         Margin="0 2">
                                                     <i:Interaction.Triggers>
@@ -303,7 +304,7 @@
                              IsEnabled="{Binding TypeEnable}"/>
                         <Button Grid.Row="1" Grid.Column="4"  
                             Margin="5"
-                            Style="{StaticResource ButtonPrimary}"
+                            Style="{StaticResource ButtonPrimary}" materialDesign:ButtonAssist.CornerRadius="10"
                             Height="32">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
@@ -332,7 +333,7 @@
                             <DataGridTemplateColumn Width="*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button Margin="5" Style="{StaticResource ButtonSecondary}">
+                                        <Button Margin="5" Style="{StaticResource ButtonSecondary}" materialDesign:ButtonAssist.CornerRadius="5">
                                             <i:Interaction.Triggers>
                                                 <i:EventTrigger EventName="Click">
                                                     <prism:InvokeCommandAction 

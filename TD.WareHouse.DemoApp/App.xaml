@@ -16,6 +16,7 @@
                 <ResourceDictionary Source="Resources/Styles/ComboBoxes.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/DatePickers.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/TextBoxes.xaml"/>
+                <ResourceDictionary Source="Resources/Styles/TabItems.xaml"/>
                 <materialDesign:CustomColorTheme BaseTheme="Light" PrimaryColor="{StaticResource ColorValuePrimary}" SecondaryColor="Lime" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

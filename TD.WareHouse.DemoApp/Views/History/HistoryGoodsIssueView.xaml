@@ -182,7 +182,7 @@
 
                         <Button Grid.Row="0" Grid.Column="8"
                     Margin="10"
-                    Style="{StaticResource ButtonPrimary}"
+                    Style="{StaticResource ButtonPrimary}" materialDesign:ButtonAssist.CornerRadius="10"
                     Content="Truy xuất"
                     HorizontalAlignment="Center"
                     Width="115"

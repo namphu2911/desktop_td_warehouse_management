@@ -65,7 +65,7 @@ namespace TD.WareHouse.DemoApp.Resources.Components {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/TD.WareHouse.DemoApp;V1.0.0.0;component/resources/components/errormessage.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/TD.WareHouse.DemoApp;component/resources/components/errormessage.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\Resources\Components\ErrorMessage.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

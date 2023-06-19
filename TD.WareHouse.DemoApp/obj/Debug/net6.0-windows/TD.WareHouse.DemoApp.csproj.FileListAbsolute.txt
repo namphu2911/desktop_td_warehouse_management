@@ -85,6 +85,7 @@ C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\n
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Resources\Styles\Colors.baml
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Resources\Styles\ComboBoxes.baml
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Resources\Styles\DatePickers.baml
+C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Resources\Styles\TabItems.baml
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Resources\Styles\Text.baml
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Resources\Styles\TextBoxes.baml
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\MainWindow.g.cs

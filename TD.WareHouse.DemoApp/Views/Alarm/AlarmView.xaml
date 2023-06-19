@@ -12,23 +12,25 @@
              Padding="10">
 
     <Grid>
-        <TabControl TabStripPlacement="Top" Style="{StaticResource MaterialDesignFilledTabControl}">
-            <TabItem Height="55" MaxWidth="800" Background="Red">
+        <TabControl TabStripPlacement="Top" 
+                    Style="{StaticResource MaterialDesignFilledTabControl}"
+                    materialDesign:ColorZoneAssist.Background="LightGray">
+            <TabItem Height="55" MaxWidth="800" Style="{StaticResource TabItemRowStyle}">
                 <TabItem.Header >
                     <TextBlock>
                         <TextBlock Style="{StaticResource HeaderText}" Text="CẢNH BÁO HSD"/>
                     </TextBlock>
                 </TabItem.Header>
-                <view:ExpirationDateAlarmView DataContext="{Binding ExpiryDateAlarmViewModel}"/>
+                <view:ExpirationDateAlarmView DataContext="{Binding ExpiryDateAlarmViewModel}" Foreground="Black"/>
             </TabItem>
 
-            <TabItem Height="55" MaxWidth="800" Background="Red">
+            <TabItem Height="55" MaxWidth="800" Style="{StaticResource TabItemRowStyle}">
                 <TabItem.Header >
                     <TextBlock>
                         <TextBlock Style="{StaticResource HeaderText}" Text="CẢNH BÁO SỐ LƯỢNG"/>
                     </TextBlock>
                 </TabItem.Header>
-                <view:QuantityAlarmView DataContext="{Binding QuantityAlarmViewModel}"/>
+                <view:QuantityAlarmView DataContext="{Binding QuantityAlarmViewModel}" Foreground="Black"/>
             </TabItem>
         </TabControl>
 

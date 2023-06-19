@@ -85,7 +85,7 @@
 
                     <Button Grid.Row="2" Grid.Column="1"
                     Margin="10"
-                    Style="{StaticResource ButtonPrimary}"
+                    Style="{StaticResource ButtonPrimary}" materialDesign:ButtonAssist.CornerRadius="10"
                     Content="Truy xuất"
                     HorizontalAlignment="Center"
                     Width="150">
@@ -138,7 +138,7 @@
 
                     <Button Grid.Row="2" Grid.Column="1"
                     Margin="10"
-                    Style="{StaticResource ButtonPrimary}"
+                    Style="{StaticResource ButtonPrimary}" materialDesign:ButtonAssist.CornerRadius="10"
                     Content="Truy xuất"
                     HorizontalAlignment="Center"
                     Width="150">

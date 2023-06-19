@@ -119,7 +119,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
             }
         }
         public GoodsIssueEntryForGoodsIssueInternalView? SelectedEntry { get; set; }
-        public ObservableCollection<GoodsIssueEntryForGoodsIssueInternalView> Entries { get; set; }
+        public ObservableCollection<GoodsIssueEntryForGoodsIssueInternalView> Entries { get; set; } = new();
 
         public ObservableCollection<GoodsIssueInternalToCreateViewModel> GoodsIssues { get; set; } = new();
         
@@ -136,7 +136,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
             _goodsIssueStore = goodsIssueStore;
             _departmentStore = departmentStore;
 
-            ImportGoodsIssuesCommand = new RelayCommand(ImportGoodsIssueAsync);
+            ImportGoodsIssuesCommand = new RelayCommand(ImportGoodsIssue);
             LoadGoodsIssueInternalCommand = new RelayCommand(LoadGoodsIssueInternalView);
             SaveIssueByHandCommand = new RelayCommand(SaveIssueByHand);
             CreateEntryCommand = new RelayCommand(CreateEntry);
@@ -151,33 +151,39 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
         }
         private void CreateEntry()
         {
-            GoodsIssueDb.Entries.Add(new GoodsIssueEntry(ItemId, ItemName, Unit, RequestedQuantity));
-            GoodsIssueDb = goodsIssues.First(g => g.GoodsIssueId == selectedGoodsIssue.GoodsIssueId);
-            var entries = GoodsIssueDb.Entries.Select(e => new GoodsIssueEntryForGoodsIssueInternalView(
-                e.ItemId,
-                e.ItemName,
-                e.RequestedQuantity,
-                e.Unit));
-            Entries = new(entries);
-            foreach (var entry in Entries)
+            if (selectedGoodsIssue is not null)
             {
-                entry.OnRemoved += DeleteRow;
-                OnPropertyChanged(nameof(Entries));
+                GoodsIssueDb = goodsIssues.First(g => g.GoodsIssueId == selectedGoodsIssue.GoodsIssueId);
+                GoodsIssueDb.Entries.Add(new GoodsIssueEntry(ItemId, ItemName, Unit, RequestedQuantity));
+                var entries = GoodsIssueDb.Entries.Select(e => new GoodsIssueEntryForGoodsIssueInternalView(
+                    e.ItemId,
+                    e.ItemName,
+                    e.RequestedQuantity,
+                    e.Unit));
+                Entries = new(entries);
+                foreach (var entry in Entries)
+                {
+                    entry.OnRemoved += DeleteRow;
+                    OnPropertyChanged(nameof(Entries));
+                }
             }
         }
         private void DeleteRow()
         {
-            GoodsIssueDb.Entries.Remove(GoodsIssueDb.Entries.First(x => x.ItemId == SelectedEntry.ItemId));
-            var entries = GoodsIssueDb.Entries.Select(e => new GoodsIssueEntryForGoodsIssueInternalView(
-                e.ItemId,
-                e.ItemName,
-                e.RequestedQuantity,
-                e.Unit));
-            Entries = new(entries);
-            foreach (var entry in Entries)
+            if (SelectedEntry is not null)
             {
-                entry.OnRemoved += DeleteRow;
-                OnPropertyChanged(nameof(Entries));
+                GoodsIssueDb.Entries.Remove(GoodsIssueDb.Entries.First(x => x.ItemId == SelectedEntry.ItemId));
+                var entries = GoodsIssueDb.Entries.Select(e => new GoodsIssueEntryForGoodsIssueInternalView(
+                    e.ItemId,
+                    e.ItemName,
+                    e.RequestedQuantity,
+                    e.Unit));
+                Entries = new(entries);
+                foreach (var entry in Entries)
+                {
+                    entry.OnRemoved += DeleteRow;
+                    OnPropertyChanged(nameof(Entries));
+                }
             }
         }
         private void SaveIssueByHand()
@@ -205,7 +211,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
                 }
             }
         }
-        private async void ImportGoodsIssueAsync()
+        private void ImportGoodsIssue()
         {
             try
             {
