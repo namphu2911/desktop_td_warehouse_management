@@ -48,11 +48,11 @@
                         <TextBlock Grid.Column="0" 
                        Margin="10"
                        Style="{StaticResource FieldLabel}" 
-                       Text="Mã sản phẩm"/>
+                       Text="Mã hàng"/>
 
                         <ComboBox Grid.Column="1"
                       Margin="10"
-                      materialDesign:HintAssist.Hint="Mã sản phẩm"
+                      materialDesign:HintAssist.Hint="Mã hàng"
                       Style="{StaticResource ComboBox}"
                       ItemsSource="{Binding ItemIds}"
                       Text="{Binding ItemId}">
@@ -66,11 +66,11 @@
                         <TextBlock Grid.Column="2" 
                        Margin="10"
                        Style="{StaticResource FieldLabel}"
-                       Text="Ngày bắt đầu"/>
+                       Text="Từ ngày"/>
 
                         <DatePicker Grid.Column="3"
                          Margin="10"
-                         materialDesign:HintAssist.Hint="Ngày bắt đầu"
+                         materialDesign:HintAssist.Hint="Từ ngày"
                          Style="{StaticResource DatePicker}"
                          SelectedDate="{Binding StartDate}"/>
 
@@ -78,11 +78,11 @@
                         <TextBlock Grid.Column="4" 
                         Margin="10"
                         Style="{StaticResource FieldLabel}" 
-                        Text="Ngày kết thúc"/>
+                        Text="Đến ngày"/>
 
                         <DatePicker  Grid.Column="5"
                         Margin="10"
-                        materialDesign:HintAssist.Hint="Ngày kết thúc"
+                        materialDesign:HintAssist.Hint="Đến ngày"
                         Style="{StaticResource DatePicker}"
                         SelectedDate="{Binding EndDate}"/>
 
@@ -121,13 +121,15 @@
                           SelectionMode="Single">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Kho hàng" Binding="{Binding ItemClassId}" Width="auto"/>
-                            <DataGridTextColumn Header="Mã sản phẩm" Binding="{Binding ItemId}" Width="*"/>
-                            <DataGridTextColumn Header="Tên sản phẩm" Binding="{Binding ItemName}" Width="*"/>
+                            <DataGridTextColumn Header="Mã hàng" Binding="{Binding ItemId}" Width="*"/>
+                            <DataGridTextColumn Header="Tên hàng" Binding="{Binding ItemName}" Width="*"/>
                             <DataGridTextColumn Header="Đơn vị" Binding="{Binding Unit}" Width="auto"/>
                             <DataGridTextColumn Header="Mã lô" Binding="{Binding LotId}" Width="*"/>
-                            <DataGridTextColumn Header="Số lượng nhập" Binding="{Binding ReceiptQuantity}" Width="*"/>
+                            <DataGridTextColumn Header="Tồn kho" Binding="{Binding LotId}" Width="*"/>
+                            <DataGridTextColumn Header="Số PO" Width="*"/>
+                            <!--<DataGridTextColumn Header="Số lượng nhập" Binding="{Binding ReceiptQuantity}" Width="*"/>
                             <DataGridTextColumn Header="Số lượng xuất" Binding="{Binding IssueQuantity}" Width="*"/>
-                            <DataGridTextColumn Header="Thời gian" Binding="{Binding Timestamp, StringFormat=dd/MM/yyyy hh:mm:ss tt}" Width="*"/>
+                            <DataGridTextColumn Header="Thời gian" Binding="{Binding Timestamp, StringFormat=dd/MM/yyyy hh:mm:ss tt}" Width="*"/>-->
                         </DataGrid.Columns>
                     </DataGrid>
                 </materialDesign:Card>

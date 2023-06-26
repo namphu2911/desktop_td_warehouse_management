@@ -34,7 +34,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
         public DateTime EndDate { get; set; } = DateTime.Today.AddDays(+1);
         public ObservableCollection<PendingGoodsIssueViewModel> GoodsIssueByIds { get; set; } = new();
         public ObservableCollection<PendingGoodsIssueViewModel> GoodsIssueByTimes { get; set; } = new();
-        public ObservableCollection<GoodsIssueLotForGoodsIssueProgressViewModel> Lots { get; set; } = new();
+        public ObservableCollection<GoodsIssueEntryForGoodsIssueProgressViewModel> Entries { get; set; } = new();
 
         public PendingGoodsIssueViewModel? SelectedGoodsIssue
         {
@@ -53,18 +53,33 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
                         goodsIssuesTotal.Add(goodIssue);
                     }
                     GoodsIssueDto goodsIssue = goodsIssuesTotal.Last(g => g.GoodsIssueId == selectedGoodsIssue.GoodsIssueId);
-                    var entries = goodsIssue.Entries;
-                    var lotViewModels = entries.SelectMany(gi =>
-                                                            gi.Lots.Select(gie =>
-                                                                new GoodsIssueLotForGoodsIssueProgressViewModel(
-                                                                    gi.Item.ItemClassId,
-                                                                    gi.Item.ItemId,
-                                                                    gi.Item.ItemName,
-                                                                    gi.Item.Unit,
-                                                                    gie.GoodsIssueLotId,
-                                                                    gie.Quantity,
-                                                                    goodsIssue.PurchaseOrderNumber)));
-                    Lots = new(lotViewModels);
+
+                    var entries = goodsIssue.Entries.Select(e =>
+                    new GoodsIssueEntryForGoodsIssueProgressViewModel(
+                        e.Item.ItemClassId,
+                        e.Item.ItemId,
+                        e.Item.ItemName,
+                        e.Item.Unit,
+                        e.RequestedQuantity,
+                        e.Lots.Select(c => new GoodsIssueLotForGoodsIssueProgressViewModel(
+                            c.GoodsIssueLotId,
+                            c.Quantity,
+                            goodsIssue.PurchaseOrderNumber))
+                            .ToList()));
+
+                    Entries = new(entries);
+                    
+                    //var lotViewModels = entries.SelectMany(gi =>
+                    //                                        gi.Lots.Select(gie =>
+                    //                                            new GoodsIssueLotForGoodsIssueProgressViewModel(
+                    //                                                gi.Item.ItemClassId,
+                    //                                                gi.Item.ItemId,
+                    //                                                gi.Item.ItemName,
+                    //                                                gi.Item.Unit,
+                    //                                                gie.GoodsIssueLotId,
+                    //                                                gie.Quantity,
+                    //                                                goodsIssue.PurchaseOrderNumber)));
+                    //Lots = new(lotViewModels);
 
                 }
             }
@@ -104,7 +119,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
                                                  g.Employee.EmployeeName,
                                                  g.Receiver));
             GoodsIssueByTimes = new ObservableCollection<PendingGoodsIssueViewModel>(goodsIssueByTimeViewModels);
-            Lots = new();
+            Entries = new();
             GoodsIssueConfirmed += LoadIssuedGoodsIssuesAsync;
             GoodsIssueDeletedConfirmed += LoadIssuedGoodsIssuesAsync;
         }
@@ -124,12 +139,12 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
                                                  g.Employee.EmployeeName,
                                                  g.Receiver));
             GoodsIssueByIds = new ObservableCollection<PendingGoodsIssueViewModel>(goodsIssueByIdViewModels);
-            Lots = new();
+            Entries = new();
 
         }
         public void ReloadWhenConfirm()
         {
-            Lots = new();
+            Entries = new();
             OnPropertyChanged(nameof(GoodsIssueIds));
             GoodsIssueId = "";
             GoodsIssueByIds = new();
@@ -140,7 +155,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
             OnPropertyChanged(nameof(GoodsIssueIds));
             GoodsIssueId = "";
             GoodsIssueByIds = new();
-            Lots = new();
+            Entries = new();
             GoodsIssueUpdatedUnconfirmed += ReloadWhenDelete;
         }
         private async void ConfirmAsync()

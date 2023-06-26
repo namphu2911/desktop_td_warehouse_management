@@ -50,11 +50,11 @@
                     <TextBlock Grid.Row="0" Grid.Column="0"
                        Margin="10"
                        Style="{StaticResource FieldLabel}" 
-                       Text="Mã sản phẩm"/>
+                       Text="Mã hàng"/>
 
                     <ComboBox Grid.Row="0" Grid.Column="1"
                       Margin="10"
-                      materialDesign:HintAssist.Hint="Mã sản phẩm"
+                      materialDesign:HintAssist.Hint="Mã hàng"
                       Style="{StaticResource ComboBox}"
                       ItemsSource="{Binding ItemIds}"
                       Text="{Binding ItemId}">
@@ -68,11 +68,11 @@
                     <TextBlock Grid.Row="1" Grid.Column="0"
                        Margin="10"
                        Style="{StaticResource FieldLabel}" 
-                       Text="Tên sản phẩm"/>
+                       Text="Tên hàng"/>
 
                     <ComboBox Grid.Row="1" Grid.Column="1"
                       Margin="10"
-                      materialDesign:HintAssist.Hint="Tên sản phẩm"
+                      materialDesign:HintAssist.Hint="Tên hàng"
                       Style="{StaticResource ComboBox}"
                       ItemsSource="{Binding ItemNames}"
                       Text="{Binding ItemName}" Width="200">
@@ -190,8 +190,8 @@
                           SelectionUnit="FullRow"
                           SelectionMode="Single" HorizontalAlignment="Center">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Mã sản phẩm" Binding="{Binding ItemId}" Width="*"/>
-                            <DataGridTextColumn Header="Tên sản phẩm" Binding="{Binding ItemName}" Width="*"/>
+                            <DataGridTextColumn Header="Mã hàng" Binding="{Binding ItemId}" Width="*"/>
+                            <DataGridTextColumn Header="Tên hàng" Binding="{Binding ItemName}" Width="*"/>
                             <DataGridTextColumn Header="Đơn vị" Binding="{Binding Unit}" Width="auto"/>
                             <DataGridTextColumn Header="Mã lô" Binding="{Binding LotId}" Width="*"/>
                             <DataGridTextColumn Header="Lượng" Binding="{Binding Quantity}" Width="auto"/>

@@ -16,10 +16,10 @@
             <TabItem Height="55" MaxWidth="800" Style="{StaticResource TabItemRowStyle}">
                 <TabItem.Header >
                     <TextBlock>
-                        <TextBlock Style="{StaticResource HeaderText}" Text="LỊCH SỬ XUẤT NHẬP TỒN"/>
+                        <TextBlock Style="{StaticResource HeaderText}" Text="BÁO CÁO XUẤT NHẬP TỒN"/>
                     </TextBlock>
                 </TabItem.Header>
-                <local:StockCardView DataContext="{Binding StockCard}" Foreground="Black"/>
+                <local:StockCardExtendedView DataContext="{Binding StockCardExtended}" Foreground="Black"/>
             </TabItem>
 
             <TabItem Height="55" MaxWidth="800" Style="{StaticResource TabItemRowStyle}">
@@ -28,9 +28,8 @@
                         <TextBlock Style="{StaticResource HeaderText}" Text="BÁO CÁO TỒN KHO"/>
                     </TextBlock>
                 </TabItem.Header>
-                <local:StockCardExtendedView DataContext="{Binding StockCardExtended}" Foreground="Black"/>
+                <local:StockCardView DataContext="{Binding StockCard}" Foreground="Black"/>
             </TabItem>
         </TabControl>
-            
     </Grid>
 </UserControl>

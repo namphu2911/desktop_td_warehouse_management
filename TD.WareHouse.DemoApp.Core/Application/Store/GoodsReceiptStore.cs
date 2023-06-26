@@ -21,19 +21,19 @@ namespace TD.WareHouse.DemoApp.Core.Application.Store
             GoodsReceiptIds = new ObservableCollection<string>();
             Suppliers = new ObservableCollection<string>();
         }
-        public void SetGoodsReceipts(IEnumerable<GoodsReceipt> goodsReceipts)
-        {
-            GoodsReceiptsAll = goodsReceipts.ToList();
-            GoodsReceiptIds = new ObservableCollection<string>(GoodsReceiptsAll.Select(i => i.GoodsReceiptId).OrderBy(s => s));
-        }
+        //public void SetGoodsReceipts(IEnumerable<GoodsReceipt> goodsReceipts)
+        //{
+        //    GoodsReceiptsAll = goodsReceipts.ToList();
+        //    GoodsReceiptIds = new ObservableCollection<string>(GoodsReceiptsAll.Select(i => i.GoodsReceiptId).OrderBy(s => s));
+        //}
         public void SetGoodsIssueSuppliers(List<string> suppliersDtos)
         {
             Suppliers = new ObservableCollection<string>(suppliersDtos.OrderBy(s => s));
         }
-        //public void SetUnconfirmedGoodsReceipts(IEnumerable<GoodsReceipt> goodsReceipts)
-        //{
-        //    GoodsReceiptsUnconfirmed = goodsReceipts.ToList();
-        //    GoodsReceiptIds = new ObservableCollection<string>(GoodsReceiptsUnconfirmed.Select(i => i.GoodsReceiptId).OrderBy(s => s));
-        //}
+        public void SetUnconfirmedGoodsReceipts(IEnumerable<GoodsReceipt> goodsReceipts)
+        {
+            GoodsReceiptsUnconfirmed = goodsReceipts.ToList();
+            GoodsReceiptIds = new ObservableCollection<string>(GoodsReceiptsUnconfirmed.Select(i => i.GoodsReceiptId).OrderBy(s => s));
+        }
     }
 }

@@ -15,6 +15,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.Inventory
         public string Unit { get; set; }
         public double BeforeQuantity { get; set; }
         public double AfterQuantity { get; set; }
+        public double ChangedQuantity => AfterQuantity - BeforeQuantity;
         public string NewPurchaseOrderNumber { get; set; }
         public string OldPurchaseOrderNumber { get; set; }
         public string EmployeeName { get; set; }

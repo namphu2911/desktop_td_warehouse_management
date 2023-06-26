@@ -261,12 +261,12 @@
                                Margin="5" 
                                Style="{StaticResource FieldLabelForType}"
                                VerticalAlignment="Center" 
-                               Text="Mã sản phẩm"/>
+                               Text="Mã hàng"/>
                         <TextBlock Grid.Row="0" Grid.Column="2" 
                                Margin="5" 
                                Style="{StaticResource FieldLabelForType}"
                                VerticalAlignment="Center" 
-                               Text="Tên sản phẩm"/>
+                               Text="Tên hàng"/>
                         <TextBlock Grid.Row="0" Grid.Column="3" 
                                Margin="5" 
                                Style="{StaticResource FieldLabelForType}"    
@@ -291,7 +291,7 @@
                              IsEnabled="{Binding TypeEnable}"/>
                         
                         <ComboBox Grid.Row="1" Grid.Column="1"
-                                                        materialDesign:HintAssist.Hint="Mã sản phẩm"
+                                                        materialDesign:HintAssist.Hint="Mã hàng"
                                                         Margin="5"
                                                         Style="{StaticResource ComboBoxMini}"
                                                         ItemsSource="{Binding ItemIds}"
@@ -304,7 +304,7 @@
                             </ComboBox.ItemsPanel>
                         </ComboBox>
                         <ComboBox Grid.Row="1" Grid.Column="2"
-                                                        materialDesign:HintAssist.Hint="Tên sản phẩm"
+                                                        materialDesign:HintAssist.Hint="Tên hàng"
                                                         Margin="5"                      
                                                         Style="{StaticResource ComboBoxMini}"
                                                         ItemsSource="{Binding ItemNames}"
@@ -366,8 +366,8 @@
                               SelectionMode="Single">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Mã lô" Width="*" Binding="{Binding GoodsReceiptLotId}"/>
-                            <DataGridTextColumn Header="Mã sản phẩm" Binding="{Binding ItemId}" Width="*"/>
-                            <DataGridTextColumn Header="Tên sản phẩm" Binding="{Binding ItemName}" Width="*"/>
+                            <DataGridTextColumn Header="Mã hàng" Binding="{Binding ItemId}" Width="*"/>
+                            <DataGridTextColumn Header="Tên hàng" Binding="{Binding ItemName}" Width="*"/>
                             <DataGridTextColumn Header="Đơn vị" Binding="{Binding Unit}" Width="*"/>
                             <DataGridTextColumn Header="Số lượng" Binding="{Binding Quantity}" Width="*"/>
                             <DataGridTextColumn Header="Mã PO" Width="*" Binding="{Binding PurchaseOrderNumber}"/>

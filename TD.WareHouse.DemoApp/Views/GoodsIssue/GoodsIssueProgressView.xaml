@@ -114,14 +114,14 @@
 
                             <DatePicker  Grid.Row="1" Grid.Column="0"
                          Margin="10"
-                         materialDesign:HintAssist.Hint="Ngày bắt đầu"
+                         materialDesign:HintAssist.Hint="Từ ngày"
                          Style="{StaticResource DatePicker}"
                          FontSize="13"
                          SelectedDate="{Binding StartDate}"/>
 
                             <DatePicker Grid.Column="1"
                          Margin="10,0,10,0"
-                         materialDesign:HintAssist.Hint="Ngày kết thúc"
+                         materialDesign:HintAssist.Hint="Đến ngày"
                          Style="{StaticResource DatePicker}"
                          FontSize="13"
                          SelectedDate="{Binding EndDate}"/>
@@ -218,19 +218,35 @@
                               Background="{StaticResource ColorSurface}"
                               Margin="10"
                               IsReadOnly="True"
-                              ItemsSource="{Binding Lots}"
+                              ItemsSource="{Binding Entries}"
                               AutoGenerateColumns="False"
                               SelectionUnit="FullRow"
                               SelectionMode="Single">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Kho hàng" Binding="{Binding ItemClassId}" Width="auto"/>
-                            <DataGridTextColumn Header="Mã sản phẩm" Binding="{Binding ItemId}" Width="auto"/>
-                            <DataGridTextColumn Header="Tên sản phẩm" Binding="{Binding ItemName}" Width="*"/>
-                            <DataGridTextColumn Header="Đơn vị" Binding="{Binding Unit}" Width="auto"/>
-                            <DataGridTextColumn Header="Mã lô" Binding="{Binding GoodsIssueLotId}" Width="*"/>
-                            <DataGridTextColumn Header="Số lượng" Binding="{Binding Quantity}" Width="auto"/>
-                            <DataGridTextColumn Header="Số PO" Binding="{Binding PurchaseOrderNumber}" Width="*"/>
+                            <DataGridTextColumn Header="Kho hàng" Binding="{Binding ItemClassId}" Width="*"/>
+                            <DataGridTextColumn Header="Mã hàng" Binding="{Binding ItemId}" Width="*"/>
+                            <DataGridTextColumn Header="Tên hàng" Binding="{Binding ItemName}" Width="*"/>
+                            <DataGridTextColumn Header="Đơn vị" Binding="{Binding Unit}" Width="*"/>
+                            <DataGridTextColumn Header="Số lượng yêu cầu" Binding="{Binding RequestedQuantity}" Width="*"/>
                         </DataGrid.Columns>
+                        <DataGrid.RowDetailsTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="{StaticResource ColorSurfaceOn}" Margin="10">
+                                    <DataGrid
+                                        ItemsSource="{Binding LotForGoodsIssueProgressViewModels}" 
+                                        IsReadOnly="True"
+                                        AutoGenerateColumns="False"
+                                        SelectionUnit="FullRow"
+                                        SelectionMode="Single">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Mã lô" Binding="{Binding GoodsIssueLotId}"/>
+                                            <DataGridTextColumn Header="Số lượng" Binding="{Binding Quantity}"/>
+                                            <DataGridTextColumn Header="Số PO" Binding="{Binding PurchaseOrderNumber}"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </Border>
+                            </DataTemplate>
+                        </DataGrid.RowDetailsTemplate>
                     </DataGrid>
 
                     <Grid Grid.Row="3">

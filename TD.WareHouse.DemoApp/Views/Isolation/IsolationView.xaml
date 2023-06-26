@@ -45,12 +45,12 @@
                           SelectionUnit="FullRow"
                           SelectionMode="Single">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Mã sản phẩm" Width="*" Binding="{Binding ItemId}"/>
-                        <DataGridTextColumn Header="Tên sản phẩm" Width="*" Binding="{Binding ItemName}"/>
+                        <DataGridTextColumn Header="Mã hàng" Width="*" Binding="{Binding ItemId}"/>
+                        <DataGridTextColumn Header="Tên hàng" Width="*" Binding="{Binding ItemName}"/>
                         <DataGridTextColumn Header="Đơn vị" Width="*" Binding="{Binding Unit}"/>
                         <DataGridTextColumn Header="Mã lô" Width="*" Binding="{Binding LotId}"/>
                         <DataGridTextColumn Header="Số lượng" Width="*" Binding="{Binding Quantity}"/>
-                        <DataGridTextColumn Header="Mã PO" Width="*" Binding="{Binding PurchaseOrderNumber}"/>
+                        <!--<DataGridTextColumn Header="Mã PO" Width="*" Binding="{Binding PurchaseOrderNumber}"/>-->
                         <DataGridTextColumn Header="Vị trí" Width="*" Binding="{Binding LocationId}"/>
                         <DataGridTextColumn Header="Ghi chú" Width="*" Binding="{Binding}"/>
                         <DataGridTemplateColumn Width="*">

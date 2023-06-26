@@ -31,7 +31,7 @@
         <Grid>
             <TabControl TabStripPlacement="Left" 
                         Style="{StaticResource MaterialDesignFilledTabControl}"
-                        materialDesign:ColorZoneAssist.Background="#0a1840">
+                        materialDesign:ColorZoneAssist.Background="#05447c">
                 <TabItem Height="60" Width="200" Padding="0">
                     <TabItem.Header>
                         <Image Source="Resources/Images/LogoTD.jpg" 

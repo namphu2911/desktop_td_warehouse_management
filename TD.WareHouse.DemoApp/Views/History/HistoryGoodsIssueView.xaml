@@ -69,11 +69,11 @@
                         <TextBlock Grid.Row="0" Grid.Column="2" 
                        Margin="10"
                        Style="{StaticResource FieldLabel}"
-                       Text="Mã sản phẩm"/>
+                       Text="Mã hàng"/>
 
                         <ComboBox Grid.Row="0" Grid.Column="3"
                       Margin="10"
-                      materialDesign:HintAssist.Hint="Mã sản phẩm"
+                      materialDesign:HintAssist.Hint="Mã hàng"
                       Style="{StaticResource ComboBox}"
                       ItemsSource="{Binding ItemIds}"
                       Text="{Binding ItemId}">
@@ -87,11 +87,11 @@
                         <TextBlock Grid.Row="0" Grid.Column="4" 
                        Margin="10"
                        Style="{StaticResource FieldLabel}" 
-                       Text="Tên sản phẩm"/>
+                       Text="Tên hàng"/>
 
                         <ComboBox Grid.Row="0" Grid.Column="5"
                       Margin="10"
-                      materialDesign:HintAssist.Hint="Tên sản phẩm"
+                      materialDesign:HintAssist.Hint="Tên hàng"
                       Style="{StaticResource ComboBox}"
                       ItemsSource="{Binding ItemNames}"
                       Text="{Binding ItemName}">
@@ -121,13 +121,13 @@
                         <TextBlock Grid.Row="1" Grid.Column="0" 
                        Margin="10"
                        Style="{StaticResource FieldLabel}"
-                       Text="Ngày bắt đầu"/>
+                       Text="Từ ngày"/>
 
 
                         <DatePicker  Grid.Row="1" Grid.Column="1"
                          Margin="10"
                                  Width="120"
-                         materialDesign:HintAssist.Hint="Ngày bắt đầu"
+                         materialDesign:HintAssist.Hint="Từ ngày"
                          Style="{StaticResource DatePicker}"
                          SelectedDate="{Binding StartDate}"/>
 
@@ -135,11 +135,11 @@
                         <TextBlock Grid.Row="1" Grid.Column="2" 
                        Margin="10"
                        Style="{StaticResource FieldLabel}" 
-                       Text="Ngày kết thúc"/>
+                       Text="Đến ngày"/>
 
                         <DatePicker Grid.Column="3"
                          Margin="10,0,10,0"
-                         materialDesign:HintAssist.Hint="Ngày kết thúc"
+                         materialDesign:HintAssist.Hint="Đến ngày"
                          Style="{StaticResource DatePicker}"
                          SelectedDate="{Binding EndDate}"/>
 
@@ -212,8 +212,8 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Kho hàng" Width="auto" Binding="{Binding ItemClassId}"/>
                             <DataGridTextColumn Header="Bộ phận" Width="auto" Binding="{Binding Receiver}"/>
-                            <DataGridTextColumn Header="Mã sản phẩm" Width="*" Binding="{Binding ItemId}"/>
-                            <DataGridTextColumn Header="Tên sản phẩm" Width="*" Binding="{Binding ItemName}"/>
+                            <DataGridTextColumn Header="Mã hàng" Width="*" Binding="{Binding ItemId}"/>
+                            <DataGridTextColumn Header="Tên hàng" Width="*" Binding="{Binding ItemName}"/>
                             <DataGridTextColumn Header="Đơn vị" Width="auto" Binding="{Binding Unit}"/>
                             <DataGridTextColumn Header="Mã lô" Width="*" Binding="{Binding GoodsIssueLotId}"/>
                             <DataGridTextColumn Header="Số lượng xuất" Width="auto" Binding="{Binding Quantity}"/>

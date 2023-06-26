@@ -87,15 +87,15 @@
                             </Style>
                         </DataGrid.RowStyle>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Mã sản phẩm" Binding="{Binding ItemId}"/>
-                            <DataGridTextColumn Header="Tên sản phẩm" Binding="{Binding ItemName}"/>
+                            <DataGridTextColumn Header="Kho hàng" Binding="{Binding ItemClassId}"/>
+                            <DataGridTextColumn Header="Mã hàng" Binding="{Binding ItemId}"/>
+                            <DataGridTextColumn Header="Tên hàng" Binding="{Binding ItemName}"/>
                             <DataGridTextColumn Header="Đơn vị" Binding="{Binding Unit}"/>
                             <DataGridTextColumn Header="Mã lô" Binding="{Binding LotId}"/>
                             <DataGridTextColumn Header="Số lượng" Binding="{Binding Quantity}"/>
-                            <DataGridTextColumn Header="Stockmin" Binding="{Binding MinimumStockLevel}"/>
+                            <!--<DataGridTextColumn Header="Stockmin" Binding="{Binding MinimumStockLevel}"/>-->
                             <DataGridTextColumn Header="Vị trí" Binding="{Binding LocationId}"/>
-                            <DataGridTextColumn Header="Mã PO" Binding="{Binding PurchaseOrderNumber}"/>
-                            <DataGridTextColumn Header="Kho hàng" Binding="{Binding ItemClassId}"/>
+                            <!--<DataGridTextColumn Header="Mã PO" Binding="{Binding PurchaseOrderNumber}"/>-->
                             <DataGridTextColumn Header="HSD còn lại" Binding="{Binding TimeLeft, StringFormat= 0.0 tháng}"/>
                         </DataGrid.Columns>
                     </DataGrid>

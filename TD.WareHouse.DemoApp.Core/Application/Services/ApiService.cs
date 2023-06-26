@@ -99,7 +99,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
         }
         public async Task<IEnumerable<GoodsReceiptDto>> GetAllGoodsReceiptsAsync()
         {
-            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/GoodsReceipts");
+            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/GoodsReceipts/goodsReceipts/false");
 
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();

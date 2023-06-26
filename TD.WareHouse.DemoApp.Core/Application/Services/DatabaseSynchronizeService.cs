@@ -151,7 +151,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
 
             var goodsReceiptDto = await _apiService.GetAllGoodsReceiptsAsync();
             var goodsReceipts = _mapper.Map<IEnumerable<GoodsReceiptDto>, IEnumerable<GoodsReceipt>>(goodsReceiptDto);
-            _goodsReceiptStore.SetGoodsReceipts(goodsReceipts);
+            _goodsReceiptStore.SetUnconfirmedGoodsReceipts(goodsReceipts);
         }
         //private async Task SynchronizeGoodsReceiptsFromLocal()
         //{

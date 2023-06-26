@@ -29,14 +29,13 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
         //
         private readonly WarehouseStore _warehouseStore;
         public ObservableCollection<string> LocationIds => _warehouseStore.LocationIds;
+        //
         private readonly GoodsReceiptStore _goodsReceiptStore;
         public ObservableCollection<string> GoodsReceiptIds => _goodsReceiptStore.GoodsReceiptIds;
+        public string GoodsReceiptId { get; set; } = "";
         //
         public DateTime StartDate { get; set; } = DateTime.Today.AddDays(-7);
         public DateTime EndDate { get; set; } = DateTime.Today.AddDays(+1);
-        public string GoodsReceiptId { get; set; } = "";
-        //
-        public ObservableCollection<PendingGoodsReceiptViewModel> GoodsReceipts { get; set; } = new();
         public ObservableCollection<PendingGoodsReceiptViewModel> GoodsReceiptByIds { get; set; } = new();
         public ObservableCollection<PendingGoodsReceiptViewModel> GoodsReceiptByTimes { get; set; } = new();
         public ObservableCollection<GoodsReceiptLotForGoodsReceiptView> Lots { get; set; } = new();
@@ -49,7 +48,15 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
                 selectedGoodsReceipt = value;
                 if (selectedGoodsReceipt is not null)
                 {
-                    var goodsReceipt = goodsReceipts.First(g => g.GoodsReceiptId == selectedGoodsReceipt.GoodsReceiptId);
+                    foreach (var goodReceipt in goodsReceiptByIds)
+                    {
+                        goodsReceipts.Add(goodReceipt);
+                    }
+                    foreach (var goodReceipt in goodsReceiptByTimes)
+                    {
+                        goodsReceipts.Add(goodReceipt);
+                    }
+                    var goodsReceipt = goodsReceipts.Last(g => g.GoodsReceiptId == selectedGoodsReceipt.GoodsReceiptId);
                     var lotViewModels = goodsReceipt.Lots.Select(c => new GoodsReceiptLotForGoodsReceiptView(
                     this.LocationIds,
                     c.Item.ItemClassId,
@@ -68,9 +75,8 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
             }
         }
         public ICommand LoadReceivingGoodsReceiptsCommand { get; set; }
+        public ICommand LoadReceivedGoodsReceiptsCommand { get; set; }
         public ICommand UpdateCommand { get; set; }
-        public ICommand DeleteCommand { get; set; }
-        //public ICommand ConfirmCommand { get; set; }
         public ICommand LoadGoodsReceiptViewCommand { get; set; }
         public GoodsReceiptViewModel(IApiService apiService, IDatabaseSynchronizationService databaseSynchronizationService, GoodsReceiptStore goodsReceiptStore, WarehouseStore warehouseStore)
         {
@@ -79,10 +85,11 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
             _goodsReceiptStore = goodsReceiptStore;
             _warehouseStore = warehouseStore;
             LoadReceivingGoodsReceiptsCommand = new RelayCommand(LoadReceivingGoodsReceiptsAsync);
+            LoadReceivedGoodsReceiptsCommand = new RelayCommand(LoadReceivedGoodsReceiptsAsync);
 
             UpdateCommand = new RelayCommand(UpdateAsync);
-            DeleteCommand = new RelayCommand(DeleteAsync);
             LoadGoodsReceiptViewCommand = new RelayCommand(LoadGoodsReceiptView);
+            //DeleteCommand = new RelayCommand(DeleteAsync);
             //ConfirmCommand = new RelayCommand(ConfirmAsync);
         }
 
@@ -91,69 +98,51 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
             _databaseSynchronizationService.SynchronizeGoodReceiptsData();
             OnPropertyChanged(nameof(GoodsReceiptIds));
         }
-        
-        public async void LoadReceivingGoodsReceiptsAsync()
+
+        public async void LoadReceivedGoodsReceiptsAsync()
         {
             try
             {
-                if (!String.IsNullOrEmpty(GoodsReceiptId))
-                {
-                    goodsReceiptByIds = new();
-                    var goodsReceiptById = await _apiService.GetReceivingGoodsReceiptsAsync(GoodsReceiptId);
-                    goodsReceiptByIds.Add(goodsReceiptById);
-                    var goodsReceiptByIdViewModels = goodsReceiptByIds.Select(g =>
-                        new PendingGoodsReceiptViewModel(g.GoodsReceiptId,
-                                                         g.Timestamp,
-                                                         g.Employee.EmployeeName));
-                    GoodsReceiptByIds = new ObservableCollection<PendingGoodsReceiptViewModel>(goodsReceiptByIdViewModels);
-                    GoodsReceipts = GoodsReceiptByIds;
-                    goodsReceipts = goodsReceiptByIds;
-                    Lots = new();
-                    //GoodsReceiptConfirmed += LoadReceivingGoodsReceiptsAsync;
-                    GoodsReceiptUpdated += LoadReceivingGoodsReceiptsAsync;
-                }
-                else
-                {
-                    var goodsReceiptByTime = await _apiService.GetReceivedGoodsReceiptsAsync(StartDate, EndDate);
-                    goodsReceiptByTimes = goodsReceiptByTime.ToList();
-                    var goodsReceiptByTimeViewModels = goodsReceiptByTime.Select(g =>
-                        new PendingGoodsReceiptViewModel(
-                                                         g.GoodsReceiptId,
-                                                         g.Timestamp,
-                                                         g.Employee.EmployeeName));
-                    GoodsReceiptByTimes = new ObservableCollection<PendingGoodsReceiptViewModel>(goodsReceiptByTimeViewModels);
-                    GoodsReceipts = GoodsReceiptByTimes;
-                    goodsReceipts = goodsReceiptByTimes;
-                    Lots = new();
-                    //GoodsReceiptConfirmed += LoadReceivedGoodsReceiptsAsync;
-                    GoodsReceiptUpdated += LoadReceivingGoodsReceiptsAsync;
-                }
+                var goodsReceiptByTime = await _apiService.GetReceivedGoodsReceiptsAsync(StartDate, EndDate);
+                goodsReceiptByTimes = goodsReceiptByTime.ToList();
+                var goodsReceiptByTimeViewModels = goodsReceiptByTime.Select(g =>
+                    new PendingGoodsReceiptViewModel(
+                                                     g.GoodsReceiptId,
+                                                     g.Timestamp,
+                                                     g.Employee.EmployeeName));
+                GoodsReceiptByTimes = new ObservableCollection<PendingGoodsReceiptViewModel>(goodsReceiptByTimeViewModels);
+                Lots = new();
+                //GoodsReceiptReceivedUpdated += LoadReceivedGoodsReceiptsAsync;
             }
             catch (HttpRequestException)
             {
                 ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
             }
-
-            
         }
-        //public void ReloadWhenConfirm()
-        //{
-        //    Lots = new();
-        //    OnPropertyChanged(nameof(GoodsReceiptIds));
-        //    GoodsReceiptId = "";
-        //    GoodsReceiptByIds = new();
-        //    GoodsReceiptConfirmed += ReloadWhenConfirm;
-        //}
-        public void ReloadWhenDelete()
+
+        public async void LoadReceivingGoodsReceiptsAsync()
         {
-            Lots = new();
-            GoodsReceipts = new();
-            OnPropertyChanged(nameof(GoodsReceiptIds));
-            GoodsReceiptId = "";
+            try
+            {
+                goodsReceiptByIds = new();
+                var goodsReceiptById = await _apiService.GetReceivingGoodsReceiptsAsync(GoodsReceiptId);
+                goodsReceiptByIds.Add(goodsReceiptById);
+                var goodsReceiptByIdViewModels = goodsReceiptByIds.Select(g =>
+                    new PendingGoodsReceiptViewModel(g.GoodsReceiptId,
+                                                     g.Timestamp,
+                                                     g.Employee.EmployeeName));
+                GoodsReceiptByIds = new ObservableCollection<PendingGoodsReceiptViewModel>(goodsReceiptByIdViewModels);
+                Lots = new();
+                //GoodsReceiptReceivingUpdated += LoadReceivingGoodsReceiptsAsync;
+            }
+            catch (HttpRequestException)
+            {
+                ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+            }
         }
 
-        public event Action? GoodsReceiptUpdated;
-        //public event Action? GoodsReceiptDeleted;
+        //public event Action? GoodsReceiptReceivingUpdated;
+        //public event Action? GoodsReceiptReceivedUpdated;
 
         public async void UpdateAsync()
         {
@@ -169,7 +158,20 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
                 if (SelectedGoodsReceipt is not null)
                 {
                     await _apiService.FixCompltedGoodsReceiptAsync(SelectedGoodsReceipt.GoodsReceiptId, fixDto);
-                    GoodsReceiptUpdated?.Invoke();
+                    Lots = new();
+                    LoadGoodsReceiptView();
+                    if (GoodsReceiptId == SelectedGoodsReceipt.GoodsReceiptId)
+                    {
+                        GoodsReceiptByIds = new();
+                        LoadReceivingGoodsReceiptsAsync();
+                        GoodsReceiptId = "";
+                    }
+                    else
+                    {
+                        GoodsReceiptByTimes = new();
+                        LoadReceivedGoodsReceiptsAsync();
+                        //GoodsReceiptReceivedUpdated?.Invoke();
+                    }
                     MessageBox.Show("Đã Cập Nhật", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
@@ -187,11 +189,40 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
             }
             
         }
+
+        //public event Action? GoodsReceiptConfirmed;
+        //public event Action? GoodsReceiptDeleted;
+
+        //public ICommand DeleteCommand { get; set; }
+        //public ICommand ConfirmCommand { get; set; }
+
+        //public void ReloadWhenConfirm()
+        //{
+        //    Lots = new();
+        //    OnPropertyChanged(nameof(GoodsReceiptIds));
+        //    GoodsReceiptId = "";
+        //    GoodsReceiptByIds = new();
+        //    GoodsReceiptByTimes = new();
+        //    GoodsReceiptConfirmed += ReloadWhenConfirm;
+        //}
+
+        //public void ReloadWhenDelete()
+        //{
+        //    Lots = new();
+        //    GoodsReceiptsByIds = new();
+        //    OnPropertyChanged(nameof(GoodsReceiptIds));
+        //    GoodsReceiptId = "";
+        //}
+
         //private async void ConfirmAsync()
         //{
         //    try
         //    {
-        //        await _apiService.ConfirmGoodsReceiptAsync(SelectedGoodsReceipt.GoodsReceiptId);
+        //        if (SelectedGoodsReceipt is not null)
+        //        {
+        //            await _apiService.ConfirmGoodsReceiptAsync(SelectedGoodsReceipt.GoodsReceiptId);
+        //            MessageBox.Show("Đã Duyệt Đơn", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+        //        }
         //    }
         //    catch (HttpRequestException)
         //    {
@@ -202,24 +233,24 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
         //    GoodsReceiptByIds = new();
         //}
 
-        private async void DeleteAsync()
-        {
-            if (MessageBox.Show("Xác nhận xóa đơn", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-            {
-                try
-                {
-                    if (SelectedGoodsReceipt is not null)
-                    {
-                        await _apiService.DeleteGoodsReceiptAsync(SelectedGoodsReceipt.GoodsReceiptId);
-                    }
-                }
-                catch (HttpRequestException)
-                {
-                    ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
-                }
-                ReloadWhenDelete();
-            }
-            else { }
-        }
+        //private async void DeleteAsync()
+        //{
+        //    if (MessageBox.Show("Xác nhận xóa đơn", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+        //    {
+        //        try
+        //        {
+        //            if (SelectedGoodsReceipt is not null)
+        //            {
+        //                await _apiService.DeleteGoodsReceiptAsync(SelectedGoodsReceipt.GoodsReceiptId);
+        //            }
+        //        }
+        //        catch (HttpRequestException)
+        //        {
+        //            ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+        //        }
+        //        ReloadWhenDelete();
+        //    }
+        //    else { }
+        //}
     }
 }

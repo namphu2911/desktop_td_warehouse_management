@@ -39,20 +39,20 @@
                         <TextBlock Grid.Column="0" 
                        Margin="10"
                        Style="{StaticResource FieldLabel}"
-                       Text="Ngày bắt đầu"/>
+                       Text="Từ ngày"/>
                         <DatePicker  Grid.Column="1"
                          Margin="10"
-                         materialDesign:HintAssist.Hint="Ngày bắt đầu"
+                         materialDesign:HintAssist.Hint="Từ ngày"
                          Style="{StaticResource DatePicker}"
                          SelectedDate="{Binding StartDate}"/>
 
                         <TextBlock Grid.Column="2" 
                        Margin="10"
                        Style="{StaticResource FieldLabel}" 
-                       Text="Ngày kết thúc"/>
+                       Text="Đến ngày"/>
                         <DatePicker Grid.Column="3"
                          Margin="10,0,10,0"
-                         materialDesign:HintAssist.Hint="Ngày kết thúc"
+                         materialDesign:HintAssist.Hint="Đến ngày"
                          Style="{StaticResource DatePicker}"
                          SelectedDate="{Binding EndDate}"/>
 
@@ -83,13 +83,14 @@
                           SelectionMode="Single">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Mã lô" Width="*" Binding="{Binding LotId}"/>
-                        <DataGridTextColumn Header="Mã sản phẩm" Width="*" Binding="{Binding ItemId}"/>
-                        <DataGridTextColumn Header="Tên sản phẩm" Width="*" Binding="{Binding ItemName}"/>
-                        <DataGridTextColumn Header="Số lượng trước" Width="*" Binding="{Binding BeforeQuantity}"/>
-                        <DataGridTextColumn Header="Số lượng sau" Width="*" Binding="{Binding AfterQuantity}"/>
-                        <DataGridTextColumn Header="Mã PO trước" Width="*" Binding="{Binding OldPurchaseOrderNumber}"/>
-                        <DataGridTextColumn Header="Mã PO sau" Width="*" Binding="{Binding NewPurchaseOrderNumber}"/>
+                        <DataGridTextColumn Header="Mã hàng" Width="*" Binding="{Binding ItemId}"/>
+                        <DataGridTextColumn Header="Tên hàng" Width="*" Binding="{Binding ItemName}"/>
                         <DataGridTextColumn Header="Đơn vị" Width="0.8*" Binding="{Binding Unit}"/>
+                        <DataGridTextColumn Header="Tồn kho" Width="*" Binding="{Binding BeforeQuantity}"/>
+                        <DataGridTextColumn Header="Thực tế" Width="*" Binding="{Binding AfterQuantity}"/>
+                        <DataGridTextColumn Header="SL lệch" Width="*" Binding="{Binding ChangedQuantity}"/>
+                        <!--<DataGridTextColumn Header="Mã PO trước" Width="*" Binding="{Binding OldPurchaseOrderNumber}"/>
+                        <DataGridTextColumn Header="Mã PO sau" Width="*" Binding="{Binding NewPurchaseOrderNumber}"/>-->
                         <DataGridTextColumn Header="Tên nhân viên" Width="1.5*" Binding="{Binding EmployeeName}"/>
                         <DataGridTextColumn Header="Ghi chú" Width="*" Binding="{Binding Note}"/>
                     </DataGrid.Columns>
