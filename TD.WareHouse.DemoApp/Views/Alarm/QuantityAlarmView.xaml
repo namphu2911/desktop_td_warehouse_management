@@ -79,6 +79,7 @@
                           IsReadOnly="True"
                           ItemsSource="{Binding Entries}"
                           AutoGenerateColumns="False"
+                          RowDetailsVisibilityMode="Visible"
                           SelectionUnit="FullRow"
                           SelectionMode="Single">
                         <DataGrid.RowStyle>
@@ -100,9 +101,33 @@
                             <DataGridTextColumn Header="Số lượng" Binding="{Binding Quantity}"/>
                             <DataGridTextColumn Header="Stockmin" Binding="{Binding MinimumStockLevel}"/>
                             <DataGridTextColumn Header="Vị trí" Binding="{Binding LocationId}"/>
-                            <!--<DataGridTextColumn Header="Mã PO" Binding="{Binding PurchaseOrderNumber}"/>
-                            <DataGridTextColumn Header="HSD còn lại" Binding="{Binding TimeLeft, StringFormat=0.0 tháng}"/>-->
                         </DataGrid.Columns>
+                        <DataGrid.RowDetailsTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="{StaticResource ColorSurfaceOn}" Margin="10">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1.3*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Grid Grid.Column="1">
+                                            <DataGrid 
+                                            ItemsSource="{Binding LocationsForAlarms}" 
+                                            IsReadOnly="True"
+                                            AutoGenerateColumns="False"
+                                            SelectionUnit="FullRow"
+                                            SelectionMode="Single">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="Vị trí" Binding="{Binding LocationId}" />
+                                                    <DataGridTextColumn Header="SL mỗi vị trí" Binding="{Binding QuantityPerLocation}" />
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                        </Grid>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </DataGrid.RowDetailsTemplate>
                     </DataGrid>
                 </materialDesign:Card>
             </Grid>

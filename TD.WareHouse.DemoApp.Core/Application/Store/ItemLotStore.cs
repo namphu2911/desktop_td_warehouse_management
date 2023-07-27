@@ -10,26 +10,15 @@ namespace TD.WareHouse.DemoApp.Core.Application.Store
 {
     public class ItemLotStore
     {
-        public List<ItemLot> ItemLots { get; private set; }
-        public ObservableCollection<string> PurchaseOrderNumbers { get; private set; }
-        public ObservableCollection<string> LocationIds { get; private set; }
-        public List<string> LotIds { get; private set; }
+        public ObservableCollection<string> FinishedPurchaseOrderNumbers { get; private set; }
         public ItemLotStore()
         {
-            ItemLots = new List<ItemLot>();
-            PurchaseOrderNumbers = new ObservableCollection<string>();
-            LocationIds = new ObservableCollection<string>();
-            LotIds = new List<string>();
+            FinishedPurchaseOrderNumbers = new ObservableCollection<string>();
         }
-        public void SetPurchaseOrderNumbers(List<string> purchaseOrderNumbersDtos)
+       
+        public void SetFinishedPurchaseOrderNumbers(List<string> finishedPurchaseOrderNumbersDtos)
         {
-            PurchaseOrderNumbers = new ObservableCollection<string>(purchaseOrderNumbersDtos.OrderBy(s => s));
-        }
-        public void SetItemLot(IEnumerable<ItemLot> itemlots)
-        {
-            ItemLots = itemlots.ToList();
-            LocationIds = new ObservableCollection<string>(ItemLots.Select(i => i.Location.LocationId).OrderBy(s => s));
-            LotIds = new List<string>(ItemLots.Select(i => i.LotId).OrderBy(s => s));
+            FinishedPurchaseOrderNumbers = new ObservableCollection<string>(finishedPurchaseOrderNumbersDtos.OrderBy(s => s));
         }
     }
 }

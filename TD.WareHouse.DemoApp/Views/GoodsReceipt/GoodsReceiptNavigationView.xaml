@@ -13,22 +13,37 @@
         <TabControl TabStripPlacement="Top" 
                     Style="{StaticResource MaterialDesignFilledTabControl}"
                     materialDesign:ColorZoneAssist.Background="LightGray">
-            <TabItem Height="55" MaxWidth="800" Style="{StaticResource TabItemRowStyle}">
-                <TabItem.Header >
-                    <TextBlock>
-                        <TextBlock Style="{StaticResource HeaderText}" Text="NHẬP KHO NGUYÊN VẬT LIỆU"/>
-                    </TextBlock>
-                </TabItem.Header>
-                <local:GoodsReceiptView DataContext="{Binding GoodsReceiptUncompleted}" Foreground="Black"/>
-            </TabItem>
+            
 
             <TabItem Height="55" MaxWidth="800" Style="{StaticResource TabItemRowStyle}">
                 <TabItem.Header >
-                    <TextBlock>
-                        <TextBlock Style="{StaticResource HeaderText}" Text="NHẬP KHO THÀNH PHẨM"/>
-                    </TextBlock>
+                    <TextBlock Style="{StaticResource HeaderText}" Text="NHẬP KHO THÀNH PHẨM"/>
                 </TabItem.Header>
-                <local:GoodsReceiptCompletedView DataContext="{Binding GoodsReceiptCompleted}" Foreground="Black"/>
+                <local:CreateGoodsReceiptCompletedView DataContext="{Binding CreateGoodsReceiptCompleted}" Foreground="Black"/>
+            </TabItem>
+
+            <TabItem Height="55" MaxWidth="800" Margin="0" Style="{StaticResource TabItem2layerRowStyle}">
+                <TabItem.Header >
+                    <TextBlock Style="{StaticResource HeaderText}" Text="XEM TIẾN ĐỘ"/>
+                </TabItem.Header>
+
+                <TabControl TabStripPlacement="Top" 
+                            Style="{StaticResource MaterialDesignTabControl}">
+
+                    <TabItem Height="50" MaxWidth="800" Background="{StaticResource ColorPrimaryL1}">
+                        <TabItem.Header >
+                            <TextBlock Style="{StaticResource TabText}" Text="NHẬP KHO NVL"/>
+                        </TabItem.Header>
+                        <local:GoodsReceiptMaterialsView DataContext="{Binding GoodsReceiptMaterials}" Foreground="Black"/>
+                    </TabItem>
+
+                    <TabItem Height="50" MaxWidth="800" Background="{StaticResource ColorPrimaryL1}">
+                        <TabItem.Header >
+                            <TextBlock Style="{StaticResource TabText}" Text="NHẬP KHO TP"/>
+                        </TabItem.Header>
+                        <local:GoodsReceiptCompletedView DataContext="{Binding GoodsReceiptCompleted}" Foreground="Black"/>
+                    </TabItem>
+                </TabControl>
             </TabItem>
         </TabControl>
 

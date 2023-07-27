@@ -215,7 +215,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
         {
             try
             {
-                var request = _excelReader.ReadExportRequests(FilePath, "Phieu XK NVL", Date);
+                var request = _excelReader.ReadGoodsIssueInternalExportRequests(FilePath, "Phieu XK NVL", Date);
                 goodsIssues.Add(request);
                 GoodsIssues = new ObservableCollection<GoodsIssueInternalToCreateViewModel>
                         (goodsIssues.Select(x => new GoodsIssueInternalToCreateViewModel(

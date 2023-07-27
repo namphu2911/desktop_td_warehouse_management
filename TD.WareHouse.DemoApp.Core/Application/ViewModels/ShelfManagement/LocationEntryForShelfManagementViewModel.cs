@@ -13,23 +13,19 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.ShelfManagement
         public string Unit { get; set; }
         public string LotId { get; set; }
         public double Quantity { get; set; }
-        public string PurchaseOrderNumber { get; set; }
-        public DateTime ProductionDate { get; set; }
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public LocationEntryForShelfManagementViewModel()
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
 
         }
-        public LocationEntryForShelfManagementViewModel(string itemId, string itemName, string unit, string lotId, double quantity, string purchaseOrderNumber, DateTime productionDate)
+        public LocationEntryForShelfManagementViewModel(string itemId, string itemName, string unit, string lotId, double quantity)
         {
             ItemId = itemId;
             ItemName = itemName;
             Unit = unit;
             LotId = lotId;
             Quantity = quantity;
-            PurchaseOrderNumber = purchaseOrderNumber;
-            ProductionDate = productionDate;
         }
     }
 }

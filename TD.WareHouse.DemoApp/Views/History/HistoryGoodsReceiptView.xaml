@@ -7,7 +7,8 @@
              xmlns:local="clr-namespace:TD.WareHouse.DemoApp.Views.History"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
              xmlns:history="clr-namespace:TD.WareHouse.DemoApp.Core.Application.ViewModels.History;assembly=TD.WareHouse.DemoApp.Core" 
-             xmlns:i="http://schemas.microsoft.com/xaml/behaviors" xmlns:Components="clr-namespace:TD.WareHouse.DemoApp.Resources.Components"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
+             xmlns:Components="clr-namespace:TD.WareHouse.DemoApp.Resources.Components"
              
              mc:Ignorable="d" 
              d:DesignHeight="670" d:DesignWidth="1090"
@@ -114,8 +115,6 @@
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
 
                         <TextBlock Grid.Row="1" Grid.Column="0" 
@@ -141,32 +140,13 @@
                         <TextBlock Grid.Row="0" Grid.Column="4" 
                        Margin="10"
                        Style="{StaticResource FieldLabel}"
-                       Text="NCC"/>
-                        <ComboBox Grid.Row="0" Grid.Column="5"
-                      Margin="10"
-                      materialDesign:HintAssist.Hint="NCC"
+                       Text="Nhà cung cấp"/>
+                        <ComboBox Grid.Column="5"
+                      Margin="10,0,9,0"
+                      materialDesign:HintAssist.Hint="Nhà cung cấp"
                       Style="{StaticResource ComboBox}"
                       ItemsSource="{Binding Suppliers}"
-                      Text="{Binding Supplier}" Width="100">
-                            <ComboBox.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <VirtualizingStackPanel />
-                                </ItemsPanelTemplate>
-                            </ComboBox.ItemsPanel>
-                        </ComboBox>
-
-
-                        <TextBlock Grid.Row="0" Grid.Column="6" 
-                       Margin="10"
-                       Style="{StaticResource FieldLabel}" 
-                       Text="Số PO"/>
-
-                        <ComboBox Grid.Row="0" Grid.Column="7"
-                      Margin="10"
-                      materialDesign:HintAssist.Hint="Số PO"
-                      Style="{StaticResource ComboBox}"
-                      ItemsSource="{Binding PurchaseOrderNumbers}"
-                      Text="{Binding PurchaseOrderNumber}" Width="100">
+                      Text="{Binding Supplier}">
                             <ComboBox.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <VirtualizingStackPanel />
@@ -211,7 +191,6 @@
                             <DataGridTextColumn Header="Đơn vị" Width="auto" Binding="{Binding Unit}"/>
                             <DataGridTextColumn Header="Mã lô" Width="*" Binding="{Binding GoodsReceiptLotId}"/>
                             <DataGridTextColumn Header="Số lượng nhập" Width="auto" Binding="{Binding Quantity}"/>
-                            <DataGridTextColumn Header="Mã PO" Width="*" Binding="{Binding PurchaseOrderNumber}"/>
                             <DataGridTextColumn Header="Ghi chú" Width="auto" Binding="{Binding Note}"/>
                         </DataGrid.Columns>
                     </DataGrid>
@@ -219,7 +198,7 @@
             </Grid>
         </Grid>
     </materialDesign:DialogHost>
-    
+
 </UserControl> 
              
         

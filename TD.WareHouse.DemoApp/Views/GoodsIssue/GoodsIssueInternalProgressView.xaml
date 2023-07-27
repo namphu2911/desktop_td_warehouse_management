@@ -1,0 +1,283 @@
+﻿<UserControl x:Class="TD.WareHouse.DemoApp.Views.GoodsIssue.GoodsIssueInternalProgressView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TD.WareHouse.DemoApp.Views.GoodsIssue"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:prism="http://prismlibrary.com/" 
+             xmlns:goodsissue="clr-namespace:TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue;assembly=TD.WareHouse.DemoApp.Core" 
+             xmlns:Components="clr-namespace:TD.WareHouse.DemoApp.Resources.Components" 
+             d:DataContext="{d:DesignInstance Type=goodsissue:GoodsIssueInternalProgressViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="670" d:DesignWidth="1090"
+             Background="{StaticResource ColorBackground}"
+             Padding="10">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <prism:InvokeCommandAction Command="{Binding LoadGoodsIssueProgressViewCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <materialDesign:DialogHost CloseOnClickAway="True" IsOpen="{Binding IsErrorMessageShowed}">
+        <materialDesign:DialogHost.DialogContent>
+            <Components:ErrorMessage Message="{Binding ErrorMessage}"/>
+        </materialDesign:DialogHost.DialogContent>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="370"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <materialDesign:Card Grid.Row="0"
+                                 Margin="10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0"
+                       Margin="10"
+                       Style="{StaticResource CardTitle}" 
+                       Text="Danh sách phiếu đang xuất" FontSize="18"/>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <ComboBox Grid.Column="0"
+                              Margin="5"
+                              materialDesign:HintAssist.Hint="Tim kiếm"
+                              Style="{StaticResource ComboBox}"
+                              ItemsSource="{Binding GoodsIssueIds, UpdateSourceTrigger=PropertyChanged}"
+                              Text="{Binding GoodsIssueId}">
+                                <ComboBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel />
+                                    </ItemsPanelTemplate>
+                                </ComboBox.ItemsPanel>
+                            </ComboBox>
+
+                            <Button Grid.Column="1"
+                        Margin="10"
+                        Style="{StaticResource ButtonPrimary}" materialDesign:ButtonAssist.CornerRadius="10"
+                        Content="Tìm kiếm"
+                        FontSize="13"
+                        HorizontalAlignment="Center">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <prism:InvokeCommandAction Command="{Binding LoadIssuingGoodsIssuesCommand}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
+                        </Grid>
+                        <Border Grid.Row="2"
+                        Margin="5"
+                        BorderThickness="1"
+                        BorderBrush="{StaticResource ColorGray}">
+                            <ListView HorizontalContentAlignment="Stretch"
+                                  ItemsSource="{Binding GoodsIssueByIds, UpdateSourceTrigger=PropertyChanged}"
+                                  SelectedItem="{Binding SelectedGoodsIssue, UpdateSourceTrigger=PropertyChanged}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type goodsissue:PendingGoodsIssueViewModel}">
+                                        <local:PendingGoodsIssueView/>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </Border>
+                    </Grid>
+                </materialDesign:Card>
+
+                <materialDesign:Card Grid.Row="1"
+                                 Margin="10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0"
+                       Margin="10"
+                       Style="{StaticResource CardTitle}" 
+                       Text="Danh sách phiếu đã xuất" FontSize="18"/>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1.1*"/>
+                                <ColumnDefinition Width="1.1*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <DatePicker  Grid.Row="1" Grid.Column="0"
+                         Margin="10"
+                         materialDesign:HintAssist.Hint="Từ ngày"
+                         Style="{StaticResource DatePicker}"
+                         FontSize="13"
+                         SelectedDate="{Binding StartDate}"/>
+
+                            <DatePicker Grid.Column="1"
+                         Margin="10,0,10,0"
+                         materialDesign:HintAssist.Hint="Đến ngày"
+                         Style="{StaticResource DatePicker}"
+                         FontSize="13"
+                         SelectedDate="{Binding EndDate}"/>
+
+                            <Button Grid.Column="2"
+                        Margin="10"
+                        Style="{StaticResource ButtonPrimary}" materialDesign:ButtonAssist.CornerRadius="10"
+                        Content="Tìm kiếm"
+                        FontSize="13"
+                        HorizontalAlignment="Center">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <prism:InvokeCommandAction Command="{Binding LoadIssuedGoodsIssuesCommand}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
+
+                        </Grid>
+                        <Border Grid.Row="2"
+                        Margin="5"
+                        BorderThickness="1"
+                        BorderBrush="{StaticResource ColorGray}">
+                            <ListView HorizontalContentAlignment="Stretch"
+                                  ItemsSource="{Binding GoodsIssueByTimes}"
+                                  SelectedItem="{Binding SelectedGoodsIssue}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type goodsissue:PendingGoodsIssueViewModel}">
+                                        <local:PendingGoodsIssueView/>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </Border>
+                    </Grid>
+                </materialDesign:Card>
+            </Grid>
+
+            <materialDesign:Card Grid.Column="1" Margin="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0">
+                        <TextBlock 
+                        Style ="{StaticResource CardTitle}"
+                        Text="Thông tin chi tiết"/>
+                        <Separator/>
+                    </StackPanel>
+
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" 
+                               Margin="5" 
+                               VerticalAlignment="Center" 
+                               Text="Mã đơn:"/>
+                        <TextBlock Grid.Column="1" 
+                               Margin="5" 
+                               VerticalAlignment="Center"
+                               Text="{Binding SelectedGoodsIssue.GoodsIssueId}"/>
+
+                        <TextBlock Grid.Column="2" 
+                               Margin="5" 
+                               VerticalAlignment="Center" 
+                               Text="Khách hàng:"/>
+                        <TextBlock Grid.Column="3"
+                               Margin="5" 
+                               VerticalAlignment="Center"
+                               Text="{Binding SelectedGoodsIssue.Receiver}"/>
+
+                        <TextBlock Grid.Column="4" 
+                               Margin="5" 
+                               VerticalAlignment="Center" 
+                               Text="Tên nhân viên:"/>
+                        <TextBlock Grid.Column="5"
+                               Margin="5" 
+                               VerticalAlignment="Center"
+                               Text="{Binding SelectedGoodsIssue.EmployeeName}"/>
+
+                    </Grid>
+
+                    <DataGrid Grid.Row="2"
+                              Style="{StaticResource MaterialDesignDataGrid}"
+                              Background="{StaticResource ColorSurface}"
+                              Margin="10"
+                              IsReadOnly="False"
+                              ItemsSource="{Binding Entries}"
+                              AutoGenerateColumns="False"
+                              MouseLeftButtonDown="DataGrid_MouseLeftButtonDown"
+                              SelectionUnit="FullRow"
+                              SelectionMode="Single">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Kho hàng" Binding="{Binding ItemClassId}" Width="*" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Mã hàng" Binding="{Binding ItemId}" Width="*" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Tên hàng" Binding="{Binding ItemName}" Width="*" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Đơn vị" Binding="{Binding Unit}" Width="*" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Số lượng yêu cầu" Binding="{Binding RequestedQuantity}" Width="*" IsReadOnly="False"/>
+                            <DataGridTextColumn Header="Trạng thái" Binding="{Binding State}" Width="*" IsReadOnly="True"/>
+                        </DataGrid.Columns>
+                        <DataGrid.RowDetailsTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="{StaticResource ColorSurfaceOn}" Margin="10">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1.5*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <DataGrid 
+                                            Grid.Column="1"
+                                            ItemsSource="{Binding LotForGoodsIssueProgressViewModels}" 
+                                            IsReadOnly="True"
+                                            AutoGenerateColumns="False"
+                                            SelectionUnit="FullRow"
+                                            SelectionMode="Single">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Mã lô" Binding="{Binding GoodsIssueLotId}"/>
+                                                <DataGridTextColumn Header="Số lượng" Binding="{Binding Quantity}"/>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </Grid>
+                                    
+                                </Border>
+                            </DataTemplate>
+                        </DataGrid.RowDetailsTemplate>
+                    </DataGrid>
+
+                    <Grid Grid.Row="3">
+                        <Button Grid.Column="0"
+                            Margin="10"
+                            Width="150"
+                            HorizontalAlignment="Center"
+                            Style="{StaticResource ButtonPrimary}" materialDesign:ButtonAssist.CornerRadius="10" 
+                            Content="Cập nhật">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <prism:InvokeCommandAction Command="{Binding UpdateCommand}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                    </Grid>
+                </Grid>
+            </materialDesign:Card>
+        </Grid>
+    </materialDesign:DialogHost>
+</UserControl>

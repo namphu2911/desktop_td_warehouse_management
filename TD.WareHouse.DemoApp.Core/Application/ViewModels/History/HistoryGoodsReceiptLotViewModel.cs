@@ -16,9 +16,8 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.History
         public string Unit { get; set; }
         public string GoodsReceiptLotId { get; set; }
         public double Quantity { get; set; }
-        public string? PurchaseOrderNumber { get; set; }
         public string? Note  { get; set; }   
-        public HistoryGoodsReceiptLotViewModel(string itemClassId, string? supplier, string itemId, string itemName, string unit, string goodsReceiptLotId, double quantity, string? purchaseOrderNumber, string? note)
+        public HistoryGoodsReceiptLotViewModel(string itemClassId, string? supplier, string itemId, string itemName, string unit, string goodsReceiptLotId, double quantity, string? note)
         {
             ItemClassId = itemClassId;
             Supplier = supplier;
@@ -27,7 +26,6 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.History
             Unit = unit;
             GoodsReceiptLotId = goodsReceiptLotId;
             Quantity = quantity;
-            PurchaseOrderNumber = purchaseOrderNumber;
             Note = note;
         }
     }

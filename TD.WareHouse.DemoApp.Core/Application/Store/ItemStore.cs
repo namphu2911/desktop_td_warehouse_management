@@ -15,20 +15,34 @@ namespace TD.WareHouse.DemoApp.Core.Application.Store
         public ObservableCollection<string> ItemIds { get; private set; }
         public ObservableCollection<string> ItemNames { get; private set; }
         public ObservableCollection<string> Units { get; private set; }
+
+        public List<Item> FinishedItems { get; private set; }
+        public ObservableCollection<string> FinishedItemIds { get; private set; }
+        public ObservableCollection<string> FinishedItemNames { get; private set; }
+        public ObservableCollection<string> FinishedItemUnits { get; private set; }
         public ItemStore()
         {
             Items = new List<Item>();
             ItemIds = new ObservableCollection<string>();
             ItemNames = new ObservableCollection<string>();
             Units = new ObservableCollection<string>();
+
+            FinishedItems = new List<Item>();
+            FinishedItemIds = new ObservableCollection<string>();
+            FinishedItemNames = new ObservableCollection<string>();
+            FinishedItemUnits = new ObservableCollection<string>();
         }
         public void SetItem(IEnumerable<Item> items)
         {
-            Items = items.ToList();
+            Items = items.Where(i => i.ItemClassId != "TP").ToList();
             ItemIds = new ObservableCollection<string>(Items.Select(i => i.ItemId).OrderBy(s => s));
             ItemNames = new ObservableCollection<string>(Items.Select(i => i.ItemName).OrderBy(s => s));
-            Units = new ObservableCollection<string>(Items.Select(i => i.Unit).OrderBy(s => s));
-        }
+            Units = new ObservableCollection<string>(Items.Select(i => i.Unit).Distinct().OrderBy(s => s));
 
+            FinishedItems = items.Where(i => i.ItemClassId == "TP").ToList();
+            FinishedItemIds = new ObservableCollection<string>(FinishedItems.Select(i => i.ItemId).OrderBy(s => s));
+            FinishedItemNames = new ObservableCollection<string>(FinishedItems.Select(i => i.ItemName).OrderBy(s => s));
+            FinishedItemUnits = new ObservableCollection<string>(FinishedItems.Select(i => i.Unit).Distinct().OrderBy(s => s));
+        }
     }
 }

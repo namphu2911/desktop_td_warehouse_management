@@ -15,25 +15,52 @@
         <TabControl TabStripPlacement="Top" 
                     Style="{StaticResource MaterialDesignFilledTabControl}"
                     materialDesign:ColorZoneAssist.Background="LightGray">
-            <TabItem Height="55" MaxWidth="800" Style="{StaticResource TabItemRowStyle}">
+            <TabItem Height="55" MaxWidth="800" Style="{StaticResource TabItem2layerRowStyle}">
                 <TabItem.Header >
-                    <TextBlock>
-                        <TextBlock Style="{StaticResource HeaderText}" Text="LỊCH SỬ NHẬP KHO"/>
-                    </TextBlock>
+                    <TextBlock Style="{StaticResource HeaderText}" Text="NGUYÊN VẬT LIỆU"/>
                 </TabItem.Header>
-                <view:HistoryGoodsReceiptView DataContext="{Binding HistoryGoodsReceipt}" Foreground="Black"/>
+
+                <TabControl TabStripPlacement="Top" 
+                            Style="{StaticResource MaterialDesignTabControl}">
+                    <TabItem Height="55" Background="{StaticResource ColorPrimaryL1}" MaxWidth="800">
+                        <TabItem.Header >
+                            <TextBlock Style="{StaticResource TabText}" Text="LỊCH SỬ NHẬP NVL"/>
+                        </TabItem.Header>
+                        <view:HistoryGoodsReceiptView DataContext="{Binding HistoryGoodsReceipt}" Foreground="Black"/>
+                    </TabItem>
+
+                    <TabItem Height="55" Background="{StaticResource ColorPrimaryL1}" MaxWidth="800">
+                        <TabItem.Header >
+                            <TextBlock Style="{StaticResource TabText}" Text="LỊCH SỬ XUẤT NVL"/>
+                        </TabItem.Header>
+                        <view:HistoryGoodsIssueView DataContext="{Binding HistoryGoodsIssue}" Foreground="Black"/>
+                    </TabItem>
+                </TabControl>
             </TabItem>
 
-            <TabItem Height="55" MaxWidth="800" Style="{StaticResource TabItemRowStyle}">
+            <TabItem Height="55" MaxWidth="800" Style="{StaticResource TabItem2layerRowStyle}">
                 <TabItem.Header >
-                    <TextBlock>
-                        <TextBlock Style="{StaticResource HeaderText}" Text="LỊCH SỬ XUẤT KHO"/>
-                    </TextBlock>
+                    <TextBlock Style="{StaticResource HeaderText}" Text="THÀNH PHẨM"/>
                 </TabItem.Header>
-                <view:HistoryGoodsIssueView DataContext="{Binding HistoryGoodsIssue}" Foreground="Black"/>
+
+                <TabControl TabStripPlacement="Top" 
+                            Style="{StaticResource MaterialDesignTabControl}">
+                    <TabItem Height="55" Background="{StaticResource ColorPrimaryL1}" MaxWidth="800">
+                        <TabItem.Header >
+                            <TextBlock Style="{StaticResource TabText}" Text="LỊCH SỬ NHẬP TP"/>
+                        </TabItem.Header>
+                        <view:HistoryFinishedProductReceiptView DataContext="{Binding HistoryFinishedProductReceipt}" Foreground="Black"/>
+                    </TabItem>
+
+                    <TabItem Height="55" Background="{StaticResource ColorPrimaryL1}" MaxWidth="800">
+                        <TabItem.Header >
+                            <TextBlock Style="{StaticResource TabText}" Text="LỊCH SỬ XUẤT TP"/>
+                        </TabItem.Header>
+                        <view:HistoryFinishedProductIssueView DataContext="{Binding HistoryFinishedProductIssue}" Foreground="Black"/>
+                    </TabItem>
+                </TabControl>
             </TabItem>
         </TabControl>
-
     </Grid>
 </UserControl>
    

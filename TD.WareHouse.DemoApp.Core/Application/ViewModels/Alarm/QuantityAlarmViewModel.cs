@@ -22,7 +22,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.Alarm
         private readonly WarehouseStore _warehouseStore;
         public string WarehouseId { get; set; } = "";
         public ObservableCollection<string> WarehouseIds => _warehouseStore.WarehouseIds;
-        public ObservableCollection<EntryForQuantityAlarmViewModel> Entries { get; set; } = new();
+        public ObservableCollection<EntryForAlarmViewModel> Entries { get; set; } = new();
 
         public ICommand LoadQuantityAlarmCommand { get; set; }
         public ICommand LoadQuantityAlarmViewCommand { get; set; }
@@ -44,7 +44,19 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.Alarm
             try
             {
                 var dtos = await _apiService.GetQuantityAlarmEntriesAsync(WarehouseId);
-                var entries = _mapper.Map<IEnumerable<ItemLotDto>, IEnumerable<EntryForQuantityAlarmViewModel>>(dtos);
+                var entries = dtos.Select(i => new EntryForAlarmViewModel(
+                    i.Item.ItemId,
+                    i.Item.ItemName,
+                    i.Item.Unit,
+                    i.LotId,
+                    i.Quantity,
+                    i.Item.MinimumStockLevel,
+                    i.ItemLotLocations.Select(x => new LocationsForAlarmViewModel(
+                        x.LocationId,
+                        x.QuantityPerLocation)).ToList(),
+                    i.Item.ItemClassId,
+                    i.ProductionDate,
+                    i.ExpirationDate));
                 Entries = new(entries);                
             }
             catch (HttpRequestException)

@@ -46,20 +46,18 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
 
         private async void ConfirmAsync()
         {
-            var createDto = new CreateGoodsIssueDto(
+            var createDto = new CreateInternalGoodsIssueDto(
                 GoodsIssueId,
                 Receiver,
-                purchaseOrderNumber:null,
                 Timestamp,
                 EmployeeId,
-                Entries.Select(x => new CreateGoodsIssueEntryDto(
+                Entries.Select(x => new CreateInternalGoodsIssueEntryDto(
                     x.ItemId,
                     x.Unit,
-                    requestedSublotSize:null,
                     x.RequestedQuantity)).ToList());
             try
             {
-                await _apiService.CreateGoodsIssuesAsync(createDto);
+                await _apiService.CreateInternalGoodsIssuesAsync(createDto);
                 GoodsIssueCreated?.Invoke(this, EventArgs.Empty);
                 MessageBox.Show("Đã Lưu Đơn Mới", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
             }

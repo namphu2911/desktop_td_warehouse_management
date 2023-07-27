@@ -12,16 +12,21 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
     {
         public string ItemId { get; set; }
         public string ItemName { get; set; }
-        public double RequestedQuantity { get; set; }
+        public double Quantity { get; set; }
         public string Unit { get; set; }
+        public string PurchaseOrderNumber { get; set; }
+        public string Note { get; set; }
         public ICommand DeleteEntryCommand { get; set; }
         public event Action? OnRemoved;
-        public GoodsIssueEntryForGoodsIssueExternalView(string itemId, string itemName, double requestedQuantity, string unit)
+        public GoodsIssueEntryForGoodsIssueExternalView(string itemId, string itemName, double quantity, string unit, string purchaseOrderNumber, string note)
         {
             ItemId = itemId;
             ItemName = itemName;
-            RequestedQuantity = requestedQuantity;
+            Quantity = quantity;
             Unit = unit;
+            PurchaseOrderNumber = purchaseOrderNumber;
+            Note = note;
+
             DeleteEntryCommand = new RelayCommand(DeleteEntry);
         }
         private void DeleteEntry()

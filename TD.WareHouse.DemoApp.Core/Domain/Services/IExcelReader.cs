@@ -10,7 +10,8 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Services
 {
     public interface IExcelReader
     {
-        GoodsIssueDb ReadExportRequests(string filePath, string sheetName, DateTime date);
-        GoodsReceiptDb ReadReceiptExportRequests(string filePath, string sheetName, DateTime date);
+        GoodsIssueDb ReadGoodsIssueInternalExportRequests(string filePath, string sheetName, DateTime date);
+        FinishedProductIssueDb ReadGoodsIssueExternalRequests(string filePath, string sheetName, DateTime date);
+        FinishedProductReceiptDb ReadReceiptExportRequests(string filePath, string sheetName, DateTime date);
     }
 }

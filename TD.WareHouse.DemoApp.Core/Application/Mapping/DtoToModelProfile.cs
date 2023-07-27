@@ -4,6 +4,7 @@ using TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt;
 using TD.WareHouse.DemoApp.Core.Application.ViewModels.History;
 using TD.WareHouse.DemoApp.Core.Application.ViewModels.Inventory;
 using TD.WareHouse.DemoApp.Core.Application.ViewModels.Isolation;
+using TD.WareHouse.DemoApp.Core.Application.ViewModels.MiscellaneousData;
 using TD.WareHouse.DemoApp.Core.Application.ViewModels.ShelfManagement;
 using TD.WareHouse.DemoApp.Core.Application.ViewModels.StockCard;
 using TD.WareHouse.DemoApp.Core.Domain.Dtos.Employees;
@@ -39,20 +40,20 @@ namespace TD.WareHouse.DemoApp.Core.Application.Mapping
             //    .ForMember(i => i.EmployeeName, o => o.MapFrom(dto => dto.Employee.EmployeeName));
 
 
-            CreateMap<ItemLotDto, EntryForQuantityAlarmViewModel>()
-                .ForMember(i => i.ItemId, o => o.MapFrom(dto => dto.Item.ItemId))
-                .ForMember(i => i.ItemName, o => o.MapFrom(dto => dto.Item.ItemName))
-                .ForMember(i => i.Unit, o => o.MapFrom(dto => dto.Item.Unit))
-                .ForMember(i => i.MinimumStockLevel, o => o.MapFrom(dto => dto.Item.MinimumStockLevel))
-                .ForMember(i => i.LocationId, o => o.MapFrom(dto => dto.Location.LocationId))
-                .ForMember(i => i.ItemClassId, o => o.MapFrom(dto => dto.Item.ItemClassId));
-            CreateMap<ItemLotDto, EntryForExpirationDateAlarmViewModel>()
-                .ForMember(i => i.ItemId, o => o.MapFrom(dto => dto.Item.ItemId))
-                .ForMember(i => i.ItemName, o => o.MapFrom(dto => dto.Item.ItemName))
-                .ForMember(i => i.Unit, o => o.MapFrom(dto => dto.Item.Unit))
-                .ForMember(i => i.MinimumStockLevel, o => o.MapFrom(dto => dto.Item.MinimumStockLevel))
-                .ForMember(i => i.LocationId, o => o.MapFrom(dto => dto.Location.LocationId))
-                .ForMember(i => i.ItemClassId, o => o.MapFrom(dto => dto.Item.ItemClassId));
+            //CreateMap<ItemLotDto, EntryForAlarmViewModel>()
+            //    .ForMember(i => i.ItemId, o => o.MapFrom(dto => dto.Item.ItemId))
+            //    .ForMember(i => i.ItemName, o => o.MapFrom(dto => dto.Item.ItemName))
+            //    .ForMember(i => i.Unit, o => o.MapFrom(dto => dto.Item.Unit))
+            //    .ForMember(i => i.MinimumStockLevel, o => o.MapFrom(dto => dto.Item.MinimumStockLevel))
+            //    .ForMember(i => i.LocationId, o => o.MapFrom(dto => dto.Location.LocationId))
+            //    .ForMember(i => i.ItemClassId, o => o.MapFrom(dto => dto.Item.ItemClassId));
+            //CreateMap<ItemLotDto, EntryForExpirationDateAlarmViewModel>()
+            //    .ForMember(i => i.ItemId, o => o.MapFrom(dto => dto.Item.ItemId))
+            //    .ForMember(i => i.ItemName, o => o.MapFrom(dto => dto.Item.ItemName))
+            //    .ForMember(i => i.Unit, o => o.MapFrom(dto => dto.Item.Unit))
+            //    .ForMember(i => i.MinimumStockLevel, o => o.MapFrom(dto => dto.Item.MinimumStockLevel))
+            //    .ForMember(i => i.LocationId, o => o.MapFrom(dto => dto.Location.LocationId))
+            //    .ForMember(i => i.ItemClassId, o => o.MapFrom(dto => dto.Item.ItemClassId));
 
             CreateMap<LotAdjustmentDto, FixLotAdjustmentViewModel>()
                 .ForMember(i => i.ItemId, o => o.MapFrom(dto => dto.Item.ItemId))
@@ -75,24 +76,35 @@ namespace TD.WareHouse.DemoApp.Core.Application.Mapping
                 .ForMember(i => i.ItemId, o => o.MapFrom(dto => dto.Item.ItemId))
                 .ForMember(i => i.ItemName, o => o.MapFrom(dto => dto.Item.ItemName))
                 .ForMember(i => i.Unit, o => o.MapFrom(dto => dto.Item.Unit));
-            CreateMap<ItemLotDto, ItemEntryForShelfManagementViewModel>()
-                .ForMember(i => i.Unit, o => o.MapFrom(dto => dto.Item.Unit))
-                .ForMember(i => i.LocationId, o => o.MapFrom(dto => dto.Location.LocationId));
+            //CreateMap<ItemLotDto, ItemEntryForShelfManagementViewModel>()
+            //    .ForMember(i => i.Unit, o => o.MapFrom(dto => dto.Item.Unit))
+            //    .ForMember(i => i.LocationId, o => o.MapFrom(dto => dto.Location.LocationId));
 
-            CreateMap<InventoryLogEntryDto, StockCardEntryViewModel>()
-                .ForMember(i => i.ItemId, o => o.MapFrom(dto => dto.Item.ItemId))
-                .ForMember(i => i.ItemName, o => o.MapFrom(dto => dto.Item.ItemName))
-                .ForMember(i => i.Unit, o => o.MapFrom(dto => dto.Item.Unit))
-                .ForMember(i => i.LotId, o => o.MapFrom(dto => dto.ItemLotId))
-                .ForMember(i => i.MinimumStockLevel, o => o.MapFrom(dto => dto.Item.MinimumStockLevel))
-                .ForMember(i => i.ItemClassId, o => o.MapFrom(dto => dto.Item.ItemClassId));
+            //CreateMap<ItemLotDto, StockCardEntryViewModel>()
+            //    .ForMember(i => i.ItemId, o => o.MapFrom(dto => dto.Item.ItemId))
+            //    .ForMember(i => i.ItemName, o => o.MapFrom(dto => dto.Item.ItemName))
+            //    .ForMember(i => i.Unit, o => o.MapFrom(dto => dto.Item.Unit))
+            //    .ForMember(i => i.ItemLotId, o => o.MapFrom(dto => dto.ItemLotId))
+            //    //.ForMember(i => i.MinimumStockLevel, o => o.MapFrom(dto => dto.Item.MinimumStockLevel))
+            //    .ForMember(i => i.ItemClassId, o => o.MapFrom(dto => dto.Item.ItemClassId));
             CreateMap<InventoryLogExtendedEntryDto, StockCardExtendedEntryViewModel>()
                 .ForMember(i => i.ItemId, o => o.MapFrom(dto => dto.Item.ItemId))
                 .ForMember(i => i.ItemName, o => o.MapFrom(dto => dto.Item.ItemName))
                 .ForMember(i => i.Unit, o => o.MapFrom(dto => dto.Item.Unit))
                 .ForMember(i => i.MinimumStockLevel, o => o.MapFrom(dto => dto.Item.MinimumStockLevel))
-                .ForMember(i => i.ItemClassId, o => o.MapFrom(dto => dto.Item.ItemClassId))
-                .ForMember(i => i.ShippedQuantity, o => o.MapFrom(dto => -dto.ShippedQuantity));
+                .ForMember(i => i.ItemClassId, o => o.MapFrom(dto => dto.Item.ItemClassId));
+
+            CreateMap<ItemDto, ItemViewModel>();
+            CreateMap<FinishedProductReceiptEntryDto, HistoryFinishedProductReceiptEntryViewModel>()
+                .ForMember(i => i.ItemId, o => o.MapFrom(dto => dto.Item.ItemId))
+                .ForMember(i => i.ItemName, o => o.MapFrom(dto => dto.Item.ItemName))
+                .ForMember(i => i.Unit, o => o.MapFrom(dto => dto.Item.Unit))
+                .ForMember(i => i.ItemClassId, o => o.MapFrom(dto => dto.Item.ItemClassId));
+            CreateMap<FinishedProductIssueEntryDto, HistoryFinishedProductIssueEntryViewModel>()
+                .ForMember(i => i.ItemId, o => o.MapFrom(dto => dto.Item.ItemId))
+                .ForMember(i => i.ItemName, o => o.MapFrom(dto => dto.Item.ItemName))
+                .ForMember(i => i.Unit, o => o.MapFrom(dto => dto.Item.Unit))
+                .ForMember(i => i.ItemClassId, o => o.MapFrom(dto => dto.Item.ItemClassId));
 
         }
     }

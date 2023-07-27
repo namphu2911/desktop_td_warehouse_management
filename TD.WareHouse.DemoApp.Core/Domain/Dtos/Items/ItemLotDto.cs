@@ -12,28 +12,24 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Dtos.Items
     {
         public string LotId { get; set; }
         public ItemDto Item { get; set; }
-        public string Unit { get; set; }
+        public DateTime Timestamp { get; set; }
         public bool IsIsolatedd { get; set; }
         public double Quantity { get; set; }
-        public double? SublotSize { get; set; }
-        public string? PurchaseOrderNumber { get; set; }
         public LocationDto Location { get; set; }
-        public DateTime? ProductionDate { get; set; }
-        public DateTime? ExpirationDate { get; set; }
-        
-        public ItemLotDto(string lotId, ItemDto item,  string unit, bool isIsolatedd, double quantity, double? sublotSize, string? purchaseOrderNumber, LocationDto location, DateTime? productionDate, DateTime? expirationDate)
+        public DateTime ProductionDate { get; set; }
+        public DateTime ExpirationDate { get; set; }
+        public List<ItemLotLocationDto> ItemLotLocations { get; set; }
+        public ItemLotDto(string lotId, ItemDto item, DateTime timestamp, bool isIsolatedd, double quantity, LocationDto location, DateTime productionDate, DateTime expirationDate, List<ItemLotLocationDto> itemLotLocations)
         {
             LotId = lotId;
             Item = item;
-            Unit = unit;
+            Timestamp = timestamp;
             IsIsolatedd = isIsolatedd;
             Quantity = quantity;
-            SublotSize = sublotSize;
-            PurchaseOrderNumber = purchaseOrderNumber;
             Location = location;
             ProductionDate = productionDate;
             ExpirationDate = expirationDate;
-           
+            ItemLotLocations = itemLotLocations;
         }
     }
 }

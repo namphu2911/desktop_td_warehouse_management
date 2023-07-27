@@ -9,6 +9,7 @@
       "TD.WareHouse.DemoApp/1.0.0": {
         "dependencies": {
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.1",
+          "BlackPearl.Controls.Library": "2.0.3",
           "CommunityToolkit.Mvvm": "8.1.0",
           "IdentityModel.OidcClient": "5.2.1",
           "MaterialDesignColors": "2.1.1",
@@ -21,7 +22,9 @@
           "Microsoft.Web.WebView2": "1.0.1661.34",
           "Prism.Wpf": "8.1.97",
           "PropertyChanged.Fody": "4.1.0",
+          "Sdl.MultiSelectComboBox": "1.0.71",
           "Syncfusion.SfInput.WPF": "20.4.0.53",
+          "Syncfusion.Shared.WPF": "22.1.37",
           "TD.WareHouse.DemoApp.Core": "1.0.0"
         },
         "runtime": {
@@ -48,6 +51,18 @@
           "lib/netstandard2.1/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {
             "assemblyVersion": "12.0.0.0",
             "fileVersion": "12.0.1.0"
+          }
+        }
+      },
+      "BlackPearl.Controls.Library/2.0.3": {
+        "runtime": {
+          "lib/net5.0-windows7.0/BlackPearl.Controls.Common.dll": {
+            "assemblyVersion": "2.0.3.0",
+            "fileVersion": "2.0.3.0"
+          },
+          "lib/net5.0-windows7.0/BlackPearl.Controls.CoreLibrary.dll": {
+            "assemblyVersion": "2.0.3.0",
+            "fileVersion": "2.0.3.0"
           }
         }
       },
@@ -650,6 +665,14 @@
           "Fody": "6.6.4"
         }
       },
+      "Sdl.MultiSelectComboBox/1.0.71": {
+        "runtime": {
+          "lib/net6.0-windows7.0/Sdl.MultiSelectComboBox.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.21.0"
+          }
+        }
+      },
       "SQLitePCLRaw.bundle_e_sqlite3/2.0.6": {
         "dependencies": {
           "SQLitePCLRaw.core": "2.0.6",
@@ -764,18 +787,18 @@
           }
         }
       },
-      "Syncfusion.Licensing/20.4.0.53": {
+      "Syncfusion.Licensing/22.1.37": {
         "runtime": {
-          "lib/net6.0-windows7.0/Syncfusion.Licensing.dll": {
-            "assemblyVersion": "20.4600.0.53",
-            "fileVersion": "20.4600.0.53"
+          "lib/net6.0/Syncfusion.Licensing.dll": {
+            "assemblyVersion": "22.1.37.0",
+            "fileVersion": "22.1.37.0"
           }
         }
       },
       "Syncfusion.SfInput.WPF/20.4.0.53": {
         "dependencies": {
-          "Syncfusion.Licensing": "20.4.0.53",
-          "Syncfusion.Shared.WPF": "20.4.0.53"
+          "Syncfusion.Licensing": "22.1.37",
+          "Syncfusion.Shared.WPF": "22.1.37"
         },
         "runtime": {
           "lib/net6.0-windows7.0/Syncfusion.SfInput.WPF.dll": {
@@ -784,14 +807,14 @@
           }
         }
       },
-      "Syncfusion.Shared.WPF/20.4.0.53": {
+      "Syncfusion.Shared.WPF/22.1.37": {
         "dependencies": {
-          "Syncfusion.Licensing": "20.4.0.53"
+          "Syncfusion.Licensing": "22.1.37"
         },
         "runtime": {
           "lib/net6.0-windows7.0/Syncfusion.Shared.WPF.dll": {
-            "assemblyVersion": "20.4600.0.53",
-            "fileVersion": "20.4600.0.53"
+            "assemblyVersion": "22.1.37.0",
+            "fileVersion": "22.1.37.0"
           }
         }
       },
@@ -865,6 +888,13 @@
       "sha512": "sha512-+g/K+Vpe3gGMKGzjslMOdqNlkikScDjWfVvmWTayrDHaG/n2pPmFBMa+jKX1r/h6BDGFdkyRjAuhFE3ykW+r1g==",
       "path": "automapper.extensions.microsoft.dependencyinjection/12.0.1",
       "hashPath": "automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512"
+    },
+    "BlackPearl.Controls.Library/2.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-MAAEoIFtbNkVCqX2N+DmtzIlUiCDkLoOisf9XRq5C4IP4VIKu/xnWFQ3kms/IcS75mM4SMnjksuEw7jPfPUQXA==",
+      "path": "blackpearl.controls.library/2.0.3",
+      "hashPath": "blackpearl.controls.library.2.0.3.nupkg.sha512"
     },
     "CommunityToolkit.Mvvm/8.1.0": {
       "type": "package",
@@ -1223,6 +1253,13 @@
       "path": "propertychanged.fody/4.1.0",
       "hashPath": "propertychanged.fody.4.1.0.nupkg.sha512"
     },
+    "Sdl.MultiSelectComboBox/1.0.71": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-NqZq6qGyjMoKWOySj4exW40pS3hdX2J+nufkZujdfIRSLHYXP1UX/ixEwxVwp+QcWbhjLjUiIWqkCIjd7R50Sw==",
+      "path": "sdl.multiselectcombobox/1.0.71",
+      "hashPath": "sdl.multiselectcombobox.1.0.71.nupkg.sha512"
+    },
     "SQLitePCLRaw.bundle_e_sqlite3/2.0.6": {
       "type": "package",
       "serviceable": true,
@@ -1251,12 +1288,12 @@
       "path": "sqlitepclraw.provider.e_sqlite3/2.0.6",
       "hashPath": "sqlitepclraw.provider.e_sqlite3.2.0.6.nupkg.sha512"
     },
-    "Syncfusion.Licensing/20.4.0.53": {
+    "Syncfusion.Licensing/22.1.37": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-UPB64fZz+Qmj/sh26bxk6And0NU2qxRAyGkf6y4ZNUWAwV9TgudwTUg9FOrI5Ah7hCLOuurDQ6kqg0m+Vp0zeQ==",
-      "path": "syncfusion.licensing/20.4.0.53",
-      "hashPath": "syncfusion.licensing.20.4.0.53.nupkg.sha512"
+      "sha512": "sha512-HP5qCjGBp/HUUuSBjD7Wrxq5MhCjws8RSia3SQiw49D/kEAhVmXVVZjY8zQYuDjqhyz32WlZb8eBi/9z+7bkNA==",
+      "path": "syncfusion.licensing/22.1.37",
+      "hashPath": "syncfusion.licensing.22.1.37.nupkg.sha512"
     },
     "Syncfusion.SfInput.WPF/20.4.0.53": {
       "type": "package",
@@ -1265,12 +1302,12 @@
       "path": "syncfusion.sfinput.wpf/20.4.0.53",
       "hashPath": "syncfusion.sfinput.wpf.20.4.0.53.nupkg.sha512"
     },
-    "Syncfusion.Shared.WPF/20.4.0.53": {
+    "Syncfusion.Shared.WPF/22.1.37": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-juGQLgw0M3eMrZW+XdYiDFNXBrgAn16KurpumfBGk5MG44lrOvMGkqCimbRC7zhAGOnqyrBsEjIqmmh4ytGw4w==",
-      "path": "syncfusion.shared.wpf/20.4.0.53",
-      "hashPath": "syncfusion.shared.wpf.20.4.0.53.nupkg.sha512"
+      "sha512": "sha512-RmcUqFUsdbnlUDlpFDeEQWgD8Vu16VL+1czOuBu0vwVR3+WgzsMA5+FBlWD4iXkuHlFRjq8EA1ilaSSeX1Gdbw==",
+      "path": "syncfusion.shared.wpf/22.1.37",
+      "hashPath": "syncfusion.shared.wpf.22.1.37.nupkg.sha512"
     },
     "System.Buffers/4.5.1": {
       "type": "package",

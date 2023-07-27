@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="BlackPearl.Controls.Library" Version="2.0.3" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
     <PackageReference Include="IdentityModel.OidcClient" Version="5.2.1" />
     <PackageReference Include="MaterialDesignColors" Version="2.1.1" />
@@ -35,7 +36,9 @@
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1661.34" />
     <PackageReference Include="Prism.Wpf" Version="8.1.97" />
     <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
+    <PackageReference Include="Sdl.MultiSelectComboBox" Version="1.0.71" />
     <PackageReference Include="Syncfusion.SfInput.WPF" Version="20.4.0.53" />
+    <PackageReference Include="Syncfusion.Shared.WPF" Version="22.1.37" />
   </ItemGroup>
 
   <ItemGroup>

@@ -20,17 +20,15 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.History
         private readonly IApiService _apiService;
         private readonly IMapper _mapper;
         private readonly ItemStore _itemStore;
-        private readonly ItemLotStore _itemLotStore;
         private readonly WarehouseStore _warehouseStore;
         private readonly GoodsReceiptStore _goodsReceiptStore;
-        public DateTime StartDate { get; set; } = DateTime.Now.AddDays(-30).Date;
-        public DateTime EndDate { get; set; } = DateTime.Now.AddDays(+1).Date;
+        public DateTime StartDate { get; set; } = DateTime.Now.AddDays(-7).Date;
+        public DateTime EndDate { get; set; } = DateTime.Now.Date;
         
         private string itemId = "";
         private string itemName = "";
         private string warehouseId = "";
         private string supplier = "";
-        private string purchaseOrderNumber = "";
 
         public string ItemId
         {
@@ -101,29 +99,15 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.History
                 OnPropertyChanged();
             }
         }
-        public string PurchaseOrderNumber
-        {
-            get
-            {
-                return purchaseOrderNumber;
-            }
-            set
-            {
-                purchaseOrderNumber = value;
-                OnPropertyChanged(nameof(PurchaseOrderNumber));
-            }
-        }
         public ObservableCollection<HistoryGoodsReceiptLotViewModel> HistoryGoodsReceiptLots { get; set; } = new();
         public ObservableCollection<string> ItemIds => _itemStore.ItemIds;
         public ObservableCollection<string> ItemNames => _itemStore.ItemNames;
         public ObservableCollection<string> WarehouseIds => _warehouseStore.WarehouseIds;
-        public ObservableCollection<string> PurchaseOrderNumbers => _itemLotStore.PurchaseOrderNumbers;
         public ObservableCollection<string> Suppliers => _goodsReceiptStore.Suppliers;
 
-        public bool ButtonEnable => (!String.IsNullOrEmpty(PurchaseOrderNumber) && String.IsNullOrEmpty(WarehouseId) && String.IsNullOrEmpty(ItemId) && String.IsNullOrEmpty(ItemName) && String.IsNullOrEmpty(Supplier))
-            || (!String.IsNullOrEmpty(Supplier) && String.IsNullOrEmpty(WarehouseId) && String.IsNullOrEmpty(ItemId) && String.IsNullOrEmpty(ItemName) && String.IsNullOrEmpty(PurchaseOrderNumber))
-            || (!String.IsNullOrEmpty(ItemId) && String.IsNullOrEmpty(WarehouseId) && String.IsNullOrEmpty(Supplier) && String.IsNullOrEmpty(PurchaseOrderNumber))
-            || (!String.IsNullOrEmpty(WarehouseId) && String.IsNullOrEmpty(Supplier) && String.IsNullOrEmpty(ItemId) && String.IsNullOrEmpty(ItemName) && String.IsNullOrEmpty(PurchaseOrderNumber));
+        public bool ButtonEnable => (!String.IsNullOrEmpty(Supplier) && String.IsNullOrEmpty(WarehouseId) && String.IsNullOrEmpty(ItemId) && String.IsNullOrEmpty(ItemName))
+            || (!String.IsNullOrEmpty(ItemId) && String.IsNullOrEmpty(WarehouseId) && String.IsNullOrEmpty(Supplier))
+            || (!String.IsNullOrEmpty(WarehouseId) && String.IsNullOrEmpty(Supplier) && String.IsNullOrEmpty(ItemId) && String.IsNullOrEmpty(ItemName));
         
         public ICommand LoadHistoryGoodsReceiptLotCommand { get; set; }
         public ICommand LoadHistoryGoodsReceiptViewCommand { get; set; }
@@ -133,7 +117,6 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.History
             _apiService = apiService;
             _mapper = mapper;
             _itemStore = itemStore;
-            _itemLotStore = itemLotStore;
             _warehouseStore = warehouseStore;
             _goodsReceiptStore = goodsReceiptStore;
             
@@ -146,7 +129,6 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.History
             OnPropertyChanged(nameof(WarehouseIds));
             OnPropertyChanged(nameof(ItemIds));
             OnPropertyChanged(nameof(ItemNames));
-            OnPropertyChanged(nameof(PurchaseOrderNumbers));
             OnPropertyChanged(nameof(Suppliers));
             OnPropertyChanged(nameof(ButtonEnable));
         }
@@ -155,25 +137,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.History
         {
             try
             {
-                if (!String.IsNullOrEmpty(PurchaseOrderNumber) && String.IsNullOrEmpty(WarehouseId) && String.IsNullOrEmpty(ItemId) && String.IsNullOrEmpty(ItemName) && String.IsNullOrEmpty(Supplier))
-                {
-                    var historyGoodsReceiptLots = await _apiService.GetHistoryGoodsReceiptLotsPOAsync(PurchaseOrderNumber);
-                    var viewModels = historyGoodsReceiptLots.SelectMany(g =>
-                                                          g.Lots.Select(gi =>
-                                                                new HistoryGoodsReceiptLotViewModel(
-                                                                    gi.Item.ItemClassId,
-                                                                    g.Supplier,
-                                                                    gi.Item.ItemId,
-                                                                    gi.Item.ItemName,
-                                                                    gi.Item.Unit,
-                                                                    gi.GoodsReceiptLotId,
-                                                                    gi.Quantity,
-                                                                    gi.PurchaseOrderNumber,
-                                                                    gi.Note)));
-                    HistoryGoodsReceiptLots = new(viewModels);
-                }
-                else
-                    if (!String.IsNullOrEmpty(Supplier) && String.IsNullOrEmpty(WarehouseId) && String.IsNullOrEmpty(ItemId) && String.IsNullOrEmpty(ItemName) && String.IsNullOrEmpty(PurchaseOrderNumber))
+                if (!String.IsNullOrEmpty(Supplier) && String.IsNullOrEmpty(WarehouseId) && String.IsNullOrEmpty(ItemId) && String.IsNullOrEmpty(ItemName))
                 {
                     var historyGoodsReceiptLots = await _apiService.GetHistoryGoodsReceiptLotsSupplierAsync(StartDate, EndDate, Supplier);
                     var viewModels = historyGoodsReceiptLots.SelectMany(g =>
@@ -186,13 +150,11 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.History
                                                                     gi.Item.Unit,
                                                                     gi.GoodsReceiptLotId,
                                                                     gi.Quantity,
-                                                                    gi.PurchaseOrderNumber,
                                                                     gi.Note)));
                     HistoryGoodsReceiptLots = new(viewModels);
                 }
-                else 
-                    if ((!String.IsNullOrEmpty(ItemId) && String.IsNullOrEmpty(WarehouseId) && String.IsNullOrEmpty(Supplier) && String.IsNullOrEmpty(PurchaseOrderNumber))
-                    || (!String.IsNullOrEmpty(WarehouseId) && String.IsNullOrEmpty(Supplier) && String.IsNullOrEmpty(ItemId) && String.IsNullOrEmpty(ItemName) && String.IsNullOrEmpty(PurchaseOrderNumber)))
+                else if ((!String.IsNullOrEmpty(ItemId) && String.IsNullOrEmpty(WarehouseId) && String.IsNullOrEmpty(Supplier))
+                    || (!String.IsNullOrEmpty(WarehouseId) && String.IsNullOrEmpty(Supplier) && String.IsNullOrEmpty(ItemId) && String.IsNullOrEmpty(ItemName)))
                 {
                     var historyGoodsReceiptLots = await _apiService.GetHistoryGoodsReceiptLotsAsync(WarehouseId, ItemId, StartDate, EndDate);
                     var viewModels = historyGoodsReceiptLots.SelectMany(g =>
@@ -205,10 +167,10 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.History
                                                                     gi.Item.Unit,
                                                                     gi.GoodsReceiptLotId,
                                                                     gi.Quantity,
-                                                                    gi.PurchaseOrderNumber,
                                                                     gi.Note)));
                     HistoryGoodsReceiptLots = new(viewModels);
                 }
+
             }
             catch (HttpRequestException)
             {

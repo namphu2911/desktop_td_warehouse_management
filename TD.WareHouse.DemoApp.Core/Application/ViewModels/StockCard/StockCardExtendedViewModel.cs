@@ -22,9 +22,8 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.StockCard
         private readonly ItemStore _itemStore;
         private readonly WarehouseStore _warehouseStore;
 
-        private List<InventoryLogExtendedEntryDto> stockCardEntries = new();
-        public DateTime StartDate { get; set; } = DateTime.Now.AddDays(-30).Date;
-        public DateTime EndDate { get; set; } = DateTime.Now.AddDays(+1).Date;
+        public DateTime StartDate { get; set; } = DateTime.Now.AddDays(-7).Date;
+        public DateTime EndDate { get; set; } = DateTime.Now.Date;
         public string ItemId { get; set; } = "";
         public string WarehouseId { get; set; } = "";
         public ObservableCollection<StockCardExtendedEntryViewModel> StockCardEntries { get; set; } = new();

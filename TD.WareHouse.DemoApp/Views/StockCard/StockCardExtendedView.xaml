@@ -6,7 +6,10 @@
              xmlns:local="clr-namespace:TD.WareHouse.DemoApp.Views.StockCard"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
-             xmlns:Components="clr-namespace:TD.WareHouse.DemoApp.Resources.Components" xmlns:stockcard="clr-namespace:TD.WareHouse.DemoApp.Core.Application.ViewModels.StockCard;assembly=TD.WareHouse.DemoApp.Core" xmlns:i="http://schemas.microsoft.com/xaml/behaviors" d:DataContext="{d:DesignInstance Type=stockcard:StockCardExtendedViewModel}"
+             xmlns:Components="clr-namespace:TD.WareHouse.DemoApp.Resources.Components" 
+             xmlns:stockcard="clr-namespace:TD.WareHouse.DemoApp.Core.Application.ViewModels.StockCard;assembly=TD.WareHouse.DemoApp.Core" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
+             d:DataContext="{d:DesignInstance Type=stockcard:StockCardExtendedViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="750" d:DesignWidth="1100"
              Background="{StaticResource ColorBackground}"
@@ -147,7 +150,7 @@
                           SelectionUnit="FullRow"
                           SelectionMode="Single">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Mã kho" Binding="{Binding ItemClassId}" Width="*"/>
+                            <DataGridTextColumn Header="Kho hàng" Binding="{Binding ItemClassId}" Width="*"/>
                             <DataGridTextColumn Header="Mã hàng" Binding="{Binding ItemId}" Width="*"/>
                             <DataGridTextColumn Header="Tên hàng" Binding="{Binding ItemName}" Width="*"/>
                             <DataGridTextColumn Header="Đơn vị" Binding="{Binding Unit}" Width="*"/>

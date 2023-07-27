@@ -15,18 +15,18 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
     {
         private readonly IExcelReader _excelReader;
         private readonly IApiService _apiService;
-        private List<GoodsIssueDb> goodsIssues = new();
-        private GoodsIssueDb GoodsIssueDb { get; set; }
+        private List<FinishedProductIssueDb> goodsIssues = new();
+        private FinishedProductIssueDb GoodsIssueDb { get; set; }
         public DateTime Timestamp { get; set; } = DateTime.Now;
         public string GoodsIssueId { get; set; } = "";
         public string EmployeeId { get; set; } = "";
         public string Receiver { get; set; } = "";
         private readonly GoodsIssueStore _goodsIssueStore;
-        public ObservableCollection<string> GoodsIssueIds => _goodsIssueStore.GoodsIssueIds;
+        public ObservableCollection<string> GoodsIssueIds => _goodsIssueStore.FinishedProductIssueIds;
         private readonly ItemStore _itemStore;
-        public ObservableCollection<string> ItemIds => _itemStore.ItemIds;
-        public ObservableCollection<string> ItemNames => _itemStore.ItemNames;
-        public ObservableCollection<string> Units => _itemStore.Units;
+        public ObservableCollection<string> ItemIds => _itemStore.FinishedItemIds;
+        public ObservableCollection<string> ItemNames => _itemStore.FinishedItemNames;
+        public ObservableCollection<string> Units => _itemStore.FinishedItemUnits;
         private string itemId = "";
         private string itemName = "";
         public string ItemId
@@ -47,7 +47,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
                 }
                 else
                 {
-                    var item = _itemStore.Items.First(i => i.ItemId == itemId);
+                    var item = _itemStore.FinishedItems.First(i => i.ItemId == itemId);
                     itemName = item.ItemName;
                     Unit = item.Unit;
                     OnPropertyChanged(nameof(ItemName));
@@ -74,7 +74,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
                 }
                 else
                 {
-                    var item = _itemStore.Items.First(i => i.ItemName == itemName);
+                    var item = _itemStore.FinishedItems.First(i => i.ItemName == itemName);
                     itemId = item.ItemId;
                     Unit = item.Unit;
                     OnPropertyChanged(nameof(ItemId));
@@ -83,7 +83,9 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
             }
         }
         public string Unit { get; set; } = "";
-        public double RequestedQuantity { get; set; } = 0;
+        public double Quantity { get; set; } = 0;
+        public string PurchaseOrderNumber { get; set; } = "";
+        public string Note { get; set; } = "";
         public bool TypeEnable { get; set; } = false;
 
         private GoodsIssueExternalToCreateViewModel? selectedGoodsIssue;
@@ -104,8 +106,10 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
                     var entries = GoodsIssueDb.Entries.Select(e => new GoodsIssueEntryForGoodsIssueExternalView(
                         e.ItemId,
                         e.ItemName,
-                        e.RequestedQuantity,
-                        e.Unit));
+                        e.Quantity,
+                        e.Unit,
+                        e.PurchaseOrderNumber,
+                        e.Note));
                     Entries = new(entries);
                     foreach (var entry in Entries)
                     {
@@ -150,12 +154,14 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
             if (selectedGoodsIssue is not null)
             {
                 GoodsIssueDb = goodsIssues.First(g => g.GoodsIssueId == selectedGoodsIssue.GoodsIssueId);
-                GoodsIssueDb.Entries.Add(new GoodsIssueEntry(ItemId, ItemName, Unit, RequestedQuantity));
+                GoodsIssueDb.Entries.Add(new FinishedProductIssueEntry(ItemId, ItemName, Unit, Quantity, PurchaseOrderNumber, Note));
                 var entries = GoodsIssueDb.Entries.Select(e => new GoodsIssueEntryForGoodsIssueExternalView(
-                    e.ItemId,
-                    e.ItemName,
-                    e.RequestedQuantity,
-                    e.Unit));
+                        e.ItemId,
+                        e.ItemName,
+                        e.Quantity,
+                        e.Unit,
+                        e.PurchaseOrderNumber,
+                        e.Note));
                 Entries = new(entries);
                 foreach (var entry in Entries)
                 {
@@ -170,10 +176,12 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
             {
                 GoodsIssueDb.Entries.Remove(GoodsIssueDb.Entries.First(x => x.ItemId == SelectedEntry.ItemId));
                 var entries = GoodsIssueDb.Entries.Select(e => new GoodsIssueEntryForGoodsIssueExternalView(
-                    e.ItemId,
-                    e.ItemName,
-                    e.RequestedQuantity,
-                    e.Unit));
+                        e.ItemId,
+                        e.ItemName,
+                        e.Quantity,
+                        e.Unit,
+                        e.PurchaseOrderNumber,
+                        e.Note));
                 Entries = new(entries);
                 foreach (var entry in Entries)
                 {
@@ -190,7 +198,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
             }
             else
             {
-                var NewGoodsIssueByHand = new GoodsIssueDb(GoodsIssueId, DateTime.Now, EmployeeId, Receiver, new List<GoodsIssueEntry>());
+                var NewGoodsIssueByHand = new FinishedProductIssueDb(GoodsIssueId, DateTime.Now, EmployeeId, Receiver, new List<FinishedProductIssueEntry>());
                 goodsIssues.Add(NewGoodsIssueByHand);
                 GoodsIssues = new ObservableCollection<GoodsIssueExternalToCreateViewModel>
                             (goodsIssues.Select(x => new GoodsIssueExternalToCreateViewModel(
@@ -211,7 +219,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
         {
             try
             {
-                var request = _excelReader.ReadExportRequests(FilePath, "Phieu XK TP", Date);
+                var request = _excelReader.ReadGoodsIssueExternalRequests(FilePath, "Phieu XK TP", Date);
                 goodsIssues.Add(request);
                 GoodsIssues = new ObservableCollection<GoodsIssueExternalToCreateViewModel>
                         (goodsIssues.Select(x => new GoodsIssueExternalToCreateViewModel(
@@ -250,7 +258,9 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
                 ItemId = "";
                 ItemName = "";
                 Unit = "";
-                RequestedQuantity = 0;
+                Quantity = 0;
+                PurchaseOrderNumber = "";
+                Note = "";
                 TypeEnable = false;
                 FilePath = "";
             }

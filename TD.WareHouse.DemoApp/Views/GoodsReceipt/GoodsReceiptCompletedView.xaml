@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TD.WareHouse.DemoApp.Views.GoodsReceipt"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:view="clr-namespace:TD.WareHouse.DemoApp.Views.GoodsReceipt" 
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
              xmlns:prism="http://prismlibrary.com/"
              xmlns:ViewModels="clr-namespace:TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt;assembly=TD.WareHouse.DemoApp.Core" 
@@ -16,7 +15,7 @@
              Padding="10">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <prism:InvokeCommandAction Command="{Binding LoadGoodsReceiptCommand}" />
+            <prism:InvokeCommandAction Command="{Binding LoadGoodsReceiptViewCommand}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <materialDesign:DialogHost CloseOnClickAway="True" IsOpen="{Binding IsErrorMessageShowed}">
@@ -25,8 +24,8 @@
         </materialDesign:DialogHost.DialogContent>
         <Grid>
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="370"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="0">
@@ -35,361 +34,319 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <materialDesign:Card Grid.Row="0"
-                                 Margin="10">
-                    <StackPanel Grid.Column="0">
-                        <TextBlock  Grid.Row="0"
-                                    Margin="10"
-                                    Style="{StaticResource CardTitle}" 
-                                    Text="Nhập đơn thành phẩm" FontSize="18"/>
-                        <TabControl TabStripPlacement="Top" 
-                                    Style="{StaticResource MaterialDesignTabControl}">
-                            <TabItem Width="auto" Background="{StaticResource ColorPrimaryL1}" Padding="0">
-                                <TabItem.Header >
-                                    <TextBlock>
-                                        <TextBlock Style="{StaticResource TabText}" Text="Nhập từ Excel" FontSize="18"/>
-                                    </TextBlock>
-                                </TabItem.Header>
-                                <UserControl>
-                                    <StackPanel>
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                            <Button     
-                                                Margin="5"
-                                                Style="{StaticResource ButtonPrimary}" materialDesign:ButtonAssist.CornerRadius="10"
-                                                Height="32" 
-                                                Click="BrowseFileButtonClicked">
-                                                <TextBlock Text="Chọn file" FontSize="14" />
-                                            </Button>
-                                            <Button     
-                                                Margin="5"
-                                                Style="{StaticResource ButtonPrimary}" materialDesign:ButtonAssist.CornerRadius="10"
-                                                Height="32">
-                                                <i:Interaction.Triggers>
-                                                    <i:EventTrigger EventName="Click">
-                                                        <prism:InvokeCommandAction Command="{Binding ImportGoodsReceiptsCommand}" />
-                                                    </i:EventTrigger>
-                                                </i:Interaction.Triggers>
-                                                <TextBlock Text="Tạo phiếu" FontSize="14" />
-                                            </Button>
-                                        </StackPanel>
-                                        <TextBox x:Name="textBoxFilePath" 
-                                         materialDesign:HintAssist.Hint="Đường dẫn"
-                                         Margin="5"
-                                         Text="{Binding FilePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock  Grid.Row="0"
+                            Margin="10"
+                            Style="{StaticResource CardTitle}" 
+                            Text="XEM ĐƠN NHẬP TP" FontSize="28"/>
 
-                                    </StackPanel>
-                                </UserControl>
-                            </TabItem>
+                <materialDesign:Card Grid.Row="1" Margin="10">
+                    <UserControl>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
 
-                            <TabItem Width="auto" Background="{StaticResource ColorPrimaryL1}" Padding="0">
-                                <TabItem.Header>
-                                    <TextBlock>
-                                        <TextBlock Style="{StaticResource TabText}" Text="Nhập thủ công" FontSize="18"/>
-                                    </TextBlock>
-                                </TabItem.Header>
-                                <UserControl>
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="*"/>
-                                            <RowDefinition Height="Auto"/>
-                                        </Grid.RowDefinitions>
+                            <ComboBox Grid.Row="0"
+                                          Margin="10"
+                                          materialDesign:HintAssist.Hint="Tim kiếm"
+                                          Style="{StaticResource ComboBox}"
+                                          ItemsSource="{Binding GoodsReceiptIds}"
+                                          Text="{Binding GoodsReceiptId}">
+                                <ComboBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel />
+                                    </ItemsPanelTemplate>
+                                </ComboBox.ItemsPanel>
+                            </ComboBox>
 
-                                        <Grid Grid.Row="0">
-                                            <Grid.ColumnDefinitions >
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="auto"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Grid Grid.Column="0">
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="*"/>
-                                                    <RowDefinition Height="*"/>
-                                                    <RowDefinition Height="*"/>
-                                                </Grid.RowDefinitions>
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1.1*"/>
+                                    <ColumnDefinition Width="1.1*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
 
-                                                <Grid Grid.Row="2">
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="auto"/>
-                                                        <ColumnDefinition Width="*"/>
-                                                    </Grid.ColumnDefinitions>
+                                <DatePicker Grid.Column="0"
+                         Margin="10"
+                         materialDesign:HintAssist.Hint="Từ ngày"
+                         Style="{StaticResource DatePicker}"
+                         FontSize="13"
+                         SelectedDate="{Binding StartDate}"/>
 
-                                                    <TextBlock Grid.Column="0" 
-                                                        Style="{StaticResource FieldLabel}"
-                                                        Text="NCC: " />
-                                                    <ComboBox Grid.Column="1"
-                                                        materialDesign:HintAssist.Hint="NCC"
-                                                        Style="{StaticResource ComboBox}"
-                                                        ItemsSource="{Binding Suppliers}"
-                                                        Text="{Binding Supplier}" Width="auto">
-                                                        <ComboBox.ItemsPanel>
-                                                            <ItemsPanelTemplate>
-                                                                <VirtualizingStackPanel />
-                                                            </ItemsPanelTemplate>
-                                                        </ComboBox.ItemsPanel>
-                                                    </ComboBox>
-                                                </Grid>
-                                                
-                                                <Grid Grid.Row="0">
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="auto"/>
-                                                        <ColumnDefinition Width="*"/>
-                                                    </Grid.ColumnDefinitions>
+                                <DatePicker Grid.Column="1"
+                         Margin="10,0,10,0"
+                         materialDesign:HintAssist.Hint="Đến ngày"
+                         Style="{StaticResource DatePicker}"
+                         FontSize="13"
+                         SelectedDate="{Binding EndDate}"/>
 
-                                                    <TextBlock Grid.Column="0" 
-                                                        Style="{StaticResource FieldLabel}"
-                                                        Text="Mã đơn: " />
-                                                    <!--<TextBlock Grid.Column="1"
-                                                               Style="{StaticResource TextBlockMini}">
-                                                        <Run Text="{Binding Timestamp, StringFormat=dd-MM-yy-}"></Run>
-                                                        <Run Text="{Binding Supplier}"></Run>
-                                                    </TextBlock>-->
-                                                        
-                                                    <TextBox Grid.Column="1"
-                                                        Style="{StaticResource TextBoxMini}"
-                                                        Text="{Binding GoodsReceiptId}" />
-                                                </Grid>
-
-                                                <!--<Grid Grid.Row="2">
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="auto"/>
-                                                        <ColumnDefinition Width="*"/>
-                                                    </Grid.ColumnDefinitions>
-
-                                                    <TextBlock Grid.Column="0" 
-                                                        Style="{StaticResource FieldLabel}"
-                                                        Text="Thời gian: " />
-                                                    <TextBox Grid.Column="1"
-                                                        Style="{StaticResource TextBoxMini}"
-                                                        Text="{Binding Timestamp}" />
-                                                </Grid>-->
-
-                                                <Grid Grid.Row="1">
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="auto"/>
-                                                        <ColumnDefinition Width="*"/>
-                                                    </Grid.ColumnDefinitions>
-
-                                                    <TextBlock Grid.Column="0" 
-                                                        Style="{StaticResource FieldLabel}"
-                                                        Text="Mã nhân viên: " />
-                                                    <TextBox Grid.Column="1"
-                                                        Style="{StaticResource TextBoxMini}"
-                                                        Text="{Binding EmployeeId}" />
-                                                </Grid>
-                                            </Grid>
-
-                                            <StackPanel Grid.Column="1"
-                                                        Width="70"
-                                                        VerticalAlignment="Center">
-                                                <Button Style="{StaticResource MaterialDesignRaisedButton}" materialDesign:ButtonAssist.CornerRadius="5"
-                                                        Height="22"
-                                                        Margin="0 2">
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="Click">
-                                                            <prism:InvokeCommandAction Command="{Binding SaveReceiptByHandCommand}" />
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
-                                                    <TextBlock Style="{StaticResource ComponentFieldLabel}">
-                                                    Lưu
-                                                    </TextBlock>
-                                                </Button>
-                                            </StackPanel>
-                                        </Grid>
-                                    </Grid>
-                                </UserControl>
-                            </TabItem>
-                        </TabControl>
-                    </StackPanel>
-                </materialDesign:Card>
-
-                <materialDesign:Card Grid.Row="1"
-                                 Margin="10">
-                    <Border Grid.Row="2"
+                                <Button Grid.Column="2"
                         Margin="10"
+                        Style="{StaticResource ButtonPrimary}" materialDesign:ButtonAssist.CornerRadius="10"
+                        Content="Tìm kiếm"
+                        FontSize="13"
+                        Padding="0"
+                        HorizontalAlignment="Center" Width="73">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="Click">
+                                            <prism:InvokeCommandAction Command="{Binding LoadCompletedGoodsReceiptsCommand}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </Button>
+                            </Grid>
+
+                            <Border Grid.Row="2"
+                        Margin="5"
                         BorderThickness="1"
                         BorderBrush="{StaticResource ColorGray}">
-                        <ListView HorizontalContentAlignment="Stretch"
+                                <ListView HorizontalContentAlignment="Stretch"
                                   ItemsSource="{Binding GoodsReceipts}"
                                   SelectedItem="{Binding SelectedGoodsReceipt}">
-                            <ListView.ItemTemplate>
-                                <DataTemplate DataType="{x:Type ViewModels:GoodsReceiptToCreateViewModel}">
-                                    <local:GoodsReceiptToCreateView/>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                    </Border>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate DataType="{x:Type ViewModels:PendingGoodsReceiptViewModel}">
+                                            <local:PendingGoodsReceiptView/>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </Border>
+                        </Grid>
+                    </UserControl>
                 </materialDesign:Card>
             </Grid>
 
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
 
-
-            <materialDesign:Card Grid.Column="1" Margin="10">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-
-                    <StackPanel Grid.Row="0">
-                        <TextBlock 
-                        Style ="{StaticResource CardTitle}"
-                        Text="Thông tin chi tiết"/>
-                        <Separator/>
-                    </StackPanel>
-
-                    <Grid Grid.Row="1">
+                <materialDesign:Card Grid.Row="0" Margin="10,10,10,5">
+                    <Grid>
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="0.7*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="0.7*"/>
-                            <ColumnDefinition Width="0.8*"/>
-                            <ColumnDefinition Width="0.6*"/>
-                        </Grid.ColumnDefinitions>
 
-                        <TextBlock Grid.Row="0" Grid.Column="0" 
-                               Margin="5" 
-                               Style="{StaticResource FieldLabelForType}"
+                        <StackPanel Grid.Row="0">
+                            <TextBlock 
+                        Style ="{StaticResource CardTitle}"
+                        Text="Thông tin chi tiết"/>
+                            <Separator/>
+                        </StackPanel>
+
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" 
+                               Margin="5,0,5,0" 
                                VerticalAlignment="Center" 
-                               Text="Mã lô"/>
-                        <TextBlock Grid.Row="0" Grid.Column="1" 
+                               Text="Mã đơn:"/>
+                            <TextBlock Grid.Column="1" 
+                             Margin="5,5,5,5" 
+                             Text="{Binding SelectedGoodsReceipt.GoodsReceiptId}"/>
+
+                            <TextBlock Grid.Column="2" 
+                               Margin="5,0,5,0" 
+                               VerticalAlignment="Center" 
+                               Text="Tên nhân viên:" />
+                            <TextBlock Grid.Column="3" 
+                             Margin="5,5,5,5" 
+                             Text="{Binding SelectedGoodsReceipt.EmployeeName}"/>
+                        </Grid>
+
+                        <DataGrid Grid.Row="2"
+                              Style="{StaticResource MaterialDesignDataGrid}"
+                              Background="{StaticResource ColorSurface}"
+                              Margin="0,10,0,10"
+                              IsReadOnly="False"
+                              ItemsSource="{Binding Entries}"
+                              SelectedItem="{Binding SelectedEntry}"
+                              AutoGenerateColumns="False"
+                              SelectionUnit="FullRow"
+                              SelectionMode="Single">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Mã vật tư" Binding="{Binding ItemId}" Width="auto" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Tên vật tư" Binding="{Binding ItemName}" Width="200" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Đơn vị" Binding="{Binding Unit}" Width="auto" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Số PO" Binding="{Binding NewPurchaseOrderNumber}" Width="auto" IsReadOnly="False"/>
+                                <DataGridTextColumn Header="Số lượng" Binding="{Binding Quantity}" Width="auto" IsReadOnly="False"/>
+                                <DataGridTextColumn Header="Ghi chú" Binding="{Binding Note}" Width="auto" IsReadOnly="True"/>
+                                <DataGridTemplateColumn Width="auto">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Margin="5" Style="{StaticResource ButtonSecondary}" materialDesign:ButtonAssist.CornerRadius="5">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="Click">
+                                                        <prism:InvokeCommandAction 
+                                                        Command="{Binding DeleteEntryCommand}" />
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                                <TextBlock Text="Xóa lô"/>
+                                            </Button>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <Button Grid.Row="3"
+                            Margin="10"
+                            Width="150"
+                            HorizontalAlignment="Center"
+                            Style="{StaticResource ButtonPrimary}" materialDesign:ButtonAssist.CornerRadius="10" 
+                            Content="Cập nhật">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <prism:InvokeCommandAction Command="{Binding UpdateCommand}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                    </Grid>
+                </materialDesign:Card>
+
+                <materialDesign:Card Grid.Row="1" 
+                             Margin="10,5,10,10">
+                    <Expander>
+                        <Expander.Header>
+                            <StackPanel Grid.Row="0">
+                                <TextBlock Text="Thêm dòng"
+                               Style="{StaticResource CardTitle}"/>
+                                <Separator/>
+                            </StackPanel>
+                        </Expander.Header>
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="134*"/>
+                                <ColumnDefinition Width="161*"/>
+                                <ColumnDefinition Width="89*"/>
+                                <ColumnDefinition Width="103*"/>
+                                <ColumnDefinition Width="118*"/>
+                                <ColumnDefinition Width="89*"/>
+                                <ColumnDefinition Width="89*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" 
                                Margin="5" 
                                Style="{StaticResource FieldLabelForType}"
                                VerticalAlignment="Center" 
                                Text="Mã hàng"/>
-                        <TextBlock Grid.Row="0" Grid.Column="2" 
+                            <TextBlock Grid.Row="0" Grid.Column="1" 
                                Margin="5" 
                                Style="{StaticResource FieldLabelForType}"
                                VerticalAlignment="Center" 
                                Text="Tên hàng"/>
-                        <TextBlock Grid.Row="0" Grid.Column="3" 
+                            <TextBlock Grid.Row="0" Grid.Column="2" 
                                Margin="5" 
                                Style="{StaticResource FieldLabelForType}"    
                                VerticalAlignment="Center" 
                                Text="Đơn vị"/>
-                        <TextBlock Grid.Row="0" Grid.Column="4" 
+                            <TextBlock Grid.Row="0" Grid.Column="3" 
                                Margin="5" 
                                Style="{StaticResource FieldLabelForType}"
                                VerticalAlignment="Center" 
                                Text="Số lượng"/>
-                        <TextBlock Grid.Row="0" Grid.Column="5" 
+                            <TextBlock Grid.Column="4" 
                                Margin="5" 
-                               Style="{StaticResource FieldLabelForType}"
-                               VerticalAlignment="Center" 
-                               Text="Số PO"/>
+                               Style="{StaticResource FieldLabelForType}" 
+                               Text="Số PO" Height="21" Width="44"/>
+                            <TextBlock Grid.Column="5" 
+                               Margin="5" 
+                               Style="{StaticResource FieldLabelForType}" 
+                               Text="Ghi chú" Height="21" Width="55"/>
 
-                        <TextBox Grid.Row="1" Grid.Column="0" 
-                             Margin="5"
-                             materialDesign:HintAssist.Hint="Mã lô"
-                             Style="{StaticResource TextBoxMini}"
-                             Text="{Binding GoodsReceiptLotId}"
-                             IsEnabled="{Binding TypeEnable}"/>
-                        
-                        <ComboBox Grid.Row="1" Grid.Column="1"
+                            <ComboBox Grid.Row="1" Grid.Column="0"
                                                         materialDesign:HintAssist.Hint="Mã hàng"
-                                                        Margin="5"
+                                                        Margin="5,0,0,0"
                                                         Style="{StaticResource ComboBoxMini}"
                                                         ItemsSource="{Binding ItemIds}"
                                                         Text="{Binding ItemId}"
-                                                        IsEnabled="{Binding TypeEnable}">
-                            <ComboBox.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <VirtualizingStackPanel />
-                                </ItemsPanelTemplate>
-                            </ComboBox.ItemsPanel>
-                        </ComboBox>
-                        <ComboBox Grid.Row="1" Grid.Column="2"
+                                                        IsEnabled="{Binding TypeEnable}" Width="104">
+                                <ComboBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel />
+                                    </ItemsPanelTemplate>
+                                </ComboBox.ItemsPanel>
+                            </ComboBox>
+                            <ComboBox Grid.Row="1" Grid.Column="1"
                                                         materialDesign:HintAssist.Hint="Tên hàng"
                                                         Margin="5"                      
                                                         Style="{StaticResource ComboBoxMini}"
                                                         ItemsSource="{Binding ItemNames}"
                                                         Text="{Binding ItemName}"
                                                         IsEnabled="{Binding TypeEnable}">
-                            <ComboBox.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <VirtualizingStackPanel />
-                                </ItemsPanelTemplate>
-                            </ComboBox.ItemsPanel>
-                        </ComboBox>
-                        <ComboBox Grid.Row="1" Grid.Column="3"
+                                <ComboBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel />
+                                    </ItemsPanelTemplate>
+                                </ComboBox.ItemsPanel>
+                            </ComboBox>
+                            <ComboBox Grid.Row="1" Grid.Column="2"
                                                         materialDesign:HintAssist.Hint="Đơn vị"
-                                                        Margin="5"
+                                                        Margin="5,0,0,0"
                                                         Style="{StaticResource ComboBoxMini}"
                                                         ItemsSource="{Binding Units}"
                                                         Text="{Binding Unit}"
-                                                        IsEnabled="{Binding TypeEnable}">
-                            <ComboBox.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <VirtualizingStackPanel />
-                                </ItemsPanelTemplate>
-                            </ComboBox.ItemsPanel>
-                        </ComboBox>
-                        <TextBox Grid.Row="1" Grid.Column="4" 
+                                                        IsEnabled="{Binding TypeEnable}" Width="65">
+                                <ComboBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel />
+                                    </ItemsPanelTemplate>
+                                </ComboBox.ItemsPanel>
+                            </ComboBox>
+                            <TextBox Grid.Row="1" Grid.Column="3" 
                              Margin="5" 
                              materialDesign:HintAssist.Hint="Số lượng"
                              Style="{StaticResource TextBoxMini}"
                              Text="{Binding Quantity}"
                              IsEnabled="{Binding TypeEnable}"/>
-                        <TextBox Grid.Row="1" Grid.Column="5" 
-                             Margin="5" 
+                            <TextBox Grid.Row="1" Grid.Column="4" 
+                             Margin="5,5,5,5" 
                              materialDesign:HintAssist.Hint="Số PO"
                              Style="{StaticResource TextBoxMini}"
                              Text="{Binding PurchaseOrderNumber}"
                              IsEnabled="{Binding TypeEnable}"/>
-                        <Button Grid.Row="1" Grid.Column="6"  
+                            <TextBox Grid.Row="1" Grid.Column="5" 
+                             Margin="5,5,5,5" 
+                             materialDesign:HintAssist.Hint="Ghi chú"
+                             Style="{StaticResource TextBoxMini}"
+                             Text="{Binding Note}"
+                             IsEnabled="{Binding TypeEnable}"/>
+
+                            <Button Grid.Row="1" Grid.Column="6"  
                             Margin="5"
                             Style="{StaticResource ButtonPrimary}" materialDesign:ButtonAssist.CornerRadius="10"
                             Height="32">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="Click">
-                                    <prism:InvokeCommandAction Command="{Binding CreateEntryCommand}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                            <TextBlock Text="Tạo" FontSize="14" />
-                        </Button>
-                    </Grid>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <prism:InvokeCommandAction Command="{Binding CreateEntryCommand}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                <TextBlock Text="Tạo" FontSize="14" />
+                            </Button>
+                        </Grid>
+                    </Expander>
+                </materialDesign:Card>
 
-                    <DataGrid Grid.Row="2"
-                              Style="{StaticResource MaterialDesignDataGrid}"
-                              Background="{StaticResource ColorSurface}"
-                              Margin="10"
-                              IsReadOnly="True"
-                              ItemsSource="{Binding Lots}"
-                              SelectedItem="{Binding SelectedLot}"
-                              AutoGenerateColumns="False"
-                              SelectionUnit="FullRow"
-                              SelectionMode="Single">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Mã lô" Width="*" Binding="{Binding GoodsReceiptLotId}"/>
-                            <DataGridTextColumn Header="Mã hàng" Binding="{Binding ItemId}" Width="*"/>
-                            <DataGridTextColumn Header="Tên hàng" Binding="{Binding ItemName}" Width="*"/>
-                            <DataGridTextColumn Header="Đơn vị" Binding="{Binding Unit}" Width="*"/>
-                            <DataGridTextColumn Header="Số lượng" Binding="{Binding Quantity}" Width="*"/>
-                            <DataGridTextColumn Header="Mã PO" Width="*" Binding="{Binding PurchaseOrderNumber}"/>
-                            <DataGridTemplateColumn Width="*">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button Margin="5" Style="{StaticResource ButtonSecondary}" materialDesign:ButtonAssist.CornerRadius="5">
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="Click">
-                                                    <prism:InvokeCommandAction 
-                                                        Command="{Binding DeleteEntryCommand}" />
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                            <TextBlock Text="Xóa dòng"/>
-                                        </Button>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </Grid>
-            </materialDesign:Card>
+            </Grid>
+
+
+
+
+
         </Grid>
     </materialDesign:DialogHost>
 </UserControl>

@@ -108,9 +108,7 @@
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="1.1*"/>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="1.1*"/>
+                            <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="auto"/>
@@ -126,7 +124,6 @@
 
                         <DatePicker  Grid.Row="1" Grid.Column="1"
                          Margin="10"
-                                 Width="120"
                          materialDesign:HintAssist.Hint="Từ ngày"
                          Style="{StaticResource DatePicker}"
                          SelectedDate="{Binding StartDate}"/>
@@ -153,26 +150,7 @@
                       materialDesign:HintAssist.Hint="Bộ phận"
                       Style="{StaticResource ComboBox}"
                       ItemsSource="{Binding Receivers}"
-                      Text="{Binding Receiver}" Width="100">
-                            <ComboBox.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <VirtualizingStackPanel />
-                                </ItemsPanelTemplate>
-                            </ComboBox.ItemsPanel>
-                        </ComboBox>
-
-
-                        <TextBlock Grid.Row="0" Grid.Column="6" 
-                       Margin="10"
-                       Style="{StaticResource FieldLabel}" 
-                       Text="Số PO"/>
-
-                        <ComboBox Grid.Row="0" Grid.Column="7"
-                      Margin="10"
-                      materialDesign:HintAssist.Hint="Số PO"
-                      Style="{StaticResource ComboBox}"
-                      ItemsSource="{Binding PurchaseOrderNumbers}"
-                      Text="{Binding PurchaseOrderNumber}" Width="100">
+                      Text="{Binding Receiver}">
                             <ComboBox.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <VirtualizingStackPanel />
@@ -217,7 +195,6 @@
                             <DataGridTextColumn Header="Đơn vị" Width="auto" Binding="{Binding Unit}"/>
                             <DataGridTextColumn Header="Mã lô" Width="*" Binding="{Binding GoodsIssueLotId}"/>
                             <DataGridTextColumn Header="Số lượng xuất" Width="auto" Binding="{Binding Quantity}"/>
-                            <DataGridTextColumn Header="Mã PO" Width="*" Binding="{Binding PurchaseOrderNumber}"/>
                             <DataGridTextColumn Header="Ghi chú" Width="*" Binding="{Binding Note}"/>
                         </DataGrid.Columns>
                     </DataGrid>

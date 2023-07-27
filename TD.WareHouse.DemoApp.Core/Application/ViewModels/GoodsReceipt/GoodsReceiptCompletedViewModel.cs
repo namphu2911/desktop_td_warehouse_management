@@ -1,34 +1,43 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using System;
+using AutoMapper;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
-using TD.WareHouse.DemoApp.Core.Application.Store;
 using TD.WareHouse.DemoApp.Core.Application.ViewModels.Seedwork;
-using TD.WareHouse.DemoApp.Core.Domain.Models.GoodsReceipts;
+using CommunityToolkit.Mvvm.Input;
 using TD.WareHouse.DemoApp.Core.Domain.Services;
+using TD.WareHouse.DemoApp.Core.Domain.Dtos.GoodsReceipts;
+using TD.WareHouse.DemoApp.Core.Application.Store;
+using TD.WareHouse.DemoApp.Core.Domain.Exceptions;
+using System.Net.Http;
+using System.Windows;
+using MessageBox = System.Windows.MessageBox;
 
 namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
 {
     public class GoodsReceiptCompletedViewModel : BaseViewModel
     {
-        private readonly IExcelReader _excelReader;
         private readonly IApiService _apiService;
-        private readonly GoodsReceiptStore _goodsReceiptStore;
-        public ObservableCollection<string> Suppliers => _goodsReceiptStore.Suppliers;
-        public ObservableCollection<string> GoodsReceiptIds => _goodsReceiptStore.GoodsReceiptIds;
-        private readonly ItemLotStore _itemLotStore;
-        public List<string> LotIds => _itemLotStore.LotIds;
-        
-        private List<GoodsReceiptDb> goodsReceipts = new();
-        private GoodsReceiptDb GoodsReceiptDb { get; set; }
-        public string GoodsReceiptId { get; set; } = "";
-        public string EmployeeId { get; set; } = "";
-        public string? Supplier { get; set; } = "";
+        private readonly IDatabaseSynchronizationService _databaseSynchronizationService;
+        private List<FinishedProductReceiptDto> goodsReceipts = new();
+        private List<FinishedProductReceiptDto> goodsReceiptByIds = new();
+        private List<FinishedProductReceiptDto> goodsReceiptByTimes = new();
 
+        private PendingGoodsReceiptViewModel? selectedGoodsReceipt;
+        private readonly GoodsReceiptStore _goodsReceiptStore;
+        public ObservableCollection<string> GoodsReceiptIds => _goodsReceiptStore.FinishedProductReceiptIds;
+        public string GoodsReceiptId { get; set; } = "";
+        //
+        public DateTime StartDate { get; set; } = DateTime.Today.AddDays(-7);
+        public DateTime EndDate { get; set; } = DateTime.Today;
+        //
         private readonly ItemStore _itemStore;
-        public ObservableCollection<string> ItemIds => _itemStore.ItemIds;
-        public ObservableCollection<string> ItemNames => _itemStore.ItemNames;
-        public ObservableCollection<string> Units => _itemStore.Units;
+        public ObservableCollection<string> ItemIds => _itemStore.FinishedItemIds;
+        public ObservableCollection<string> ItemNames => _itemStore.FinishedItemNames;
+        public ObservableCollection<string> Units => _itemStore.FinishedItemUnits;
         private string itemId = "";
         private string itemName = "";
         public string ItemId
@@ -49,7 +58,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
                 }
                 else
                 {
-                    var item = _itemStore.Items.First(i => i.ItemId == itemId);
+                    var item = _itemStore.FinishedItems.First(i => i.ItemId == itemId);
                     itemName = item.ItemName;
                     Unit = item.Unit;
                     OnPropertyChanged(nameof(ItemName));
@@ -76,7 +85,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
                 }
                 else
                 {
-                    var item = _itemStore.Items.First(i => i.ItemName == itemName);
+                    var item = _itemStore.FinishedItems.First(i => i.ItemName == itemName);
                     itemId = item.ItemId;
                     Unit = item.Unit;
                     OnPropertyChanged(nameof(ItemId));
@@ -86,15 +95,16 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
         }
 
         public string Unit { get; set; } = "";
-        public string GoodsReceiptLotId { get; set; } = "";
         public double Quantity { get; set; } = 0;
         public string PurchaseOrderNumber { get; set; } = "";
-        public bool TypeEnable { get; set; } = false;
-        public DateTime Date { get; set; } = DateTime.Now;
-        public string FilePath { get; set; } = "";
-
-        private GoodsReceiptToCreateViewModel? selectedGoodsReceipt;
-        public GoodsReceiptToCreateViewModel? SelectedGoodsReceipt
+        public string Note { get; set; } = "";
+        //
+        public ObservableCollection<PendingGoodsReceiptViewModel> GoodsReceipts { get; set; } = new();
+        public ObservableCollection<PendingGoodsReceiptViewModel> GoodsReceiptByIds { get; set; } = new();
+        public ObservableCollection<PendingGoodsReceiptViewModel> GoodsReceiptByTimes { get; set; } = new();
+        public ObservableCollection<GoodsReceiptEntryForGoodsReceiptCompletedView> Entries { get; set; } = new();
+        public GoodsReceiptEntryForGoodsReceiptCompletedView? SelectedEntry { get; set; }
+        public PendingGoodsReceiptViewModel? SelectedGoodsReceipt
         {
             get => selectedGoodsReceipt;
             set
@@ -102,192 +112,209 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
                 selectedGoodsReceipt = value;
                 if (selectedGoodsReceipt is not null)
                 {
-                    TypeEnable = true;
-                    GoodsReceiptDb = goodsReceipts.First(g => g.GoodsReceiptId == selectedGoodsReceipt.GoodsReceiptId);
-                    var lots = GoodsReceiptDb.Lots.Select(e => new GoodsReceiptLotForGoodsReceiptCompletedView(
-                        e.GoodsReceiptLotId,
-                        e.ItemId,
-                        e.ItemName,
-                        e.Quantity,
-                        e.Unit,
-                        e.PurchaseOrderNumber));
-                    Lots = new(lots);
-                    foreach (var lot in Lots)
+                    foreach (var goodReceipt in goodsReceiptByIds)
                     {
-                        lot.OnRemoved += DeleteRow;
-                        OnPropertyChanged(nameof(Lots));
+                        goodsReceipts.Add(goodReceipt);
+                    }
+                    foreach (var goodReceipt in goodsReceiptByTimes)
+                    {
+                        goodsReceipts.Add(goodReceipt);
+                    }
+                    var goodsReceipt = goodsReceipts.Last(g => g.FinishedProductReceiptId == selectedGoodsReceipt.GoodsReceiptId);
+                    var lotViewModels = goodsReceipt.Entries.Select(c => new GoodsReceiptEntryForGoodsReceiptCompletedView(
+                    c.Item.ItemClassId,
+                    c.Item.ItemId,
+                    c.Item.ItemName,
+                    c.Item.Unit,
+                    c.PurchaseOrderNumber,
+                    c.PurchaseOrderNumber,
+                    c.Quantity,
+                    c.Note));
+
+                    Entries = new(lotViewModels);
+                    foreach (var entry in Entries)
+                    {
+                        entry.OnRemoved += DeleteEntry;
+                        OnPropertyChanged(nameof(Entries));
                     }
                 }
-                OnPropertyChanged();
             }
         }
-        public GoodsReceiptLotForGoodsReceiptCompletedView? SelectedLot { get; set; }
-        public ObservableCollection<GoodsReceiptLotForGoodsReceiptCompletedView> Lots { get; set; } = new();
-
-        public ObservableCollection<GoodsReceiptToCreateViewModel> GoodsReceipts { get; set; } = new();
-
-        public ICommand SaveReceiptByHandCommand { get; set; }
-        public ICommand ImportGoodsReceiptsCommand { get; set; }
-        public ICommand LoadGoodsReceiptCommand { get; set; }
+        public ICommand LoadCompletedGoodsReceiptsCommand { get; set; }
+        public ICommand UpdateCommand { get; set; }
+        public ICommand LoadGoodsReceiptViewCommand { get; set; }
         public ICommand CreateEntryCommand { get; set; }
-        public GoodsReceiptCompletedViewModel(IExcelReader excelReader, IApiService apiService, GoodsReceiptStore goodsReceiptStore, ItemLotStore itemLotStore, ItemStore itemStore)
+        public GoodsReceiptCompletedViewModel(IApiService apiService, IDatabaseSynchronizationService databaseSynchronizationService, GoodsReceiptStore goodsReceiptStore, ItemStore itemStore)
         {
-            _excelReader = excelReader;
             _apiService = apiService;
+            _databaseSynchronizationService = databaseSynchronizationService;
             _goodsReceiptStore = goodsReceiptStore;
-            _itemLotStore = itemLotStore;
             _itemStore = itemStore;
 
-            ImportGoodsReceiptsCommand = new RelayCommand(ImportGoodsReceipt);
-            LoadGoodsReceiptCommand = new RelayCommand(LoadGoodsReceiptView);
-            SaveReceiptByHandCommand = new RelayCommand(SaveReceiptByHand);
-            CreateEntryCommand = new RelayCommand(CreateEntry);
+            LoadCompletedGoodsReceiptsCommand = new RelayCommand(LoadCompletedGoodsReceiptsAsync);
+            UpdateCommand = new RelayCommand(UpdateAsync);
+            LoadGoodsReceiptViewCommand = new RelayCommand(LoadGoodsReceiptView);
+            CreateEntryCommand = new RelayCommand(CreateEntryAsync);
         }
+
         private void LoadGoodsReceiptView()
         {
-            OnPropertyChanged(nameof(Suppliers));
+            _databaseSynchronizationService.SynchronizeGoodReceiptsData();
+            OnPropertyChanged(nameof(GoodsReceiptIds));
             OnPropertyChanged(nameof(ItemIds));
             OnPropertyChanged(nameof(ItemNames));
             OnPropertyChanged(nameof(Units));
         }
-        private void CreateEntry()
-        {
-            if(LotIds.Contains(GoodsReceiptLotId))
-            {
-                ShowErrorMessage($"Mã lô đã tồn tại.");
-            }
-            else
-            {
-                if (selectedGoodsReceipt is not null)
-                {
-                    GoodsReceiptDb = goodsReceipts.First(g => g.GoodsReceiptId == selectedGoodsReceipt.GoodsReceiptId);
-                    GoodsReceiptDb.Lots.Add(new GoodsReceiptLot(GoodsReceiptLotId, ItemId, ItemName, Quantity, Unit, PurchaseOrderNumber));
-                    var lots = GoodsReceiptDb.Lots.Select(e => new GoodsReceiptLotForGoodsReceiptCompletedView(
-                                e.GoodsReceiptLotId,
-                                e.ItemId,
-                                e.ItemName,
-                                e.Quantity,
-                                e.Unit,
-                                e.PurchaseOrderNumber));
-                    Lots = new(lots);
-                    foreach (var lot in Lots)
-                    {
-                        lot.OnRemoved += DeleteRow;
-                        OnPropertyChanged(nameof(Lots));
-                    }
-                }
-            }
-        }
-        private void DeleteRow()
-        {
-            if (SelectedLot is not null)
-            {
-                GoodsReceiptDb.Lots.Remove(GoodsReceiptDb.Lots.First(x => x.ItemId == SelectedLot.GoodsReceiptLotId));
-                var lots = GoodsReceiptDb.Lots.Select(e => new GoodsReceiptLotForGoodsReceiptCompletedView(
-                            e.GoodsReceiptLotId,
-                            e.ItemId,
-                            e.ItemName,
-                            e.Quantity,
-                            e.Unit,
-                            e.PurchaseOrderNumber));
-                Lots = new(lots);
-                foreach (var lot in Lots)
-                {
-                    lot.OnRemoved += DeleteRow;
-                    OnPropertyChanged(nameof(Lots));
-                }
-            }
-        }
-        private void SaveReceiptByHand()
-        {
-            if (GoodsReceiptIds.Contains(GoodsReceiptId))
-            {
-                ShowErrorMessage($"Mã phiếu nhập đã tồn tại.");
-            }
-            else
-            {
-                var NewGoodsReceiptByHand = new GoodsReceiptDb(GoodsReceiptId, Supplier, EmployeeId, new List<GoodsReceiptLot>());
-                goodsReceipts.Add(NewGoodsReceiptByHand);
-                GoodsReceipts = new ObservableCollection<GoodsReceiptToCreateViewModel>
-                            (goodsReceipts.Select(x => new GoodsReceiptToCreateViewModel(
-                                 _apiService,
-                                x.GoodsReceiptId,
-                                x.EmployeeId,
-                                x.Supplier,
-                                x.Lots)));
-                foreach (var goodsReceiptViewModel in GoodsReceipts)
-                {
-                    goodsReceiptViewModel.GoodsReceiptDeleted += OnGoodsReceiptRemove;
-                    goodsReceiptViewModel.GoodsReceiptCreated += OnGoodsReceiptSave;
-                }
-            }
-            
-        }
-        private void ImportGoodsReceipt()
+
+        public async void LoadCompletedGoodsReceiptsAsync()
         {
             try
             {
-                var request = _excelReader.ReadReceiptExportRequests(FilePath, "frmInspectingRefPrintPNK", Date);
-                goodsReceipts.Add(request);
-                GoodsReceipts = new ObservableCollection<GoodsReceiptToCreateViewModel>
-                        (goodsReceipts.Select(x => new GoodsReceiptToCreateViewModel(
-                             _apiService,
-                            x.GoodsReceiptId,
-                            x.EmployeeId,
-                            x.Supplier,
-                            x.Lots)));
-                foreach (var goodsReceiptViewModel in GoodsReceipts)
+                if (!String.IsNullOrEmpty(GoodsReceiptId))
                 {
-                    goodsReceiptViewModel.GoodsReceiptDeleted += OnGoodsReceiptRemove;
-                    goodsReceiptViewModel.GoodsReceiptCreated += OnGoodsReceiptSave;
+                    goodsReceiptByIds = new();
+                    var goodsReceiptById = await _apiService.GetFinishedProductReceiptsByIdAsync(GoodsReceiptId);
+                    goodsReceiptByIds.Add(goodsReceiptById);
+                    var goodsReceiptByIdViewModels = goodsReceiptByIds.Select(g =>
+                        new PendingGoodsReceiptViewModel(g.FinishedProductReceiptId,
+                                                         g.Timestamp,
+                                                         g.Employee.EmployeeName));
+                    GoodsReceiptByIds = new ObservableCollection<PendingGoodsReceiptViewModel>(goodsReceiptByIdViewModels);
+                    GoodsReceipts = GoodsReceiptByIds;
+                    Entries = new();
+                    //GoodsReceiptReceivingUpdated += LoadUncompletedGoodsReceiptsAsync;
                 }
-                TypeEnable = false;
-
+                else
+                {
+                    var goodsReceiptByTime = await _apiService.GetFinishedProductReceiptsByTimeAsync(StartDate, EndDate);
+                    goodsReceiptByTimes = goodsReceiptByTime.ToList();
+                    var goodsReceiptByTimeViewModels = goodsReceiptByTime.Select(g =>
+                        new PendingGoodsReceiptViewModel(g.FinishedProductReceiptId,
+                                                         g.Timestamp,
+                                                         g.Employee.EmployeeName));
+                    GoodsReceiptByTimes = new ObservableCollection<PendingGoodsReceiptViewModel>(goodsReceiptByTimeViewModels);
+                    GoodsReceipts = GoodsReceiptByTimes;
+                    Entries = new();
+                    //GoodsReceiptReceivedUpdated += LoadCompletedGoodsReceiptsAsync;
+                }
             }
-            catch (IOException)
+            catch (HttpRequestException)
             {
-                ShowErrorMessage($"Vui lòng tắt file trước khi nhập vào phần mềm.");
+                ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+            }
+        }
+       
+        public async void UpdateAsync()
+        {
+            var fixDto = Entries.Select(x => new FixCompletedGoodsReceiptDto(
+                x.ItemId,
+                x.PurchaseOrderNumber,
+                x.NewPurchaseOrderNumber,
+                x.Unit,
+                x.Quantity));
+            try
+            {
+                if (SelectedGoodsReceipt is not null)
+                {
+                    await _apiService.FixFinishedProductReceiptsAsync(SelectedGoodsReceipt.GoodsReceiptId, fixDto);
+                    Entries = new();
+                    LoadGoodsReceiptView();
+                    if (GoodsReceiptId == SelectedGoodsReceipt.GoodsReceiptId)
+                    {
+                        GoodsReceiptByIds = new();
+                        LoadCompletedGoodsReceiptsAsync();
+                        GoodsReceiptId = "";
+                    }
+                    else
+                    {
+                        GoodsReceiptByTimes = new();
+                        LoadCompletedGoodsReceiptsAsync();
+                        //GoodsReceiptReceivedUpdated?.Invoke();
+                    }
+                    MessageBox.Show("Đã Cập Nhật", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            catch (HttpRequestException)
+            {
+                ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+            }
+            catch (DuplicateEntityException)
+            {
+                ShowErrorMessage("Đã có lỗi xảy ra: Phiếu xuất kho đã tồn tại.");
+            }
+            catch (Exception ex)
+            {
+                ShowErrorMessage("Đã có lỗi xảy ra: " + ex.Message);
+            }
+
+        }
+
+        public async void DeleteEntry()
+        {
+            if (selectedGoodsReceipt is not null)
+            {
+                if (SelectedEntry is not null)
+                {
+                    if (MessageBox.Show("Xác nhận xóa PO " + SelectedEntry.NewPurchaseOrderNumber + "Mã hàng " + SelectedEntry.ItemId, "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    {
+                        try
+                        {
+                            await _apiService.RemovedFinishedProductReceiptEntryAsync(selectedGoodsReceipt.GoodsReceiptId, SelectedEntry.ItemId, SelectedEntry.Unit, SelectedEntry.NewPurchaseOrderNumber);
+                            LoadCompletedGoodsReceiptsAsync();
+                            LoadGoodsReceiptView();
+                        }
+                        catch (HttpRequestException)
+                        {
+                            ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+                        }
+                        catch (DuplicateEntityException)
+                        {
+                            ShowErrorMessage("Đã có lỗi xảy ra: Phiếu xuất kho đã tồn tại.");
+                        }
+                        catch (Exception ex)
+                        {
+                            ShowErrorMessage("Đã có lỗi xảy ra: " + ex.Message);
+                        }
+                        LoadGoodsReceiptView();
+                    }
+                    else { }
+                }
             }
         }
 
-        private void OnGoodsReceiptRemove(object? sender, EventArgs args)
+        public async void CreateEntryAsync()
         {
-            if (sender is not null)
+            var newEntryDto = new CreateFinishedProductReceiptEntryDto(PurchaseOrderNumber, ItemId, Unit, Quantity, Note);
+            if (selectedGoodsReceipt is not null)
             {
-                var goodsReceiptViewModel = (GoodsReceiptToCreateViewModel)sender;
-
-                GoodsReceipts.Remove(goodsReceiptViewModel);
-
-                var goodsReceipt = goodsReceipts.First(g => g.GoodsReceiptId == goodsReceiptViewModel.GoodsReceiptId);
-                goodsReceipts.Remove(goodsReceipt);
-                Lots = new();
-                ItemId = "";
-                ItemName = "";
-                Unit = "";
-                Quantity = 0;
-                GoodsReceiptLotId = "";
-                PurchaseOrderNumber = "";
-                TypeEnable = false;
-                FilePath = "";
+                if (MessageBox.Show("Xác nhận thêm dòng PO " + PurchaseOrderNumber + " Mã hàng " + ItemId, "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        await _apiService.AddFinishedProductReceiptEntryAsync(selectedGoodsReceipt.GoodsReceiptId, newEntryDto);
+                        LoadCompletedGoodsReceiptsAsync();
+                        PurchaseOrderNumber = "";
+                        ItemId = "";
+                        Quantity = 0;
+                        Note = "";
+                        LoadGoodsReceiptView();
+                    }
+                    catch (HttpRequestException)
+                    {
+                        ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+                    }
+                    catch (DuplicateEntityException)
+                    {
+                        ShowErrorMessage("Đã có lỗi xảy ra: Phiếu xuất kho đã tồn tại.");
+                    }
+                    catch (Exception ex)
+                    {
+                        ShowErrorMessage("Đã có lỗi xảy ra: " + ex.Message);
+                    }
+                    LoadGoodsReceiptView();
+                }
+                else { }
             }
-            OnPropertyChanged();
-        }
-
-        private void OnGoodsReceiptSave(object? sender, EventArgs args)
-        {
-            if (sender is not null)
-            {
-                var goodsReceiptViewModel = (GoodsReceiptToCreateViewModel)sender;
-                ItemId = "";
-                ItemName = "";
-                Unit = "";
-                Quantity = 0;
-                GoodsReceiptLotId = "";
-                PurchaseOrderNumber = "";
-                TypeEnable = false;
-                FilePath = "";
-            }
-            OnPropertyChanged();
         }
     }
 }

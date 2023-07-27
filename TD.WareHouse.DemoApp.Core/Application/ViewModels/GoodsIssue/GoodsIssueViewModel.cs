@@ -11,12 +11,14 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
     {
         public GoodsIssueExternalViewModel GoodsIssueExternal { get; set; }
         public GoodsIssueInternalViewModel GoodsIssueInternal { get; set; }
-        public GoodsIssueProgressViewModel GoodsIssueProgress { get; set; }
-        public GoodsIssueViewModel(GoodsIssueExternalViewModel goodsIssueExternal, GoodsIssueInternalViewModel goodsIssueInternal, GoodsIssueProgressViewModel goodsIssueProgress)
+        public GoodsIssueInternalProgressViewModel GoodsIssueInternalProgress { get; set; }
+        public GoodsIssueExternalProgressViewModel GoodsIssueExternalProgress { get; set; }
+        public GoodsIssueViewModel(GoodsIssueExternalViewModel goodsIssueExternal, GoodsIssueInternalViewModel goodsIssueInternal, GoodsIssueInternalProgressViewModel goodsIssueInternalProgress, GoodsIssueExternalProgressViewModel goodsIssueExternalProgress)
         {
             GoodsIssueExternal = goodsIssueExternal;
             GoodsIssueInternal = goodsIssueInternal;
-            GoodsIssueProgress = goodsIssueProgress;
+            GoodsIssueInternalProgress = goodsIssueInternalProgress;
+            GoodsIssueExternalProgress = goodsIssueExternalProgress;
         }
     }
 }

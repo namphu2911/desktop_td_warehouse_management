@@ -18,14 +18,14 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
         public DateTime Timestamp { get; set; }
         public string EmployeeId { get; set; }
         public string Receiver { get; set; }
-        public List<GoodsIssueEntry> Entries { get; set; }
+        public List<FinishedProductIssueEntry> Entries { get; set; }
 
         public ICommand CreateCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
 
         public event EventHandler? GoodsIssueCreated;
         public event EventHandler? GoodsIssueDeleted;
-        public GoodsIssueExternalToCreateViewModel(IApiService apiService, string goodsIssueId, DateTime timestamp, string employeeId, string receiver, List<GoodsIssueEntry> entries)
+        public GoodsIssueExternalToCreateViewModel(IApiService apiService, string goodsIssueId, DateTime timestamp, string employeeId, string receiver, List<FinishedProductIssueEntry> entries)
         {
             _apiService = apiService;
             GoodsIssueId = goodsIssueId;
@@ -41,20 +41,19 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
         
         private async void ConfirmAsync()
         {
-            var createDto = new CreateGoodsIssueDto(
+            var createDto = new CreateExternalGoodsIssueDto(
                 GoodsIssueId,
                 Receiver,
-                purchaseOrderNumber: null,
-                Timestamp,
                 EmployeeId,
-                Entries.Select(x => new CreateGoodsIssueEntryDto(
+                Entries.Select(x => new CreateExternalGoodsIssueEntryDto(
+                    x.PurchaseOrderNumber,
+                    x.Quantity,
                     x.ItemId,
                     x.Unit,
-                    requestedSublotSize: null,
-                    x.RequestedQuantity)).ToList());
+                    x.Note)).ToList());
             try
             {
-                await _apiService.CreateGoodsIssuesAsync(createDto);
+                await _apiService.CreateExternalGoodsIssuesAsync(createDto);
                 GoodsIssueCreated?.Invoke(this, EventArgs.Empty);
                 MessageBox.Show("Đã Lưu Đơn Mới", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
             }

@@ -10,24 +10,34 @@ namespace TD.WareHouse.DemoApp.Core.Application.Store
 {
     public class GoodsIssueStore
     {
-        public List<GoodsIssue> GoodsIssuesUnconfirmed { get; private set; }
         public ObservableCollection<string> Receivers { get; private set; }
         public ObservableCollection<string> GoodsIssueIds { get; private set; }
+        public ObservableCollection<string> FinishedProductIssueIds { get; private set; } 
+        public ObservableCollection<string> FinishedProductIssueReceivers { get; private set; }
         public GoodsIssueStore()
         {
-            GoodsIssuesUnconfirmed = new List<GoodsIssue>();
             Receivers = new ObservableCollection<string>();
             GoodsIssueIds = new ObservableCollection<string>();
+            FinishedProductIssueIds = new ObservableCollection<string>();
+            FinishedProductIssueReceivers = new ObservableCollection<string>();
         }
-        public void SetGoodsIssueReceivers(List<string> goodsIssueDtos)
+        public void SetGoodsIssueReceivers(List<string> goodsIssueReceiver)
         {
-            Receivers = new ObservableCollection<string>(goodsIssueDtos.OrderBy(s => s));
+            Receivers = new ObservableCollection<string>(goodsIssueReceiver.OrderBy(s => s));
         }
 
-        public void SetUnconfirmedGoodsIssues(IEnumerable<GoodsIssue> goodsIssues)
+        public void SetGoodsIssueIds(List<string> goodsIssueId)
         {
-            GoodsIssuesUnconfirmed = goodsIssues.ToList();
-            GoodsIssueIds = new ObservableCollection<string>(GoodsIssuesUnconfirmed.Select(i => i.GoodsIssueId).OrderBy(s => s));
+            GoodsIssueIds = new ObservableCollection<string>(goodsIssueId.OrderBy(s => s));
+        }
+
+        public void SetFinishedProductIssueIds(List<string> finishedProductIssueId)
+        {
+            FinishedProductIssueIds = new ObservableCollection<string>(finishedProductIssueId.OrderBy(s => s));
+        }
+        public void SetFinishedProductIssueReceivers(List<string> finishedProductIssueReceiver)
+        {
+            FinishedProductIssueReceivers = new ObservableCollection<string>(finishedProductIssueReceiver.OrderBy(s => s));
         }
     }
 }

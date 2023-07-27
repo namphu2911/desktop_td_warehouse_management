@@ -93,14 +93,9 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
         }
         private async Task SynchronizeItemLotsFromServer()
         {
-            var purchaseOrderNumber = await _apiService.GetAllPurchaseOrderNumbersAsync();
-            _itemLotStore.SetPurchaseOrderNumbers(purchaseOrderNumber);
+            var finishedPurchaseOrderNumber = await _apiService.GetAllFinishedPurchaseOrderNumbersAsync();
+            _itemLotStore.SetFinishedPurchaseOrderNumbers(finishedPurchaseOrderNumber);
 
-            var itemLotDtos = await _apiService.GetAllItemLotsAsync();
-            var itemLots = _mapper.Map<IEnumerable<ItemLotDto>, IEnumerable<ItemLot>>(itemLotDtos);
-
-            //await _itemLotDatabaseService.OverrideAllItemLots(itemLots);
-            _itemLotStore.SetItemLot(itemLots);
         }
         //private async Task SynchronizeItemLotsFromLocal()
         //{
@@ -149,9 +144,16 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
             var goodsReceiptSupplier = await _apiService.GetAllGoodsReceiptsSupplierAsync();
             _goodsReceiptStore.SetGoodsIssueSuppliers(goodsReceiptSupplier);
 
-            var goodsReceiptDto = await _apiService.GetAllGoodsReceiptsAsync();
-            var goodsReceipts = _mapper.Map<IEnumerable<GoodsReceiptDto>, IEnumerable<GoodsReceipt>>(goodsReceiptDto);
-            _goodsReceiptStore.SetUnconfirmedGoodsReceipts(goodsReceipts);
+            var uncompletedGoodsReceiptDto = await _apiService.GetUncompletedGoodsReceiptsAsync();
+            var uncompletedGoodsReceipts = _mapper.Map<IEnumerable<GoodsReceiptDto>, IEnumerable<GoodsReceipt>>(uncompletedGoodsReceiptDto);
+            _goodsReceiptStore.SetUncompletedGoodsReceipts(uncompletedGoodsReceipts);
+
+            var completedGoodsReceiptDto = await _apiService.GetCompletedGoodsReceiptsAsync();
+            var completedGoodsReceipts = _mapper.Map<IEnumerable<GoodsReceiptDto>, IEnumerable<GoodsReceipt>>(completedGoodsReceiptDto);
+            _goodsReceiptStore.SetCompletedGoodsReceipts(completedGoodsReceipts);
+
+            var finishedProductReceiptId = await _apiService.GetAllFinishedProductReceiptIdAsync();
+            _goodsReceiptStore.SetFinishedProductReceiptIds(finishedProductReceiptId);
         }
         //private async Task SynchronizeGoodsReceiptsFromLocal()
         //{
@@ -172,21 +174,18 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
         }
         private async Task SynchronizeGoodsIssuesFromServer()
         {
-            var unconfirmedGoodsIssueDtos = await _apiService.GetUnconfirmedGoodsIssuesAsync();
-            var unconfirmedGoodsIssue = _mapper.Map<IEnumerable<GoodsIssueDto>, IEnumerable<GoodsIssue>>(unconfirmedGoodsIssueDtos);
-            _goodsIssueStore.SetUnconfirmedGoodsIssues(unconfirmedGoodsIssue);
+            var goodsIssueId = await _apiService.GetUnfinishedGoodsIssuesIdAsync();
+            _goodsIssueStore.SetGoodsIssueIds(goodsIssueId);
 
             var goodsIssueReceiver = await _apiService.GetAllGoodsIssuesReceiverAsync();
             _goodsIssueStore.SetGoodsIssueReceivers(goodsIssueReceiver);
-            //await _goodIssueDatabaseService.OverrideAllGoodsIssues(goodsIssues);
-            
-        }
-        //private async Task SynchronizeGoodsIssuesFromLocal()
-        //{
-        //    var goodsIssues = await _goodIssueDatabaseService.GetAllGoodsIssues();
-        //    _goodsIssueStore.SetGoodsIssues(goodsIssues);
-        //}
 
+            var finishedProductIssueId = await _apiService.GetFinishedGoodsIssuesIdAsync();
+            _goodsIssueStore.SetFinishedProductIssueIds(finishedProductIssueId);
+
+            var finishedProductIssueReceiver = await _apiService.GetFinishedGoodsIssuesIdAsync();
+            _goodsIssueStore.SetFinishedProductIssueReceivers(finishedProductIssueReceiver);
+        }
         public async Task SynchronizeDepartmentsData()
         {
             try

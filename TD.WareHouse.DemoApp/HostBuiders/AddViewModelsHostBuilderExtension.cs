@@ -8,6 +8,7 @@ using TD.WareHouse.DemoApp.Core.Application.ViewModels.History;
 using TD.WareHouse.DemoApp.Core.Application.ViewModels.Home;
 using TD.WareHouse.DemoApp.Core.Application.ViewModels.Inventory;
 using TD.WareHouse.DemoApp.Core.Application.ViewModels.Isolation;
+using TD.WareHouse.DemoApp.Core.Application.ViewModels.MiscellaneousData;
 using TD.WareHouse.DemoApp.Core.Application.ViewModels.ShelfManagement;
 using TD.WareHouse.DemoApp.Core.Application.ViewModels.StockCard;
 
@@ -33,17 +34,21 @@ namespace TD.WareHouse.DemoApp.HostBuiders
                 services.AddTransient<GoodsIssueViewModel>();
                 services.AddTransient<GoodsIssueExternalViewModel>();
                 services.AddTransient<GoodsIssueInternalViewModel>();
-                services.AddTransient<GoodsIssueProgressViewModel>();
+                services.AddTransient<GoodsIssueInternalProgressViewModel>();
+                services.AddTransient<GoodsIssueExternalProgressViewModel>();
 
                 //GoodsReceipt
-                services.AddTransient<GoodsReceiptViewModel>();
+                services.AddTransient<GoodsReceiptMaterialsViewModel>();
                 services.AddTransient<GoodsReceiptCompletedViewModel>();
+                services.AddTransient<CreateGoodsReceiptCompletedViewModel>();
                 services.AddTransient<GoodsReceiptNavigationViewModel>();
 
                 //History
                 services.AddTransient<HistoryViewModel>();
                 services.AddTransient<HistoryGoodsReceiptViewModel>();
                 services.AddTransient<HistoryGoodsIssueViewModel>();
+                services.AddTransient<HistoryFinishedProductReceiptViewModel>();
+                services.AddTransient<HistoryFinishedProductIssueViewModel>();
 
                 //Inventory
                 services.AddTransient<InventoryNavigationViewModel>();
@@ -57,7 +62,10 @@ namespace TD.WareHouse.DemoApp.HostBuiders
                 services.AddTransient<StockCardNavigationViewModel>();
                 services.AddTransient<StockCardViewModel>();
                 services.AddTransient<StockCardExtendedViewModel>();
-
+                services.AddTransient<FinishedProductStockCardExtendedViewModel>();
+                //MiscellaneousData
+                services.AddTransient<MiscellaneousDataViewModel>();
+                services.AddTransient<ManageItemViewModel>();
 
 
 

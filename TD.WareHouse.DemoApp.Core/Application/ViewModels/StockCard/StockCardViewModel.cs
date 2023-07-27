@@ -11,6 +11,7 @@ using System.Windows.Input;
 using TD.WareHouse.DemoApp.Core.Application.Store;
 using TD.WareHouse.DemoApp.Core.Application.ViewModels.Seedwork;
 using TD.WareHouse.DemoApp.Core.Domain.Dtos.Inventory;
+using TD.WareHouse.DemoApp.Core.Domain.Dtos.Items;
 using TD.WareHouse.DemoApp.Core.Domain.Services;
 
 namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.StockCard
@@ -20,8 +21,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.StockCard
         private readonly IApiService _apiService;
         private readonly IMapper _mapper;
         private readonly ItemStore _itemStore;
-        public DateTime StartDate { get; set; } = DateTime.Now.AddDays(-30).Date;
-        public DateTime EndDate { get; set; } = DateTime.Now.AddDays(+1).Date;
+        public DateTime EndDate { get; set; } = DateTime.Now.Date;
         public string ItemId { get; set; } = "";
         public ObservableCollection<StockCardEntryViewModel> StockCardEntries { get; set; } = new();
         public ObservableCollection<string> ItemIds => _itemStore.ItemIds;
@@ -41,22 +41,35 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.StockCard
         {
             OnPropertyChanged(nameof(ItemIds));
         }
+
         private async void LoadStockCardEntry()
         {
             try
             {
-                if(!String.IsNullOrEmpty(ItemId))
+                var stockCardEntries = await _apiService.GetStockCardItemLotsAsync(EndDate, ItemId);
+                var viewModels = (stockCardEntries.Select(i => new StockCardEntryViewModel(
+                    i.Item.ItemClassId,
+                    i.Item.ItemId,
+                    i.Item.ItemName,
+                    i.Item.Unit,
+                    stockCardEntries.Sum(x => x.Quantity),
+                    stockCardEntries.SelectMany(i => i.ItemLotLocations.Select(x => new StockCardLotViewModel(
+                        i.LotId,
+                        i.Quantity,
+                        x.LocationId,
+                        x.QuantityPerLocation))).ToList()))).First();
+
+                for (int i = 0; i < viewModels.StockCardLots.Count - 1; i++) 
                 {
-                    var stockCardEntries = await _apiService.GetStockCardEntriesAsync(ItemId, StartDate, EndDate);
-                    var viewModels = _mapper.Map<IEnumerable<InventoryLogEntryDto>, IEnumerable<StockCardEntryViewModel>>(stockCardEntries);
-                    StockCardEntries = new(viewModels);
-                }
-                else
-                {
-                    var stockCardEntries = await _apiService.GetStockCardEntriesByTimeAsync(StartDate, EndDate);
-                    var viewModels = _mapper.Map<IEnumerable<InventoryLogEntryDto>, IEnumerable<StockCardEntryViewModel>>(stockCardEntries);
-                    StockCardEntries = new(viewModels);
-                }
+                    if(viewModels.StockCardLots[i + 1].ItemLotId == viewModels.StockCardLots[i].ItemLotId)
+                    {
+                        viewModels.StockCardLots[i + 1].ItemLotId = "";
+                        viewModels.StockCardLots[i + 1].Quantity = null;
+                    }
+                } 
+                      
+                StockCardEntries = new();
+                StockCardEntries.Add(viewModels);
             }
             catch (HttpRequestException)
             {

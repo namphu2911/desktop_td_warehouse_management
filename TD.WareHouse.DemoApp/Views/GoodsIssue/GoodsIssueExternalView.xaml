@@ -98,7 +98,6 @@
                                                     <RowDefinition Height="*"/>
                                                     <RowDefinition Height="*"/>
                                                     <RowDefinition Height="*"/>
-                                                    <RowDefinition Height="*"/>
                                                 </Grid.RowDefinitions>
 
                                                 <Grid Grid.Row="0">
@@ -123,27 +122,13 @@
 
                                                     <TextBlock Grid.Column="0" 
                                                         Style="{StaticResource FieldLabel}"
-                                                        Text="Thời gian: " />
-                                                    <TextBox Grid.Column="1"
-                                                        Style="{StaticResource TextBoxMini}"
-                                                        Text="{Binding Timestamp, StringFormat=dd/MM/yyyy hh:mm:ss tt}" />
-                                                </Grid>
-
-                                                <Grid Grid.Row="2">
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="auto"/>
-                                                        <ColumnDefinition Width="*"/>
-                                                    </Grid.ColumnDefinitions>
-
-                                                    <TextBlock Grid.Column="0" 
-                                                        Style="{StaticResource FieldLabel}"
                                                         Text="Mã nhân viên: " />
                                                     <TextBox Grid.Column="1"
                                                         Style="{StaticResource TextBoxMini}"
                                                         Text="{Binding EmployeeId}" />
                                                 </Grid>
 
-                                                <Grid Grid.Row="3">
+                                                <Grid Grid.Row="2">
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="auto"/>
                                                         <ColumnDefinition Width="*"/>
@@ -191,7 +176,7 @@
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        
+
                         <Border Grid.Row="2"
                         Margin="5"
                         BorderThickness="1"
@@ -231,11 +216,13 @@
                             <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="134*"/>
+                            <ColumnDefinition Width="161*"/>
+                            <ColumnDefinition Width="89*"/>
+                            <ColumnDefinition Width="103*"/>
+                            <ColumnDefinition Width="118*"/>
+                            <ColumnDefinition Width="89*"/>
+                            <ColumnDefinition Width="89*"/>
                         </Grid.ColumnDefinitions>
 
                         <TextBlock Grid.Row="0" Grid.Column="0" 
@@ -258,13 +245,24 @@
                                Style="{StaticResource FieldLabelForType}"
                                VerticalAlignment="Center" 
                                Text="Số lượng"/>
+                        <TextBlock Grid.Column="4" 
+                               Margin="5" 
+                               Style="{StaticResource FieldLabelForType}" 
+                               VerticalAlignment="Center" 
+                               Text="Số PO" Height="21" Width="44"/>
+                        <TextBlock Grid.Column="5" 
+                               Margin="5" 
+                               Style="{StaticResource FieldLabelForType}"
+                               VerticalAlignment="Center" 
+                               Text="Ghi chú" Height="21" Width="55"/>
+
                         <ComboBox Grid.Row="1" Grid.Column="0"
                                                         materialDesign:HintAssist.Hint="Mã hàng"
-                                                        Margin="5"
+                                                        Margin="5,0,0,0"
                                                         Style="{StaticResource ComboBoxMini}"
                                                         ItemsSource="{Binding ItemIds}"
                                                         Text="{Binding ItemId}"
-                                                        IsEnabled="{Binding TypeEnable}">
+                                                        IsEnabled="{Binding TypeEnable}" Width="104">
                             <ComboBox.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <VirtualizingStackPanel />
@@ -286,11 +284,11 @@
                         </ComboBox>
                         <ComboBox Grid.Row="1" Grid.Column="2"
                                                         materialDesign:HintAssist.Hint="Đơn vị"
-                                                        Margin="5"
+                                                        Margin="5,0,0,0"
                                                         Style="{StaticResource ComboBoxMini}"
                                                         ItemsSource="{Binding Units}"
                                                         Text="{Binding Unit}"
-                                                        IsEnabled="{Binding TypeEnable}">
+                                                        IsEnabled="{Binding TypeEnable}" Width="65">
                             <ComboBox.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <VirtualizingStackPanel />
@@ -299,10 +297,24 @@
                         </ComboBox>
                         <TextBox Grid.Row="1" Grid.Column="3" 
                              Margin="5" 
+                             materialDesign:HintAssist.Hint="Số lượng"
                              Style="{StaticResource TextBoxMini}"
                              Text="{Binding RequestedQuantity}"
                              IsEnabled="{Binding TypeEnable}"/>
-                        <Button Grid.Row="1" Grid.Column="4"  
+                        <TextBox Grid.Row="1" Grid.Column="4" 
+                             Margin="5,5,5,5" 
+                             materialDesign:HintAssist.Hint="Số PO"
+                             Style="{StaticResource TextBoxMini}"
+                             Text="{Binding PurchaseOrderNumber}"
+                             IsEnabled="{Binding TypeEnable}"/>
+                        <TextBox Grid.Row="1" Grid.Column="5" 
+                             Margin="5,5,5,5" 
+                             materialDesign:HintAssist.Hint="Ghi chú"
+                             Style="{StaticResource TextBoxMini}"
+                             Text="{Binding Note}"
+                             IsEnabled="{Binding TypeEnable}"/>
+
+                        <Button Grid.Row="1" Grid.Column="6"  
                             Margin="5"
                             Style="{StaticResource ButtonPrimary}" materialDesign:ButtonAssist.CornerRadius="10"
                             Height="32">
@@ -329,7 +341,9 @@
                             <DataGridTextColumn Header="Mã hàng" Binding="{Binding ItemId}" Width="*"/>
                             <DataGridTextColumn Header="Tên hàng" Binding="{Binding ItemName}" Width="*"/>
                             <DataGridTextColumn Header="Đơn vị" Binding="{Binding Unit}" Width="*"/>
-                            <DataGridTextColumn Header="Số lượng" Binding="{Binding RequestedQuantity}" Width="*"/>
+                            <DataGridTextColumn Header="Số lượng" Binding="{Binding Quantity}" Width="*"/>
+                            <DataGridTextColumn Header="Mã PO" Binding="{Binding PurchaseOrderNumber}" Width="*"/>
+                            <DataGridTextColumn Header="Ghi chú" Binding="{Binding Note}" Width="*" />
                             <DataGridTemplateColumn Width="*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>

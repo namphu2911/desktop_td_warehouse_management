@@ -10,18 +10,12 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Dtos.GoodsIssues
     public class GoodsIssueEntryDto
     {
         public ItemDto Item { get; set; }
-        public string Unit { get; set; }
-        public string GoodsIssueId { get; set; }
         public double RequestedQuantity { get; set; }
-        public double? RequestedSublotSize { get; set; }
         public List<GoodsIssueLotDto> Lots { get; set; }
-        public GoodsIssueEntryDto(ItemDto item, string unit, string goodsIssueId, double requestedQuantity, double? requestedSublotSize, List<GoodsIssueLotDto> lots)
+        public GoodsIssueEntryDto(ItemDto item, double requestedQuantity, List<GoodsIssueLotDto> lots)
         {
             Item = item;
-            Unit = unit;
-            GoodsIssueId = goodsIssueId;
             RequestedQuantity = requestedQuantity;
-            RequestedSublotSize = requestedSublotSize;
             Lots = lots;
         }
     }

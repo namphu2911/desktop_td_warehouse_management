@@ -21,18 +21,14 @@
         <materialDesign:DialogHost.DialogContent>
             <Components:ErrorMessage Message="{Binding ErrorMessage}"/>
         </materialDesign:DialogHost.DialogContent>
+        
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="2*"/>
-            </Grid.ColumnDefinitions>
-
-            <materialDesign:Card Grid.Row="0" Grid.Column="0"
+            <!--<materialDesign:Card Grid.Row="0" Grid.Column="0"
                                      Background="{StaticResource ColorSurface}"
                                      Margin="10">
                 <Grid>
@@ -99,63 +95,9 @@
 
                     </Button>
                 </Grid>
-            </materialDesign:Card>
+            </materialDesign:Card>-->
 
-            <materialDesign:Card Grid.Row="1" Grid.Column="0"
-                                     Background="{StaticResource ColorSurface}"
-                                     Margin="10">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                    </Grid.RowDefinitions>
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="2*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <TextBlock Grid.Row="0" Grid.Column="0"
-                       Margin="10"
-                       HorizontalAlignment="Center"
-                       Style="{StaticResource FieldLabel}" 
-                       Text="Vị trí"/>
-
-                    <ComboBox Grid.Row="0" Grid.Column="1"
-                      Margin="10"
-                      materialDesign:HintAssist.Hint="Vị trí"
-                      Style="{StaticResource ComboBox}"
-                      ItemsSource="{Binding LocationIds}"
-                      Text="{Binding LocationId}">
-                        <ComboBox.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <VirtualizingStackPanel />
-                            </ItemsPanelTemplate>
-                        </ComboBox.ItemsPanel>
-                    </ComboBox>
-
-
-
-                    <Button Grid.Row="2" Grid.Column="1"
-                    Margin="10"
-                    Style="{StaticResource ButtonPrimary}" materialDesign:ButtonAssist.CornerRadius="10"
-                    Content="Truy xuất"
-                    HorizontalAlignment="Center"
-                    Width="150">
-
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="Click">
-                                <prism:InvokeCommandAction Command="{Binding LoadLocationEntryCommand}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-
-                    </Button>
-                </Grid>
-            </materialDesign:Card>
-
-
-
-            <Grid Grid.Row="0" Grid.Column="1">
+            <!--<Grid Grid.Row="0" Grid.Column="1">
                 <materialDesign:Card     Background="{StaticResource ColorSurface}"
                                      Margin="10">
                     <DataGrid Style="{StaticResource MaterialDesignDataGrid}"
@@ -175,11 +117,59 @@
                         </DataGrid.Columns>
                     </DataGrid>
                 </materialDesign:Card>
+            </Grid>-->
 
 
-            </Grid>
+            <materialDesign:Card Grid.Row="0"
+                                     Background="{StaticResource ColorSurface}"
+                                     Margin="10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="300"/>
+                        <ColumnDefinition Width="200"/>
+                    </Grid.ColumnDefinitions>
 
-            <Grid Grid.Row="1" Grid.Column="1">
+                    <TextBlock Grid.Column="0"
+                       Margin="10"
+                       HorizontalAlignment="Center"
+                       Style="{StaticResource FieldLabel}" 
+                       Text="Vị trí"/>
+
+                    <ComboBox Grid.Column="1"
+                      Margin="10"
+                      materialDesign:HintAssist.Hint="Vị trí"
+                      Style="{StaticResource ComboBox}"
+                      ItemsSource="{Binding LocationIds}"
+                      Text="{Binding LocationId}">
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel />
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+                    
+                    <Button Grid.Column="2"
+                    Margin="10"
+                    Style="{StaticResource ButtonPrimary}" materialDesign:ButtonAssist.CornerRadius="10"
+                    Content="Truy xuất"
+                    HorizontalAlignment="Center"
+                    Width="150">
+
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <prism:InvokeCommandAction Command="{Binding LoadLocationEntryCommand}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+
+                    </Button>
+                </Grid>
+            </materialDesign:Card>
+
+
+
+            
+            <Grid Grid.Row="1">
                 <materialDesign:Card     Background="{StaticResource ColorSurface}"
                                      Margin="10">
                     <DataGrid Style="{StaticResource MaterialDesignDataGrid}"
@@ -195,7 +185,6 @@
                             <DataGridTextColumn Header="Đơn vị" Binding="{Binding Unit}" Width="auto"/>
                             <DataGridTextColumn Header="Mã lô" Binding="{Binding LotId}" Width="*"/>
                             <DataGridTextColumn Header="Lượng" Binding="{Binding Quantity}" Width="auto"/>
-                            <DataGridTextColumn Header="PO" Binding="{Binding PurchaseOrderNumber}" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </materialDesign:Card>

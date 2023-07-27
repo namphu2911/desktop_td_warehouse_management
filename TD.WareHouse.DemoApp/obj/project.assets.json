@@ -27,6 +27,20 @@
           "lib/netstandard2.1/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
         }
       },
+      "BlackPearl.Controls.Library/2.0.3": {
+        "type": "package",
+        "compile": {
+          "ref/net5.0-windows7.0/BlackPearl.Controls.Common.dll": {},
+          "ref/net5.0-windows7.0/BlackPearl.Controls.CoreLibrary.dll": {}
+        },
+        "runtime": {
+          "lib/net5.0-windows7.0/BlackPearl.Controls.Common.dll": {},
+          "lib/net5.0-windows7.0/BlackPearl.Controls.CoreLibrary.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
+        ]
+      },
       "CommunityToolkit.Mvvm/8.1.0": {
         "type": "package",
         "compile": {
@@ -757,6 +771,18 @@
           "build/PropertyChanged.Fody.props": {}
         }
       },
+      "Sdl.MultiSelectComboBox/1.0.71": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0-windows7.0/Sdl.MultiSelectComboBox.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/Sdl.MultiSelectComboBox.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
+        ]
+      },
       "SQLitePCLRaw.bundle_e_sqlite3/2.0.6": {
         "type": "package",
         "dependencies": {
@@ -866,13 +892,13 @@
           "lib/net5.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
         }
       },
-      "Syncfusion.Licensing/20.4.0.53": {
+      "Syncfusion.Licensing/22.1.37": {
         "type": "package",
         "compile": {
-          "lib/net6.0-windows7.0/Syncfusion.Licensing.dll": {}
+          "lib/net6.0/Syncfusion.Licensing.dll": {}
         },
         "runtime": {
-          "lib/net6.0-windows7.0/Syncfusion.Licensing.dll": {}
+          "lib/net6.0/Syncfusion.Licensing.dll": {}
         }
       },
       "Syncfusion.SfInput.WPF/20.4.0.53": {
@@ -888,10 +914,10 @@
           "lib/net6.0-windows7.0/Syncfusion.SfInput.WPF.dll": {}
         }
       },
-      "Syncfusion.Shared.WPF/20.4.0.53": {
+      "Syncfusion.Shared.WPF/22.1.37": {
         "type": "package",
         "dependencies": {
-          "Syncfusion.Licensing": "20.4.0.53"
+          "Syncfusion.Licensing": "22.1.37"
         },
         "compile": {
           "lib/net6.0-windows7.0/Syncfusion.Shared.WPF.dll": {}
@@ -1072,6 +1098,33 @@
         "automapper.extensions.microsoft.dependencyinjection.nuspec",
         "icon.png",
         "lib/netstandard2.1/AutoMapper.Extensions.Microsoft.DependencyInjection.dll"
+      ]
+    },
+    "BlackPearl.Controls.Library/2.0.3": {
+      "sha512": "MAAEoIFtbNkVCqX2N+DmtzIlUiCDkLoOisf9XRq5C4IP4VIKu/xnWFQ3kms/IcS75mM4SMnjksuEw7jPfPUQXA==",
+      "type": "package",
+      "path": "blackpearl.controls.library/2.0.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "blackpearl.controls.library.2.0.3.nupkg.sha512",
+        "blackpearl.controls.library.nuspec",
+        "lib/net461/BlackPearl.Controls.Common.dll",
+        "lib/net461/BlackPearl.Controls.CoreLibrary.dll",
+        "lib/net48/BlackPearl.Controls.Common.dll",
+        "lib/net48/BlackPearl.Controls.CoreLibrary.dll",
+        "lib/net5.0-windows7.0/BlackPearl.Controls.Common.dll",
+        "lib/net5.0-windows7.0/BlackPearl.Controls.CoreLibrary.dll",
+        "lib/netcoreapp3.1/BlackPearl.Controls.Common.dll",
+        "lib/netcoreapp3.1/BlackPearl.Controls.CoreLibrary.dll",
+        "ref/net461/BlackPearl.Controls.Common.dll",
+        "ref/net461/BlackPearl.Controls.CoreLibrary.dll",
+        "ref/net48/BlackPearl.Controls.Common.dll",
+        "ref/net48/BlackPearl.Controls.CoreLibrary.dll",
+        "ref/net5.0-windows7.0/BlackPearl.Controls.Common.dll",
+        "ref/net5.0-windows7.0/BlackPearl.Controls.CoreLibrary.dll",
+        "ref/netcoreapp3.1/BlackPearl.Controls.Common.dll",
+        "ref/netcoreapp3.1/BlackPearl.Controls.CoreLibrary.dll"
       ]
     },
     "CommunityToolkit.Mvvm/8.1.0": {
@@ -2303,6 +2356,19 @@
         "weaver/PropertyChanged.Fody.xcf"
       ]
     },
+    "Sdl.MultiSelectComboBox/1.0.71": {
+      "sha512": "NqZq6qGyjMoKWOySj4exW40pS3hdX2J+nufkZujdfIRSLHYXP1UX/ixEwxVwp+QcWbhjLjUiIWqkCIjd7R50Sw==",
+      "type": "package",
+      "path": "sdl.multiselectcombobox/1.0.71",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net48/Sdl.MultiSelectComboBox.dll",
+        "lib/net6.0-windows7.0/Sdl.MultiSelectComboBox.dll",
+        "sdl.multiselectcombobox.1.0.71.nupkg.sha512",
+        "sdl.multiselectcombobox.nuspec"
+      ]
+    },
     "SQLitePCLRaw.bundle_e_sqlite3/2.0.6": {
       "sha512": "zssYqiaucyGArZfg74rJuzK0ewgZiidsRVrZTmP7JLNvK806gXg6PGA46XzoJGpNPPA5uRcumwvVp6YTYxtQ5w==",
       "type": "package",
@@ -2377,36 +2443,26 @@
         "sqlitepclraw.provider.e_sqlite3.nuspec"
       ]
     },
-    "Syncfusion.Licensing/20.4.0.53": {
-      "sha512": "UPB64fZz+Qmj/sh26bxk6And0NU2qxRAyGkf6y4ZNUWAwV9TgudwTUg9FOrI5Ah7hCLOuurDQ6kqg0m+Vp0zeQ==",
+    "Syncfusion.Licensing/22.1.37": {
+      "sha512": "HP5qCjGBp/HUUuSBjD7Wrxq5MhCjws8RSia3SQiw49D/kEAhVmXVVZjY8zQYuDjqhyz32WlZb8eBi/9z+7bkNA==",
       "type": "package",
-      "path": "syncfusion.licensing/20.4.0.53",
+      "path": "syncfusion.licensing/22.1.37",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE.txt",
-        "lib/MonoAndroid10.0/Syncfusion.Licensing.dll",
         "lib/MonoAndroid90/Syncfusion.Licensing.dll",
         "lib/Xamarin.Mac/Syncfusion.Licensing.dll",
         "lib/Xamarin.iOS10/Syncfusion.Licensing.dll",
-        "lib/net20/Syncfusion.Licensing.dll",
-        "lib/net35/Syncfusion.Licensing.dll",
         "lib/net40/Syncfusion.Licensing.dll",
         "lib/net45/Syncfusion.Licensing.dll",
         "lib/net451/Syncfusion.Licensing.dll",
         "lib/net46/Syncfusion.Licensing.dll",
-        "lib/net6.0-windows7.0/Syncfusion.Licensing.dll",
         "lib/net6.0/Syncfusion.Licensing.dll",
-        "lib/net7.0-windows7.0/Syncfusion.Licensing.dll",
         "lib/net7.0/Syncfusion.Licensing.dll",
-        "lib/netcoreapp3.1/Syncfusion.Licensing.dll",
-        "lib/netstandard1.0/Syncfusion.Licensing.dll",
-        "lib/netstandard1.2/Syncfusion.Licensing.dll",
-        "lib/netstandard1.4/Syncfusion.Licensing.dll",
         "lib/netstandard2.0/Syncfusion.Licensing.dll",
-        "lib/portable-win+net45+wp80+win81+wpa81/Syncfusion.Licensing.dll",
         "lib/uap10.0/Syncfusion.Licensing.dll",
-        "syncfusion.licensing.20.4.0.53.nupkg.sha512",
+        "syncfusion.licensing.22.1.37.nupkg.sha512",
         "syncfusion.licensing.nuspec",
         "syncfusion_logo.png"
       ]
@@ -2454,23 +2510,16 @@
         "tools/VisualStudioToolsManifest.xml"
       ]
     },
-    "Syncfusion.Shared.WPF/20.4.0.53": {
-      "sha512": "juGQLgw0M3eMrZW+XdYiDFNXBrgAn16KurpumfBGk5MG44lrOvMGkqCimbRC7zhAGOnqyrBsEjIqmmh4ytGw4w==",
+    "Syncfusion.Shared.WPF/22.1.37": {
+      "sha512": "RmcUqFUsdbnlUDlpFDeEQWgD8Vu16VL+1czOuBu0vwVR3+WgzsMA5+FBlWD4iXkuHlFRjq8EA1ilaSSeX1Gdbw==",
       "type": "package",
-      "path": "syncfusion.shared.wpf/20.4.0.53",
+      "path": "syncfusion.shared.wpf/22.1.37",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE.txt",
         "README.md",
-        "lib/net35/Design/Syncfusion.Design.Wpf.dll",
-        "lib/net35/Design/Syncfusion.Shared.WPF.DesignTools.dll",
-        "lib/net35/Design/Syncfusion.Shared.Wpf.Expression.Design.dll",
-        "lib/net35/Design/Syncfusion.Shared.Wpf.VisualStudio.Design.dll",
-        "lib/net35/Design/Syncfusion.Shared.Wpf.dll.Design.dll",
-        "lib/net35/Syncfusion.Shared.WPF.dll",
-        "lib/net35/Syncfusion.Shared.WPF.xml",
         "lib/net40/Design/Syncfusion.Design.Wpf.dll",
         "lib/net40/Design/Syncfusion.Shared.WPF.DesignTools.dll",
         "lib/net40/Design/Syncfusion.Shared.Wpf.Expression.Design.dll",
@@ -2502,7 +2551,7 @@
         "lib/net6.0-windows7.0/Design/Syncfusion.Shared.WPF.DesignTools.dll",
         "lib/net6.0-windows7.0/Syncfusion.Shared.WPF.dll",
         "lib/net6.0-windows7.0/Syncfusion.Shared.WPF.xml",
-        "syncfusion.shared.wpf.20.4.0.53.nupkg.sha512",
+        "syncfusion.shared.wpf.22.1.37.nupkg.sha512",
         "syncfusion.shared.wpf.nuspec",
         "syncfusion_logo.png",
         "tools/VisualStudioToolsManifest.xml"
@@ -2756,6 +2805,7 @@
   "projectFileDependencyGroups": {
     "net6.0-windows7.0": [
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 12.0.1",
+      "BlackPearl.Controls.Library >= 2.0.3",
       "CommunityToolkit.Mvvm >= 8.1.0",
       "IdentityModel.OidcClient >= 5.2.1",
       "MaterialDesignColors >= 2.1.1",
@@ -2768,7 +2818,9 @@
       "Microsoft.Web.WebView2 >= 1.0.1661.34",
       "Prism.Wpf >= 8.1.97",
       "PropertyChanged.Fody >= 4.1.0",
+      "Sdl.MultiSelectComboBox >= 1.0.71",
       "Syncfusion.SfInput.WPF >= 20.4.0.53",
+      "Syncfusion.Shared.WPF >= 22.1.37",
       "TD.WareHouse.DemoApp.Core >= 1.0.0"
     ]
   },
@@ -2824,6 +2876,10 @@
             "target": "Package",
             "version": "[12.0.1, )"
           },
+          "BlackPearl.Controls.Library": {
+            "target": "Package",
+            "version": "[2.0.3, )"
+          },
           "CommunityToolkit.Mvvm": {
             "target": "Package",
             "version": "[8.1.0, )"
@@ -2874,9 +2930,17 @@
             "target": "Package",
             "version": "[4.1.0, )"
           },
+          "Sdl.MultiSelectComboBox": {
+            "target": "Package",
+            "version": "[1.0.71, )"
+          },
           "Syncfusion.SfInput.WPF": {
             "target": "Package",
             "version": "[20.4.0.53, )"
+          },
+          "Syncfusion.Shared.WPF": {
+            "target": "Package",
+            "version": "[22.1.37, )"
           }
         },
         "imports": [

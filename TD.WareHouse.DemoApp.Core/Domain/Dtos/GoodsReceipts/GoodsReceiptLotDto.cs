@@ -11,27 +11,25 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Dtos.GoodsReceipts
     public class GoodsReceiptLotDto
     {
         public string GoodsReceiptLotId { get; set; }
-        public string? LocationId { get; set; }
+        public List<GoodsReceiptSublotDto> Sublots { get; set; }
         public double Quantity { get; set; }
-        public double? SublotSize { get; set; }
-        public string? PurchaseOrderNumber { get; set; }
         public DateTime? ProductionDate { get; set; }
         public DateTime? ExpirationDate { get; set; }
         public ItemDto Item { get; set; }
         public EmployeeDto Employee { get; set; }
         public string? Note { get; set; }
-        public GoodsReceiptLotDto(string goodsReceiptLotId, string? locationId, double quantity, double? sublotSize, string? purchaseOrderNumber, DateTime? productionDate, DateTime? expirationDate, string note, EmployeeDto employee, ItemDto item)
+        public bool IsExported { get; set; }
+        public GoodsReceiptLotDto(string goodsReceiptLotId, List<GoodsReceiptSublotDto> sublots, double quantity, DateTime? productionDate, DateTime? expirationDate, ItemDto item, EmployeeDto employee, string? note, bool isExported)
         {
             GoodsReceiptLotId = goodsReceiptLotId;
-            LocationId = locationId;
+            Sublots = sublots;
             Quantity = quantity;
-            SublotSize = sublotSize;
-            PurchaseOrderNumber = purchaseOrderNumber;
             ProductionDate = productionDate;
             ExpirationDate = expirationDate;
-            Note = note;
-            Employee = employee;
             Item = item;
+            Employee = employee;
+            Note = note;
+            IsExported = isExported;
         }
     }
 }

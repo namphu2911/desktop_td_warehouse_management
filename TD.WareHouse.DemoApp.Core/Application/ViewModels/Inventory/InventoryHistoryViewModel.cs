@@ -18,8 +18,8 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.Inventory
     {
         private readonly IApiService _apiService;
         private readonly IMapper _mapper;
-        public DateTime StartDate { get; set; } = DateTime.Now.AddDays(-30).Date;
-        public DateTime EndDate { get; set; } = DateTime.Now.AddDays(+1).Date;
+        public DateTime StartDate { get; set; } = DateTime.Now.AddDays(-7).Date;
+        public DateTime EndDate { get; set; } = DateTime.Now.Date;
 
         public ObservableCollection<ConfirmedLotAdjustmentViewModel> LotAdjustments { get; set; } = new();
 

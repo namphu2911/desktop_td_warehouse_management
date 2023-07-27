@@ -20,7 +20,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.Isolation
         public string LotId { get; set; }
         public double Quantity { get; set; }
         public string PurchaseOrderNumber { get; set; }
-        public string LocationId { get; set; }
+        public string? LocationId { get; set; }
         public ICommand IssueCommand { get; set; }
         public ICommand ReceiveCommand { get; set; }
         public event Action? OnRemoved;
@@ -31,7 +31,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.Isolation
             IssueCommand = new RelayCommand(IssueAsync);
             ReceiveCommand = new RelayCommand(ReceiveAsync);
         }
-        public FixIsolationViewModel(IApiService apiService, string itemId, string itemName, string unit, string lotId, double quantity, string purchaseOrderNumber, string locationId)
+        public FixIsolationViewModel(IApiService apiService, string itemId, string itemName, string unit, string lotId, double quantity, string purchaseOrderNumber, string? locationId)
         {
             _apiService = apiService;
             ItemId = itemId;

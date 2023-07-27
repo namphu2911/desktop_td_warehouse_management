@@ -8,20 +8,18 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Dtos.GoodsReceipts
 {
     public class FixCompletedGoodsReceiptDto
     {
-        public string goodsReceiptLotId { get; set; }
-        public string? locationId { get; set; }
+        public string itemId { get; set; }
+        public string oldPurchaseOrderNumber { get; set; }
+        public string newPurchaseOrderNumber { get; set; }
+        public string unit { get; set; }
         public double quantity { get; set; }
-        public string? purchaseOrderNumber { get; set; }
-        public DateTime? productionDate { get; set; }
-        public DateTime? expirationDate { get; set; }
-        public FixCompletedGoodsReceiptDto(string goodsReceiptLotId, string? locationId, double quantity, string? purchaseOrderNumber, DateTime? productionDate, DateTime? expirationDate)
+        public FixCompletedGoodsReceiptDto(string itemId, string oldPurchaseOrderNumber, string newPurchaseOrderNumber, string unit, double quantity)
         {
-            this.goodsReceiptLotId = goodsReceiptLotId;
-            this.locationId = locationId;
+            this.itemId = itemId;
+            this.oldPurchaseOrderNumber = oldPurchaseOrderNumber;
+            this.newPurchaseOrderNumber = newPurchaseOrderNumber;
+            this.unit = unit;
             this.quantity = quantity;
-            this.purchaseOrderNumber = purchaseOrderNumber;
-            this.productionDate = productionDate;
-            this.expirationDate = expirationDate;
         }
     }
 }

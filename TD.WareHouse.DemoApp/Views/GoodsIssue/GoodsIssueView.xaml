@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TD.WareHouse.DemoApp.Views.GoodsIssue"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:view="clr-namespace:TD.WareHouse.DemoApp.Views.GoodsIssue"
+             xmlns:view="clr-namespace:TD.WareHouse.DemoApp.Views.GoodsIssue" xmlns:goodsissue="clr-namespace:TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue;assembly=TD.WareHouse.DemoApp.Core" d:DataContext="{d:DesignInstance Type=goodsissue:GoodsIssueViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="750" d:DesignWidth="1100"
              Background="{StaticResource ColorBackground}"
@@ -15,31 +15,50 @@
         <TabControl TabStripPlacement="Top" 
                     Style="{StaticResource MaterialDesignFilledTabControl}"
                     materialDesign:ColorZoneAssist.Background="LightGray">
-            <TabItem Height="55" MaxWidth="800" Style="{StaticResource TabItemRowStyle}">
+            <TabItem Height="55" MaxWidth="800" Style="{StaticResource TabItem2layerRowStyle}">
                 <TabItem.Header >
-                    <TextBlock>
-                        <TextBlock Style="{StaticResource HeaderText}" Text="XUẤT NỘI BỘ"/>
-                    </TextBlock>
+                    <TextBlock Style="{StaticResource HeaderText}" Text="NGUYÊN VẬT LIỆU"/>
                 </TabItem.Header>
-                <view:GoodsIssueInternalView DataContext="{Binding GoodsIssueInternal}" Foreground="Black"/>
+                <TabControl TabStripPlacement="Top" 
+                            Style="{StaticResource MaterialDesignTabControl}">
+                    <TabItem Height="55" Background="{StaticResource ColorPrimaryL1}" MaxWidth="800">
+                        <TabItem.Header >
+                            <TextBlock Style="{StaticResource TabText}" Text="XUẤT NỘI BỘ"/>
+                        </TabItem.Header>
+                        <view:GoodsIssueInternalView DataContext="{Binding GoodsIssueInternal}" Foreground="Black"/>
+                    </TabItem>
+
+                    <TabItem Height="55" Background="{StaticResource ColorPrimaryL1}" MaxWidth="800">
+                        <TabItem.Header >
+                            <TextBlock Style="{StaticResource TabText}" Text="XEM TIẾN ĐỘ"/>
+                        </TabItem.Header>
+                        <view:GoodsIssueInternalProgressView DataContext="{Binding GoodsIssueInternalProgress}" Foreground="Black"/>
+                    </TabItem>
+                </TabControl>
             </TabItem>
 
-            <TabItem Height="55" MaxWidth="800" Style="{StaticResource TabItemRowStyle}">
+            <TabItem Height="55" MaxWidth="800" Margin="0" Style="{StaticResource TabItem2layerRowStyle}">
                 <TabItem.Header >
-                    <TextBlock>
-                        <TextBlock Style="{StaticResource HeaderText}" Text="XUẤT BÁN"/>
-                    </TextBlock>
+                    <TextBlock Style="{StaticResource HeaderText}" Text="THÀNH PHẨM"/>
                 </TabItem.Header>
-                <view:GoodsIssueExternalView DataContext="{Binding GoodsIssueExternal}" Foreground="Black"/>
-            </TabItem>
 
-            <TabItem Height="55" MaxWidth="800" Style="{StaticResource TabItemRowStyle}">
-                <TabItem.Header >
-                    <TextBlock>
-                        <TextBlock Style="{StaticResource HeaderText}" Text="XEM TIẾN ĐỘ"/>
-                    </TextBlock>
-                </TabItem.Header>
-                <view:GoodsIssueProgressView DataContext="{Binding GoodsIssueProgress}" Foreground="Black"/>
+                <TabControl TabStripPlacement="Top" 
+                            Style="{StaticResource MaterialDesignTabControl}">
+
+                    <TabItem Height="50" Background="{StaticResource ColorPrimaryL1}" MaxWidth="800">
+                        <TabItem.Header >
+                            <TextBlock Style="{StaticResource TabText}" Text="XUẤT BÁN"/>
+                        </TabItem.Header>
+                        <view:GoodsIssueExternalView DataContext="{Binding GoodsIssueExternal}" Foreground="Black"/>
+                    </TabItem>
+
+                    <TabItem Height="50" Background="{StaticResource ColorPrimaryL1}" MaxWidth="800">
+                        <TabItem.Header >
+                            <TextBlock Style="{StaticResource TabText}" Text="XEM TIẾN ĐỘ"/>
+                        </TabItem.Header>
+                        <view:GoodsIssueExternalProgressView DataContext="{Binding GoodsIssueExternalProgress}" Foreground="Black"/>
+                    </TabItem>
+                </TabControl>
             </TabItem>
         </TabControl>
 

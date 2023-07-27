@@ -23,13 +23,11 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.ShelfManagement
         private readonly IMapper _mapper;
         private readonly ItemStore _itemStore;
         private readonly WarehouseStore _warehousetStore;
-        public ObservableCollection<ItemEntryForShelfManagementViewModel> ItemEntries { get; set; } = new();
         public ObservableCollection<LocationEntryForShelfManagementViewModel> LocationEntries { get; set; } = new();
         public ObservableCollection<string> ItemIds => _itemStore.ItemIds;
         public ObservableCollection<string> ItemNames => _itemStore.ItemNames;
         public ObservableCollection<string> LocationIds => _warehousetStore.LocationIds;
 
-        public ICommand LoadItemEntryCommand { get; set; }
         public ICommand LoadLocationEntryCommand { get; set; }
         public ICommand LoadShelfManagementViewCommand { get; set; }
         private string itemId = "";
@@ -72,7 +70,6 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.ShelfManagement
             _mapper = mapper;
             _itemStore = itemStore;
             _warehousetStore = warehousetStore;
-            LoadItemEntryCommand = new RelayCommand(LoadItemEntryEntry);
             LoadLocationEntryCommand = new RelayCommand(LoadLocationEntry);
             LoadShelfManagementViewCommand = new RelayCommand(LoadShelfManagementView);
         }
@@ -83,20 +80,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.ShelfManagement
             OnPropertyChanged(nameof(ItemNames));
             OnPropertyChanged(nameof(LocationIds));
         }
-        private async void LoadItemEntryEntry()
-        {
-            try
-            {
-                var itemEntries = await _apiService.GetItemShelfManagementEntriesAsync(ItemId);
-
-                var viewModels = _mapper.Map<IEnumerable<ItemLotDto>, IEnumerable<ItemEntryForShelfManagementViewModel>>(itemEntries);
-                ItemEntries = new(viewModels);
-            }
-            catch (HttpRequestException)
-            {
-                ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
-            }
-        }
+        
         private async void LoadLocationEntry()
         {
             try

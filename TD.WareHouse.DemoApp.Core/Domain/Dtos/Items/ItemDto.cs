@@ -12,9 +12,11 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Dtos.Items
         public string ItemName { get; set; }
         public string Unit { get; set; }
         public double MinimumStockLevel { get; set; }
-        public double Price { get; set; }
+        public decimal Price { get; set; }
+        public double? SublotSize { get; set; }
+        public string? PacketUnit { get; set; }
         public string ItemClassId { get; set; }
-        public ItemDto(string itemId, string itemName, string unit, double minimumStockLevel, double price, string itemClassId)
+        public ItemDto(string itemId, string itemName, string unit, double minimumStockLevel, decimal price, string itemClassId)
         {
             ItemId = itemId;
             ItemName = itemName;

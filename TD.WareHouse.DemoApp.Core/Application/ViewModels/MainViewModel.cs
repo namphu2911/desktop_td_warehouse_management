@@ -7,6 +7,7 @@ using TD.WareHouse.DemoApp.Core.Application.ViewModels.History;
 using TD.WareHouse.DemoApp.Core.Application.ViewModels.Home;
 using TD.WareHouse.DemoApp.Core.Application.ViewModels.Inventory;
 using TD.WareHouse.DemoApp.Core.Application.ViewModels.Isolation;
+using TD.WareHouse.DemoApp.Core.Application.ViewModels.MiscellaneousData;
 using TD.WareHouse.DemoApp.Core.Application.ViewModels.Seedwork;
 using TD.WareHouse.DemoApp.Core.Application.ViewModels.ShelfManagement;
 using TD.WareHouse.DemoApp.Core.Application.ViewModels.StockCard;
@@ -26,8 +27,9 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels
         public IsolationViewModel Isolation { get; set; }
         public ShelfManagementViewModel ShelfManagement { get; set; }
         public StockCardNavigationViewModel StockCardNavigation { get; set; }
+        public MiscellaneousDataViewModel MiscellaneousData { get; set; }
         public ICommand LoadDataStoreCommand { get; set; }
-        public MainViewModel(IDatabaseSynchronizationService databaseSynchronizationService, AlarmViewModel alarm, GoodsIssueViewModel goodsIssue, GoodsReceiptNavigationViewModel goodsReceipt, HistoryViewModel history, HomeViewModel home, InventoryNavigationViewModel inventoryNavigation, IsolationViewModel isolation, ShelfManagementViewModel shelfManagement, StockCardNavigationViewModel stockCardNavigation)
+        public MainViewModel(IDatabaseSynchronizationService databaseSynchronizationService, AlarmViewModel alarm, GoodsIssueViewModel goodsIssue, GoodsReceiptNavigationViewModel goodsReceipt, HistoryViewModel history, HomeViewModel home, InventoryNavigationViewModel inventoryNavigation, IsolationViewModel isolation, ShelfManagementViewModel shelfManagement, StockCardNavigationViewModel stockCardNavigation, MiscellaneousDataViewModel miscellaneousData)
         {
             _databaseSynchronizationService = databaseSynchronizationService;
             Alarm = alarm;
@@ -39,6 +41,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels
             Isolation = isolation;
             ShelfManagement = shelfManagement;
             StockCardNavigation = stockCardNavigation;
+            MiscellaneousData = miscellaneousData;
             LoadDataStoreCommand = new RelayCommand(LoadDataStoreAsync);
         }
 

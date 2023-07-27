@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TD.WareHouse.DemoApp.Views.StockCard"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"  
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:stockcard="clr-namespace:TD.WareHouse.DemoApp.Core.Application.ViewModels.StockCard;assembly=TD.WareHouse.DemoApp.Core" d:DataContext="{d:DesignInstance Type=stockcard:StockCardNavigationViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="750" d:DesignWidth="1100"
              Background="{StaticResource ColorBackground}"
@@ -13,23 +13,52 @@
         <TabControl TabStripPlacement="Top" 
                     Style="{StaticResource MaterialDesignFilledTabControl}"
                     materialDesign:ColorZoneAssist.Background="LightGray">
-            <TabItem Height="55" MaxWidth="800" Style="{StaticResource TabItemRowStyle}">
+            <TabItem Height="55" MaxWidth="800" Style="{StaticResource TabItem2layerRowStyle}">
                 <TabItem.Header >
-                    <TextBlock>
-                        <TextBlock Style="{StaticResource HeaderText}" Text="BÁO CÁO XUẤT NHẬP TỒN"/>
-                    </TextBlock>
+                    <TextBlock Style="{StaticResource HeaderText}" Text="NGUYÊN VẬT LIỆU"/>
                 </TabItem.Header>
-                <local:StockCardExtendedView DataContext="{Binding StockCardExtended}" Foreground="Black"/>
+
+                <TabControl TabStripPlacement="Top" 
+                            Style="{StaticResource MaterialDesignTabControl}">
+                    <TabItem Height="55" Background="{StaticResource ColorPrimaryL1}" MaxWidth="800">
+                        <TabItem.Header >
+                            <TextBlock Style="{StaticResource TabText}" Text="BÁO CÁO XUẤT NHẬP TỒN"/>
+                        </TabItem.Header>
+                        <local:StockCardExtendedView DataContext="{Binding StockCardExtended}" Foreground="Black"/>
+                    </TabItem>
+
+                    <TabItem Height="55" Background="{StaticResource ColorPrimaryL1}" MaxWidth="800">
+                        <TabItem.Header >
+                            <TextBlock Style="{StaticResource TabText}" Text="BÁO CÁO TỒN KHO"/>
+                        </TabItem.Header>
+                        <local:StockCardView DataContext="{Binding StockCard}" Foreground="Black"/>
+                    </TabItem>
+                </TabControl>
             </TabItem>
 
-            <TabItem Height="55" MaxWidth="800" Style="{StaticResource TabItemRowStyle}">
+            <TabItem Height="55" MaxWidth="800" Style="{StaticResource TabItem2layerRowStyle}">
                 <TabItem.Header >
-                    <TextBlock>
-                        <TextBlock Style="{StaticResource HeaderText}" Text="BÁO CÁO TỒN KHO"/>
-                    </TextBlock>
+                    <TextBlock Style="{StaticResource HeaderText}" Text="THÀNH PHẨM"/>
                 </TabItem.Header>
-                <local:StockCardView DataContext="{Binding StockCard}" Foreground="Black"/>
+
+                <TabControl TabStripPlacement="Top" 
+                            Style="{StaticResource MaterialDesignTabControl}">
+                    <TabItem Height="55" Background="{StaticResource ColorPrimaryL1}" MaxWidth="800">
+                        <TabItem.Header >
+                            <TextBlock Style="{StaticResource TabText}" Text="BÁO CÁO XUẤT NHẬP TỒN"/>
+                        </TabItem.Header>
+                        <local:FinishedProductStockCardExtendedView DataContext="{Binding FinishedProductStockCardExtended}" Foreground="Black"/>
+                    </TabItem>
+
+                    <TabItem Height="55" Background="{StaticResource ColorPrimaryL1}" MaxWidth="800">
+                        <TabItem.Header >
+                            <TextBlock Style="{StaticResource TabText}" Text="BÁO CÁO TỒN KHO"/>
+                        </TabItem.Header>
+                        <local:StockCardView DataContext="{Binding StockCard}" Foreground="Black"/>
+                    </TabItem>
+                </TabControl>
             </TabItem>
         </TabControl>
     </Grid>
 </UserControl>
+

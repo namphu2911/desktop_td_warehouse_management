@@ -19,23 +19,23 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
     public class GoodsReceiptToCreateViewModel : BaseViewModel
     {
         private readonly IApiService _apiService;
-        public string GoodsReceiptId { get; set; }
+        public string FinishedProductReceiptId { get; set; }
         public string EmployeeId { get; set; }
-        public string? Supplier { get; set; }
-        public List<GoodsReceiptLot> Lots { get; set; }
+        public DateTime Timestamp { get; set; }
+        public List<FinishedProductReceiptEntry> Entries { get; set; }
 
         public ICommand CreateCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
 
         public event EventHandler? GoodsReceiptCreated;
         public event EventHandler? GoodsReceiptDeleted;
-        public GoodsReceiptToCreateViewModel(IApiService apiService, string goodsReceiptId, string employeeId, string? supplier, List<GoodsReceiptLot> lots)
+        public GoodsReceiptToCreateViewModel(IApiService apiService, string finishedProductReceiptId, string employeeId, DateTime timestamp, List<FinishedProductReceiptEntry> entries)
         {
             _apiService = apiService;
-            GoodsReceiptId = goodsReceiptId;
+            FinishedProductReceiptId = finishedProductReceiptId;
             EmployeeId = employeeId;
-            Supplier = supplier;
-            Lots = lots;
+            Timestamp = timestamp;
+            Entries = entries;
 
             CreateCommand = new RelayCommand(ConfirmAsync);
             DeleteCommand = new RelayCommand(DeleteAsync);
@@ -43,24 +43,19 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
 
         private async void ConfirmAsync()
         {
-            var createDto = new CreateGoodsReceiptDto(
-                GoodsReceiptId,
-                DateTime.Now,
-                Supplier,
+            var createDto = new CreateFinishedProductReceiptDto(
+                FinishedProductReceiptId,
                 EmployeeId,
-                Lots.Select(x => new CreateGoodsReceiptLotDto(
-                    x.GoodsReceiptLotId,
-                    x.Quantity,
-                    x.Unit,
-                    sublotSize: null,
-                    "string",
-                    x.ItemId,
+                DateTime.Now,
+                Entries.Select(x => new CreateFinishedProductReceiptEntryDto(
                     x.PurchaseOrderNumber,
-                    "NV01",
-                    note: null)).ToList());
+                    x.ItemId,
+                    x.Unit,
+                    x.Quantity,
+                    x.Note)).ToList());
             try
             {
-                await _apiService.CreateGoodsReceiptsAsync(createDto);
+                await _apiService.CreateFinishedProductReceiptsAsync(createDto);
                 MessageBox.Show("Đã Lưu Đơn Mới", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 GoodsReceiptCreated?.Invoke(this, EventArgs.Empty);
             }

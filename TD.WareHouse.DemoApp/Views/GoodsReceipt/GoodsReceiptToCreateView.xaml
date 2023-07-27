@@ -42,21 +42,7 @@
                            Style="{StaticResource ComponentFieldText}"
                            Text="{Binding GoodsReceiptId}" />
                     </Grid>
-
-                    <!--<Grid Grid.Row="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Grid.Column="0" 
-                           Style="{StaticResource ComponentFieldLabel}"
-                           Text="Thời gian: " />
-                        <TextBlock Grid.Column="1"
-                           Style="{StaticResource ComponentFieldText}"
-                           Text="{Binding Timestamp}" />
-                    </Grid>-->
-
+                   
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
@@ -79,10 +65,10 @@
 
                         <TextBlock Grid.Column="0" 
                            Style="{StaticResource ComponentFieldLabel}"
-                           Text="NCC: " />
+                           Text="Thời gian: " />
                         <TextBlock Grid.Column="1"
                            Style="{StaticResource ComponentFieldText}"
-                           Text="{Binding Supplier}" />
+                           Text="{Binding Timestamp}" />
                     </Grid>
                 </Grid>
 

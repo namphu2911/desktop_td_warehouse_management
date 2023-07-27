@@ -14,15 +14,13 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Dtos.Inventory
         public double ChangedQuantity { get; set; }
         public DateTime Timestamp { get; set; }
         public ItemDto Item { get; set; }
-        public string Unit { get; set; }
-        public InventoryLogEntryDto(string itemLotId, double beforeQuantity, double changedQuantity, DateTime timestamp, ItemDto item, string unit)
+        public InventoryLogEntryDto(string itemLotId, double beforeQuantity, double changedQuantity, DateTime timestamp, ItemDto item)
         {
             ItemLotId = itemLotId;
             BeforeQuantity = beforeQuantity;
             ChangedQuantity = changedQuantity;
             Timestamp = timestamp;
             Item = item;
-            Unit = unit;
         }
     }
 }

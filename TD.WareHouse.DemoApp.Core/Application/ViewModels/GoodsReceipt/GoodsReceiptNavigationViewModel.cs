@@ -8,12 +8,14 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
 {
     public class GoodsReceiptNavigationViewModel
     {
-        public GoodsReceiptViewModel GoodsReceiptUncompleted { get; set; }
+        public GoodsReceiptMaterialsViewModel GoodsReceiptMaterials { get; set; }
         public GoodsReceiptCompletedViewModel GoodsReceiptCompleted { get; set; }
-        public GoodsReceiptNavigationViewModel(GoodsReceiptViewModel goodsReceiptUncompleted, GoodsReceiptCompletedViewModel goodsReceiptCompleted)
+        public CreateGoodsReceiptCompletedViewModel CreateGoodsReceiptCompleted { get; set; }
+        public GoodsReceiptNavigationViewModel(GoodsReceiptMaterialsViewModel goodsReceiptMaterials, GoodsReceiptCompletedViewModel goodsReceiptCompleted, CreateGoodsReceiptCompletedViewModel createGoodsReceiptCompleted)
         {
-            GoodsReceiptUncompleted = goodsReceiptUncompleted;
+            GoodsReceiptMaterials = goodsReceiptMaterials;
             GoodsReceiptCompleted = goodsReceiptCompleted;
+            CreateGoodsReceiptCompleted = createGoodsReceiptCompleted;
         }
     }
 }

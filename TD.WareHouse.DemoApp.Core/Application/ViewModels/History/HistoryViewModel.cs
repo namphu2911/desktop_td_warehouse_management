@@ -11,10 +11,14 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.History
     {
         public HistoryGoodsIssueViewModel HistoryGoodsIssue { get; set; }
         public HistoryGoodsReceiptViewModel HistoryGoodsReceipt { get; set; }   
-        public HistoryViewModel(HistoryGoodsIssueViewModel historyGoodsIssue, HistoryGoodsReceiptViewModel historyGoodsReceipt)
+        public HistoryFinishedProductReceiptViewModel HistoryFinishedProductReceipt { get; set; }
+        public HistoryFinishedProductIssueViewModel HistoryFinishedProductIssue { get; set; }
+        public HistoryViewModel(HistoryGoodsIssueViewModel historyGoodsIssue, HistoryGoodsReceiptViewModel historyGoodsReceipt, HistoryFinishedProductReceiptViewModel historyFinishedProductReceipt, HistoryFinishedProductIssueViewModel historyFinishedProductIssue)
         {
             HistoryGoodsIssue = historyGoodsIssue;
             HistoryGoodsReceipt = historyGoodsReceipt;
+            HistoryFinishedProductReceipt = historyFinishedProductReceipt;
+            HistoryFinishedProductIssue = historyFinishedProductIssue;
         }
     }
 }

@@ -12,25 +12,19 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Dtos.LotAdjustment
     {
         public string LotId { get; set; }
         public ItemDto Item { get; set; }
-        public string Unit { get; set; }
         public double BeforeQuantity { get; set; }
         public double AfterQuantity { get; set; }
-        public string NewPurchaseOrderNumber { get; set; }
-        public string OldPurchaseOrderNumber { get; set; }
         public EmployeeDto Employee { get; set; }
         public string Note { get; set; }
         public DateTime Timestamp { get; set; }
         public bool IsConfirmed { get; set; }
         
-        public LotAdjustmentDto(string lotId, ItemDto item, string unit, double beforeQuantity, double afterQuantity, string newPurchaseOrderNumber, string oldPurchaseOrderNumber, EmployeeDto employee, string note, DateTime timestamp, bool isConfirmed)
+        public LotAdjustmentDto(string lotId, ItemDto item, double beforeQuantity, double afterQuantity, EmployeeDto employee, string note, DateTime timestamp, bool isConfirmed)
         {
             LotId = lotId;
             Item = item;
-            Unit = unit;
             BeforeQuantity = beforeQuantity;
             AfterQuantity = afterQuantity;
-            NewPurchaseOrderNumber = newPurchaseOrderNumber;
-            OldPurchaseOrderNumber = oldPurchaseOrderNumber;
             Employee = employee;
             Note = note;
             Timestamp = timestamp;

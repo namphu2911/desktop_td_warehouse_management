@@ -11,16 +11,18 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Models.Items
         public string ItemId { get; set; }
         public string ItemName { get; set; }
         public string Unit { get; set; }
+        public string ItemClassId { get; set; }
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         private Item() { }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-        public Item(string itemid, string itemname, string unit)
+        public Item(string itemid, string itemname, string unit, string itemClassId)
         {
             ItemId = itemid;
             ItemName = itemname;
             Unit = unit;
+            ItemClassId = itemClassId;
         }
     }
 }

@@ -101,7 +101,6 @@ C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Release
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Release\net6.0-windows\Views\GoodsIssue\PendingGoodsIssueView.g.cs
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Release\net6.0-windows\Views\GoodsReceipt\GoodsReceiptCompletedView.g.cs
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Release\net6.0-windows\Views\GoodsReceipt\GoodsReceiptNavigationView.g.cs
-C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Release\net6.0-windows\Views\GoodsReceipt\GoodsReceiptView.g.cs
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Release\net6.0-windows\Views\GoodsReceipt\PendingGoodsReceiptView.g.cs
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Release\net6.0-windows\Views\History\HistoryGoodsIssueView.g.cs
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Release\net6.0-windows\Views\History\HistoryGoodsReceiptView.g.cs
@@ -137,7 +136,6 @@ C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Release
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Release\net6.0-windows\Views\GoodsIssue\PendingGoodsIssueView.baml
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Release\net6.0-windows\Views\GoodsReceipt\GoodsReceiptCompletedView.baml
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Release\net6.0-windows\Views\GoodsReceipt\GoodsReceiptNavigationView.baml
-C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Release\net6.0-windows\Views\GoodsReceipt\GoodsReceiptView.baml
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Release\net6.0-windows\Views\GoodsReceipt\PendingGoodsReceiptView.baml
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Release\net6.0-windows\Views\History\HistoryGoodsIssueView.baml
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Release\net6.0-windows\Views\History\HistoryGoodsReceiptView.baml
@@ -168,3 +166,6 @@ C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Release
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Release\net6.0-windows\ref\TD.WareHouse.DemoApp.dll
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Release\net6.0-windows\Views\GoodsReceipt\GoodsReceiptToCreateView.g.cs
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Release\net6.0-windows\Views\GoodsReceipt\GoodsReceiptToCreateView.baml
+C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Release\net6.0-windows\Resources\Styles\TabItems.baml
+C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Release\net6.0-windows\Views\GoodsReceipt\GoodsReceiptMaterialsView.g.cs
+C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Release\net6.0-windows\Views\GoodsReceipt\GoodsReceiptMaterialsView.baml
