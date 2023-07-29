@@ -5,11 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TD.WareHouse.DemoApp.Core.Application.Store;
+using TD.WareHouse.DemoApp.Core.Domain.Dtos.Employees;
 using TD.WareHouse.DemoApp.Core.Domain.Dtos.GoodsIssues;
 using TD.WareHouse.DemoApp.Core.Domain.Dtos.GoodsReceipts;
 using TD.WareHouse.DemoApp.Core.Domain.Dtos.Items;
 using TD.WareHouse.DemoApp.Core.Domain.Dtos.Location;
 using TD.WareHouse.DemoApp.Core.Domain.Dtos.Warehouse;
+using TD.WareHouse.DemoApp.Core.Domain.Models.Employees;
 using TD.WareHouse.DemoApp.Core.Domain.Models.GoodIssues;
 using TD.WareHouse.DemoApp.Core.Domain.Models.GoodsReceipts;
 using TD.WareHouse.DemoApp.Core.Domain.Models.Items;
@@ -30,12 +32,13 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
 
         private readonly IMapper _mapper;
         private readonly ItemStore _itemStore;
+        private readonly EmployeeStore _employeeStore;
         private readonly ItemLotStore _itemLotStore;
         private readonly WarehouseStore _warehouseStore;
         private readonly GoodsReceiptStore _goodsReceiptStore;
         private readonly GoodsIssueStore _goodsIssueStore;
         private readonly DepartmentStore _departmentStore;
-        public DatabaseSynchronizeService(IApiService apiService, IItemDatabaseService itemDatabaseService, IItemLotDatabaseService itemLotDatabaseService, IWarehouseDatabaseService warehouseDatabaseService, IGoodReceiptDatabaseService goodReceiptDatabaseService, IGoodIssueDatabaseService goodIssueDatabaseService, IMapper mapper, ItemStore itemStore, ItemLotStore itemLotStore, WarehouseStore warehouseStore, GoodsReceiptStore goodsReceiptStore, GoodsIssueStore goodsIssueStore, DepartmentStore departmentStore)
+        public DatabaseSynchronizeService(IApiService apiService, IItemDatabaseService itemDatabaseService, IItemLotDatabaseService itemLotDatabaseService, IWarehouseDatabaseService warehouseDatabaseService, IGoodReceiptDatabaseService goodReceiptDatabaseService, IGoodIssueDatabaseService goodIssueDatabaseService, IMapper mapper, ItemStore itemStore, EmployeeStore employeeStore, ItemLotStore itemLotStore, WarehouseStore warehouseStore, GoodsReceiptStore goodsReceiptStore, GoodsIssueStore goodsIssueStore, DepartmentStore departmentStore)
         {
             _apiService = apiService;
             _mapper = mapper;
@@ -48,6 +51,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
 
             _itemStore = itemStore;
             _itemLotStore = itemLotStore;
+            _employeeStore = employeeStore;
             _warehouseStore = warehouseStore;
             _goodsReceiptStore = goodsReceiptStore;
             _goodsIssueStore = goodsIssueStore;
@@ -78,6 +82,27 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
         {
             var items = await _itemDatabaseService.GetAllItems();
             _itemStore.SetItem(items);
+        }
+
+        public async Task SynchronizeEmployeesData()
+        {
+            try
+            {
+                await SynchronizeEmployeesFromServer();
+            }
+            catch
+            {
+                //await SynchronizeItemsFromLocal();
+            }
+        }
+
+        private async Task SynchronizeEmployeesFromServer()
+        {
+            var employeeDtos = await _apiService.GetAllEmployeesAsync();
+            var employees = _mapper.Map<IEnumerable<EmployeeDto>, IEnumerable<Employee>>(employeeDtos);
+
+            //await _itemDatabaseService.OverrideAllItems(items);
+            _employeeStore.SetEmployee(employees);
         }
 
         public async Task SynchronizeItemLotsData()

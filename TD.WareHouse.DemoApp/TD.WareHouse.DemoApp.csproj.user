@@ -102,7 +102,13 @@
     <Compile Update="Views\Isolation\IsolationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\MiscellaneousData\ManageEmployeeView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\MiscellaneousData\ManageItemView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\MiscellaneousData\ManageLocationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\MiscellaneousData\MiscellaneousDataView.xaml.cs">
@@ -242,7 +248,13 @@
     <Page Update="Views\Isolation\IsolationView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\MiscellaneousData\ManageEmployeeView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\MiscellaneousData\ManageItemView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\MiscellaneousData\ManageLocationView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\MiscellaneousData\MiscellaneousDataView.xaml">

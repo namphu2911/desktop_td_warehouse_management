@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TD.WareHouse.DemoApp.Core.Domain.Dtos;
+using TD.WareHouse.DemoApp.Core.Domain.Dtos.Employees;
 using TD.WareHouse.DemoApp.Core.Domain.Dtos.GoodsIssues;
 using TD.WareHouse.DemoApp.Core.Domain.Dtos.GoodsReceipts;
 using TD.WareHouse.DemoApp.Core.Domain.Dtos.Inventory;
@@ -18,10 +19,16 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Services
     {
         void SetToken(string token);
         Task<IEnumerable<ItemDto>> GetAllItemsAsync();
+        Task FixItemAsync(FixItemDto fixDto);
+        Task<IEnumerable<EmployeeDto>> GetAllEmployeesAsync();
+        Task CreateEmployee(CreateEmployeeDto employee);
         Task<IEnumerable<WarehouseDto>> GetAllWarehousesAsync();
+        Task CreateLocation(CreateLocationDto location);
         Task<IEnumerable<ItemLotDto>> GetAllItemLotsAsync();
         Task<IEnumerable<DepartmentDto>> GetAllDepartmentsAsync();
+        Task CreateDepartment(CreateDepartmentDto department);
         Task CreateItem(CreateItemDto item);
+        Task CreateItemFromExcel(CreateListItemDto item);
         Task<IEnumerable<GoodsReceiptDto>> GetAllGoodsReceiptsAsync();
         Task<IEnumerable<GoodsReceiptDto>> GetUncompletedGoodsReceiptsAsync();
         Task<IEnumerable<GoodsReceiptDto>> GetCompletedGoodsReceiptsAsync();

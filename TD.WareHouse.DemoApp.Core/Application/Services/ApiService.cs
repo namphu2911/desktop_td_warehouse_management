@@ -8,6 +8,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using TD.WareHouse.DemoApp.Core.Domain.Dtos;
+using TD.WareHouse.DemoApp.Core.Domain.Dtos.Employees;
 using TD.WareHouse.DemoApp.Core.Domain.Dtos.GoodsIssues;
 using TD.WareHouse.DemoApp.Core.Domain.Dtos.GoodsReceipts;
 using TD.WareHouse.DemoApp.Core.Domain.Dtos.Inventory;
@@ -51,6 +52,69 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
 
             return items;
         }
+
+        public async Task FixItemAsync(FixItemDto fixDto)
+        {
+            var json = JsonConvert.SerializeObject(fixDto);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await _httpClient.PatchAsync($"{serverUrl}/api/Items", content);
+            response.EnsureSuccessStatusCode();
+        }
+
+        public async Task<IEnumerable<EmployeeDto>> GetAllEmployeesAsync()
+        {
+            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/Employees");
+
+            response.EnsureSuccessStatusCode();
+            string responseBody = await response.Content.ReadAsStringAsync();
+
+            var items = JsonConvert.DeserializeObject<IEnumerable<EmployeeDto>>(responseBody);
+            if (items is null)
+            {
+                return new List<EmployeeDto>();
+            }
+
+            return items;
+        }
+
+        public async Task CreateEmployee(CreateEmployeeDto employee)
+        {
+            var json = JsonConvert.SerializeObject(employee);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await _httpClient.PostAsync($"{serverUrl}/api/Employees", content);
+
+            try
+            {
+                response.EnsureSuccessStatusCode();
+            }
+            catch (HttpRequestException ex)
+            {
+                if (response.StatusCode == HttpStatusCode.BadRequest)
+                {
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    var error = JsonConvert.DeserializeObject<ServerSideError>(responseBody);
+                    if (error is not null)
+                    {
+                        switch (error.ErrorCode)
+                        {
+                            case "Domain.EntityDuplication":
+                                throw new DuplicateEntityException();
+                        }
+                    }
+                    else
+                    {
+                        throw ex;
+                    }
+                }
+                else
+                {
+                    throw ex;
+                }
+            }
+        }
+
         public async Task<IEnumerable<WarehouseDto>> GetAllWarehousesAsync()
         {
             HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/Warehouses");
@@ -66,6 +130,44 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
 
             return items;
         }
+
+        public async Task CreateLocation(CreateLocationDto location)
+        {
+            var json = JsonConvert.SerializeObject(location);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await _httpClient.PostAsync($"{serverUrl}/api/Warehouses", content);
+
+            try
+            {
+                response.EnsureSuccessStatusCode();
+            }
+            catch (HttpRequestException ex)
+            {
+                if (response.StatusCode == HttpStatusCode.BadRequest)
+                {
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    var error = JsonConvert.DeserializeObject<ServerSideError>(responseBody);
+                    if (error is not null)
+                    {
+                        switch (error.ErrorCode)
+                        {
+                            case "Domain.EntityDuplication":
+                                throw new DuplicateEntityException();
+                        }
+                    }
+                    else
+                    {
+                        throw ex;
+                    }
+                }
+                else
+                {
+                    throw ex;
+                }
+            }
+        }
+
         public async Task<IEnumerable<ItemLotDto>> GetAllItemLotsAsync()
         {
             HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/ItemLots");
@@ -96,6 +198,43 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
             }
 
             return items;
+        }
+
+        public async Task CreateDepartment(CreateDepartmentDto department)
+        {
+            var json = JsonConvert.SerializeObject(department);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await _httpClient.PostAsync($"{serverUrl}/api/Departments", content);
+
+            try
+            {
+                response.EnsureSuccessStatusCode();
+            }
+            catch (HttpRequestException ex)
+            {
+                if (response.StatusCode == HttpStatusCode.BadRequest)
+                {
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    var error = JsonConvert.DeserializeObject<ServerSideError>(responseBody);
+                    if (error is not null)
+                    {
+                        switch (error.ErrorCode)
+                        {
+                            case "Domain.EntityDuplication":
+                                throw new DuplicateEntityException();
+                        }
+                    }
+                    else
+                    {
+                        throw ex;
+                    }
+                }
+                else
+                {
+                    throw ex;
+                }
+            }
         }
 
         public async Task CreateItem(CreateItemDto item)
@@ -134,6 +273,44 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
                 }
             }
         }
+
+        public async Task CreateItemFromExcel(CreateListItemDto item)
+        {
+            var json = JsonConvert.SerializeObject(item);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await _httpClient.PostAsync($"{serverUrl}/api/Items", content);
+
+            try
+            {
+                response.EnsureSuccessStatusCode();
+            }
+            catch (HttpRequestException ex)
+            {
+                if (response.StatusCode == HttpStatusCode.BadRequest)
+                {
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    var error = JsonConvert.DeserializeObject<ServerSideError>(responseBody);
+                    if (error is not null)
+                    {
+                        switch (error.ErrorCode)
+                        {
+                            case "Domain.EntityDuplication":
+                                throw new DuplicateEntityException();
+                        }
+                    }
+                    else
+                    {
+                        throw ex;
+                    }
+                }
+                else
+                {
+                    throw ex;
+                }
+            }
+        }
+
         public async Task<IEnumerable<GoodsReceiptDto>> GetAllGoodsReceiptsAsync()
         {
             HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/GoodsReceipts/goodsReceipts/false");

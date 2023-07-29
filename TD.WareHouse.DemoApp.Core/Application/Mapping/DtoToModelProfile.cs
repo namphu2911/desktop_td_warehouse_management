@@ -106,6 +106,16 @@ namespace TD.WareHouse.DemoApp.Core.Application.Mapping
                 .ForMember(i => i.Unit, o => o.MapFrom(dto => dto.Item.Unit))
                 .ForMember(i => i.ItemClassId, o => o.MapFrom(dto => dto.Item.ItemClassId));
 
+            CreateMap<ItemViewModel, FixItemDto>()
+                .ForMember(i => i.itemId, o => o.MapFrom(dto => dto.ItemId))
+                .ForMember(i => i.itemName, o => o.MapFrom(dto => dto.ItemName))
+                .ForMember(i => i.minimumStockLevel, o => o.MapFrom(dto => dto.MinimumStockLevel))
+                .ForMember(i => i.unit, o => o.MapFrom(dto => dto.Unit))
+                .ForMember(i => i.price, o => o.MapFrom(dto => dto.Price))
+                .ForMember(i => i.itemClassId, o => o.MapFrom(dto => dto.ItemClassId));
+
+            CreateMap<EmployeeDto, EmployeeViewModel>();
+            CreateMap<DepartmentDto, DepartmentViewModel>();
         }
     }
 }

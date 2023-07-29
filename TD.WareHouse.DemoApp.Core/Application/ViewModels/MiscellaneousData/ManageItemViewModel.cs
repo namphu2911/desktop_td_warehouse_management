@@ -3,16 +3,19 @@ using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using TD.WareHouse.DemoApp.Core.Application.Store;
 using TD.WareHouse.DemoApp.Core.Application.ViewModels.Seedwork;
 using TD.WareHouse.DemoApp.Core.Domain.Dtos.Items;
 using TD.WareHouse.DemoApp.Core.Domain.Exceptions;
 using TD.WareHouse.DemoApp.Core.Domain.Services;
+using MessageBox = System.Windows.MessageBox;
 
 namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.MiscellaneousData
 {
@@ -20,9 +23,11 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.MiscellaneousData
     {
         private readonly IApiService _apiService;
         private readonly IMapper _mapper;
+        private readonly IExcelReader _excelReader;
         private readonly ItemStore _itemStore;
         private readonly WarehouseStore _warehouseStore;
-        public ObservableCollection<string> Units => _itemStore.Units;
+        public ObservableCollection<string> Units => _itemStore.AllUnits; 
+        public ObservableCollection<string> ItemIds => _itemStore.AllItemIds;
         public ObservableCollection<string> WarehouseIds => _warehouseStore.WarehouseIds;
         IDatabaseSynchronizationService _databaseSynchronizationService;
 
@@ -38,11 +43,15 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.MiscellaneousData
         public ICommand LoadAllItemsCommand { get; set; }
         public ICommand FilterItemsCommand { get; set; }
         public ICommand CreateItemCommand { get; set; }
+        public ICommand ImportItemsCommand { get; set; }
         public ICommand LoadManageItemViewCommand { get; set; }
-        public ManageItemViewModel(IApiService apiService, IMapper mapper, ItemStore itemStore, WarehouseStore warehouseStore, IDatabaseSynchronizationService databaseSynchronizationService)
+        public DateTime Date { get; set; } = DateTime.Now;
+        public string FilePath { get; set; } = "";
+        public ManageItemViewModel(IApiService apiService, IMapper mapper, IExcelReader excelReader, ItemStore itemStore, WarehouseStore warehouseStore, IDatabaseSynchronizationService databaseSynchronizationService)
         {
             _apiService = apiService;
             _mapper = mapper;
+            _excelReader = excelReader;
             _itemStore = itemStore;
             _warehouseStore = warehouseStore;
             _databaseSynchronizationService = databaseSynchronizationService;
@@ -51,6 +60,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.MiscellaneousData
             FilterItemsCommand = new RelayCommand(FilterItem);
             CreateItemCommand = new RelayCommand(CreateItemAsync);
             LoadManageItemViewCommand = new RelayCommand(LoadManageItemView);
+            ImportItemsCommand = new RelayCommand(ImportItems);
         }
 
         private async void LoadAllItemsAsync()
@@ -60,6 +70,12 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.MiscellaneousData
             var filteredItems = _mapper.Map<IEnumerable<ItemDto>, IEnumerable<ItemViewModel>>(filteredItemDtos);
 
             Items = new ObservableCollection<ItemViewModel>(filteredItems);
+            foreach (var item in Items)
+            {
+                item.SetApiService(_apiService);
+                item.SetMapper(_mapper);
+                item.Updated += LoadAllItemsAsync;
+            }
         }
 
         private void FilterItem()
@@ -68,13 +84,21 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.MiscellaneousData
             var filteredItems = _mapper.Map<IEnumerable<ItemDto>, IEnumerable<ItemViewModel>>(filteredItemDtos);
 
             Items = new ObservableCollection<ItemViewModel>(filteredItems);
+            foreach (var item in Items)
+            {
+                item.SetApiService(_apiService);
+                item.SetMapper(_mapper);
+                item.Updated += LoadAllItemsAsync;
+            }
         }
         private void LoadManageItemView()
         {
             _databaseSynchronizationService.SynchronizeItemsData();
+            LoadAllItemsAsync();
+            OnPropertyChanged(nameof(ItemIds));
             OnPropertyChanged(nameof(WarehouseIds));
             OnPropertyChanged(nameof(Units));
-            LoadAllItemsAsync();
+            OnPropertyChanged(nameof(Items));
         }
 
         private async void CreateItemAsync()
@@ -89,6 +113,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.MiscellaneousData
             try
             {
                 await _apiService.CreateItem(createItemDto);
+                LoadManageItemView();
             }
             catch (HttpRequestException)
             {
@@ -102,7 +127,43 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.MiscellaneousData
             {
                 ShowErrorMessage("Đã có lỗi xảy ra: Không thể tạo vật tư mới.");
             }
+            MessageBox.Show("Đã Cập Nhật", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+            ItemClassId = "";
+            ItemId = "";
+            ItemName = "";
+            Unit = "";
+            MinimumStockLevel = 0;
+            Price  = 0;
             LoadManageItemView();
+        }
+
+        private async void ImportItems()
+        {
+            try
+            {
+                var request = _excelReader.ReadItemExportRequests(FilePath, "Data", Date);
+                await _apiService.CreateItemFromExcel(request);
+                LoadManageItemView();
+            }
+            catch (IOException)
+            {
+                ShowErrorMessage($"Vui lòng tắt file trước khi nhập vào phần mềm.");
+            }
+            catch (HttpRequestException)
+            {
+                ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+            }
+            catch (DuplicateEntityException)
+            {
+                ShowErrorMessage("Đã có lỗi xảy ra: Mã vật tư đã tồn tại.");
+            }
+            catch (Exception)
+            {
+                ShowErrorMessage("Đã có lỗi xảy ra: Không thể tạo vật tư mới.");
+            }
+            MessageBox.Show("Đã Cập Nhật", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+            LoadManageItemView();
+
         }
     }
 }

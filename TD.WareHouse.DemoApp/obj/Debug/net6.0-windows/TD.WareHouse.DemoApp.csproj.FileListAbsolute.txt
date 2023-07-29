@@ -188,3 +188,7 @@ C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\n
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Views\History\HistoryFinishedProductReceiptView.baml
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Views\StockCard\FinishedProductStockCardExtendedView.g.cs
 C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Views\StockCard\FinishedProductStockCardExtendedView.baml
+C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Views\MiscellaneousData\ManageEmployeeView.g.cs
+C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Views\MiscellaneousData\ManageEmployeeView.baml
+C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Views\MiscellaneousData\ManageLocationView.g.cs
+C:\Users\DELL\source\repos\TD.WareHouse.DemoApp\TD.WareHouse.DemoApp\obj\Debug\net6.0-windows\Views\MiscellaneousData\ManageLocationView.baml

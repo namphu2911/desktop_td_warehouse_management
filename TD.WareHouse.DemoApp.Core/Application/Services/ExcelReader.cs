@@ -1,5 +1,6 @@
 ﻿using ExcelDataReader;
 using System.IO;
+using TD.WareHouse.DemoApp.Core.Domain.Dtos.Items;
 using TD.WareHouse.DemoApp.Core.Domain.Models.GoodIssues;
 using TD.WareHouse.DemoApp.Core.Domain.Models.GoodsReceipts;
 using TD.WareHouse.DemoApp.Core.Domain.Services;
@@ -94,6 +95,33 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
                     var purchaseOrderNumber = reader.GetString(19);
                     var note = reader.GetString(23);
                     request.Entries.Add(new FinishedProductReceiptEntry(purchaseOrderNumber, itemId, itemName, unit, quantity, note));
+                }
+            }
+            return request;
+
+        }
+
+        public CreateListItemDto ReadItemExportRequests(string filePath, string sheetName, DateTime date)
+        {
+            using var stream = File.Open(filePath, FileMode.Open, FileAccess.Read);
+            using var reader = ExcelReaderFactory.CreateReader(stream);
+            JumpToSheet(sheetName, reader);
+            reader.Read();
+            List<CreateItemDto> dtos = new List<CreateItemDto>();
+            CreateListItemDto request = new(dtos);
+
+            while (reader.Read())
+            {
+                var value = reader.GetValue(0);
+                if (value is not null)
+                {   
+                    var itemClassId = reader.GetString(0);
+                    var itemId = Convert.ToString(reader.GetValue(1));
+                    var itemName = reader.GetString(2);
+                    var unit = reader.GetString(3);
+                    var price = Convert.ToDouble(reader.GetValue(4));
+                    var minimumStockLevel = Convert.ToDecimal(reader.GetValue(5));
+                    request.items.Add(new CreateItemDto(itemId, itemName, price, minimumStockLevel, itemClassId, unit));
                 }
             }
             return request;

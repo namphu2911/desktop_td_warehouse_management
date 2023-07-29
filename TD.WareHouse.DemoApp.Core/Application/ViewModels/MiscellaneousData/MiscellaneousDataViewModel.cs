@@ -9,9 +9,13 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.MiscellaneousData
     public class MiscellaneousDataViewModel
     {
         public ManageItemViewModel ManageItem { get; set; }
-        public MiscellaneousDataViewModel(ManageItemViewModel manageItem)
+        public ManageEmployeeViewModel ManageEmployee { get; set; }
+        public ManageLocationViewModel ManageLocation { get; set; }
+        public MiscellaneousDataViewModel(ManageItemViewModel manageItem, ManageEmployeeViewModel manageEmployee, ManageLocationViewModel manageLocation)
         {
             ManageItem = manageItem;
+            ManageEmployee = manageEmployee;
+            ManageLocation = manageLocation;
         }
     }
 }

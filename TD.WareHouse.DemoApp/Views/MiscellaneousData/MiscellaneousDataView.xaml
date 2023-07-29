@@ -24,21 +24,14 @@
                 <TabItem.Header >
                     <TextBlock Style="{StaticResource HeaderText}" Text="NHÂN VIÊN"/>
                 </TabItem.Header>
-                <!--<view:GoodsIssueExternalView DataContext="{Binding GoodsIssueExternal}" Foreground="Black"/>-->
-            </TabItem>
-
-            <TabItem Height="55" MaxWidth="800" Margin="0" Style="{StaticResource TabItem2layerRowStyle}">
-                <TabItem.Header >
-                    <TextBlock Style="{StaticResource HeaderText}" Text="BỘ PHẬN"/>
-                </TabItem.Header>
-                <!--<view:GoodsIssueExternalView DataContext="{Binding GoodsIssueExternal}" Foreground="Black"/>-->
+                <local:ManageEmployeeView DataContext="{Binding ManageEmployee}" Foreground="Black"/>
             </TabItem>
 
             <TabItem Height="55" MaxWidth="800" Margin="0" Style="{StaticResource TabItem2layerRowStyle}">
                 <TabItem.Header >
                     <TextBlock Style="{StaticResource HeaderText}" Text="VỊ TRÍ"/>
                 </TabItem.Header>
-                <!--<view:GoodsIssueExternalView DataContext="{Binding GoodsIssueExternal}" Foreground="Black"/>-->
+                <local:ManageLocationView DataContext="{Binding ManageLocation}" Foreground="Black"/>
             </TabItem>
         </TabControl>
 

@@ -66,7 +66,9 @@ namespace TD.WareHouse.DemoApp.HostBuiders
                 //MiscellaneousData
                 services.AddTransient<MiscellaneousDataViewModel>();
                 services.AddTransient<ManageItemViewModel>();
-
+                services.AddTransient<ManageEmployeeViewModel>();
+                services.AddTransient<ManageLocationViewModel>();
+                
 
 
                 services.AddTransient<MainViewModel>();
