@@ -30,11 +30,6 @@ namespace TD.WareHouse.DemoApp.Core.Application.Store
 
             FinishedProductReceiptIds = new ObservableCollection<string>();
         }
-        //public void SetGoodsReceipts(IEnumerable<GoodsReceipt> goodsReceipts)
-        //{
-        //    GoodsReceiptsAll = goodsReceipts.ToList();
-        //    GoodsReceiptIds = new ObservableCollection<string>(GoodsReceiptsAll.Select(i => i.GoodsReceiptId).OrderBy(s => s));
-        //}
         public void SetGoodsIssueSuppliers(List<string> suppliersDtos)
         {
             Suppliers = new ObservableCollection<string>(suppliersDtos.OrderBy(s => s));

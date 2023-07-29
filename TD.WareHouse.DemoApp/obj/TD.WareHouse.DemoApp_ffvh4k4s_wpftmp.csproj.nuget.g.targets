@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
-<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <Import Project="$(NuGetPackageRoot)fody\6.6.4\build\Fody.targets" Condition="Exists('$(NuGetPackageRoot)fody\6.6.4\build\Fody.targets')" />
-    <Import Project="$(NuGetPackageRoot)communitytoolkit.mvvm\8.1.0\buildTransitive\netstandard2.1\CommunityToolkit.Mvvm.targets" Condition="Exists('$(NuGetPackageRoot)communitytoolkit.mvvm\8.1.0\buildTransitive\netstandard2.1\CommunityToolkit.Mvvm.targets')" />
-    <Import Project="$(NuGetPackageRoot)microsoft.web.webview2\1.0.1661.34\build\Microsoft.Web.WebView2.targets" Condition="Exists('$(NuGetPackageRoot)microsoft.web.webview2\1.0.1661.34\build\Microsoft.Web.WebView2.targets')" />
-    <Import Project="$(NuGetPackageRoot)materialdesignthemes\4.7.1\build\MaterialDesignThemes.targets" Condition="Exists('$(NuGetPackageRoot)materialdesignthemes\4.7.1\build\MaterialDesignThemes.targets')" />
-  </ImportGroup>
-</Project>

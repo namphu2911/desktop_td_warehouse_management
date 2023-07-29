@@ -68,8 +68,6 @@ namespace TD.WareHouse.DemoApp.HostBuiders
                 services.AddTransient<ManageItemViewModel>();
                 services.AddTransient<ManageEmployeeViewModel>();
                 services.AddTransient<ManageLocationViewModel>();
-                
-
 
                 services.AddTransient<MainViewModel>();
 
