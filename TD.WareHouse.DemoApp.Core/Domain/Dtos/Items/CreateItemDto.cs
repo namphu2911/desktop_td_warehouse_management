@@ -14,7 +14,9 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Dtos.Items
         public decimal price { get; set; }
         public string itemClassId { get; set; }
         public string unit { get; set; }
-        public CreateItemDto(string itemId, string itemName, double minimumStockLevel, decimal price, string itemClassId, string unit)
+        public double? packetSize { get; set; }
+        public string? packetUnit { get; set; }
+        public CreateItemDto(string itemId, string itemName, double minimumStockLevel, decimal price, string itemClassId, string unit, double? packetSize, string? packetUnit)
         {
             this.itemId = itemId;
             this.itemName = itemName;
@@ -22,6 +24,8 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Dtos.Items
             this.price = price;
             this.itemClassId = itemClassId;
             this.unit = unit;
+            this.packetSize = packetSize;
+            this.packetUnit = packetUnit;
         }
     }
 }

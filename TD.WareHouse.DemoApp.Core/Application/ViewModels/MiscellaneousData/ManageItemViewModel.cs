@@ -37,6 +37,8 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.MiscellaneousData
         public string Unit { get; set; } = "";
         public double MinimumStockLevel { get; set; } = 0;
         public decimal Price { get; set; } = 0;
+        public double? PacketSize { get; set; }
+        public string? PacketUnit { get; set; }
         public string ItemIdFilter { get; set; } = "";
         private List<ItemDto> items = new();
         public ObservableCollection<ItemViewModel> Items { get; set; } = new();
@@ -109,7 +111,9 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.MiscellaneousData
                 MinimumStockLevel,
                 Price,
                 ItemClassId,
-                Unit);
+                Unit,
+                PacketSize,
+                PacketUnit);
             try
             {
                 await _apiService.CreateItem(createItemDto);
@@ -134,6 +138,8 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.MiscellaneousData
             Unit = "";
             MinimumStockLevel = 0;
             Price  = 0;
+            PacketSize = null;
+            PacketUnit = null;
             LoadManageItemView();
         }
 

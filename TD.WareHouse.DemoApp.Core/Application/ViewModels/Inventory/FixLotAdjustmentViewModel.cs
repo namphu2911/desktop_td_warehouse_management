@@ -28,6 +28,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.Inventory
         public ICommand FixCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
         public event Action? OnRemoved;
+        public event Action? OnException;
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public FixLotAdjustmentViewModel()
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
@@ -62,20 +63,38 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.Inventory
             }
             catch (HttpRequestException)
             {
+                OnException?.Invoke();
                 ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
             }
         }
 
         private async void FixAsync()
         {
-            await _apiService.FixLotAdjustmentAsync(LotId);
-            OnRemoved?.Invoke();
+            try
+            {
+                await _apiService.FixLotAdjustmentAsync(LotId);
+                OnRemoved?.Invoke();
+            }
+            catch (HttpRequestException)
+            {
+                OnException?.Invoke();
+                ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+            }
+
         }
 
         private async void DeleteAsync()
         {
-            await _apiService.DeleteLotAdjustmentAsync(LotId);
-            OnRemoved?.Invoke();
+            try
+            {
+                await _apiService.DeleteLotAdjustmentAsync(LotId);
+                OnRemoved?.Invoke();
+            }
+            catch (HttpRequestException)
+            {
+                OnException?.Invoke();
+                ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+            }
         }
     }
 }

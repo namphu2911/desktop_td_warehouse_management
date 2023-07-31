@@ -121,7 +121,9 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
                     var unit = reader.GetString(3);
                     var price = Convert.ToDouble(reader.GetValue(4));
                     var minimumStockLevel = Convert.ToDecimal(reader.GetValue(5));
-                    request.items.Add(new CreateItemDto(itemId, itemName, price, minimumStockLevel, itemClassId, unit));
+                    var packetSize = Convert.ToDouble(reader.GetValue(6));
+                    var packetUnit = Convert.ToString(reader.GetValue(7));
+                    request.items.Add(new CreateItemDto(itemId, itemName, price, minimumStockLevel, itemClassId, unit, packetSize, packetUnit));
                 }
             }
             return request;

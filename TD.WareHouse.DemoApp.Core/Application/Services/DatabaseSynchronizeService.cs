@@ -169,11 +169,11 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
             var goodsReceiptSupplier = await _apiService.GetAllGoodsReceiptsSupplierAsync();
             _goodsReceiptStore.SetGoodsIssueSuppliers(goodsReceiptSupplier);
 
-            var uncompletedGoodsReceiptDto = await _apiService.GetUncompletedGoodsReceiptsAsync();
+            var uncompletedGoodsReceiptDto = await _apiService.GetUncompletedGoodsReceiptMaterialsAsync();
             var uncompletedGoodsReceipts = _mapper.Map<IEnumerable<GoodsReceiptDto>, IEnumerable<GoodsReceipt>>(uncompletedGoodsReceiptDto);
             _goodsReceiptStore.SetUncompletedGoodsReceipts(uncompletedGoodsReceipts);
 
-            var completedGoodsReceiptDto = await _apiService.GetCompletedGoodsReceiptsAsync();
+            var completedGoodsReceiptDto = await _apiService.GetCompletedGoodsReceiptMaterialsAsync();
             var completedGoodsReceipts = _mapper.Map<IEnumerable<GoodsReceiptDto>, IEnumerable<GoodsReceipt>>(completedGoodsReceiptDto);
             _goodsReceiptStore.SetCompletedGoodsReceipts(completedGoodsReceipts);
 
@@ -208,7 +208,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
             var finishedProductIssueId = await _apiService.GetFinishedGoodsIssuesIdAsync();
             _goodsIssueStore.SetFinishedProductIssueIds(finishedProductIssueId);
 
-            var finishedProductIssueReceiver = await _apiService.GetFinishedGoodsIssuesIdAsync();
+            var finishedProductIssueReceiver = await _apiService.GetFinishedGoodsIssuesReceiverAsync();
             _goodsIssueStore.SetFinishedProductIssueReceivers(finishedProductIssueReceiver);
         }
         public async Task SynchronizeDepartmentsData()

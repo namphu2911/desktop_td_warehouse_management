@@ -24,6 +24,7 @@ namespace TD.WareHouse.DemoApp.HostBuiders
                 services.AddSingleton<DepartmentStore>();
 
                 services.AddSingleton<IApiService, ApiService>();
+                services.AddSingleton<IExcelExporter, ExcelExporter>();
                 services.AddSingleton<IDatabaseSynchronizationService, DatabaseSynchronizeService>();
                 services.AddSingleton<IExcelReader, ExcelReader>();
 

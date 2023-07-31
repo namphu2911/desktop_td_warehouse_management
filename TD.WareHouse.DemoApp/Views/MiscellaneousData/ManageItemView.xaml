@@ -190,8 +190,7 @@
                                Style="{StaticResource TextBox}"
                                Margin="10"
                                VerticalAlignment="Center"
-                               Text=""
-                               IsEnabled="False"/>
+                               Text="{Binding PacketSize}"/>
 
                             <TextBlock Grid.Column="4"
                                Text="Đơn vị phụ:"
@@ -204,8 +203,7 @@
                                Style="{StaticResource TextBox}"
                                Margin="10"
                                VerticalAlignment="Center"
-                               Text=""
-                               IsEnabled="False"/>
+                               Text="{Binding PacketUnit}"/>
                         </Grid>
 
                         <Button Grid.Row="3"
@@ -353,6 +351,8 @@
                             <DataGridTextColumn Header="Đơn vị" Binding="{Binding Unit}" Width="auto"/>
                             <DataGridTextColumn Header="Đơn giá" Binding="{Binding Price}" Width="auto"/>
                             <DataGridTextColumn Header="Stockmin" Binding="{Binding MinimumStockLevel}" Width="auto"/>
+                            <DataGridTextColumn Header="Định mức" Binding="{Binding PacketSize}" Width="auto"/>
+                            <DataGridTextColumn Header="ĐVĐM" Binding="{Binding PacketUnit}" Width="auto"/>
                             <DataGridTemplateColumn Width="auto">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
@@ -382,13 +382,17 @@
                                         <Grid Grid.Row="0">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="auto"/>
-                                                <ColumnDefinition Width="0.5*"/>
+                                                <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="auto"/>
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="auto"/>
-                                                <ColumnDefinition Width="2*"/>
+                                                <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="auto"/>
-                                                <ColumnDefinition Width="0.5*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
 
                                             <TextBlock Grid.Column="0"
@@ -429,6 +433,26 @@
                                                            Text="{Binding MinimumStockLevel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                            Margin="10"
                                                            VerticalAlignment="Center"/>
+
+                                            <TextBlock Grid.Column="8"
+                                                           Text="Định mức:"
+                                                           Margin="10"
+                                                           VerticalAlignment="Center"/>
+                                            <TextBox Grid.Column="9"
+                                                           materialDesign:HintAssist.Hint="Định mức"
+                                                           Text="{Binding PacketSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                           Margin="10"
+                                                           VerticalAlignment="Center"/>
+
+                                            <TextBlock Grid.Column="10"
+                                                           Text="ĐVĐM"
+                                                           Margin="10"
+                                                           VerticalAlignment="Center"/>
+                                            <TextBox Grid.Column="11"
+                                                           materialDesign:HintAssist.Hint="ĐVĐM"
+                                                           Text="{Binding PacketUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                           Margin="10"
+                                                           VerticalAlignment="Center"/>
                                         </Grid>
 
                                         <Grid Grid.Row="1">
@@ -450,7 +474,7 @@
                                                            VerticalAlignment="Center"/>
 
                                             <TextBlock Grid.Column="2"
-                                                           Text="Đơn giá:"
+                                                           Text="Đơn vị:"
                                                            Margin="10"
                                                            VerticalAlignment="Center"/>
                                             <TextBlock Grid.Column="3"

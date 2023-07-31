@@ -11,14 +11,14 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Dtos.Inventory
     {
         public string PurchaseOrderNumber { get; set; }
         public double Quantity { get; set; }
-        public DateTime Timestamp { get; set; }
         public ItemDto Item { get; set; }
-        public FinishedProductInventoryDto(string purchaseOrderNumber, double quantity, DateTime timestamp, ItemDto item)
+        public double? NumOfPackets { get; set; }
+        public FinishedProductInventoryDto(string purchaseOrderNumber, double quantity, ItemDto item, double? numOfPackets)
         {
             PurchaseOrderNumber = purchaseOrderNumber;
             Quantity = quantity;
-            Timestamp = timestamp;
             Item = item;
+            NumOfPackets = numOfPackets;
         }
     }
 }

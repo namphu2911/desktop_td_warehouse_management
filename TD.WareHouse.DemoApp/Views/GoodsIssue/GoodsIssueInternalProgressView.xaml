@@ -233,6 +233,7 @@
                             <DataGridTextColumn Header="Đơn vị" Binding="{Binding Unit}" Width="*" IsReadOnly="True"/>
                             <DataGridTextColumn Header="Số lượng yêu cầu" Binding="{Binding RequestedQuantity}" Width="*" IsReadOnly="False"/>
                             <DataGridTextColumn Header="Trạng thái" Binding="{Binding State}" Width="*" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Thông tin lô ↓" Width="*" IsReadOnly="True"/>
                         </DataGrid.Columns>
                         <DataGrid.RowDetailsTemplate>
                             <DataTemplate>

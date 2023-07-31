@@ -25,6 +25,8 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.MiscellaneousData
         public double MinimumStockLevel { get; set; }
         public decimal Price { get; set; }
         public string ItemClassId { get; set; }
+        public double? PacketSize { get; set; }
+        public string? PacketUnit { get; set; }
 
         public event Action? Updated;
         public ICommand SaveCommand { get; set; }
@@ -34,7 +36,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.MiscellaneousData
         {
             SaveCommand = new RelayCommand(SaveAsync);
         }
-        public ItemViewModel(string itemId, string itemName, string unit, double minimumStockLevel, decimal price, string itemClassId) : this()
+        public ItemViewModel(string itemId, string itemName, string unit, double minimumStockLevel, decimal price, string itemClassId, double? packetSize, string? packetUnit) : this()
         {
             ItemId = itemId;
             ItemName = itemName;
@@ -42,6 +44,8 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.MiscellaneousData
             MinimumStockLevel = minimumStockLevel;
             Price = price;
             ItemClassId = itemClassId;
+            PacketSize = packetSize;
+            PacketUnit = packetUnit;
         }
 
         public void SetApiService(IApiService apiService)
@@ -57,7 +61,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.MiscellaneousData
         private async void SaveAsync()
         {
 
-            FixItemDto fixDto = new FixItemDto(ItemId, ItemName, MinimumStockLevel, Price, Unit, ItemClassId);
+            FixItemDto fixDto = new FixItemDto(ItemId, ItemName, MinimumStockLevel, Price, Unit, ItemClassId, PacketSize, PacketUnit);
             if (_mapper is not null && _apiService is not null)
             {
                 try

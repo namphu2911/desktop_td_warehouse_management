@@ -297,7 +297,7 @@
                             </DataGridTemplateColumn>
                             
                             <DataGridTextColumn Header="Trạng thái" Binding="{Binding State}" Width="auto" IsReadOnly="True"/>
-                            
+                            <DataGridTextColumn Header="Vị trí ↓" Width="auto" IsReadOnly="True"/>
                             <DataGridTemplateColumn Width="auto">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>

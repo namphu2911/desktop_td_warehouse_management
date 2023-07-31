@@ -13,6 +13,8 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.StockCard
         public string ItemId { get; set; }
         public string ItemName { get; set; }
         public string Unit { get; set; }
+        public double? PacketSize { get; set; }
+        public string? PacketUnit { get; set; }
         public double TotalQuantity { get; set; }
         public List<StockCardLotViewModel> StockCardLots { get; set; }
         //public string PurchaseOrderNumber { get; set; }
@@ -22,13 +24,15 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.StockCard
         {
 
         }
-        public StockCardEntryViewModel(string itemClassId, string itemId, string itemName, string unit, double totalQuantity, List<StockCardLotViewModel> stockCardLots)
+        public StockCardEntryViewModel(string itemClassId, string itemId, string itemName, string unit, double? packetSize, string? packetUnit, double totalQuantity, List<StockCardLotViewModel> stockCardLots)
         {
             ItemClassId = itemClassId;
             ItemId = itemId;
             ItemName = itemName;
             Unit = unit;
             StockCardLots = stockCardLots;
+            PacketSize = packetSize;
+            PacketUnit = packetUnit;
             TotalQuantity = totalQuantity;
         }
     }

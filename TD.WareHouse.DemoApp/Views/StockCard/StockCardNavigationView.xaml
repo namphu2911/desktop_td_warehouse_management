@@ -54,7 +54,7 @@
                         <TabItem.Header >
                             <TextBlock Style="{StaticResource TabText}" Text="BÁO CÁO TỒN KHO"/>
                         </TabItem.Header>
-                        <local:StockCardView DataContext="{Binding StockCard}" Foreground="Black"/>
+                        <local:FinishedProductStockCardView DataContext="{Binding FinishedProductStockCard}" Foreground="Black"/>
                     </TabItem>
                 </TabControl>
             </TabItem>

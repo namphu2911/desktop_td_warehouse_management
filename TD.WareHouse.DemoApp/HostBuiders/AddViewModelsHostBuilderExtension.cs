@@ -62,6 +62,7 @@ namespace TD.WareHouse.DemoApp.HostBuiders
                 services.AddTransient<StockCardNavigationViewModel>();
                 services.AddTransient<StockCardViewModel>();
                 services.AddTransient<StockCardExtendedViewModel>();
+                services.AddTransient<FinishedProductStockCardViewModel>();
                 services.AddTransient<FinishedProductStockCardExtendedViewModel>();
                 //MiscellaneousData
                 services.AddTransient<MiscellaneousDataViewModel>();

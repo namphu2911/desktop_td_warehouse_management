@@ -9,12 +9,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="BBKK.xlsx" />
     <None Remove="Resources\Images\LogoTD.jpg" />
     <None Remove="Resources\Images\LogoTD_min.ico" />
     <None Remove="Resources\Images\LogoTD_min.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="BBKK.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\LogoTD_min.ico" />
   </ItemGroup>
 

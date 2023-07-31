@@ -35,6 +35,7 @@
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
 
                         <TextBlock Grid.Column="0" 
@@ -58,17 +59,24 @@
                          SelectedDate="{Binding EndDate}"/>
 
                     <Button Grid.Row="0" Grid.Column="4"
-                    Margin="10"
-                    Style="{StaticResource ButtonPrimary}" materialDesign:ButtonAssist.CornerRadius="10"
-                    Content="Truy xuất"
-                    HorizontalAlignment="Center"
-                    Width="115">
+                            Margin="10"
+                            Style="{StaticResource ButtonPrimary}" materialDesign:ButtonAssist.CornerRadius="10"
+                            Content="Truy xuất"
+                            HorizontalAlignment="Center">
                         <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
                                 <i:InvokeCommandAction Command="{Binding LoadLotAdjustmentsCommand}" />
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </Button>
+
+                    <Button Grid.Row="0" Grid.Column="5"
+                            Margin="10"
+                            Style="{StaticResource ButtonPrimary}" materialDesign:ButtonAssist.CornerRadius="10"
+                            Content="Xuất Excel"
+                            HorizontalAlignment="Center" 
+                            Click="SaveFileButtonClicked">
+                    </Button>
                 </Grid>
             </materialDesign:Card>
             

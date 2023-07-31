@@ -38,12 +38,17 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.Inventory
                 {
                     viewModel.OnRemoved += LoadLotAdjustmentsAsync;
                     viewModel.SetApiService(_apiService);
+                    viewModel.OnException += Error;
                 }
             }
             catch (HttpRequestException)
             {
                 ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
             }
+        }
+        private void Error()
+        {
+            ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
         }
     }
 }

@@ -11,11 +11,13 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.StockCard
     {
         public StockCardViewModel StockCard { get; set; }
         public StockCardExtendedViewModel StockCardExtended { get; set; }
+        public FinishedProductStockCardViewModel FinishedProductStockCard { get; set; }
         public FinishedProductStockCardExtendedViewModel FinishedProductStockCardExtended { get; set; }
-        public StockCardNavigationViewModel(StockCardViewModel stockCard, StockCardExtendedViewModel stockCardExtended, FinishedProductStockCardExtendedViewModel finishedProductStockCardExtended)
+        public StockCardNavigationViewModel(StockCardViewModel stockCard, StockCardExtendedViewModel stockCardExtended, FinishedProductStockCardViewModel finishedProductStockCard, FinishedProductStockCardExtendedViewModel finishedProductStockCardExtended)
         {
             StockCard = stockCard;
             StockCardExtended = stockCardExtended;
+            FinishedProductStockCard = finishedProductStockCard;
             FinishedProductStockCardExtended = finishedProductStockCardExtended;
         }
     }
