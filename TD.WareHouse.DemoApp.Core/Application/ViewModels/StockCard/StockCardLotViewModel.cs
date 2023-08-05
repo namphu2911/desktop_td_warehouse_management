@@ -13,15 +13,11 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.StockCard
         public string ItemLotId { get; set; }
         public double? Quantity { get; set; }
         public double? NumberOfPacket { get; set; }
-        public string? LocationId { get; set; }
-        public double? QuantityPerLocation { get; set; }
-        public StockCardLotViewModel(string itemLotId, double? quantity, double? numberOfPacket, string? locationId, double? quantityPerLocation)
+        public StockCardLotViewModel(string itemLotId, double? quantity, double? numberOfPacket)
         {
             ItemLotId = itemLotId;
             Quantity = quantity;
             NumberOfPacket = numberOfPacket;
-            LocationId = locationId;
-            QuantityPerLocation = quantityPerLocation;
         }
     }
 }

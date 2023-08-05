@@ -14,6 +14,9 @@
         <i:EventTrigger EventName="Loaded">
             <prism:InvokeCommandAction Command="{Binding LoadQuantityAlarmViewCommand}" />
         </i:EventTrigger>
+        <i:EventTrigger EventName="GotFocus">
+            <prism:InvokeCommandAction Command="{Binding LoadQuantityAlarmViewCommand}" />
+        </i:EventTrigger>
     </i:Interaction.Triggers>
     <materialDesign:DialogHost CloseOnClickAway="True" IsOpen="{Binding IsErrorMessageShowed}">
         <materialDesign:DialogHost.DialogContent>
@@ -45,7 +48,7 @@
                       Margin="10"
                       materialDesign:HintAssist.Hint="Kho hàng"
                       Style="{StaticResource ComboBox}"
-                      ItemsSource="{Binding WarehouseIds}"
+                      ItemsSource="{Binding WarehouseIds, UpdateSourceTrigger=PropertyChanged}"
                       Text="{Binding WarehouseId}">
                     <ComboBox.ItemsPanel>
                         <ItemsPanelTemplate>

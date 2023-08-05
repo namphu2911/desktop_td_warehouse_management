@@ -15,11 +15,11 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Dtos.Items
         public bool IsIsolatedd { get; set; }
         public double Quantity { get; set; }
         public LocationDto Location { get; set; }
-        public DateTime ProductionDate { get; set; }
-        public DateTime ExpirationDate { get; set; }
+        public DateTime? ProductionDate { get; set; }
+        public DateTime? ExpirationDate { get; set; }
         public List<ItemLotLocationDto> ItemLotLocations { get; set; }
         public double? NumOfPackets { get; set; }
-        public ItemLotDto(string lotId, ItemDto item, bool isIsolatedd, double quantity, LocationDto location, DateTime productionDate, DateTime expirationDate, List<ItemLotLocationDto> itemLotLocations, double? numOfPackets)
+        public ItemLotDto(string lotId, ItemDto item, bool isIsolatedd, double quantity, LocationDto location, DateTime? productionDate, DateTime? expirationDate, List<ItemLotLocationDto> itemLotLocations, double? numOfPackets)
         {
             LotId = lotId;
             Item = item;

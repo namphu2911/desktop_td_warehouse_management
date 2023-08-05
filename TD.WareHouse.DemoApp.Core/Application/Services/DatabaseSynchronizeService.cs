@@ -199,15 +199,15 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
         }
         private async Task SynchronizeGoodsIssuesFromServer()
         {
+            var finishedProductIssueId = await _apiService.GetFinishedGoodsIssuesIdAsync();
+            _goodsIssueStore.SetFinishedProductIssueIds(finishedProductIssueId);
+
             var goodsIssueId = await _apiService.GetUnfinishedGoodsIssuesIdAsync();
             _goodsIssueStore.SetGoodsIssueIds(goodsIssueId);
 
             var goodsIssueReceiver = await _apiService.GetAllGoodsIssuesReceiverAsync();
             _goodsIssueStore.SetGoodsIssueReceivers(goodsIssueReceiver);
-
-            var finishedProductIssueId = await _apiService.GetFinishedGoodsIssuesIdAsync();
-            _goodsIssueStore.SetFinishedProductIssueIds(finishedProductIssueId);
-
+            
             var finishedProductIssueReceiver = await _apiService.GetFinishedGoodsIssuesReceiverAsync();
             _goodsIssueStore.SetFinishedProductIssueReceivers(finishedProductIssueReceiver);
         }

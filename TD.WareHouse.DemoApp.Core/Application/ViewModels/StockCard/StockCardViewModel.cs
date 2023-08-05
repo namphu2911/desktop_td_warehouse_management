@@ -46,34 +46,51 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.StockCard
         {
             try
             {
-                var stockCardEntries = await _apiService.GetStockCardItemLotsAsync(EndDate, ItemId);
-                var viewModels = (stockCardEntries.Select(i => new StockCardEntryViewModel(
+                var stockCardEntry = await _apiService.GetStockCardItemLotsAsync(EndDate, ItemId);
+                List<InventoryLogEntryItemLotDto> stockCardEntries = new();
+                stockCardEntries.Add(stockCardEntry);
+                var viewModels = stockCardEntries.Select(i => new StockCardEntryViewModel(
                     i.Item.ItemClassId,
                     i.Item.ItemId,
                     i.Item.ItemName,
                     i.Item.Unit,
                     i.Item.PacketSize,
                     i.Item.PacketUnit,
-                    stockCardEntries.Sum(x => x.Quantity),
-                    stockCardEntries.SelectMany(i => i.ItemLotLocations.Select(x => new StockCardLotViewModel(
-                        i.LotId,
-                        i.Quantity,
-                        i.NumOfPackets,
-                        x.LocationId,
-                        x.QuantityPerLocation))).ToList()))).FirstOrDefault();
-                if (viewModels != null)
-                {
-                    for (int i = 0; i < viewModels.StockCardLots.Count - 1; i++)
-                    {
-                        if (viewModels.StockCardLots[i + 1].ItemLotId == viewModels.StockCardLots[i].ItemLotId)
-                        {
-                            viewModels.StockCardLots[i + 1].ItemLotId = "";
-                            viewModels.StockCardLots[i + 1].Quantity = null;
-                        }
-                    }
-                    StockCardEntries = new();
-                    StockCardEntries.Add(viewModels);
-                }
+                    i.TotalQuantity,
+                    i.Lots.Select(x => new StockCardLotViewModel(
+                        x.LotId,
+                        x.Quantity,
+                        x.NumOfPackets)).ToList()));
+                StockCardEntries = new(viewModels);
+
+                //var stockCardEntries = await _apiService.GetStockCardItemLotsAsync(EndDate, ItemId);
+                //var viewModels = (stockCardEntries.Select(i => new StockCardEntryViewModel(
+                //    i.Item.ItemClassId,
+                //    i.Item.ItemId,
+                //    i.Item.ItemName,
+                //    i.Item.Unit,
+                //    i.Item.PacketSize,
+                //    i.Item.PacketUnit,
+                //    stockCardEntries.Sum(x => x.Quantity),
+                //    stockCardEntries.SelectMany(i => i.ItemLotLocations.Select(x => new StockCardLotViewModel(
+                //        i.LotId,
+                //        i.Quantity,
+                //        i.NumOfPackets,
+                //        x.LocationId,
+                //        x.QuantityPerLocation))).ToList()))).FirstOrDefault();
+                //if (viewModels != null)
+                //{
+                //    for (int i = 0; i < viewModels.StockCardLots.Count - 1; i++)
+                //    {
+                //        if (viewModels.StockCardLots[i + 1].ItemLotId == viewModels.StockCardLots[i].ItemLotId)
+                //        {
+                //            viewModels.StockCardLots[i + 1].ItemLotId = "";
+                //            viewModels.StockCardLots[i + 1].Quantity = null;
+                //        }
+                //    }
+                //    StockCardEntries = new();
+                //    StockCardEntries.Add(viewModels);
+                //}
             }
             catch (HttpRequestException)
             {

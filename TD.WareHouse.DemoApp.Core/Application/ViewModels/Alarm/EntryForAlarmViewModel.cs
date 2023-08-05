@@ -16,10 +16,10 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.Alarm
         public double MinimumStockLevel { get; set; }
         public List<LocationsForAlarmViewModel> LocationsForAlarms { get; set; }
         public string ItemClassId { get; set; }
-        public DateTime ProductionDate { get; set; }
-        public DateTime ExpirationDate { get; set; }
-        public TimeSpan Difference => ExpirationDate - DateTime.Today;
-        public double TimeLeft => Difference.TotalDays / 30;
+        public DateTime? ProductionDate { get; set; }
+        public DateTime? ExpirationDate { get; set; }
+        public TimeSpan? Difference => ExpirationDate - DateTime.Today;
+        public double TimeLeft => Difference.Value.TotalDays / 30;
         public bool IsQuantityAlarmed => Quantity <= MinimumStockLevel;
         public bool IsExpirationDateAlarmed => TimeLeft <= 6;
 
@@ -27,7 +27,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.Alarm
         private EntryForAlarmViewModel() { }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-        public EntryForAlarmViewModel(string itemId, string itemName, string unit, string lotId, double quantity, double minimumStockLevel, List<LocationsForAlarmViewModel> locationsForAlarms, string itemClassId, DateTime productionDate, DateTime expirationDate)
+        public EntryForAlarmViewModel(string itemId, string itemName, string unit, string lotId, double quantity, double minimumStockLevel, List<LocationsForAlarmViewModel> locationsForAlarms, string itemClassId, DateTime? productionDate, DateTime? expirationDate)
         {
             ItemId = itemId;
             ItemName = itemName;

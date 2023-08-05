@@ -18,20 +18,24 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
         public DateTime Timestamp { get; set; }
         public string EmployeeId { get; set; }
         public string Receiver { get; set; }
+        public bool IsSaved { get; set; }
         public List<FinishedProductIssueEntry> Entries { get; set; }
+        public Visibility ButtonVisibility { get; set; } = Visibility.Visible;
+        public Visibility SavedVisibility { get; set; } = Visibility.Hidden;
 
         public ICommand CreateCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
 
         public event EventHandler? GoodsIssueCreated;
         public event EventHandler? GoodsIssueDeleted;
-        public GoodsIssueExternalToCreateViewModel(IApiService apiService, string goodsIssueId, DateTime timestamp, string employeeId, string receiver, List<FinishedProductIssueEntry> entries)
+        public GoodsIssueExternalToCreateViewModel(IApiService apiService, string goodsIssueId, DateTime timestamp, string employeeId, string receiver, bool isSaved, List<FinishedProductIssueEntry> entries)
         {
             _apiService = apiService;
             GoodsIssueId = goodsIssueId;
             Timestamp = timestamp;
             EmployeeId = employeeId;
             Receiver = receiver;
+            IsSaved = isSaved;
             Entries = entries;
 
             CreateCommand = new RelayCommand(ConfirmAsync);
@@ -54,8 +58,14 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
             try
             {
                 await _apiService.CreateExternalGoodsIssuesAsync(createDto);
-                GoodsIssueCreated?.Invoke(this, EventArgs.Empty);
                 MessageBox.Show("Đã Lưu Đơn Mới", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                IsSaved = true;
+                if (IsSaved)
+                {
+                    ButtonVisibility = Visibility.Hidden;
+                    SavedVisibility = Visibility.Visible;
+                }
+                GoodsIssueCreated?.Invoke(this, EventArgs.Empty);
             }
             catch (HttpRequestException)
             {

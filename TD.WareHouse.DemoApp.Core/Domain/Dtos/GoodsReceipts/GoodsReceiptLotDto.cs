@@ -11,7 +11,7 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Dtos.GoodsReceipts
     public class GoodsReceiptLotDto
     {
         public string GoodsReceiptLotId { get; set; }
-        public List<GoodsReceiptSublotDto> Sublots { get; set; }
+        public List<GoodsReceiptSublotDto> GoodsReceiptSublots { get; set; }
         public double Quantity { get; set; }
         public DateTime? ProductionDate { get; set; }
         public DateTime? ExpirationDate { get; set; }
@@ -22,7 +22,7 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Dtos.GoodsReceipts
         public GoodsReceiptLotDto(string goodsReceiptLotId, List<GoodsReceiptSublotDto> sublots, double quantity, DateTime? productionDate, DateTime? expirationDate, ItemDto item, EmployeeDto employee, string? note, bool isExported)
         {
             GoodsReceiptLotId = goodsReceiptLotId;
-            Sublots = sublots;
+            GoodsReceiptSublots = sublots;
             Quantity = quantity;
             ProductionDate = productionDate;
             ExpirationDate = expirationDate;

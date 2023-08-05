@@ -25,6 +25,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
     {
         private readonly HttpClient _httpClient;
 
+
         private const string serverUrl = "https://thaiduongwarehouse.azurewebsites.net/";
         private string? _token;
 
@@ -974,15 +975,15 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
 
         //Stockcard
         ///MaterialStockCard
-        public async Task<IEnumerable<ItemLotDto>> GetStockCardItemLotsAsync(DateTime endDate, string itemId)
+        public async Task<InventoryLogEntryItemLotDto> GetStockCardItemLotsAsync(DateTime endDate, string itemId)
         {
             string endDateString = endDate.ToString("yyyy-MM-dd");
-            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/ItemLots/{itemId}/TimeRange?timestamp={endDateString}"); 
+            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/InventoryLogEntries/itemLots?trackingTime={endDateString}&itemId={itemId}");
 
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
 
-            var result = JsonConvert.DeserializeObject<IEnumerable<ItemLotDto>>(responseBody);
+            var result = JsonConvert.DeserializeObject<InventoryLogEntryItemLotDto>(responseBody);
 
             if (result is null)
             {
@@ -991,6 +992,24 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
 
             return result;
         }
+
+        //public async Task<IEnumerable<ItemLotDto>> GetStockCardItemLotsAsync(DateTime endDate, string itemId)
+        //{
+        //    string endDateString = endDate.ToString("yyyy-MM-dd");
+        //    HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/ItemLots/{itemId}/TimeRange?timestamp={endDateString}"); 
+
+        //    response.EnsureSuccessStatusCode();
+        //    string responseBody = await response.Content.ReadAsStringAsync();
+
+        //    var result = JsonConvert.DeserializeObject<IEnumerable<ItemLotDto>>(responseBody);
+
+        //    if (result is null)
+        //    {
+        //        throw new Exception();
+        //    }
+
+        //    return result;
+        //}
 
         public async Task<IEnumerable<InventoryLogExtendedEntryDto>> GetExtendedStockCardEntriesAsync(string warehouseId, string itemId, DateTime startDate, DateTime endDate)
         {

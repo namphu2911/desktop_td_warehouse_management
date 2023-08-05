@@ -58,11 +58,15 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
                 }
                 else
                 {
-                    var item = _itemStore.FinishedItems.First(i => i.ItemId == itemId);
-                    itemName = item.ItemName;
-                    Unit = item.Unit;
-                    OnPropertyChanged(nameof(ItemName));
-                    OnPropertyChanged(nameof(Unit));
+                    if (ItemIds.Contains(itemId))
+                    {
+                        var item = _itemStore.FinishedItems.First(i => i.ItemId == itemId);
+                        itemName = item.ItemName;
+                        Unit = item.Unit;
+                        OnPropertyChanged(nameof(ItemName));
+                        OnPropertyChanged(nameof(Unit));
+                    }
+                    else { }
                 }
             }
 
@@ -85,11 +89,15 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
                 }
                 else
                 {
-                    var item = _itemStore.FinishedItems.First(i => i.ItemName == itemName);
-                    itemId = item.ItemId;
-                    Unit = item.Unit;
-                    OnPropertyChanged(nameof(ItemId));
-                    OnPropertyChanged(nameof(Unit));
+                    if (ItemIds.Contains(itemId))
+                    {
+                        var item = _itemStore.FinishedItems.First(i => i.ItemName == itemName);
+                        itemId = item.ItemId;
+                        Unit = item.Unit;
+                        OnPropertyChanged(nameof(ItemId));
+                        OnPropertyChanged(nameof(Unit));
+                    }
+                    else { }
                 }
             }
         }

@@ -71,7 +71,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
                     c.ProductionDate,
                     c.ExpirationDate,
                     c.IsExported,
-                    c.Sublots.Select(e => new GoodsReceiptSublotViewModel(
+                    c.GoodsReceiptSublots.Select(e => new GoodsReceiptSublotViewModel(
                             e.LocationId,
                             e.QuantityPerLocation))
                                 .ToList()));
@@ -114,10 +114,11 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
 
         public async void LoadUncompletedGoodsReceiptsAsync()
         {
-            try
+            if (!String.IsNullOrEmpty(UncompletedGoodsReceiptId))
             {
-                if (!String.IsNullOrEmpty(UncompletedGoodsReceiptId))
+                try
                 {
+
                     goodsReceiptByIds = new();
                     var goodsReceiptById = await _apiService.GetGoodsReceiptsByIdAsync(UncompletedGoodsReceiptId);
                     goodsReceiptByIds.Add(goodsReceiptById);
@@ -130,7 +131,14 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
                     Lots = new();
                     //GoodsReceiptReceivingUpdated += LoadUncompletedGoodsReceiptsAsync;
                 }
-                else
+                catch (HttpRequestException)
+                {
+                    ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+                }
+            }
+            else
+            {
+                try
                 {
                     var goodsReceiptByTime = await _apiService.GetGoodsReceiptsByTimeAndStateAsync(UncompletedStartDate, UncompletedEndDate, false);
                     goodsReceiptByTimes = goodsReceiptByTime.ToList();
@@ -144,51 +152,58 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
                     Lots = new();
                     //GoodsReceiptReceivedUpdated += LoadCompletedGoodsReceiptsAsync;
                 }
+                catch (HttpRequestException)
+                {
+                    ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+                }
 
-            }
-            catch (HttpRequestException)
-            {
-                ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
             }
         }
 
         public async void LoadCompletedGoodsReceiptsAsync()
         {
-            try
-            {
-                if (!String.IsNullOrEmpty(CompletedGoodsReceiptId))
+           if (!String.IsNullOrEmpty(CompletedGoodsReceiptId))
                 {
-                    goodsReceiptByIds = new();
-                    var goodsReceiptById = await _apiService.GetGoodsReceiptsByIdAsync(CompletedGoodsReceiptId);
-                    goodsReceiptByIds.Add(goodsReceiptById);
-                    var goodsReceiptByIdViewModels = goodsReceiptByIds.Select(g =>
-                        new PendingGoodsReceiptViewModel(g.GoodsReceiptId,
-                                                         g.Timestamp,
-                                                         g.Employee.EmployeeName));
-                    GoodsReceiptByIds = new ObservableCollection<PendingGoodsReceiptViewModel>(goodsReceiptByIdViewModels);
-                    GoodsReceipts = GoodsReceiptByIds;
-                    Lots = new();
-                    //GoodsReceiptReceivingUpdated += LoadUncompletedGoodsReceiptsAsync;
+                    try
+                    {
+                        goodsReceiptByIds = new();
+                        var goodsReceiptById = await _apiService.GetGoodsReceiptsByIdAsync(CompletedGoodsReceiptId);
+                        goodsReceiptByIds.Add(goodsReceiptById);
+                        var goodsReceiptByIdViewModels = goodsReceiptByIds.Select(g =>
+                            new PendingGoodsReceiptViewModel(g.GoodsReceiptId,
+                                                             g.Timestamp,
+                                                             g.Employee.EmployeeName));
+                        GoodsReceiptByIds = new ObservableCollection<PendingGoodsReceiptViewModel>(goodsReceiptByIdViewModels);
+                        GoodsReceipts = GoodsReceiptByIds;
+                        Lots = new();
+                        //GoodsReceiptReceivingUpdated += LoadUncompletedGoodsReceiptsAsync;
+                    }
+                    catch (HttpRequestException)
+                    {
+                        ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+                    }
                 }
                 else
                 {
-                    var goodsReceiptByTime = await _apiService.GetGoodsReceiptsByTimeAndStateAsync(CompletedStartDate, CompletedEndDate, true);
-                    goodsReceiptByTimes = goodsReceiptByTime.ToList();
-                    var goodsReceiptByTimeViewModels = goodsReceiptByTime.Select(g =>
-                        new PendingGoodsReceiptViewModel(g.GoodsReceiptId,
-                                                         g.Timestamp,
-                                                         g.Employee.EmployeeName));
-                    GoodsReceiptByTimes = new ObservableCollection<PendingGoodsReceiptViewModel>(goodsReceiptByTimeViewModels);
-                    GoodsReceipts = GoodsReceiptByTimes;
-                    Lots = new();
-                    //GoodsReceiptReceivedUpdated += LoadCompletedGoodsReceiptsAsync;
+                    try
+                    {
+                        var goodsReceiptByTime = await _apiService.GetGoodsReceiptsByTimeAndStateAsync(CompletedStartDate, CompletedEndDate, true);
+                        goodsReceiptByTimes = goodsReceiptByTime.ToList();
+                        var goodsReceiptByTimeViewModels = goodsReceiptByTime.Select(g =>
+                            new PendingGoodsReceiptViewModel(g.GoodsReceiptId,
+                                                             g.Timestamp,
+                                                             g.Employee.EmployeeName));
+                        GoodsReceiptByTimes = new ObservableCollection<PendingGoodsReceiptViewModel>(goodsReceiptByTimeViewModels);
+                        GoodsReceipts = GoodsReceiptByTimes;
+                        Lots = new();
+                        //GoodsReceiptReceivedUpdated += LoadCompletedGoodsReceiptsAsync;
+                    }
+                    catch (HttpRequestException)
+                    {
+                        ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+                    }
                 }
-
-            }
-            catch (HttpRequestException)
-            {
-                ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
-            }
+           
         }
 
         private void CreateSublot(object? sender, EventArgs args)

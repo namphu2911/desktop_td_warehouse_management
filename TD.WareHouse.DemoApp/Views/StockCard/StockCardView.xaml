@@ -18,6 +18,9 @@
         <i:EventTrigger EventName="Loaded">
             <prism:InvokeCommandAction Command="{Binding LoadStockCardViewCommand}" />
         </i:EventTrigger>
+        <i:EventTrigger EventName="GotFocus">
+            <prism:InvokeCommandAction Command="{Binding LoadStockCardViewCommand}" />
+        </i:EventTrigger>
     </i:Interaction.Triggers>
     <materialDesign:DialogHost CloseOnClickAway="True" IsOpen="{Binding IsErrorMessageShowed}">
         <materialDesign:DialogHost.DialogContent>
@@ -108,21 +111,20 @@
                           SelectionMode="Single">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Kho hàng" Binding="{Binding ItemClassId}" Width="auto"/>
-                            <DataGridTextColumn Header="Mã hàng" Binding="{Binding ItemId}" Width="*"/>
+                            <DataGridTextColumn Header="Mã hàng" Binding="{Binding ItemId}" Width="0.6*"/>
                             <DataGridTextColumn Header="Tên hàng" Binding="{Binding ItemName}" Width="*"/>
                             <DataGridTextColumn Header="Đơn vị" Binding="{Binding Unit}" Width="auto"/>
-                            <DataGridTextColumn Header="Định mức" Binding="{Binding PacketSize}" Width="auto"/>
-                            <DataGridTextColumn Header="ĐVĐM" Binding="{Binding PacketUnit}" Width="auto"/>
-                            <DataGridTextColumn Header="Mã lô" Width="0.7*"/>
+                            <!--<DataGridTextColumn Header="Định mức" Binding="{Binding PacketSize}" Width="auto"/>
+                            <DataGridTextColumn Header="ĐVĐM" Binding="{Binding PacketUnit}" Width="auto"/>-->
+                            <DataGridTextColumn Header="Mã lô" Width="0.5*"/>
                             <DataGridTextColumn Header="Tồn kho" Binding="{Binding TotalQuantity}" Width="*"/>
-                            <DataGridTextColumn Header="Vị trí" Width="*"/>
                         </DataGrid.Columns>
                         <DataGrid.RowDetailsTemplate>
                             <DataTemplate>
                                 <Border BorderBrush="{StaticResource ColorSurfaceOn}" Margin="10">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="1.3*"/>
+                                            <ColumnDefinition Width="1.4*"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
 
@@ -134,11 +136,9 @@
                                             SelectionUnit="FullRow"
                                             SelectionMode="Single">
                                                 <DataGrid.Columns>
-                                                    <DataGridTextColumn Header="Mã lô        " Binding="{Binding ItemLotId}" />
+                                                    <DataGridTextColumn Header="Mã lô                            " Binding="{Binding ItemLotId}" />
                                                     <DataGridTextColumn Header="Số lượng" Binding="{Binding Quantity}" />
-                                                    <DataGridTextColumn Header="Số ĐM" Binding="{Binding NumberOfPacket}" />
-                                                    <DataGridTextColumn Header="Vị trí" Binding="{Binding LocationId}" />
-                                                    <DataGridTextColumn Header="SL mỗi vị trí" Binding="{Binding QuantityPerLocation}" />
+                                                    <DataGridTextColumn Header="SL Quy đổi" Binding="{Binding NumberOfPacket}" />
                                                 </DataGrid.Columns>
                                             </DataGrid>
                                         </Grid>

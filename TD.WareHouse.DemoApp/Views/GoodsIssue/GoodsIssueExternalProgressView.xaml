@@ -18,6 +18,9 @@
         <i:EventTrigger EventName="Loaded">
             <prism:InvokeCommandAction Command="{Binding LoadGoodsIssueProgressViewCommand}" />
         </i:EventTrigger>
+        <i:EventTrigger EventName="GotFocus">
+            <prism:InvokeCommandAction Command="{Binding LoadGoodsIssueProgressViewCommand}" />
+        </i:EventTrigger>
     </i:Interaction.Triggers>
     <materialDesign:DialogHost CloseOnClickAway="True" IsOpen="{Binding IsErrorMessageShowed}">
         <materialDesign:DialogHost.DialogContent>
@@ -53,7 +56,7 @@
                                           Margin="10"
                                           materialDesign:HintAssist.Hint="Tim kiếm"
                                           Style="{StaticResource ComboBox}"
-                                          ItemsSource="{Binding GoodsIssueIds}"
+                                          ItemsSource="{Binding GoodsIssueIds,UpdateSourceTrigger=PropertyChanged}"
                                           Text="{Binding GoodsIssueId}">
                                 <ComboBox.ItemsPanel>
                                     <ItemsPanelTemplate>

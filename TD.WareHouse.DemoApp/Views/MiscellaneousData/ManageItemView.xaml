@@ -180,12 +180,12 @@
                                  Text="{Binding MinimumStockLevel}"/>
 
                             <TextBlock Grid.Column="2"
-                               Text="Quy cách:"
+                               Text="Định mức:"
                                Style="{StaticResource FieldLabel}"
                                Margin="10"
                                VerticalAlignment="Center"/>
                             <TextBox Grid.Column="3"
-                               materialDesign:HintAssist.Hint="Quy cách"
+                               materialDesign:HintAssist.Hint="Định mức"
                                FontSize="16"
                                Style="{StaticResource TextBox}"
                                Margin="10"

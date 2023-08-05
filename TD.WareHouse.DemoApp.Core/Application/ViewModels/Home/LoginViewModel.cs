@@ -45,6 +45,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.Home
                 _databaseSynchronizationService.SynchronizeItemsData(),
                 _databaseSynchronizationService.SynchronizeItemLotsData(),
                 _databaseSynchronizationService.SynchronizeWarehousesData(),
+                _databaseSynchronizationService.SynchronizeEmployeesData(),
                 _databaseSynchronizationService.SynchronizeGoodReceiptsData(),
                 _databaseSynchronizationService.SynchronizeGoodIssuesData(),
                 _databaseSynchronizationService.SynchronizeDepartmentsData()

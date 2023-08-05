@@ -79,9 +79,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.StockCard
                     stockCardEntries.Select(i => new StockCardLotViewModel(
                         i.PurchaseOrderNumber,
                         i.Quantity,
-                        i.NumOfPackets,
-                        null,
-                        0)).ToList()))).FirstOrDefault();
+                        i.NumOfPackets)).ToList()))).FirstOrDefault();
                 
                 if(viewModels != null)
                 {

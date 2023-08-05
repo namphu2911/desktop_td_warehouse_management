@@ -22,19 +22,22 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
         public string FinishedProductReceiptId { get; set; }
         public string EmployeeId { get; set; }
         public DateTime Timestamp { get; set; }
+        public bool IsSaved { get; set; }
         public List<FinishedProductReceiptEntry> Entries { get; set; }
-
+        public Visibility ButtonVisibility { get; set; } = Visibility.Visible;
+        public Visibility SavedVisibility { get; set; } = Visibility.Hidden;
         public ICommand CreateCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
 
         public event EventHandler? GoodsReceiptCreated;
         public event EventHandler? GoodsReceiptDeleted;
-        public GoodsReceiptToCreateViewModel(IApiService apiService, string finishedProductReceiptId, string employeeId, DateTime timestamp, List<FinishedProductReceiptEntry> entries)
+        public GoodsReceiptToCreateViewModel(IApiService apiService, string finishedProductReceiptId, string employeeId, DateTime timestamp, bool isSaved, List<FinishedProductReceiptEntry> entries)
         {
             _apiService = apiService;
             FinishedProductReceiptId = finishedProductReceiptId;
             EmployeeId = employeeId;
             Timestamp = timestamp;
+            IsSaved = isSaved;
             Entries = entries;
 
             CreateCommand = new RelayCommand(ConfirmAsync);
@@ -58,6 +61,12 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
                 await _apiService.CreateFinishedProductReceiptsAsync(createDto);
                 MessageBox.Show("Đã Lưu Đơn Mới", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 GoodsReceiptCreated?.Invoke(this, EventArgs.Empty);
+                IsSaved = true;
+                if (IsSaved)
+                {
+                    ButtonVisibility = Visibility.Hidden;
+                    SavedVisibility = Visibility.Visible;
+                }
             }
             catch (HttpRequestException)
             {

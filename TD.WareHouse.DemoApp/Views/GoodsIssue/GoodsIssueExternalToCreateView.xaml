@@ -92,29 +92,37 @@
                     </Grid>
                 </Grid>
 
-                <StackPanel Grid.Column="1"
-                            Width="85"
-                            VerticalAlignment="Center">
-                    <Button Style="{StaticResource ButtonSecondary}"
-                            materialDesign:ButtonAssist.CornerRadius="5"
-                            Height="22"
-                            Margin="0 2">
+                <Grid Grid.Column="1"
+                    Width="85"
+                    VerticalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Button 
+                        Grid.Row="0"
+                        Style="{StaticResource ButtonSecondary}" 
+                        materialDesign:ButtonAssist.CornerRadius="5"
+                        Height="22"
+                        Margin="0 2"
+                        Visibility="{Binding ButtonVisibility}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
                                 <prism:InvokeCommandAction Command="{Binding DeleteCommand}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                         <TextBlock Style="{StaticResource ComponentFieldLabel}">
-                        Xoá
+                    Xoá
                         </TextBlock>
                     </Button>
-                    <Button Name="savebtn"
-                            Style="{StaticResource MaterialDesignRaisedButton}"
-                            materialDesign:ButtonAssist.CornerRadius="5"
-                            Height="22"
-                            Margin="0 2" >
-                        <!--Click="savebtn_Click"
-                            CommandTarget="{Binding CreateCommand}">-->
+                    <Button 
+                        Grid.Row="1"
+                        Style="{StaticResource MaterialDesignRaisedButton}" 
+                        materialDesign:ButtonAssist.CornerRadius="5"
+                        Height="22"
+                        Margin="0 2"
+                        Visibility="{Binding ButtonVisibility}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
                                 <prism:InvokeCommandAction Command="{Binding CreateCommand}" />
@@ -124,7 +132,14 @@
                         Lưu
                         </TextBlock>
                     </Button>
-                </StackPanel>
+                    <materialDesign:PackIcon 
+                        Grid.Row="1"
+                        Kind="CheckboxMarkedOutline" 
+                        Foreground="{StaticResource ColorPrimary}"
+                        Width="30" Height="30"
+                        HorizontalAlignment="Center"
+                        Visibility="{Binding SavedVisibility}"/>
+                </Grid>
             </Grid>
 
             <Separator Grid.Row="1"/>

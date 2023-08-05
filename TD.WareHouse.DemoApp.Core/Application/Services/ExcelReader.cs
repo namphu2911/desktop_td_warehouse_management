@@ -19,7 +19,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
 
             reader.Read(); //doc Row hien tai va tu xuong dong
             var Receiver = reader.GetString(1);
-            GoodsIssueDb request = new(GoodsIssueId, DateTime.Now, "NV01", Receiver, new List<GoodsIssueEntry>());
+            GoodsIssueDb request = new(GoodsIssueId, DateTime.Now, "NV01", Receiver, false, new List<GoodsIssueEntry>());
 
             SkipRows(2, reader);
             while (reader.Read())
@@ -30,7 +30,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
                     var itemId = reader.GetString(1);
                     var itemName = reader.GetString(2);
                     var unit = reader.GetString(3);
-                    var requestedQuantity = reader.GetDouble(4);
+                    var requestedQuantity = Convert.ToDouble(reader.GetValue(4));
                     request.Entries.Add(new GoodsIssueEntry(itemId, itemName, unit, requestedQuantity));
                 }
             }
@@ -48,7 +48,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
 
             reader.Read(); //doc Row hien tai va tu xuong dong
             var Receiver = reader.GetString(1);
-            FinishedProductIssueDb request = new(GoodsIssueId, DateTime.Now, "NV01", Receiver, new List<FinishedProductIssueEntry>());
+            FinishedProductIssueDb request = new(GoodsIssueId, DateTime.Now, "NV01", Receiver, false, new List<FinishedProductIssueEntry>());
 
             SkipRows(2, reader);
             while (reader.Read())
@@ -56,11 +56,11 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
                 var value = reader.GetValue(0);
                 if (value is not null)
                 {
-                    var itemId = reader.GetString(1);
+                    var itemId = Convert.ToString(reader.GetValue(1));
                     var itemName = reader.GetString(2);
                     var unit = reader.GetString(3);
-                    var requestedQuantity = reader.GetDouble(4);
-                    var purchaseOrderNumber = reader.GetString(5);
+                    var requestedQuantity = Convert.ToDouble(reader.GetValue(4));
+                    var purchaseOrderNumber = Convert.ToString(reader.GetValue(5));
                     var note = reader.GetString(6);
                     request.Entries.Add(new FinishedProductIssueEntry(itemId, itemName, unit, requestedQuantity, purchaseOrderNumber, note));
                 }
@@ -78,7 +78,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
             var GoodsReceiptId = reader.GetString(17);
 
             //reader.Read(); //doc Row hien tai va tu xuong dong
-            FinishedProductReceiptDb request = new(GoodsReceiptId, "NV01", DateTime.Now, new List<FinishedProductReceiptEntry>());
+            FinishedProductReceiptDb request = new(GoodsReceiptId, "NV01", DateTime.Now, false, new List<FinishedProductReceiptEntry>());
 
             SkipRows(7, reader);
             while (reader.Read())
@@ -88,11 +88,11 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
                 else if (value is not null)
                 {
                     var goodsReceiptLotId = reader.GetString(2);
-                    var itemId = reader.GetString(4);
+                    var itemId = Convert.ToString(reader.GetValue(4));
                     var itemName = reader.GetString(10);
                     var unit = reader.GetString(16);
-                    var quantity = reader.GetDouble(18);
-                    var purchaseOrderNumber = reader.GetString(19);
+                    var quantity = Convert.ToDouble(reader.GetValue(18));
+                    var purchaseOrderNumber = Convert.ToString(reader.GetValue(19));
                     var note = reader.GetString(23);
                     request.Entries.Add(new FinishedProductReceiptEntry(purchaseOrderNumber, itemId, itemName, unit, quantity, note));
                 }
@@ -119,11 +119,11 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
                     var itemId = Convert.ToString(reader.GetValue(1));
                     var itemName = reader.GetString(2);
                     var unit = reader.GetString(3);
-                    var price = Convert.ToDouble(reader.GetValue(4));
-                    var minimumStockLevel = Convert.ToDecimal(reader.GetValue(5));
+                    var price = Convert.ToDecimal(reader.GetValue(4));
+                    var minimumStockLevel = Convert.ToDouble(reader.GetValue(5));
                     var packetSize = Convert.ToDouble(reader.GetValue(6));
                     var packetUnit = Convert.ToString(reader.GetValue(7));
-                    request.items.Add(new CreateItemDto(itemId, itemName, price, minimumStockLevel, itemClassId, unit, packetSize, packetUnit));
+                    request.items.Add(new CreateItemDto(itemId, itemName, minimumStockLevel, price, itemClassId, unit, packetSize, packetUnit));
                 }
             }
             return request;

@@ -16,6 +16,9 @@
         <i:EventTrigger EventName="Loaded">
             <prism:InvokeCommandAction Command="{Binding LoadStockCardViewCommand}" />
         </i:EventTrigger>
+        <i:EventTrigger EventName="GotFocus">
+            <prism:InvokeCommandAction Command="{Binding LoadStockCardViewCommand}" />
+        </i:EventTrigger>
     </i:Interaction.Triggers>
     <materialDesign:DialogHost CloseOnClickAway="True" IsOpen="{Binding IsErrorMessageShowed}">
         <materialDesign:DialogHost.DialogContent>
@@ -153,7 +156,7 @@
                                                 <DataGrid.Columns>
                                                     <DataGridTextColumn Header="PO                      " Binding="{Binding ItemLotId}" />
                                                     <DataGridTextColumn Header="Số lượng" Binding="{Binding Quantity}" />
-                                                    <DataGridTextColumn Header="Số ĐM" Binding="{Binding NumberOfPacket}" />
+                                                    <DataGridTextColumn Header="SL Quy đổi" Binding="{Binding NumberOfPacket}" />
                                                 </DataGrid.Columns>
                                             </DataGrid>
                                         </Grid>

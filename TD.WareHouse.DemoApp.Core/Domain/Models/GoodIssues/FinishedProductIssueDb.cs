@@ -12,13 +12,15 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Models.GoodIssues
         public DateTime Timestamp { get; set; }
         public string EmployeeId { get; set; }
         public string Receiver { get; set; }
+        public bool IsSaved { get; set; }
         public List<FinishedProductIssueEntry> Entries { get; set; } = new();
-        public FinishedProductIssueDb(string goodsIssueId, DateTime timestamp, string employeeId, string receiver, List<FinishedProductIssueEntry> entries)
+        public FinishedProductIssueDb(string goodsIssueId, DateTime timestamp, string employeeId, string receiver, bool isSaved, List<FinishedProductIssueEntry> entries)
         {
             GoodsIssueId = goodsIssueId;
             Timestamp = timestamp;
             EmployeeId = employeeId;
             Receiver = receiver;
+            IsSaved = isSaved;
             Entries = entries;
         }
     }

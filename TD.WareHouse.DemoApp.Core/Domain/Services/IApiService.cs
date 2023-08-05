@@ -93,7 +93,8 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Services
 
         //Stockcard
         ///MaterialStockCard
-        Task<IEnumerable<ItemLotDto>> GetStockCardItemLotsAsync(DateTime endDate, string itemId);
+        Task<InventoryLogEntryItemLotDto> GetStockCardItemLotsAsync(DateTime endDate, string itemId);
+        //Task<IEnumerable<ItemLotDto>> GetStockCardItemLotsAsync(DateTime endDate, string itemId);
         Task<IEnumerable<InventoryLogExtendedEntryDto>> GetExtendedStockCardEntriesAsync(string warehouseId, string itemId, DateTime startDate, DateTime endDate);
 
         ///FinishedProductStockCard

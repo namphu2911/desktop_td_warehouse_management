@@ -17,7 +17,11 @@
         <i:EventTrigger EventName="Loaded">
             <prism:InvokeCommandAction Command="{Binding LoadGoodsReceiptViewCommand}" />
         </i:EventTrigger>
+        <i:EventTrigger EventName="GotFocus">
+            <prism:InvokeCommandAction Command="{Binding LoadGoodsReceiptViewCommand}" />
+        </i:EventTrigger>
     </i:Interaction.Triggers>
+    
     <materialDesign:DialogHost CloseOnClickAway="True" IsOpen="{Binding IsErrorMessageShowed}">
         <materialDesign:DialogHost.DialogContent>
             <Components:ErrorMessage Message="{Binding ErrorMessage}"/>
@@ -53,7 +57,7 @@
                                           Margin="10"
                                           materialDesign:HintAssist.Hint="Tim kiếm"
                                           Style="{StaticResource ComboBox}"
-                                          ItemsSource="{Binding GoodsReceiptIds}"
+                                          ItemsSource="{Binding GoodsReceiptIds, UpdateSourceTrigger=PropertyChanged}"
                                           Text="{Binding GoodsReceiptId}">
                                 <ComboBox.ItemsPanel>
                                     <ItemsPanelTemplate>

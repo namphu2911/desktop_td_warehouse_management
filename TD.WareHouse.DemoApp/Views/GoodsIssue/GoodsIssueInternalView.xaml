@@ -8,13 +8,16 @@
              xmlns:goodsissue="clr-namespace:TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue;assembly=TD.WareHouse.DemoApp.Core" 
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
              xmlns:prism="http://prismlibrary.com/" 
-             xmlns:Components="clr-namespace:TD.WareHouse.DemoApp.Resources.Components"
+             xmlns:Components="clr-namespace:TD.WareHouse.DemoApp.Resources.Components" d:DataContext="{d:DesignInstance Type=goodsissue:GoodsIssueInternalViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="670" d:DesignWidth="1090"
              Background="{StaticResource ColorBackground}"
              Padding="10">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
+            <prism:InvokeCommandAction Command="{Binding LoadGoodsIssueInternalCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="GotFocus">
             <prism:InvokeCommandAction Command="{Binding LoadGoodsIssueInternalCommand}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
@@ -143,9 +146,17 @@
                                                     <TextBlock Grid.Column="0" 
                                                         Style="{StaticResource FieldLabel}"
                                                         Text="Mã nhân viên: " />
-                                                    <TextBox Grid.Column="1"
-                                                        Style="{StaticResource TextBoxMini}"
-                                                        Text="{Binding EmployeeId}" />
+                                                    <ComboBox Grid.Column="1"
+                                                        materialDesign:HintAssist.Hint="Mã nhân viên"
+                                                        Style="{StaticResource ComboBoxMini}"
+                                                        ItemsSource="{Binding EmployeeIds}"
+                                                        Text="{Binding EmployeeId}">
+                                                        <ComboBox.ItemsPanel>
+                                                            <ItemsPanelTemplate>
+                                                                <VirtualizingStackPanel />
+                                                            </ItemsPanelTemplate>
+                                                        </ComboBox.ItemsPanel>
+                                                    </ComboBox>
                                                 </Grid>
 
                                                 <Grid Grid.Row="3">

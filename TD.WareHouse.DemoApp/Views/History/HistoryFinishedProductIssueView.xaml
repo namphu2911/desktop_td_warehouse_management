@@ -16,6 +16,9 @@
         <i:EventTrigger EventName="Loaded">
             <prism:InvokeCommandAction Command="{Binding LoadHistoryGoodsIssueViewCommand}" />
         </i:EventTrigger>
+        <i:EventTrigger EventName="GotFocus">
+            <prism:InvokeCommandAction Command="{Binding LoadHistoryGoodsIssueViewCommand}" />
+        </i:EventTrigger>
     </i:Interaction.Triggers>
 
     <materialDesign:DialogHost CloseOnClickAway="True" IsOpen="{Binding IsErrorMessageShowed}">
@@ -186,7 +189,7 @@
                             <DataGridTextColumn Header="Tên hàng" Width="350" Binding="{Binding ItemName}"/>
                             <DataGridTextColumn Header="Đơn vị" Width="auto" Binding="{Binding Unit}"/>
                             <DataGridTextColumn Header="PO" Width="auto" Binding="{Binding PurchaseOrderNumber}"/>
-                            <DataGridTextColumn Header="Số lượng nhập" Width="auto" Binding="{Binding Quantity}"/>
+                            <DataGridTextColumn Header="Số lượng xuất" Width="auto" Binding="{Binding Quantity}"/>
                             <DataGridTextColumn Header="Ghi chú" Width="auto" Binding="{Binding Note}"/>
                         </DataGrid.Columns>
                     </DataGrid>

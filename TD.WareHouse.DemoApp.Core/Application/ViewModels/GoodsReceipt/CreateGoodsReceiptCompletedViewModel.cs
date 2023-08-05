@@ -1,11 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Windows;
 using System.Windows.Input;
 using TD.WareHouse.DemoApp.Core.Application.Store;
 using TD.WareHouse.DemoApp.Core.Application.ViewModels.Seedwork;
 using TD.WareHouse.DemoApp.Core.Domain.Models.GoodsReceipts;
 using TD.WareHouse.DemoApp.Core.Domain.Services;
+using MessageBox = System.Windows.MessageBox;
 
 namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
 {
@@ -13,9 +15,12 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
     {
         private readonly IExcelReader _excelReader;
         private readonly IApiService _apiService;
+        private readonly IDatabaseSynchronizationService _databaseSynchronizationService;
         private readonly GoodsReceiptStore _goodsReceiptStore;
-        public ObservableCollection<string> GoodsReceiptIds => _goodsReceiptStore.UncompletedGoodsReceiptIds;
-        
+        public ObservableCollection<string> GoodsReceiptIds => _goodsReceiptStore.FinishedProductReceiptIds;
+        private readonly EmployeeStore _employeeStore;
+        public ObservableCollection<string> EmployeeIds => _employeeStore.EmployeeIds;
+
         private List<FinishedProductReceiptDb> FinishedProductReceipts = new();
         private FinishedProductReceiptDb FinishedProductReceiptDb { get; set; }
         public string GoodsReceiptId { get; set; } = "";
@@ -46,11 +51,15 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
                 }
                 else
                 {
-                    var item = _itemStore.FinishedItems.First(i => i.ItemId == itemId);
-                    itemName = item.ItemName;
-                    Unit = item.Unit;
-                    OnPropertyChanged(nameof(ItemName));
-                    OnPropertyChanged(nameof(Unit));
+                    if (ItemIds.Contains(itemId))
+                    {
+                        var item = _itemStore.FinishedItems.First(i => i.ItemId == itemId);
+                        itemName = item.ItemName;
+                        Unit = item.Unit;
+                        OnPropertyChanged(nameof(ItemName));
+                        OnPropertyChanged(nameof(Unit));
+                    }
+                    else { }
                 }
             }
 
@@ -73,11 +82,15 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
                 }
                 else
                 {
-                    var item = _itemStore.FinishedItems.First(i => i.ItemName == itemName);
-                    itemId = item.ItemId;
-                    Unit = item.Unit;
-                    OnPropertyChanged(nameof(ItemId));
-                    OnPropertyChanged(nameof(Unit));
+                    if (ItemIds.Contains(itemId))
+                    {
+                        var item = _itemStore.FinishedItems.First(i => i.ItemName == itemName);
+                        itemId = item.ItemId;
+                        Unit = item.Unit;
+                        OnPropertyChanged(nameof(ItemId));
+                        OnPropertyChanged(nameof(Unit));
+                    }
+                    else { }
                 }
             }
         }
@@ -127,12 +140,14 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
         public ICommand ImportGoodsReceiptsCommand { get; set; }
         public ICommand LoadGoodsReceiptCommand { get; set; }
         public ICommand CreateEntryCommand { get; set; }
-        public CreateGoodsReceiptCompletedViewModel(IExcelReader excelReader, IApiService apiService, GoodsReceiptStore goodsReceiptStore, ItemStore itemStore)
+        public CreateGoodsReceiptCompletedViewModel(IExcelReader excelReader, IApiService apiService, IDatabaseSynchronizationService databaseSynchronizationService, GoodsReceiptStore goodsReceiptStore, ItemStore itemStore, EmployeeStore employeeStore)
         {
             _excelReader = excelReader;
             _apiService = apiService;
+            _databaseSynchronizationService = databaseSynchronizationService;
             _goodsReceiptStore = goodsReceiptStore;
             _itemStore = itemStore;
+            _employeeStore = employeeStore;
 
             ImportGoodsReceiptsCommand = new RelayCommand(ImportGoodsReceipt);
             LoadGoodsReceiptCommand = new RelayCommand(LoadGoodsReceiptView);
@@ -141,9 +156,12 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
         }
         private void LoadGoodsReceiptView()
         {
+            _databaseSynchronizationService.SynchronizeGoodReceiptsData();
             OnPropertyChanged(nameof(ItemIds));
             OnPropertyChanged(nameof(ItemNames));
             OnPropertyChanged(nameof(Units));
+            OnPropertyChanged(nameof(GoodsReceiptIds));
+            OnPropertyChanged(nameof(EmployeeIds));
         }
         private void CreateEntry()
         {
@@ -168,7 +186,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
         }
         private void DeleteRow()
         {
-            if (SelectedEntry is not null)
+            if (SelectedEntry is not null & FinishedProductReceiptDb.IsSaved == false)
             {
                 FinishedProductReceiptDb.Entries.Remove(FinishedProductReceiptDb.Entries.First(x => x.ItemId == SelectedEntry.ItemId));
                 var entries = FinishedProductReceiptDb.Entries.Select(e => new GoodsReceiptEntryForCreateGoodsReceiptCompletedView(
@@ -185,57 +203,94 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
                     OnPropertyChanged(nameof(Entries));
                 }
             }
+            else
+            {
+                MessageBox.Show("Không thể xóa", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
         private void SaveReceiptByHand()
         {
+            LoadGoodsReceiptView();
             if (GoodsReceiptIds.Contains(GoodsReceiptId))
             {
                 ShowErrorMessage($"Mã phiếu nhập đã tồn tại.");
             }
             else
             {
-                var NewGoodsReceiptByHand = new FinishedProductReceiptDb(GoodsReceiptId, EmployeeId, Timestamp, new List<FinishedProductReceiptEntry>());
+                var NewGoodsReceiptByHand = new FinishedProductReceiptDb(GoodsReceiptId, EmployeeId, DateTime.Now, false, new List<FinishedProductReceiptEntry>());
                 FinishedProductReceipts.Add(NewGoodsReceiptByHand);
+                LoadGoodsReceiptView();
+                foreach (var finishedProductReceipt in FinishedProductReceipts)
+                {
+                    if (GoodsReceiptIds.Contains(finishedProductReceipt.FinishedProductReceiptId))
+                    {
+                        finishedProductReceipt.IsSaved = true;
+                    }
+                }
                 GoodsReceipts = new ObservableCollection<GoodsReceiptToCreateViewModel>
                             (FinishedProductReceipts.Select(x => new GoodsReceiptToCreateViewModel(
                                  _apiService,
                                 x.FinishedProductReceiptId,
                             x.EmployeeId,
                             x.Timestamp,
+                            x.IsSaved,
                             x.Entries)));
                 foreach (var goodsReceiptViewModel in GoodsReceipts)
                 {
                     goodsReceiptViewModel.GoodsReceiptDeleted += OnGoodsReceiptRemove;
                     goodsReceiptViewModel.GoodsReceiptCreated += OnGoodsReceiptSave;
+                    if (goodsReceiptViewModel.IsSaved)
+                    {
+                        goodsReceiptViewModel.ButtonVisibility = Visibility.Hidden;
+                        goodsReceiptViewModel.SavedVisibility = Visibility.Visible;
+                    }
+
                 }
             }
             
         }
         private void ImportGoodsReceipt()
         {
-            try
+            if (!String.IsNullOrEmpty(FilePath))
             {
-                var request = _excelReader.ReadReceiptExportRequests(FilePath, "frmInspectingRefPrintPNK", Date);
-                FinishedProductReceipts.Add(request);
-                GoodsReceipts = new ObservableCollection<GoodsReceiptToCreateViewModel>
-                        (FinishedProductReceipts.Select(x => new GoodsReceiptToCreateViewModel(
-                             _apiService,
-                            x.FinishedProductReceiptId,
-                            x.EmployeeId,
-                            x.Timestamp,
-                            x.Entries)));
-                foreach (var goodsReceiptViewModel in GoodsReceipts)
+                try
                 {
-                    goodsReceiptViewModel.GoodsReceiptDeleted += OnGoodsReceiptRemove;
-                    goodsReceiptViewModel.GoodsReceiptCreated += OnGoodsReceiptSave;
-                }
-                TypeEnable = false;
+                    var request = _excelReader.ReadReceiptExportRequests(FilePath, "frmInspectingRefPrintPNK", Date);
+                    FinishedProductReceipts.Add(request);
+                    foreach (var finishedProductReceipt in FinishedProductReceipts)
+                    {
+                        if (GoodsReceiptIds.Contains(finishedProductReceipt.FinishedProductReceiptId))
+                        {
+                            finishedProductReceipt.IsSaved = true;
+                        }
+                    }
+                    GoodsReceipts = new ObservableCollection<GoodsReceiptToCreateViewModel>
+                            (FinishedProductReceipts.Select(x => new GoodsReceiptToCreateViewModel(
+                                 _apiService,
+                                x.FinishedProductReceiptId,
+                                x.EmployeeId,
+                                x.Timestamp,
+                                x.IsSaved,
+                                x.Entries)));
+                    foreach (var goodsReceiptViewModel in GoodsReceipts)
+                    {
+                        goodsReceiptViewModel.GoodsReceiptDeleted += OnGoodsReceiptRemove;
+                        goodsReceiptViewModel.GoodsReceiptCreated += OnGoodsReceiptSave; 
+                        if (goodsReceiptViewModel.IsSaved)
+                        {
+                            goodsReceiptViewModel.ButtonVisibility = Visibility.Hidden;
+                            goodsReceiptViewModel.SavedVisibility = Visibility.Visible;
+                        }
+                    }
+                    TypeEnable = false;
 
+                }
+                catch (IOException)
+                {
+                    ShowErrorMessage($"Vui lòng tắt file trước khi nhập vào phần mềm.");
+                }
             }
-            catch (IOException)
-            {
-                ShowErrorMessage($"Vui lòng tắt file trước khi nhập vào phần mềm.");
-            }
+            else { }
         }
 
         private void OnGoodsReceiptRemove(object? sender, EventArgs args)
@@ -257,6 +312,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
                 Note = "";
                 TypeEnable = false;
                 FilePath = "";
+                LoadGoodsReceiptView();
             }
             OnPropertyChanged();
         }
@@ -274,6 +330,14 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
                 Note = "";
                 TypeEnable = false;
                 FilePath = "";
+                LoadGoodsReceiptView();
+                foreach (var finishedProductReceipt in FinishedProductReceipts)
+                {
+                    if (GoodsReceiptIds.Contains(finishedProductReceipt.FinishedProductReceiptId))
+                    {
+                        finishedProductReceipt.IsSaved = true;
+                    }
+                }
             }
             OnPropertyChanged();
         }

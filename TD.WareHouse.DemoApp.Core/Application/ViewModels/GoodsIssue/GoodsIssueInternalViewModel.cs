@@ -8,6 +8,8 @@ using TD.WareHouse.DemoApp.Core.Domain.Dtos.GoodsIssues;
 using TD.WareHouse.DemoApp.Core.Domain.Services;
 using TD.WareHouse.DemoApp.Core.Domain.Models.GoodIssues;
 using System.IO;
+using System.Windows;
+using MessageBox = System.Windows.MessageBox;
 
 namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
 {
@@ -15,9 +17,12 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
     {
         private readonly IExcelReader _excelReader;
         private readonly IApiService _apiService;
+        private readonly IDatabaseSynchronizationService _databaseSynchronizationService;
         private readonly GoodsIssueStore _goodsIssueStore;
-        private readonly DepartmentStore _departmentStore;
+        private readonly DepartmentStore _departmentStore; 
+        private readonly EmployeeStore _employeeStore;
         public ObservableCollection<string> Receivers => _departmentStore.Names;
+        public ObservableCollection<string> EmployeeIds => _employeeStore.EmployeeIds;
         private List<GoodsIssueDb> goodsIssues = new();
         private GoodsIssueDb GoodsIssueDb { get; set; }
         public DateTime Timestamp { get; set; } = DateTime.Now;
@@ -48,12 +53,16 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
                     OnPropertyChanged(nameof(Unit));
                 }
                 else
-                {
-                    var item = _itemStore.Items.First(i => i.ItemId == itemId);
-                    itemName = item.ItemName;
-                    Unit = item.Unit;   
-                    OnPropertyChanged(nameof(ItemName));
-                    OnPropertyChanged(nameof(Unit));
+                {   if (ItemIds.Contains(itemId))
+                    {
+                        var item = _itemStore.Items.First(i => i.ItemId == itemId);
+                        itemName = item.ItemName;
+                        Unit = item.Unit;
+                        OnPropertyChanged(nameof(ItemName));
+                        OnPropertyChanged(nameof(Unit));
+                    }
+                    else { }
+                   
                 }
             }
 
@@ -76,11 +85,15 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
                 }
                 else
                 {
-                    var item = _itemStore.Items.First(i => i.ItemName == itemName);
-                    itemId = item.ItemId;
-                    Unit = item.Unit;
-                    OnPropertyChanged(nameof(ItemId));
-                    OnPropertyChanged(nameof(Unit));
+                    if (ItemIds.Contains(itemId))
+                    {
+                        var item = _itemStore.Items.First(i => i.ItemName == itemName);
+                        itemId = item.ItemId;
+                        Unit = item.Unit;
+                        OnPropertyChanged(nameof(ItemId));
+                        OnPropertyChanged(nameof(Unit)); 
+                    }
+                    else { }
                 }
             }
         }
@@ -128,13 +141,15 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
         public ICommand LoadGoodsIssueInternalCommand { get; set; }
         public ICommand CreateEntryCommand { get; set; }
 
-        public GoodsIssueInternalViewModel(IExcelReader excelReader, IApiService apiService, ItemStore itemStore, GoodsIssueStore goodsIssueStore, DepartmentStore departmentStore)
+        public GoodsIssueInternalViewModel(IExcelReader excelReader, IApiService apiService, IDatabaseSynchronizationService databaseSynchronizationService, ItemStore itemStore, GoodsIssueStore goodsIssueStore, DepartmentStore departmentStore, EmployeeStore employeeStore)
         {
             _excelReader = excelReader;
             _apiService = apiService;
+            _databaseSynchronizationService = databaseSynchronizationService;
             _itemStore = itemStore;
             _goodsIssueStore = goodsIssueStore;
             _departmentStore = departmentStore;
+            _employeeStore = employeeStore;
 
             ImportGoodsIssuesCommand = new RelayCommand(ImportGoodsIssue);
             LoadGoodsIssueInternalCommand = new RelayCommand(LoadGoodsIssueInternalView);
@@ -144,10 +159,13 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
 
         private void LoadGoodsIssueInternalView()
         {
+            _databaseSynchronizationService.SynchronizeGoodIssuesData();
             OnPropertyChanged(nameof(Receivers));
             OnPropertyChanged(nameof(ItemIds));
             OnPropertyChanged(nameof(ItemNames));
             OnPropertyChanged(nameof(Units));
+            OnPropertyChanged(nameof(GoodsIssueIds));
+            OnPropertyChanged(nameof(EmployeeIds));
         }
         private void CreateEntry()
         {
@@ -170,7 +188,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
         }
         private void DeleteRow()
         {
-            if (SelectedEntry is not null)
+            if (SelectedEntry is not null & GoodsIssueDb.IsSaved == false)
             {
                 GoodsIssueDb.Entries.Remove(GoodsIssueDb.Entries.First(x => x.ItemId == SelectedEntry.ItemId));
                 var entries = GoodsIssueDb.Entries.Select(e => new GoodsIssueEntryForGoodsIssueInternalView(
@@ -188,14 +206,23 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
         }
         private void SaveIssueByHand()
         {
+            LoadGoodsIssueInternalView();
             if (GoodsIssueIds.Contains(GoodsIssueId))
             {
                 ShowErrorMessage($"Mã phiếu xuất đã tồn tại.");
             }
             else
             {
-                var NewGoodsIssueByHand = new GoodsIssueDb(GoodsIssueId, DateTime.Now, EmployeeId, Receiver, new List<GoodsIssueEntry>());
+                var NewGoodsIssueByHand = new GoodsIssueDb(GoodsIssueId, DateTime.Now, EmployeeId, Receiver, false, new List<GoodsIssueEntry>());
                 goodsIssues.Add(NewGoodsIssueByHand);
+                LoadGoodsIssueInternalView();
+                foreach (var goodsIssue in goodsIssues)
+                {
+                    if (GoodsIssueIds.Contains(goodsIssue.GoodsIssueId))
+                    {
+                        goodsIssue.IsSaved = true;
+                    }
+                }
                 GoodsIssues = new ObservableCollection<GoodsIssueInternalToCreateViewModel>
                             (goodsIssues.Select(x => new GoodsIssueInternalToCreateViewModel(
                                  _apiService,
@@ -203,40 +230,63 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
                                 x.Timestamp,
                                 x.EmployeeId,
                                 x.Receiver,
+                                x.IsSaved,
                                 x.Entries)));
                 foreach (var goodsIssueViewModel in GoodsIssues)
                 {
                     goodsIssueViewModel.GoodsIssueDeleted += OnGoodsIssueRemove;
                     goodsIssueViewModel.GoodsIssueCreated += OnGoodsIssueSave;
+                    if (goodsIssueViewModel.IsSaved)
+                    {
+                        goodsIssueViewModel.ButtonVisibility = Visibility.Hidden;
+                        goodsIssueViewModel.SavedVisibility = Visibility.Visible;
+                    }
                 }
             }
         }
         private void ImportGoodsIssue()
         {
-            try
+            if (!String.IsNullOrEmpty(FilePath))
             {
-                var request = _excelReader.ReadGoodsIssueInternalExportRequests(FilePath, "Phieu XK NVL", Date);
-                goodsIssues.Add(request);
-                GoodsIssues = new ObservableCollection<GoodsIssueInternalToCreateViewModel>
-                        (goodsIssues.Select(x => new GoodsIssueInternalToCreateViewModel(
-                             _apiService,
-                            x.GoodsIssueId,
-                            x.Timestamp,
-                            x.EmployeeId,
-                            x.Receiver,
-                            x.Entries)));
-                foreach (var goodsIssueViewModel in GoodsIssues)
+                try
                 {
-                    goodsIssueViewModel.GoodsIssueDeleted += OnGoodsIssueRemove;
-                    goodsIssueViewModel.GoodsIssueCreated += OnGoodsIssueSave;
-                }
-                TypeEnable = false;
+                    var request = _excelReader.ReadGoodsIssueInternalExportRequests(FilePath, "Phieu XK NVL", Date);
+                    goodsIssues.Add(request); 
+                    foreach (var goodsIssue in goodsIssues)
+                    {
+                        if (GoodsIssueIds.Contains(goodsIssue.GoodsIssueId))
+                        {
+                            goodsIssue.IsSaved = true;
+                        }
+                    }
+                    GoodsIssues = new ObservableCollection<GoodsIssueInternalToCreateViewModel>
+                            (goodsIssues.Select(x => new GoodsIssueInternalToCreateViewModel(
+                                 _apiService,
+                                x.GoodsIssueId,
+                                x.Timestamp,
+                                x.EmployeeId,
+                                x.Receiver,
+                                x.IsSaved,
+                                x.Entries)));
+                    foreach (var goodsIssueViewModel in GoodsIssues)
+                    {
+                        goodsIssueViewModel.GoodsIssueDeleted += OnGoodsIssueRemove;
+                        goodsIssueViewModel.GoodsIssueCreated += OnGoodsIssueSave;
+                        if (goodsIssueViewModel.IsSaved)
+                        {
+                            goodsIssueViewModel.ButtonVisibility = Visibility.Hidden;
+                            goodsIssueViewModel.SavedVisibility = Visibility.Visible;
+                        }
+                    }
+                    TypeEnable = false;
 
+                }
+                catch (IOException)
+                {
+                    ShowErrorMessage($"Vui lòng tắt file trước khi nhập vào phần mềm.");
+                }
             }
-            catch (IOException)
-            {
-                ShowErrorMessage($"Vui lòng tắt file trước khi nhập vào phần mềm.");
-            }
+            else { }            
         }
 
         private void OnGoodsIssueRemove(object? sender, EventArgs args)
@@ -256,6 +306,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
                 RequestedQuantity = 0;
                 TypeEnable = false;
                 FilePath = "";
+                LoadGoodsIssueInternalView();
             }
             OnPropertyChanged();
         }
@@ -271,6 +322,14 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
                 RequestedQuantity = 0;
                 TypeEnable = false;
                 FilePath = "";
+                LoadGoodsIssueInternalView();
+                foreach (var goodsIssue in goodsIssues)
+                {
+                    if (GoodsIssueIds.Contains(goodsIssue.GoodsIssueId))
+                    {
+                        goodsIssue.IsSaved = true;
+                    }
+                }
             }
             OnPropertyChanged();
         }
