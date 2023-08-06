@@ -23,17 +23,17 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.ShelfManagement
         private readonly IMapper _mapper;
         private readonly ItemStore _itemStore;
         private readonly WarehouseStore _warehousetStore;
+        public ObservableCollection<ItemEntryForShelfManagementViewModel> ItemEntries { get; set; } = new();
         public ObservableCollection<LocationEntryForShelfManagementViewModel> LocationEntries { get; set; } = new();
         public ObservableCollection<string> ItemIds => _itemStore.ItemIds;
         public ObservableCollection<string> ItemNames => _itemStore.ItemNames;
         public ObservableCollection<string> LocationIds => _warehousetStore.LocationIds;
-
+        public ICommand LoadItemEntryCommand { get; set; }
         public ICommand LoadLocationEntryCommand { get; set; }
         public ICommand LoadShelfManagementViewCommand { get; set; }
         private string itemId = "";
         private string itemName = "";
         public string LocationId { get; set; } = "";
-
         public string ItemId
         {
             get
@@ -43,10 +43,24 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.ShelfManagement
             set
             {
                 itemId = value;
-                var item = _itemStore.Items.First(i => i.ItemId == itemId);
-                itemName = item.ItemName;
-                OnPropertyChanged(nameof(ItemName));
+                if (String.IsNullOrEmpty(value))
+                {
+                    itemName = "";
+                    OnPropertyChanged(nameof(ItemName));
+                }
+                else
+                {
+                    if (ItemIds.Contains(itemId))
+                    {
+                        var item = _itemStore.Items.First(i => i.ItemId == itemId);
+                        itemName = item.ItemName;
+                        OnPropertyChanged(nameof(ItemName));
+                    }
+                    else { }
+
+                }
             }
+
         }
         public string ItemName
         {
@@ -57,9 +71,21 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.ShelfManagement
             set
             {
                 itemName = value;
-                var item = _itemStore.Items.First(i => i.ItemName == itemName);
-                itemId = item.ItemId;
-                OnPropertyChanged(nameof(ItemId));
+                if (String.IsNullOrEmpty(value))
+                {
+                    itemId = "";
+                    OnPropertyChanged(nameof(ItemId));
+                }
+                else
+                {
+                    if (ItemIds.Contains(itemId))
+                    {
+                        var item = _itemStore.Items.First(i => i.ItemName == itemName);
+                        itemId = item.ItemId;
+                        OnPropertyChanged(nameof(ItemId));
+                    }
+                    else { }
+                }
             }
         }
         
@@ -70,6 +96,8 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.ShelfManagement
             _mapper = mapper;
             _itemStore = itemStore;
             _warehousetStore = warehousetStore;
+
+            LoadItemEntryCommand = new RelayCommand(LoadItemEntryEntry);
             LoadLocationEntryCommand = new RelayCommand(LoadLocationEntry);
             LoadShelfManagementViewCommand = new RelayCommand(LoadShelfManagementView);
         }
@@ -80,7 +108,48 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.ShelfManagement
             OnPropertyChanged(nameof(ItemNames));
             OnPropertyChanged(nameof(LocationIds));
         }
-        
+        private async void LoadItemEntryEntry()
+        {
+            try
+            {
+                var itemEntries = await _apiService.GetItemShelfManagementEntriesAsync(ItemId);
+                foreach(var item in itemEntries)
+                {
+                    if(item.ItemLotLocations.Count() == 0)
+                    {
+                        item.ItemLotLocations.Add(new ItemLotLocationDto("", null));
+                    }
+                }
+                var viewModels = itemEntries.SelectMany(i => i.ItemLotLocations.Select(x => new ItemEntryForShelfManagementViewModel(
+                    i.LotId,
+                    i.Quantity,
+                    i.Item.Unit,
+                    i.Item.PacketSize,
+                    i.NumOfPackets,
+                    x.LocationId,
+                    x.QuantityPerLocation))).ToList();
+                if (viewModels != null)
+                {
+                    for (int i = 0; i < viewModels.Count - 1; i++)
+                    {
+                        if (viewModels[i + 1].LotId == viewModels[i].LotId)
+                        {
+                            viewModels[i + 1].LotId = "";
+                            viewModels[i + 1].Quantity = null;
+                            viewModels[i + 1].Unit = "";
+                            viewModels[i + 1].PacketSize = null;
+                            viewModels[i + 1].NumberOfPacket = null;
+                        }
+                    }
+                    ItemEntries = new(viewModels);
+                }
+            }
+            catch (HttpRequestException)
+            {
+                ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+            }
+        }
+
         private async void LoadLocationEntry()
         {
             try

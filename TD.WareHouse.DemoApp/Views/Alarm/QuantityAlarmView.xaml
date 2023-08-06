@@ -103,9 +103,10 @@
                             <DataGridTextColumn Header="Mã lô" Binding="{Binding LotId}"/>
                             <DataGridTextColumn Header="Số lượng" Binding="{Binding Quantity}"/>
                             <DataGridTextColumn Header="Stockmin" Binding="{Binding MinimumStockLevel}"/>
-                            <DataGridTextColumn Header="Vị trí" Binding="{Binding LocationId}"/>
+                            <DataGridTextColumn Header="Vị trí" Binding="{Binding LocationId}" />
+                            <DataGridTextColumn Header="SL mỗi vị trí" Binding="{Binding QuantityPerLocation}" />
                         </DataGrid.Columns>
-                        <DataGrid.RowDetailsTemplate>
+                        <!--<DataGrid.RowDetailsTemplate>
                             <DataTemplate>
                                 <Border BorderBrush="{StaticResource ColorSurfaceOn}" Margin="10">
                                     <Grid>
@@ -130,7 +131,7 @@
                                     </Grid>
                                 </Border>
                             </DataTemplate>
-                        </DataGrid.RowDetailsTemplate>
+                        </DataGrid.RowDetailsTemplate>-->
                     </DataGrid>
                 </materialDesign:Card>
             </Grid>

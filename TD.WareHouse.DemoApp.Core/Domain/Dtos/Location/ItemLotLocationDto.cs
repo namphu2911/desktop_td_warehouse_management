@@ -9,8 +9,8 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Dtos.Location
     public class ItemLotLocationDto
     {
         public string LocationId { get; set; }
-        public double QuantityPerLocation { get; set; }
-        public ItemLotLocationDto(string locationId, double quantityPerLocation)
+        public double? QuantityPerLocation { get; set; }
+        public ItemLotLocationDto(string locationId, double? quantityPerLocation)
         {
             LocationId = locationId;
             QuantityPerLocation = quantityPerLocation;

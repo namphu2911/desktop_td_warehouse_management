@@ -75,7 +75,7 @@
                           ItemsSource="{Binding Entries}"
                           AutoGenerateColumns="False"
                           RowDetailsVisibilityMode="Visible"
-                          SelectionUnit="FullRow"
+                          SelectionUnit="Cell"
                           SelectionMode="Single">
                         <DataGrid.RowStyle>
                             <Style TargetType="DataGridRow" BasedOn="{StaticResource MaterialDesignDataGridRow}">
@@ -97,8 +97,9 @@
                             <!--<DataGridTextColumn Header="Stockmin" Binding="{Binding MinimumStockLevel}"/>-->
                             <DataGridTextColumn Header="HSD còn lại" Binding="{Binding TimeLeft, StringFormat= 0.0 tháng}"/>
                             <DataGridTextColumn Header="Vị trí" Binding="{Binding LocationId}"/>
+                            <DataGridTextColumn Header="SL mỗi vị trí" Binding="{Binding QuantityPerLocation}" />
                         </DataGrid.Columns>
-                        <DataGrid.RowDetailsTemplate>
+                        <!--<DataGrid.RowDetailsTemplate>
                             <DataTemplate>
                                 <Border BorderBrush="{StaticResource ColorSurfaceOn}" Margin="10">
                                     <Grid>
@@ -123,7 +124,7 @@
                                     </Grid>
                                 </Border>
                             </DataTemplate>
-                        </DataGrid.RowDetailsTemplate>
+                        </DataGrid.RowDetailsTemplate>-->
                     </DataGrid>
                 </materialDesign:Card>
             </Grid>

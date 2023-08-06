@@ -75,7 +75,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
                     var error = JsonConvert.DeserializeObject<ServerSideError>(responseBody);
                     if (error is not null)
                     {
-                        switch (error.ErrorCode)
+                        switch (error.Code)
                         {
                             case "Domain.EntityDuplication":
                                 throw new DuplicateEntityException();
@@ -111,7 +111,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
                     var error = JsonConvert.DeserializeObject<ServerSideError>(responseBody);
                     if (error is not null)
                     {
-                        switch (error.ErrorCode)
+                        switch (error.Code)
                         {
                             case "Domain.EntityDuplication":
                                 throw new DuplicateEntityException();
@@ -173,7 +173,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
                     var error = JsonConvert.DeserializeObject<ServerSideError>(responseBody);
                     if (error is not null)
                     {
-                        switch (error.ErrorCode)
+                        switch (error.Code)
                         {
                             case "Domain.EntityDuplication":
                                 throw new DuplicateEntityException();
@@ -226,7 +226,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
                     var error = JsonConvert.DeserializeObject<ServerSideError>(responseBody);
                     if (error is not null)
                     {
-                        switch (error.ErrorCode)
+                        switch (error.Code)
                         {
                             case "Domain.EntityDuplication":
                                 throw new DuplicateEntityException();
@@ -279,7 +279,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
                     var error = JsonConvert.DeserializeObject<ServerSideError>(responseBody);
                     if (error is not null)
                     {
-                        switch (error.ErrorCode)
+                        switch (error.Code)
                         {
                             case "Domain.EntityDuplication":
                                 throw new DuplicateEntityException();
@@ -509,7 +509,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
                     var error = JsonConvert.DeserializeObject<ServerSideError>(responseBody);
                     if (error is not null)
                     {
-                        switch (error.ErrorCode)
+                        switch (error.Code)
                         {
                             case "Domain.EntityDuplication":
                                 throw new DuplicateEntityException();
@@ -656,7 +656,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
                     var error = JsonConvert.DeserializeObject<ServerSideError>(responseBody);
                     if (error is not null)
                     {
-                        switch (error.ErrorCode)
+                        switch (error.Code)
                         {
                             case "Domain.EntityDuplication":
                                 throw new DuplicateEntityException();
@@ -750,7 +750,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
                     var error = JsonConvert.DeserializeObject<ServerSideError>(responseBody);
                     if (error is not null)
                     {
-                        switch (error.ErrorCode)
+                        switch (error.Code)
                         {
                             case "Domain.EntityDuplication":
                                 throw new DuplicateEntityException();
@@ -1090,6 +1090,23 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
         }
 
         //ShelfManagement
+        public async Task<IEnumerable<ItemLotDto>> GetItemShelfManagementEntriesAsync(string itemId)
+        {
+            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/ItemLots/{itemId}");
+
+            response.EnsureSuccessStatusCode();
+            string responseBody = await response.Content.ReadAsStringAsync();
+
+            var result = JsonConvert.DeserializeObject<IEnumerable<ItemLotDto>>(responseBody);
+
+            if (result is null)
+            {
+                throw new Exception();
+            }
+
+            return result;
+        }
+
         public async Task<IEnumerable<ItemLotDto>> GetLocationShelfManagementEntriesAsync(string locationId)
         {
             HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}api/ItemLots/{locationId}/lots");

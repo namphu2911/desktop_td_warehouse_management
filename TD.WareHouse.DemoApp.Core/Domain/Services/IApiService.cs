@@ -103,6 +103,7 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Services
         Task<IEnumerable<InventoryLogExtendedEntryDto>> GetFinishedProductExtendedStockCardEntriesByTimeAsync(DateTime startDate, DateTime endDate);
 
         //ShelfManagement
+        Task<IEnumerable<ItemLotDto>> GetItemShelfManagementEntriesAsync(string itemId);
         Task<IEnumerable<ItemLotDto>> GetLocationShelfManagementEntriesAsync(string locationId);
         
         //Isolation

@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace TD.WareHouse.DemoApp.Resources.Components
 {
     /// <summary>
-    /// Interaction logic for ErrorMessage.xaml
+    /// Interaction logic for Message.xaml
     /// </summary>
     public partial class ErrorMessage : UserControl
     {
