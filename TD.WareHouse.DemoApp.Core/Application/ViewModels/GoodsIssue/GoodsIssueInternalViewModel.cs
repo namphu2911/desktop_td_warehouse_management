@@ -190,7 +190,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
         {
             if (SelectedEntry is not null & GoodsIssueDb.IsSaved == false)
             {
-                GoodsIssueDb.Entries.Remove(GoodsIssueDb.Entries.First(x => x.ItemId == SelectedEntry.ItemId));
+                GoodsIssueDb.Entries.Remove(GoodsIssueDb.Entries.First(x => x.ItemId == SelectedEntry!.ItemId));
                 var entries = GoodsIssueDb.Entries.Select(e => new GoodsIssueEntryForGoodsIssueInternalView(
                     e.ItemId,
                     e.ItemName,

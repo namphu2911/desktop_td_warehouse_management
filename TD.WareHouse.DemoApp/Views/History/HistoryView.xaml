@@ -17,7 +17,7 @@
                     materialDesign:ColorZoneAssist.Background="LightGray">
             <TabItem Height="55" MaxWidth="800" Style="{StaticResource TabItem2layerRowStyle}">
                 <TabItem.Header >
-                    <TextBlock Style="{StaticResource HeaderText}" Text="NGUYÊN VẬT LIỆU"/>
+                    <TextBlock Style="{StaticResource HeaderText}" Text="NGUYÊN VẬT LIỆU"/> 
                 </TabItem.Header>
 
                 <TabControl TabStripPlacement="Top" 

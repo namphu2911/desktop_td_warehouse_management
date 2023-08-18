@@ -20,7 +20,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.Alarm
         public string? LocationId { get; set; }
         public double? QuantityPerLocation { get; set; }
         public TimeSpan? Difference => ExpirationDate - DateTime.Today;
-        public double TimeLeft => Difference.Value.TotalDays / 30;
+        public double TimeLeft => Difference!.Value.TotalDays / 30;
         private bool isQuantityAlarmed = false;
         public bool IsQuantityAlarmed
         {

@@ -7,10 +7,12 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using TD.WareHouse.DemoApp.Core.Application.ViewModels.Seedwork;
 using TD.WareHouse.DemoApp.Core.Domain.Dtos.Items;
 using TD.WareHouse.DemoApp.Core.Domain.Services;
+using MessageBox = System.Windows.MessageBox;
 
 namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.Isolation
 {
@@ -43,12 +45,18 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.Isolation
                 {
                     viewModel.OnRemoved += LoadIsolationItemLotsAsync;
                     viewModel.SetApiService(_apiService);
+                    viewModel.OnException += Error;
                 }
             }
             catch (HttpRequestException)
             {
                 ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
             }
+        }
+
+        private void Error()
+        {
+            ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
         }
 
     }

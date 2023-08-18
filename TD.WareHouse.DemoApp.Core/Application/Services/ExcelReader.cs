@@ -62,7 +62,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
                     var requestedQuantity = Convert.ToDouble(reader.GetValue(4));
                     var purchaseOrderNumber = Convert.ToString(reader.GetValue(5));
                     var note = reader.GetString(6);
-                    request.Entries.Add(new FinishedProductIssueEntry(itemId, itemName, unit, requestedQuantity, purchaseOrderNumber, note));
+                    request.Entries.Add(new FinishedProductIssueEntry(itemId!, itemName, unit, requestedQuantity, purchaseOrderNumber!, note));
                 }
             }
             return request;
@@ -94,7 +94,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
                     var quantity = Convert.ToDouble(reader.GetValue(18));
                     var purchaseOrderNumber = Convert.ToString(reader.GetValue(19));
                     var note = reader.GetString(23);
-                    request.Entries.Add(new FinishedProductReceiptEntry(purchaseOrderNumber, itemId, itemName, unit, quantity, note));
+                    request.Entries.Add(new FinishedProductReceiptEntry(purchaseOrderNumber!, itemId!, itemName, unit, quantity, note));
                 }
             }
             return request;
@@ -123,7 +123,33 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
                     var minimumStockLevel = Convert.ToDouble(reader.GetValue(5));
                     var packetSize = Convert.ToDouble(reader.GetValue(6));
                     var packetUnit = Convert.ToString(reader.GetValue(7));
-                    request.items.Add(new CreateItemDto(itemId, itemName, minimumStockLevel, price, itemClassId, unit, packetSize, packetUnit));
+                    request.items.Add(new CreateItemDto(itemId!, itemName, minimumStockLevel, price, itemClassId, unit, packetSize, packetUnit));
+                }
+            }
+            return request;
+
+        }
+
+        public CreateListItemLotDto ReadItemLotExportRequests(string filePath, string sheetName, DateTime date)
+        {
+            using var stream = File.Open(filePath, FileMode.Open, FileAccess.Read);
+            using var reader = ExcelReaderFactory.CreateReader(stream);
+            JumpToSheet(sheetName, reader);
+            reader.Read();
+            List<CreateItemLotDto> dtos = new List<CreateItemLotDto>();
+            CreateListItemLotDto request = new(dtos);
+
+            SkipRows(2, reader);
+            while (reader.Read())
+            {
+                var value = reader.GetValue(0);
+                if (value is not null)
+                {
+                    var itemId = Convert.ToString(reader.GetValue(2));
+                    var unit = reader.GetString(4);
+                    var lotId = reader.GetString(5);
+                    var quantity = Convert.ToDouble(reader.GetValue(6));
+                    request.itemLots.Add(new CreateItemLotDto(itemId!, unit, lotId, quantity, null, null));;
                 }
             }
             return request;

@@ -15,5 +15,6 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Services
         FinishedProductIssueDb ReadGoodsIssueExternalRequests(string filePath, string sheetName, DateTime date);
         FinishedProductReceiptDb ReadReceiptExportRequests(string filePath, string sheetName, DateTime date);
         CreateListItemDto ReadItemExportRequests(string filePath, string sheetName, DateTime date);
+        CreateListItemLotDto ReadItemLotExportRequests(string filePath, string sheetName, DateTime date);
     }
 }

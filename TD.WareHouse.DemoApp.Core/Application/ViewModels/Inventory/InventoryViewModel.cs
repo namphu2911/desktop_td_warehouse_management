@@ -2,10 +2,12 @@
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Net.Http;
+using System.Windows;
 using System.Windows.Input;
 using TD.WareHouse.DemoApp.Core.Application.ViewModels.Seedwork;
 using TD.WareHouse.DemoApp.Core.Domain.Dtos.LotAdjustment;
 using TD.WareHouse.DemoApp.Core.Domain.Services;
+using MessageBox = System.Windows.MessageBox;
 
 namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.Inventory
 {

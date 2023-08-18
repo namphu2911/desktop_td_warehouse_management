@@ -45,39 +45,46 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
         
         private async void ConfirmAsync()
         {
-            var createDto = new CreateExternalGoodsIssueDto(
-                GoodsIssueId,
-                Receiver,
-                EmployeeId,
-                Entries.Select(x => new CreateExternalGoodsIssueEntryDto(
-                    x.PurchaseOrderNumber,
-                    x.Quantity,
-                    x.ItemId,
-                    x.Unit,
-                    x.Note)).ToList());
-            try
+            if (Entries.Count != 0)
             {
-                await _apiService.CreateExternalGoodsIssuesAsync(createDto);
-                MessageBox.Show("Đã Lưu Đơn Mới", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-                IsSaved = true;
-                if (IsSaved)
+                 var createDto = new CreateExternalGoodsIssueDto(
+                 GoodsIssueId,
+                 Receiver,
+                 EmployeeId,
+                 Entries.Select(x => new CreateExternalGoodsIssueEntryDto(
+                     x.PurchaseOrderNumber,
+                     x.Quantity,
+                     x.ItemId,
+                     x.Unit,
+                     x.Note)).ToList());
+                try
                 {
-                    ButtonVisibility = Visibility.Hidden;
-                    SavedVisibility = Visibility.Visible;
+                    await _apiService.CreateExternalGoodsIssuesAsync(createDto);
+                    MessageBox.Show("Đã Lưu Đơn Mới", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                    IsSaved = true;
+                    if (IsSaved)
+                    {
+                        ButtonVisibility = Visibility.Hidden;
+                        SavedVisibility = Visibility.Visible;
+                    }
+                    GoodsIssueCreated?.Invoke(this, EventArgs.Empty);
                 }
-                GoodsIssueCreated?.Invoke(this, EventArgs.Empty);
+                catch (HttpRequestException)
+                {
+                    ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+                }
+                catch (DuplicateEntityException)
+                {
+                    ShowErrorMessage("Đã có lỗi xảy ra: Phiếu xuất kho đã tồn tại.");
+                }
+                catch (Exception ex)
+                {
+                    ShowErrorMessage("Đã có lỗi xảy ra: " + ex.Message);
+                }
             }
-            catch (HttpRequestException)
+            else
             {
-                ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
-            }
-            catch (DuplicateEntityException)
-            {
-                ShowErrorMessage("Đã có lỗi xảy ra: Phiếu xuất kho đã tồn tại.");
-            }
-            catch (Exception ex)
-            {
-                ShowErrorMessage("Đã có lỗi xảy ra: " + ex.Message);
+                MessageBox.Show("Chưa tạo các yêu cầu", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 

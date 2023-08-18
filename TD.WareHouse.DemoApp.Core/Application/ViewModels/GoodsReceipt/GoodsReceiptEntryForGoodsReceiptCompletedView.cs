@@ -17,10 +17,10 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
         public string PurchaseOrderNumber { get; set; }
         public string NewPurchaseOrderNumber { get; set; }
         public double Quantity { get; set; }
-        public string Note { get; set; }
+        public string? Note { get; set; }
         public ICommand DeleteEntryCommand { get; set; }
         public event Action? OnRemoved;
-        public GoodsReceiptEntryForGoodsReceiptCompletedView(string itemClassId, string itemId, string itemName, string unit, string purchaseOrderNumber, string newPurchaseOrderNumber, double quantity, string note)
+        public GoodsReceiptEntryForGoodsReceiptCompletedView(string itemClassId, string itemId, string itemName, string unit, string purchaseOrderNumber, string newPurchaseOrderNumber, double quantity, string? note)
         {
             ItemClassId = itemClassId;
             ItemId = itemId;

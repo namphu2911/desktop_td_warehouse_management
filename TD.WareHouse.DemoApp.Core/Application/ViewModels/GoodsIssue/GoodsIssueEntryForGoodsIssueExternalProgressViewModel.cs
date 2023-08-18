@@ -12,14 +12,14 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
     {
         public string PurchaseOrderNumber { get; set; }
         public double Quantity { get; set; }
-        public string Note { get; set; }
+        public string? Note { get; set; }
         public string ItemClassId { get; set; }
         public string ItemId { get; set; }
         public string ItemName { get; set; }
         public string Unit { get; set; }
         public ICommand DeleteEntryCommand { get; set; }
         public event Action? OnRemoved;
-        public GoodsIssueEntryForGoodsIssueExternalProgressViewModel(string purchaseOrderNumber, double quantity, string note, string itemClassId, string itemId, string itemName, string unit)
+        public GoodsIssueEntryForGoodsIssueExternalProgressViewModel(string purchaseOrderNumber, double quantity, string? note, string itemClassId, string itemId, string itemName, string unit)
         {
             PurchaseOrderNumber = purchaseOrderNumber;
             Quantity = quantity;

@@ -108,31 +108,50 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
         public bool EnableConfirmButton { get; set; }
         public async void LoadIssuedGoodsIssuesAsync()
         {
-            EnableConfirmButton = false;
-            var goodsIssueByTime = await _apiService.GetIssuedGoodsIssuesAsync(StartDate, EndDate);
-            goodsIssueByTimes = goodsIssueByTime.ToList();
-            var goodsIssueByTimeViewModels = goodsIssueByTime.Select(g =>
-                new PendingGoodsIssueViewModel(g.GoodsIssueId,
-                                                 g.Timestamp,
-                                                 g.Employee.EmployeeName,
-                                                 g.Receiver));
-            GoodsIssueByTimes = new ObservableCollection<PendingGoodsIssueViewModel>(goodsIssueByTimeViewModels);
-            Entries = new();
+            try
+            {
+                EnableConfirmButton = false;
+                var goodsIssueByTime = await _apiService.GetIssuedGoodsIssuesAsync(StartDate, EndDate);
+                goodsIssueByTimes = goodsIssueByTime.ToList();
+                var goodsIssueByTimeViewModels = goodsIssueByTime.Select(g =>
+                    new PendingGoodsIssueViewModel(g.GoodsIssueId,
+                                                     g.Timestamp,
+                                                     g.Employee.EmployeeName,
+                                                     g.Receiver));
+                GoodsIssueByTimes = new ObservableCollection<PendingGoodsIssueViewModel>(goodsIssueByTimeViewModels);
+                Entries = new();
+            }
+            catch (HttpRequestException)
+            {
+                ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+            }
         }
 
         public async void LoadIssuingGoodsIssuesAsync()
         {
-            EnableConfirmButton = true;
-            goodsIssueByIds = new();
-            var goodsIssueById = await _apiService.GetIssuingGoodsIssuesAsync(GoodsIssueId);
-            goodsIssueByIds.Add(goodsIssueById);
-            var goodsIssueByIdViewModels = goodsIssueByIds.Select(g =>
-                  new PendingGoodsIssueViewModel(g.GoodsIssueId,
-                                                 g.Timestamp,
-                                                 g.Employee.EmployeeName,
-                                                 g.Receiver));
-            GoodsIssueByIds = new ObservableCollection<PendingGoodsIssueViewModel>(goodsIssueByIdViewModels);
-            Entries = new();
+            if (!String.IsNullOrEmpty(GoodsIssueId))
+            {
+                try
+                {
+                    EnableConfirmButton = true;
+                    goodsIssueByIds = new();
+                    var goodsIssueById = await _apiService.GetIssuingGoodsIssuesAsync(GoodsIssueId);
+                    goodsIssueByIds.Add(goodsIssueById);
+                    var goodsIssueByIdViewModels = goodsIssueByIds.Select(g =>
+                          new PendingGoodsIssueViewModel(g.GoodsIssueId,
+                                                         g.Timestamp,
+                                                         g.Employee.EmployeeName,
+                                                         g.Receiver));
+                    GoodsIssueByIds = new ObservableCollection<PendingGoodsIssueViewModel>(goodsIssueByIdViewModels);
+                    Entries = new();
+                }
+                catch (HttpRequestException)
+                {
+                    ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+                }
+            }
+            else
+            { }
 
         }
         

@@ -49,7 +49,9 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
 
         private async void ConfirmAsync()
         {
-            var createDto = new CreateInternalGoodsIssueDto(
+            if(Entries.Count != 0)
+            {
+                var createDto = new CreateInternalGoodsIssueDto(
                 GoodsIssueId,
                 Receiver,
                 Timestamp,
@@ -58,31 +60,35 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
                     x.ItemId,
                     x.Unit,
                     x.RequestedQuantity)).ToList());
-            try
-            {
-                await _apiService.CreateInternalGoodsIssuesAsync(createDto);
-                MessageBox.Show("Đã Lưu Đơn Mới", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-                GoodsIssueCreated?.Invoke(this, EventArgs.Empty); 
-                IsSaved = true;
-                if (IsSaved)
+                try
                 {
-                    ButtonVisibility = Visibility.Hidden;
-                    SavedVisibility = Visibility.Visible;
+                    await _apiService.CreateInternalGoodsIssuesAsync(createDto);
+                    MessageBox.Show("Đã Lưu Đơn Mới", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                    GoodsIssueCreated?.Invoke(this, EventArgs.Empty);
+                    IsSaved = true;
+                    if (IsSaved)
+                    {
+                        ButtonVisibility = Visibility.Hidden;
+                        SavedVisibility = Visibility.Visible;
+                    }
+                }
+                catch (HttpRequestException)
+                {
+                    ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+                }
+                catch (DuplicateEntityException)
+                {
+                    ShowErrorMessage("Đã có lỗi xảy ra: Phiếu xuất kho đã tồn tại.");
+                }
+                catch (Exception ex)
+                {
+                    ShowErrorMessage("Đã có lỗi xảy ra: " + ex.Message);
                 }
             }
-            catch (HttpRequestException)
+            else
             {
-                ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+                MessageBox.Show("Chưa tạo các yêu cầu", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-            catch (DuplicateEntityException)
-            {
-                ShowErrorMessage("Đã có lỗi xảy ra: Phiếu xuất kho đã tồn tại.");
-            }
-            catch (Exception ex)
-            {
-                ShowErrorMessage("Đã có lỗi xảy ra: " + ex.Message);
-            }
-            
         }
 
         private void DeleteAsync()

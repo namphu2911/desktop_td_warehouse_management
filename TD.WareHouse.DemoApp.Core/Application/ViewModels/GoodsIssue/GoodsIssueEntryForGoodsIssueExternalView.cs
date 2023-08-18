@@ -15,10 +15,10 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
         public double Quantity { get; set; }
         public string Unit { get; set; }
         public string PurchaseOrderNumber { get; set; }
-        public string Note { get; set; }
+        public string? Note { get; set; }
         public ICommand DeleteEntryCommand { get; set; }
         public event Action? OnRemoved;
-        public GoodsIssueEntryForGoodsIssueExternalView(string itemId, string itemName, double quantity, string unit, string purchaseOrderNumber, string note)
+        public GoodsIssueEntryForGoodsIssueExternalView(string itemId, string itemName, double quantity, string unit, string purchaseOrderNumber, string? note)
         {
             ItemId = itemId;
             ItemName = itemName;

@@ -28,7 +28,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.MiscellaneousData
         private readonly WarehouseStore _warehouseStore;
         public ObservableCollection<string> Units => _itemStore.AllUnits; 
         public ObservableCollection<string> ItemIds => _itemStore.AllItemIds;
-        public ObservableCollection<string> WarehouseIds => _warehouseStore.WarehouseIds;
+        public ObservableCollection<string> WarehouseIds => _warehouseStore.AllWarehouseIds;
         IDatabaseSynchronizationService _databaseSynchronizationService;
 
         public string ItemClassId { get; set; } = "";
@@ -149,6 +149,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.MiscellaneousData
             {
                 var request = _excelReader.ReadItemExportRequests(FilePath, "Data", Date);
                 await _apiService.CreateItemFromExcel(request);
+                MessageBox.Show("Đã Cập Nhật", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 LoadManageItemView();
             }
             catch (IOException)
@@ -167,7 +168,6 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.MiscellaneousData
             {
                 ShowErrorMessage("Đã có lỗi xảy ra: Không thể tạo vật tư mới.");
             }
-            MessageBox.Show("Đã Cập Nhật", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
             LoadManageItemView();
 
         }

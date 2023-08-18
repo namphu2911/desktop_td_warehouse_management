@@ -26,7 +26,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
         private readonly HttpClient _httpClient;
 
 
-        private const string serverUrl = "https://thaiduongwarehouse.azurewebsites.net/";
+        private const string serverUrl = "https://thaiduongwarehousedemo.azurewebsites.net/";
         private string? _token;
 
         public ApiService()

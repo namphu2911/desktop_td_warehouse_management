@@ -5,9 +5,11 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using TD.WareHouse.DemoApp.Core.Application.ViewModels.Seedwork;
 using TD.WareHouse.DemoApp.Core.Domain.Services;
+using MessageBox = System.Windows.MessageBox;
 
 namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.Inventory
 {
@@ -72,8 +74,13 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.Inventory
         {
             try
             {
-                await _apiService.FixLotAdjustmentAsync(LotId);
-                OnRemoved?.Invoke();
+                if (MessageBox.Show("Xác nhận kiểm kê", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    await _apiService.FixLotAdjustmentAsync(LotId);
+                    OnRemoved?.Invoke();
+                    MessageBox.Show("Đã Cập Nhật", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else { }
             }
             catch (HttpRequestException)
             {
@@ -87,8 +94,13 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.Inventory
         {
             try
             {
-                await _apiService.DeleteLotAdjustmentAsync(LotId);
-                OnRemoved?.Invoke();
+                if (MessageBox.Show("Xác nhận xóa", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    await _apiService.DeleteLotAdjustmentAsync(LotId);
+                    OnRemoved?.Invoke();
+                    MessageBox.Show("Đã Cập Nhật", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else { }
             }
             catch (HttpRequestException)
             {

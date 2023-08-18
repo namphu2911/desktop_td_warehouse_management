@@ -22,8 +22,8 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.MiscellaneousData
     {
         private readonly IApiService _apiService;
         private readonly WarehouseStore _warehouseStore;
-        public ObservableCollection<string> LocationIds => _warehouseStore.LocationIds;
-        public ObservableCollection<string> WarehouseIds => _warehouseStore.WarehouseIds;
+        public ObservableCollection<string> LocationIds => _warehouseStore.AllLocationIds;
+        public ObservableCollection<string> WarehouseIds => _warehouseStore.AllWarehouseIds;
         IDatabaseSynchronizationService _databaseSynchronizationService;
 
         public string WarehouseId { get; set; } = "";

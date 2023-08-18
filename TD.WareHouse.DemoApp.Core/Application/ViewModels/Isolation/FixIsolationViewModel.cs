@@ -5,9 +5,11 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using TD.WareHouse.DemoApp.Core.Application.ViewModels.Seedwork;
 using TD.WareHouse.DemoApp.Core.Domain.Services;
+using MessageBox = System.Windows.MessageBox;
 
 namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.Isolation
 {
@@ -24,6 +26,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.Isolation
         public ICommand IssueCommand { get; set; }
         public ICommand ReceiveCommand { get; set; }
         public event Action? OnRemoved;
+        public event Action? OnException;
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public FixIsolationViewModel()
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
@@ -61,14 +64,41 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.Isolation
 
         private async void IssueAsync()
         {
-            await _apiService.IssueIsolationItemLotsAsync(LotId);
-            OnRemoved?.Invoke();
+            try
+            {
+                if (MessageBox.Show("Xác nhận xuất đi", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    await _apiService.IssueIsolationItemLotsAsync(LotId);
+                    OnRemoved?.Invoke();
+                    MessageBox.Show("Đã Cập Nhật", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else { }
+            }
+            catch (HttpRequestException)
+            {
+                OnException?.Invoke();
+                ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+            }
+
         }
 
         private async void ReceiveAsync()
         {
-            await _apiService.ReceiveIsolationItemLotsAsync(LotId);
-            OnRemoved?.Invoke();
+            try
+            {
+                if (MessageBox.Show("Xác nhận nhập lại", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    await _apiService.ReceiveIsolationItemLotsAsync(LotId);
+                    OnRemoved?.Invoke();
+                    MessageBox.Show("Đã Cập Nhật", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else { }
+            }
+            catch (HttpRequestException)
+            {
+                OnException?.Invoke();
+                ShowErrorMessage("Đã có lỗi xảy ra: Mất kết nối với server.");
+            }
         }
     }
 }

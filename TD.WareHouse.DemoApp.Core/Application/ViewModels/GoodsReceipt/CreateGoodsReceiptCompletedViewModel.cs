@@ -188,7 +188,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
         {
             if (SelectedEntry is not null & FinishedProductReceiptDb.IsSaved == false)
             {
-                FinishedProductReceiptDb.Entries.Remove(FinishedProductReceiptDb.Entries.First(x => x.ItemId == SelectedEntry.ItemId));
+                FinishedProductReceiptDb.Entries.Remove(FinishedProductReceiptDb.Entries.First(x => x.ItemId == SelectedEntry!.ItemId));
                 var entries = FinishedProductReceiptDb.Entries.Select(e => new GoodsReceiptEntryForCreateGoodsReceiptCompletedView(
                             e.ItemId,
                             e.ItemName,

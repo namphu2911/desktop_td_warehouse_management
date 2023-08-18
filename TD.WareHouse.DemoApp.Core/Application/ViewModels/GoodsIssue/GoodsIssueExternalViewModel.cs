@@ -143,7 +143,9 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
         public ICommand LoadGoodsIssueExternalCommand { get; set; }
         public ICommand CreateEntryCommand { get; set; }
 
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public GoodsIssueExternalViewModel(IExcelReader excelReader, IApiService apiService, IDatabaseSynchronizationService databaseSynchronizationService, ItemStore itemStore, GoodsIssueStore goodsIssueStore, EmployeeStore employeeStore)
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
             _excelReader = excelReader;
             _apiService = apiService;
@@ -192,7 +194,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsIssue
         {
             if (SelectedEntry is not null & GoodsIssueDb.IsSaved == false)
             {
-                GoodsIssueDb.Entries.Remove(GoodsIssueDb.Entries.First(x => x.ItemId == SelectedEntry.ItemId));
+                GoodsIssueDb.Entries.Remove(GoodsIssueDb.Entries.First(x => x.ItemId == SelectedEntry!.ItemId));
                 var entries = GoodsIssueDb.Entries.Select(e => new GoodsIssueEntryForGoodsIssueExternalView(
                         e.ItemId,
                         e.ItemName,
