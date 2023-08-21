@@ -1011,7 +1011,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
         //    return result;
         //}
 
-        public async Task<IEnumerable<InventoryLogExtendedEntryDto>> GetExtendedStockCardEntriesAsync(string warehouseId, string itemId, DateTime startDate, DateTime endDate)
+        public async Task<ExtendedStockCardDto> GetExtendedStockCardEntriesAsync(string warehouseId, string itemId, DateTime startDate, DateTime endDate)
         {
             string startDateString = startDate.ToString("yyyy-MM-dd");
             string endDateString = endDate.ToString("yyyy-MM-dd");
@@ -1021,7 +1021,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
 
-            var result = JsonConvert.DeserializeObject<IEnumerable<InventoryLogExtendedEntryDto>>(responseBody);
+            var result = JsonConvert.DeserializeObject<ExtendedStockCardDto>(responseBody);
 
             if (result is null)
             {
@@ -1031,6 +1031,25 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
             return result;
         }
 
+        public async Task<ExtendedStockCardDto> GetExtendedStockCardEntriesAsync(string warehouseId, string itemId, DateTime startDate, DateTime endDate, ushort pageNumber, ushort itemsPerPage)
+        {
+            string startDateString = startDate.ToString("yyyy-MM-dd");
+            string endDateString = endDate.ToString("yyyy-MM-dd");
+
+            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/InventoryLogEntries/extendedLogEntries?itemClassId={warehouseId}&itemId={itemId}&StartTime={startDateString}&EndTime={endDateString}&Page={pageNumber}&ItemsPerPage={itemsPerPage}");
+
+            response.EnsureSuccessStatusCode();
+            string responseBody = await response.Content.ReadAsStringAsync();
+
+            var result = JsonConvert.DeserializeObject<ExtendedStockCardDto>(responseBody);
+
+            if (result is null)
+            {
+                throw new Exception();
+            }
+
+            return result;
+        }
         ///FinishedProductStockCard
         public async Task<IEnumerable<FinishedProductInventoryDto>> GetFinishedProductStockCardAsync(DateTime endDate, string itemId, string unit)
         {
