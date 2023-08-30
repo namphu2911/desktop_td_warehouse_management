@@ -217,7 +217,7 @@
                             </DataGrid.Columns>
                         </DataGrid>
 
-                        <Grid Grid.Row="3">
+                        <!--<Grid Grid.Row="3">
                             <Button Grid.Column="0"
                             Margin="10"
                             Width="150"
@@ -230,7 +230,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Button>
-                        </Grid>
+                        </Grid>-->
                     </Grid>
                 </materialDesign:Card>
 
@@ -294,7 +294,7 @@
                                                         Style="{StaticResource ComboBoxMini}"
                                                         ItemsSource="{Binding ItemIds}"
                                                         Text="{Binding ItemId}"
-                                                        IsEnabled="{Binding TypeEnable}" Width="104">
+                                                        Width="104">
                                 <ComboBox.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <VirtualizingStackPanel />
@@ -306,8 +306,7 @@
                                                         Margin="5"                      
                                                         Style="{StaticResource ComboBoxMini}"
                                                         ItemsSource="{Binding ItemNames}"
-                                                        Text="{Binding ItemName}"
-                                                        IsEnabled="{Binding TypeEnable}">
+                                                        Text="{Binding ItemName}">
                                 <ComboBox.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <VirtualizingStackPanel />
@@ -320,7 +319,7 @@
                                                         Style="{StaticResource ComboBoxMini}"
                                                         ItemsSource="{Binding Units}"
                                                         Text="{Binding Unit}"
-                                                        IsEnabled="{Binding TypeEnable}" Width="65">
+                                                        Width="65">
                                 <ComboBox.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <VirtualizingStackPanel />
@@ -331,20 +330,17 @@
                              Margin="5" 
                              materialDesign:HintAssist.Hint="Số lượng"
                              Style="{StaticResource TextBoxMini}"
-                             Text="{Binding Quantity}"
-                             IsEnabled="{Binding TypeEnable}"/>
+                             Text="{Binding Quantity}"/>
                             <TextBox Grid.Row="1" Grid.Column="4" 
                              Margin="5,5,5,5" 
                              materialDesign:HintAssist.Hint="Số PO"
                              Style="{StaticResource TextBoxMini}"
-                             Text="{Binding PurchaseOrderNumber}"
-                             IsEnabled="{Binding TypeEnable}"/>
+                             Text="{Binding PurchaseOrderNumber}"/>
                             <TextBox Grid.Row="1" Grid.Column="5" 
                              Margin="5,5,5,5" 
                              materialDesign:HintAssist.Hint="Ghi chú"
                              Style="{StaticResource TextBoxMini}"
-                             Text="{Binding Note}"
-                             IsEnabled="{Binding TypeEnable}"/>
+                             Text="{Binding Note}"/>
 
                             <Button Grid.Row="1" Grid.Column="6"  
                             Margin="5"

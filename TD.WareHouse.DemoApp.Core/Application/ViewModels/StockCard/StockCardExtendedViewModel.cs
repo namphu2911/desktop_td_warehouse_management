@@ -39,8 +39,15 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.StockCard
             set
             {
                 pageNumber = value;
-                LoadStockCardByItemClassId();
-                if (value == 1)
+                if (String.IsNullOrEmpty(WarehouseId))
+                {
+                    LoadStockCardByItemId();
+                }
+                else
+                {
+                    LoadStockCardByItemClassId();
+                }
+                if (pageNumber == 1)
                 {
                     DecreaseButton = false;
                 }
@@ -49,7 +56,7 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.StockCard
                     DecreaseButton = true;
                 }
                 
-                if (value == TotalPage)
+                if (pageNumber == TotalPage)
                 {
                     IncreaseButton = false;
                 }
@@ -135,6 +142,23 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.StockCard
                 var dtos = await _apiService.GetExtendedStockCardEntriesAsync(WarehouseId, ItemId, StartDate, EndDate);
                 var stockCardEntries = dtos.Results;
                 TotalPage = (ushort)Math.Ceiling(dtos.TotalItems / (double)ItemsPerPage);
+                if (pageNumber == 1)
+                {
+                    DecreaseButton = false;
+                }
+                else
+                {
+                    DecreaseButton = true;
+                }
+
+                if (pageNumber == TotalPage)
+                {
+                    IncreaseButton = false;
+                }
+                else
+                {
+                    IncreaseButton = true;
+                }
                 var viewModels = _mapper.Map<IEnumerable<InventoryLogExtendedEntryDto>, IEnumerable<StockCardExtendedEntryViewModel>>(stockCardEntries);
                 StockCardEntries = new(viewModels);
             }
@@ -152,6 +176,23 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.StockCard
                 var dtos = await _apiService.GetExtendedStockCardEntriesAsync(WarehouseId, ItemId, StartDate, EndDate, PageNumber, ItemsPerPage);
                 var stockCardEntries = dtos.Results;
                 TotalPage = (ushort)Math.Ceiling(dtos.TotalItems / (double)ItemsPerPage);
+                if (pageNumber == 1)
+                {
+                    DecreaseButton = false;
+                }
+                else
+                {
+                    DecreaseButton = true;
+                }
+
+                if (pageNumber == TotalPage)
+                {
+                    IncreaseButton = false;
+                }
+                else
+                {
+                    IncreaseButton = true;
+                }
                 var viewModels = _mapper.Map<IEnumerable<InventoryLogExtendedEntryDto>, IEnumerable<StockCardExtendedEntryViewModel>>(stockCardEntries);
                 StockCardEntries = new(viewModels);
             }

@@ -99,8 +99,8 @@ namespace TD.WareHouse.DemoApp.Core.Domain.Services
         Task<ExtendedStockCardDto> GetExtendedStockCardEntriesAsync(string warehouseId, string itemId, DateTime startDate, DateTime endDate, ushort pageNumber, ushort itemsPerPage);
         ///FinishedProductStockCard
         Task<IEnumerable<FinishedProductInventoryDto>> GetFinishedProductStockCardAsync(DateTime endDate, string itemId, string unit);
-        Task<InventoryLogExtendedEntryDto> GetFinishedProductExtendedStockCardEntriesByIdAsync(string itemId, string unit, DateTime startDate, DateTime endDate);
-        Task<IEnumerable<InventoryLogExtendedEntryDto>> GetFinishedProductExtendedStockCardEntriesByTimeAsync(DateTime startDate, DateTime endDate);
+        Task<ExtendedStockCardDto> GetFinishedProductExtendedStockCardEntriesByIdAsync(string itemId, string unit, DateTime startDate, DateTime endDate);
+        Task<ExtendedStockCardDto> GetFinishedProductExtendedStockCardEntriesByTimeAsync(DateTime startDate, DateTime endDate, ushort pageNumber, ushort itemsPerPage);
 
         //ShelfManagement
         Task<IEnumerable<ItemLotDto>> GetItemShelfManagementEntriesAsync(string itemId);

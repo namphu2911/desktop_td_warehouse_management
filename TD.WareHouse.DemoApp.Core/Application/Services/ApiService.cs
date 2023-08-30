@@ -1068,17 +1068,17 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
 
             return result;
         }
-        public async Task<InventoryLogExtendedEntryDto> GetFinishedProductExtendedStockCardEntriesByIdAsync(string itemId, string unit, DateTime startDate, DateTime endDate)
+        public async Task<ExtendedStockCardDto> GetFinishedProductExtendedStockCardEntriesByIdAsync(string itemId, string unit, DateTime startDate, DateTime endDate)
         {
             string startDateString = startDate.ToString("yyyy-MM-dd");
             string endDateString = endDate.ToString("yyyy-MM-dd");
 
-            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/FinishedProductInventories/extendedProductLogEntry?itemId={itemId}&unit={unit}&StartTime={startDateString}&EndTime={endDateString}");
+            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/FinishedProductInventories/extendedProductLogEntries?StartTime={startDateString}&EndTime={endDateString}&itemId={itemId}&unit={unit}");
 
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
 
-            var result = JsonConvert.DeserializeObject<InventoryLogExtendedEntryDto>(responseBody);
+            var result = JsonConvert.DeserializeObject<ExtendedStockCardDto>(responseBody);
 
             if (result is null)
             {
@@ -1088,17 +1088,17 @@ namespace TD.WareHouse.DemoApp.Core.Application.Services
             return result;
         }
 
-        public async Task<IEnumerable<InventoryLogExtendedEntryDto>> GetFinishedProductExtendedStockCardEntriesByTimeAsync(DateTime startDate, DateTime endDate)
+        public async Task<ExtendedStockCardDto> GetFinishedProductExtendedStockCardEntriesByTimeAsync(DateTime startDate, DateTime endDate, ushort pageNumber, ushort itemsPerPage)
         {
             string startDateString = startDate.ToString("yyyy-MM-dd");
             string endDateString = endDate.ToString("yyyy-MM-dd");
 
-            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/FinishedProductInventories/extendedProductLogEntries?StartTime={startDateString}&EndTime={endDateString}");
+            HttpResponseMessage response = await _httpClient.GetAsync($"{serverUrl}/api/FinishedProductInventories/extendedProductLogEntries?StartTime={startDateString}&EndTime={endDateString}&Page={pageNumber}&ItemsPerPage={itemsPerPage}");
 
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
 
-            var result = JsonConvert.DeserializeObject<IEnumerable<InventoryLogExtendedEntryDto>>(responseBody);
+            var result = JsonConvert.DeserializeObject<ExtendedStockCardDto>(responseBody);
 
             if (result is null)
             {

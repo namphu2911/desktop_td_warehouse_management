@@ -48,40 +48,44 @@ namespace TD.WareHouse.DemoApp.Core.Application.ViewModels.GoodsReceipt
         {
             if (Entries.Count != 0)
             {
-                var createDto = new CreateFinishedProductReceiptDto(
-                FinishedProductReceiptId,
-                EmployeeId,
-                DateTime.Now,
-                Entries.Select(x => new CreateFinishedProductReceiptEntryDto(
-                    x.PurchaseOrderNumber,
-                    x.ItemId,
-                    x.Unit,
-                    x.Quantity,
-                    x.Note)).ToList());
-                try
+                if (MessageBox.Show("Xác nhận hoàn tất tạo đơn mới", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                    await _apiService.CreateFinishedProductReceiptsAsync(createDto);
-                    MessageBox.Show("Đã Lưu Đơn Mới", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-                    GoodsReceiptCreated?.Invoke(this, EventArgs.Empty);
-                    IsSaved = true;
-                    if (IsSaved)
+                    var createDto = new CreateFinishedProductReceiptDto(
+                    FinishedProductReceiptId,
+                    EmployeeId,
+                    DateTime.Now,
+                    Entries.Select(x => new CreateFinishedProductReceiptEntryDto(
+                        x.PurchaseOrderNumber,
+                        x.ItemId,
+                        x.Unit,
+                        x.Quantity,
+                        x.Note)).ToList());
+                    try
                     {
-                        ButtonVisibility = Visibility.Hidden;
-                        SavedVisibility = Visibility.Visible;
+                        await _apiService.CreateFinishedProductReceiptsAsync(createDto);
+                        MessageBox.Show("Đã Lưu Đơn Mới", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                        GoodsReceiptCreated?.Invoke(this, EventArgs.Empty);
+                        IsSaved = true;
+                        if (IsSaved)
+                        {
+                            ButtonVisibility = Visibility.Hidden;
+                            SavedVisibility = Visibility.Visible;
+                        }
+                    }
+                    catch (HttpRequestException)
+                    {
+                        MessageBox.Show("Đã có lỗi xảy ra: Mất kết nối với server.");
+                    }
+                    catch (DuplicateEntityException)
+                    {
+                        MessageBox.Show("Đã có lỗi xảy ra: Phiếu xuất kho đã tồn tại.");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Đã có lỗi xảy ra: " + ex.Message);
                     }
                 }
-                catch (HttpRequestException)
-                {
-                    MessageBox.Show("Đã có lỗi xảy ra: Mất kết nối với server.");
-                }
-                catch (DuplicateEntityException)
-                {
-                    MessageBox.Show("Đã có lỗi xảy ra: Phiếu xuất kho đã tồn tại.");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Đã có lỗi xảy ra: " + ex.Message);
-                }
+                else { }
             }
             else
             {

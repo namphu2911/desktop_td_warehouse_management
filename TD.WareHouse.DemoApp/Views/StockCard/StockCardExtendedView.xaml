@@ -231,7 +231,6 @@
                       Style="{StaticResource ComboBox}"
                       HorizontalContentAlignment="Center"
                       IsEditable="False"
-                      IsTextSearchEnabled="False"
                       ItemsSource="{Binding ItemsPerPages}"
                       Text="{Binding ItemsPerPage}">
                         <ComboBox.ItemsPanel>
