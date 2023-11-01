@@ -170,7 +170,6 @@
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </Button>
-
                     </Grid>
                 </Grid>
             </materialDesign:Card>
