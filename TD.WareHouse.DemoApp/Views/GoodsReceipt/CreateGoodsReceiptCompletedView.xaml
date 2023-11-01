@@ -217,8 +217,8 @@
 
                     <StackPanel Grid.Row="0">
                         <TextBlock 
-                        Style ="{StaticResource CardTitle}"
-                        Text="Thông tin chi tiết"/>
+                            Style ="{StaticResource CardTitle}"
+                            Text="Thông tin chi tiết"/>
                         <Separator/>
                     </StackPanel>
 
